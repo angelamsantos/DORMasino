@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user-circle-o" style="font-size: 21px;"></i>&nbsp;Admin</a>
-                        <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="#">Logout</a></div>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="Logout/index">Logout</a></div>
                     </li>
                 </ul>
         </div>

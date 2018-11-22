@@ -29,23 +29,24 @@ class Login extends CI_Controller{
            
             // If user did not validate, then show them login page again
            
-        }else{
-            // If user did validate, 
-            // Send them to members area
-            $results = $this->login_model->login_checkstatus();
+        } else {
+            // // If user did validate, 
+            // // Send them to members area
+            // $results = $this->login_model->login_checkstatus();
 
-            if(! $results) {
-                 $msg = '<font color=yellow><center>Your account has been deactivated</center></font><br />';
-                $this->index($msg);
-            } else {
-                 $resultc = $this->login_model->login_checknew();
+            // if(! $results) {
+            //      $msg = '<font color=yellow><center>Your account has been deactivated</center></font><br />';
+            //     $this->index($msg);
+            // } else {
+            //      $resultc = $this->login_model->login_checknew();
             
-                if(! $resultc) {
-                    redirect('ChangePass');
-                } else {
-                    redirect('Home');
-                }
-            }
+            //     if(! $resultc) {
+            //         redirect('ChangePass');
+            //     } else {
+            //         redirect('Home');
+            //     }
+            // }
+            redirect('Home');
         }        
     }
 }
