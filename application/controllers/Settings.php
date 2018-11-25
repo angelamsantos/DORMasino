@@ -23,6 +23,8 @@ class Settings extends CI_Controller{
 
         $this->validate_login();
         $this->load->view('sidebar_view');
+        $email = $this->session->userdata['login_success']['info']['admin_email'];
+        $data['current_email'] = $email;
         $data['msg'] = $msg;
         $this->load->view('settings_view', $data);
 
@@ -31,19 +33,30 @@ class Settings extends CI_Controller{
     public function process() {
 
         $this->load->model('settings_model');
-        $result = $this->settings_model->change_email();
+        $result_email = $this->settings_model->change_email();
+        // $result_password = $this->settings_model->change_password();
 
-        if(! $result) {
+        if(! $result_email) {
 
             $msg = "The email addresses are the same.";
             $this->index($msg);
 
-        } else {
+        } else {	
 
             redirect('Logout/index');
 
         }
+        
+        // if(! $result_password) {
 
+        //     $msg = "The email addresses are the same.";
+        //     $this->index($msg);
+
+        // } else {
+
+        //     redirect('Logout/index');
+
+        // }
     }
 
 

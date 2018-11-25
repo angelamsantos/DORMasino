@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
-    $old_email = $this->session->userdata['login_success']['info']['admin_email'];
 ?>
 <html>
 
@@ -41,8 +40,8 @@
                                 <form method="post" action="<?php echo site_url('settings/process');?>" style="width: 80%;margin-top: 20px;margin-bottom: 20px;">
                                     <div class="form-group">
                                     <div class="form-row" style="margin: 0px;">
-                                            <div class="col-xl-3"><label class="col-form-label">Your old email</label></div>
-                                            <div class="col"><input class="form-control" type="email" name="old_email" readonly value="<?php echo $old_email ?>" style="font-size: 14px;"></div>
+                                            <div class="col-xl-3"><label class="col-form-label">Current email</label></div>
+                                            <div class="col"><input class="form-control" type="email" name="current_email" readonly value="<?php echo $current_email ?>" style="font-size: 14px;"></div>
                                         </div><br>
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-xl-3"><label class="col-form-label">Enter new email</label></div>
