@@ -35,12 +35,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><a href="#"><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></li>
                 </ul>
             </div>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Transactions</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fa fa-sign-out"></i>&nbsp; &nbsp; &nbsp;Logout</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Transactions/index"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Transactions</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Announcements/index"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Messages/index"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Logs/index"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Settings/index"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Logout/index"><i class="fa fa-sign-out"></i>&nbsp; &nbsp; &nbsp;Logout</a></p>
         </div>
 <!--     
     <script src="<?php echo base_url(); ?>/assets/js/jquery.min.js"></script>

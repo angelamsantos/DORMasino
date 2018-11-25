@@ -23,23 +23,27 @@
 </head>
 
         <div class="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;">
-                    <p style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Visitor Logs</p>
-                </div><a class="btn btn-link" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+            <div class="container-fluid d-flex flex-column">
+                <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;">
+                    <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Visitor Logs</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">Sunday, 25 November 2018 &nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div
                     class="row" style="margin: 0px;margin-top: 0px;">
-                    <div class="col d-xl-flex justify-content-xl-end" style="margin-top: 0px;padding-left: 15px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
+                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
             </div>
             <div style="margin-top: 14px;">
                 <div class="table-responsive">
                     <table class="table" id="example">
-                        <thead>
-                            <tr>
-                                <th>Room Number</th>
-                                <th>Person to Visit</th>
-                                <th>Name of Visitor</th>
-                                <th>Time In</th>
+                        <thead class="logs">
+                            <tr style="text-align:center">
+                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
+                                <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
+                                <th style="padding-right: 0px;padding-left: 0px;width: 18%;">Name of Visitor</th>
+                                <th style="width: 20%;">Purpose</th>
+                                <th style="width: 13%;padding-right: 0px;padding-left: 0px;">ID Presented</th>
+                                <th style="width: 9%;">Time In</th>
+                                <th style="width: 10%;">Time Out</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +51,9 @@
                                 <td>606</td>
                                 <td>Arvin Dela Cruz</td>
                                 <td>Dave Fernandez</td>
+                                <td></td>
+                                <td>10:00</td>
+                                <td>10:00</td>
                                 <td>10:00</td>
                             </tr>
                             <tr>
@@ -54,11 +61,17 @@
                                 <td>Raffy Torres</td>
                                 <td>Francis Gella</td>
                                 <td>12:00</td>
+                                <td>12:00</td>
+                                <td>12:00</td>
+                                <td>12:00</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            <footer class="footer"><img src="<?php echo base_url(); ?>/assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
         </div>
     </div>
     </div>
@@ -85,6 +98,18 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Name of visitor</label></div>
                                 <div class="col"><input class="form-control" type="text" placeholder="Enter name of visitor"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row" style="margin: 0px;">
+                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Purpose</label></div>
+                                <div class="col"><input class="form-control" type="text" placeholder="Enter purpose of visit"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row" style="margin: 0px;">
+                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">ID Presented</label></div>
+                                <div class="col"><input class="form-control" type="text" placeholder="Enter ID presented"></div>
                             </div>
                         </div>
                     </form>

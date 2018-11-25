@@ -89,38 +89,38 @@ body {
   background: none;
 }
 
-@media (min-width:768px) {
+@media (min-width:992px) {
   #wrapper {
     padding-left: 250px;
   }
 }
 
-@media (min-width:768px) {
+@media (min-width:992px) {
   #wrapper.toggled {
     padding-left: 0;
   }
 }
 
-@media (min-width:768px) {
+@media (min-width:992px) {
   #sidebar-wrapper {
     width: 250px;
   }
 }
 
-@media (min-width:768px) {
+@media (min-width:992px) {
   #wrapper.toggled #sidebar-wrapper {
     width: 0;
   }
 }
 
-@media (min-width:768px) {
+@media (min-width:992px) {
   #page-content-wrapper {
     padding: 20px;
     position: relative;
   }
 }
 
-@media (min-width:768px) {
+@media (min-width:992px) {
   #wrapper.toggled #page-content-wrapper {
     position: relative;
     margin-right: 0;
