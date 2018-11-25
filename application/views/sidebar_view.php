@@ -8,18 +8,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Directories</title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/simple-line-icons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/Sidebar-Menu-1.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/Sidebar-Menu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/styles.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
 </head>
 <body style="font-family: Roboto, sans-serif;background-color: #ffffff;">
     <div id="wrapper">
@@ -35,16 +35,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><a href="#"><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></li>
                 </ul>
             </div>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Transactions/index"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Transactions</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Announcements/index"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Messages/index"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Logs/index"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Settings/index"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>/Logout/index"><i class="fa fa-sign-out"></i>&nbsp; &nbsp; &nbsp;Logout</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>Transactions/index"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Transactions</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>Announcements/index"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>Messages/index"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>Logs/index"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>Settings/index"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo base_url(); ?>Logout/index"><i class="fa fa-sign-out"></i>&nbsp; &nbsp; &nbsp;Logout</a></p>
         </div>
 <!--     
-    <script src="<?php echo base_url(); ?>/assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/js/Sidebar-Menu.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
 </body>
 </html> -->

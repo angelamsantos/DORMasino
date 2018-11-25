@@ -13,6 +13,7 @@ class Logout extends CI_Controller {
         // Load our view to be displayed
         // to the user
         $this->load->model('logout_model');
+        $this->logout_model->logout();
         redirect('Login');
     }
 }

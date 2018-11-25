@@ -35,12 +35,13 @@ class login_model extends CI_Model {
 							'date_created' => $row->date_created,
 							'admin_empno' => $row->admin_empno,
 							'admin_cno' => $row->admin_cno,
+							'admin_attempts' => $row->admin_attempts,
 		 					);
 		 	$this->db->where('admin_id', $data['info']['admin_id']);
 
 		// 	$query1 = $this->db->get('usergroups_tbl');
 
-		// 	//$this->session->set_userdata('login_success', $data);
+		 	$this->session->set_userdata('login_success', $data);
 
 		// 	 if($query1->num_rows() == 1) {
 		// 	 		$row1 = $query1->row();
@@ -50,19 +51,29 @@ class login_model extends CI_Model {
 		// 					'bc_id' => $row1->bc_id,
 							
 		// 					);
-		 			$this->session->set_userdata('login_success', $data);
+		// 		$this->session->set_userdata('login_success', $data);
 					
+				$admin = $this->session->userdata['login_success']['info']['admin_email'];
+
+				date_default_timezone_set('Asia/Manila');
+				$log = date("F j, Y, g:ia").": ". $admin . " successfully logged in to the system".PHP_EOL;
+				file_put_contents('syslogs_login.txt', $log, FILE_APPEND);
 					
-					return true;
+				return true;
+					
 		// 		// If the previous process did not validate
 		// 		// then return false.
 		 			
 		 	 } else {
-		 	 	return false;
+
+				$admin = $this->input->post('username');
+
+				date_default_timezone_set('Asia/Manila');
+				$log = date("F j, Y, g:ia").": ". $admin . " failed to log in to the system".PHP_EOL;
+				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
+
 		 	 }
 			 
-			 
-
 		}
 
 		public function login_checknew() {
