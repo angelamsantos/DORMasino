@@ -32,43 +32,45 @@
                     class="mx-auto" style="width: 80%;">
                     <div class="panel panel-default">
                         <ul class="nav nav-tabs panel-heading" style="padding-left: 0px;">
-                            <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">First Tab</a></li>
-                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Second Tab</a></li>
+                            <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Email</a></li>
+                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Password</a></li>
                         </ul>
                         <div class="tab-content d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center panel-body">
                             <div class="tab-pane active" role="tabpanel" id="tab-1" style="width: 100%;">
-                                <form class="d-flex flex-column mx-auto" action="<?php echo site_url('settings/process');?>" style="width: 80%;margin-top: 20px;margin-bottom: 20px;">
+                                <form class="d-flex flex-column mx-auto" action="<?php echo site_url('settings/process_email') ?>" method="post" style="width: 80%;margin-top: 20px;margin-bottom: 20px;">
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                         <div class="col-12 col-xl-12"><label class="col-form-label">Current email</label></div>
                                             <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" name="email" readonly value="<?php echo $current_email ?>" style="font-size: 14px;"></div>
                                         
                                             <div class="col-12 col-xl-12"><label class="col-form-label">New email</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" placeholder="Enter email" style="font-size: 14px;"></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" name="new_email" placeholder="Enter new email" style="font-size: 14px;" required></div>
                                         </div>
                                         <?php echo '<center><p><h4 style="font-family:Roboto, sans-serif;color:rgb(255,0,0);font-size:16px;margin-left:0px;margin-bottom:1px;">'.$msg.'</h4></p></center>' ?>
-                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="button" data-toggle="modal" data-target="#EmailSuccess">Save</button></form>
+                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    </form>
                             </div>
                             <div class="tab-pane" role="tabpanel" id="tab-2" style="width: 100%;">
-                                <form class="d-flex flex-column mx-auto" style="width: 60%;margin-top: 20px;margin-bottom: 20px;">
+                                <form class="d-flex flex-column mx-auto" action="<?php echo site_url('settings/process_password');?>" method="post" style="width: 60%;margin-top: 20px;margin-bottom: 20px;">
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-12 col-xl-12"><label class="col-form-label">Old password</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="email" placeholder="Enter old password" style="font-size: 14px;"></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="old_password" placeholder="Enter old password" style="font-size: 14px;" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-12 col-xl-12"><label class="col-form-label">New password</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="email" placeholder="Enter new password" style="font-size: 14px;"></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="new_password" placeholder="Enter new password" style="font-size: 14px;" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-12 col-xl-12"><label class="col-form-label">Confirm new password</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="email" placeholder="Re-enter new password" style="font-size: 14px;"></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="confirm_password" placeholder="Re-enter new password" style="font-size: 14px;" required></div>
                                         </div>
-                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="button" data-toggle="modal" data-target="#PasswordSuccess">Save</button></form>
+                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    </form>
                             </div>
                         </div>
                     </div>

@@ -39,16 +39,39 @@ class settings_model extends CI_Model {
 
     }
 
-    // public function change_password() {
+    public function change_password() {
 
-    //     $db_password = $this->session->userdata['login_success']['info']['admin_password'];
-    //     $old_password = md5($this->security->xss_clean($this->input->post('new_password')));
-    //     $new_password = md5($this->security->xss_clean($this->input->post('new_password')));
-    //     $confirm_password = md5($this->security->xss_clean($this->input->post('confirm_password')));
+        $db_password = $this->session->userdata['login_success']['info']['admin_password'];
+        $old_password = $this->security->xss_clean($this->input->post('old_password'));
+        $new_password = $this->security->xss_clean($this->input->post('new_password'));
+        $confirm_password = $this->security->xss_clean($this->input->post('confirm_password'));
+        $email = $this->session->userdata['login_success']['info']['admin_email'];
 
-    //     if ($)
+        if ($db_password == $old_password) {
 
-    // }
+            if ($new_password == $confirm_password) {
+
+                $this->db->set('admin_password', $confirm_password);
+                $this->db->where('admin_email', $email);
+                $this->db->update('admin_tbl');
+
+                return true;
+
+            } else {
+
+                //new password and confirm password did not match
+                return false;
+
+            }
+
+        } else {
+
+            //old password did not match
+            return false;
+
+        }
+
+    }
 
 }
 ?>
