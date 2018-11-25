@@ -174,3 +174,5 @@ November 26, 2018, 12:49am: delacruz.arvin04@gmail.com failed to log in to the s
 November 26, 2018, 12:50am: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 26, 2018, 1:11am: delacruz.arvin04@gmail.com failed to log in to the system.
 November 26, 2018, 1:11am: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 26, 2018, 1:17am: delacruz.arvin04@gmail.com failed to log in to the system.
+November 26, 2018, 1:17am: delacruz.arvin04@gmail.com successfully logged in to the system.
