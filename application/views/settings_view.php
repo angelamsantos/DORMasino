@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
+    $old_email = $this->session->userdata['login_success']['info']['admin_email'];
 ?>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Account Settings</title>
+    <title>DORMasino</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
@@ -32,18 +33,23 @@
                     class="mx-auto" style="width: 80%;">
                     <div class="panel panel-default">
                         <ul class="nav nav-tabs panel-heading" style="padding-left: 0px;padding-top: 0px;">
-                            <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Email</a></li>
-                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Password</a></li>
+                            <li class="nav-item"><a class="nav-link active" role="tab" data-target="#tab-1" data-toggle="tab" href="#tab-1">Email</a></li>
+                            <li class="nav-item"><a class="nav-link" role="tab" data-target="#tab-2" data-toggle="tab" href="#tab-2">Password</a></li>
                         </ul>
                         <div class="tab-content panel-body">
                             <div class="tab-pane active d-xl-flex justify-content-xl-center" role="tabpanel" id="tab-1">
-                                <form style="width: 80%;margin-top: 20px;margin-bottom: 20px;">
+                                <form method="post" action="<?php echo site_url('settings/process');?>" style="width: 80%;margin-top: 20px;margin-bottom: 20px;">
                                     <div class="form-group">
+                                    <div class="form-row" style="margin: 0px;">
+                                            <div class="col-xl-3"><label class="col-form-label">Your old email</label></div>
+                                            <div class="col"><input class="form-control" type="email" name="old_email" readonly value="<?php echo $old_email ?>" style="font-size: 14px;"></div>
+                                        </div><br>
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-xl-3"><label class="col-form-label">Enter new email</label></div>
-                                            <div class="col"><input class="form-control" type="email" placeholder="Enter email" style="font-size: 14px;"></div>
+                                            <div class="col"><input class="form-control" type="email" name="new_email" placeholder="Enter new email" style="font-size: 14px;" required></div>
                                         </div>
-                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="button">Save</button></form>
+                                        <?php echo '<center><p><h4 style="font-family:Roboto, sans-serif;color:rgb(255,0,0);font-size:16px;margin-left:0px;margin-bottom:1px;">'.$msg.'</h4></p></center>' ?>
+                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button></form>
                             </div>
                         </div>
                     </div>

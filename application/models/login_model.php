@@ -12,7 +12,7 @@ class login_model extends CI_Model {
 	public function login_validate(){
 
 		 $username = $this->security->xss_clean($this->input->post('username'));
-		 $password = $this->security->xss_clean($this->input->post('password'));
+		 $password = md5($this->security->xss_clean($this->input->post('password')));
 
 		 $this->db->where('admin_email', $username);
 		 $this->db->where('admin_password', $password);
@@ -57,7 +57,7 @@ class login_model extends CI_Model {
 
 				date_default_timezone_set('Asia/Manila');
 				$log = date("F j, Y, g:ia").": ". $admin . " successfully logged in to the system".PHP_EOL;
-				file_put_contents('syslogs_login.txt', $log, FILE_APPEND);
+				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
 					
 				return true;
 					
@@ -71,6 +71,8 @@ class login_model extends CI_Model {
 				date_default_timezone_set('Asia/Manila');
 				$log = date("F j, Y, g:ia").": ". $admin . " failed to log in to the system".PHP_EOL;
 				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
+
+				return false;
 
 		 	 }
 			 

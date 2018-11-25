@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Directories</title>
+    <title>DORMasino</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div id="sidebar-wrapper" style="background-color: #11334f;/*border-right: 3px solid #49a221;*/">
             <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 8px;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 206px;height: 33px;margin-top: 21px;"></div>
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 12px;padding-bottom: 10px;color: rgb(255,255,255);border-bottom: 1px solid #c7c7c7;"><i class="fa fa-user-circle-o"></i>&nbsp; &nbsp;Admin</p>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#"><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>"><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
             <p class="menu-active menu-side" style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 17.5px;"><a href="#manage-collapse" id="menu-active" data-toggle="collapse"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories</a></p>
             <div id="manage-collapse" class="panel-collapse collapse">
                 <ul class="list-group">
