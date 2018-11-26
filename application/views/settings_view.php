@@ -41,13 +41,25 @@
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                         <div class="col-12 col-xl-12"><label class="col-form-label">Current email</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" name="email" readonly value="<?php echo $current_email ?>" style="font-size: 14px;"></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" name="email" readonly value="<?php echo $email ?>" style="font-size: 14px;"></div>
                                         
                                             <div class="col-12 col-xl-12"><label class="col-form-label">New email</label></div>
                                             <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" name="new_email" placeholder="Enter new email" style="font-size: 14px;" required></div>
                                         </div>
                                         <?php echo '<center><p><h4 style="font-family:Roboto, sans-serif;color:rgb(255,0,0);font-size:16px;margin-left:0px;margin-bottom:1px;">'.$msg.'</h4></p></center>' ?>
                                     </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    <div class="modal fade" role="dialog" tabindex="-1" id="EmailSuccess">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                                    <h4 class="modal-title" style="color: #11334f;">Change Email</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                                <div class="modal-body">
+                                                    <h4 class="text-center">You have successfully changed your email.</h4>
+                                                </div>
+                                                <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Login</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </form>
                             </div>
                             <div class="tab-pane" role="tabpanel" id="tab-2" style="width: 100%;">
@@ -70,31 +82,19 @@
                                             <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="confirm_password" placeholder="Re-enter new password" style="font-size: 14px;" required></div>
                                         </div>
                                     </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    <div class="modal fade" role="dialog" tabindex="-1" id="PasswordSuccess">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                                    <h4 class="modal-title" style="color: #11334f;">Change Email</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                                <div class="modal-body">
+                                                    <h4 class="text-center">You have successfully changed your password.</h4>
+                                                </div>
+                                                <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Login</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" role="dialog" tabindex="-1" id="EmailSuccess">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                    <h4 class="modal-title" style="color: #11334f;">Change Email</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                                <div class="modal-body">
-                                    <h4 class="text-center">You have successfully changed your email.</h4>
-                                </div>
-                                <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;color: #11334f;border: none;" data-dismiss="modal">Ok</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" role="dialog" tabindex="-1" id="PasswordSuccess">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                    <h4 class="modal-title" style="color: #11334f;">Change Email</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                                <div class="modal-body">
-                                    <h4 class="text-center">You have successfully changed your password.</h4>
-                                </div>
-                                <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;color: #11334f;border: none;" data-dismiss="modal">Ok</button></div>
                             </div>
                         </div>
                     </div>

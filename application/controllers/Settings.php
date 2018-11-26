@@ -24,7 +24,7 @@ class Settings extends CI_Controller {
         $this->validate_login();
         $this->load->view('sidebar_view');
         $email = $this->session->userdata['login_success']['info']['admin_email'];
-        $data['current_email'] = $email;
+        $data['email'] = $email;
         $data['msg'] = $msg;
         $this->load->view('settings_view', $data);
 
@@ -37,7 +37,7 @@ class Settings extends CI_Controller {
 
         if(! $result_email) {
 
-            $msg = "The email addresses are the same.";
+            $msg = "You entered the same email address!";
             $this->index($msg);
 
         } else {	
@@ -54,7 +54,7 @@ class Settings extends CI_Controller {
 
         if(! $result_password) {
 
-            $msg = "The passwords did not match!";
+            $msg = "The passwords do not match!";
             $this->index($msg);
     
         } else {

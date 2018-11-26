@@ -12,7 +12,7 @@ class login_model extends CI_Model {
 	public function login_validate(){
 
 		 $username = $this->security->xss_clean($this->input->post('username'));
-		 $password = $this->security->xss_clean($this->input->post('password'));
+		 $password = md5($this->security->xss_clean($this->input->post('password')));
 
 		 $this->db->where('admin_email', $username);
 		 $this->db->where('admin_password', $password);
