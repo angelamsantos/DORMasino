@@ -37,9 +37,10 @@ class login_model extends CI_Model {
 							'admin_cno' => $row->admin_cno,
 							'admin_attempts' => $row->admin_attempts,
 		 					);
-			 $this->db->where('admin_id', $data['info']['admin_id']);
+			$this->db->where('admin_id', $data['info']['admin_id']);
 			 
-			 $this->session->set_userdata('login_success', $data);
+			$this->session->set_userdata('login_success', $data);
+			$this->session->set_userdata('email', $username);
 
 		// 	$query1 = $this->db->get('admin_tbl');
 
@@ -53,24 +54,12 @@ class login_model extends CI_Model {
 		// 					);
 		// 		$this->session->set_userdata('login_success', $data);
 					
-				$admin = $this->session->userdata['login_success']['info']['admin_email'];
-
-				date_default_timezone_set('Asia/Manila');
-				$log = date("F j, Y, g:ia").": ". $admin . " successfully logged in to the system.".PHP_EOL;
-				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
-					
 				return true;
 					
 		// 		// If the previous process did not validate
 		// 		// then return false.
 		 			
 		 	 } else {
-
-				$admin = $this->input->post('username');
-
-				date_default_timezone_set('Asia/Manila');
-				$log = date("F j, Y, g:ia").": ". $admin . " failed to log in to the system.".PHP_EOL;
-				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
 
 				return false;
 
@@ -87,7 +76,7 @@ class login_model extends CI_Model {
 				
 				$row = $query->row();
 
-				if ($row->status == 1) {
+				if ($row->admin_status == 1) {
 
 					return true;
 

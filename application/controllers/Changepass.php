@@ -18,9 +18,10 @@ class Changepass extends CI_Controller {
     }
 
     public function process() {
-
+        
         $this->load->model('changepass_model');
-        $result = $this->changepass_model->change_password();
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+        $result = $this->changepass_model->change_password($admin_id);
 
         if(! $result) {
 

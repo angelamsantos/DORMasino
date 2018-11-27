@@ -11,9 +11,11 @@ class Login extends CI_Controller{
 
     public function validate_login() {
 
-        $login = $this->session->userdata('login_success');
+        $login = $this->session->userdata('login_validate');
         if (isset ($login)) {
+
             redirect('Home');
+
         } 
 
     }
@@ -39,6 +41,12 @@ class Login extends CI_Controller{
             $attempt++;
             $this->session->set_userdata('attempt', $attempt);
 
+            $email = $this->input->post('username');
+
+            date_default_timezone_set('Asia/Manila');
+            $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
+            file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
+
                 if ($attempt == 3) {
                 $msg = "Due to too many login attempts, your account is locked for 5 minutes";
                 $this->index($msg);
@@ -59,11 +67,12 @@ class Login extends CI_Controller{
                     //     $this->session->set_tempdata('penalty', false, 0);
 
                     // }
+   
 
                 } else {
 
                     $msg = "Incorrect email or password.";
-                    $this->index($msg);
+                    $this->index($msg);  
 
                 }
            
@@ -81,16 +90,24 @@ class Login extends CI_Controller{
 
             } else {
 
+                $login_success = true;
+				$this->session->set_userdata('login_validated', $login_success);
+
                  $admin_new = $this->session->userdata['login_success']['info']['admin_new'];
             
                 if($admin_new == 1) {
 
-                    echo $admin_new;
-                    // redirect('ChangePass');
+                    redirect('ChangePass');
 
                 } else {
 
-                    // redirect('Home');
+                    $email = $this->session->userdata['login_success']['info']['admin_email'];
+
+                    date_default_timezone_set('Asia/Manila');
+                    $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
+                    file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
+
+                    redirect('Home');
 
                 }
             }
