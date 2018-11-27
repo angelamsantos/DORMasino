@@ -7,27 +7,34 @@ class Directories extends CI_Controller{
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->library('session');
-        //$this->load->model('directories_model');
+        $this->load->model('directories_model');
     }
 
-    public function validate_login() {
-
-        $login = $this->session->userdata('login_success');
-        if (!isset ($login)) {
-            redirect('Login');
-        }
-
-    }
 
     public function index() {
-
-        $this->validate_login();
-        // $data['floor']=$this->directories_model->get_floor();
-        // $data['room']=$this->directories_model->get_room();
-        // $data['dir']=$this->directories_model->get_dir();
+        $data['floor']=$this->directories_model->get_floor();
+        $data['room']=$this->directories_model->get_room();
+        $data['dir']=$this->directories_model->get_dir();
         $this->load->view('sidebar_view');
-        $this->load->view('directories2_view');
+        $this->load->view('directories_view', $data);
         
+    }
+
+    public function create_tenant() {
+        $data = array(
+            'tenant_email' => $this->input->post('tenant_email'),
+            'tenant_password' => md5(1234),
+            'tenant_fname' => $this->input->post('tenant_fname'),
+            'tenant_lname' => $this->input->post('tenant_lname'),
+            'tenant_birthday' => $this->input->post('tenant_bday'),
+            'tenant_course' => $this->input->post('tenant_course'),
+            'tenant_cno' => $this->input->post('tenant_cno'),
+            'tenant_new' => "1",
+            'tenant_status' => "1"
+        );
+
+        $this->directories_model->create_tenant($data);
+        $this->directories_model->create_tenantguardian($data);
     }
 }
 ?>
