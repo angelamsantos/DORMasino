@@ -21,12 +21,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="illustration"><a href="<?php echo site_url('Login/index'); ?>"><img class="img-thumbnail" src="<?php echo base_url(); ?>assets/img/Untitled.png" style="background-color: transparent;width: 146px;height: 166px;border: 0px;"></a>
             <p style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Verification Code</p>
             </div>
-
+            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
             <div class="form-group d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center"
                 style="border-bottom: 1px solid #dfe7f1;"><i class="fa fa-lock" style="font-size: 21px;"></i><input class="form-control" type="number" name="vcode" placeholder="Verification Code" style="background-color: transparent;" required>
             </div>
-
-            <?php echo '<center><p><h4 style="font-family:Roboto, sans-serif;color:rgb(255,0,0);font-size:16px;margin-left:0px;margin-bottom:1px;">'.$msg.'</h4></p></center>' ?>
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #81C784;color: #000000;">Validate</button></div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>

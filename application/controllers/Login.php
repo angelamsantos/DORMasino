@@ -2,16 +2,16 @@
 
 class Login extends CI_Controller{
     
-    function __construct(){
-        parent::__construct();
-		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
-        $this->load->library('session');
-    }
+    // function __construct(){
+    //     parent::__construct();
+	// 	$this->load->helper(array('form', 'url'));
+	// 	$this->load->library('form_validation');
+    //     $this->load->library('session');
+    // }
 
     public function validate_login() {
 
-        $login = $this->session->userdata('login_validate');
+        $login = $this->session->userdata('login_validated');
         if (isset ($login)) {
 
             redirect('Home');
@@ -20,12 +20,11 @@ class Login extends CI_Controller{
 
     }
     
-    public function index($msg = NULL){
+    public function index(){
         // Load our view to be displayed
         // to the user
         $this->validate_login();
-        $data['msg'] = $msg;
-        $this->load->view('login_view', $data);
+        $this->load->view('login_view');
     }
     
     public function process(){
@@ -71,8 +70,10 @@ class Login extends CI_Controller{
 
                 } else {
 
-                    $msg = "Incorrect email or password.";
-                    $this->index($msg);  
+                    $msg = '<div class="alert alert-danger" role="alert"><center>Incorrect email or password.</center></div>';
+                    $this->session->set_flashdata('msg', $msg);
+
+                    redirect('Login');
 
                 }
            
@@ -85,28 +86,30 @@ class Login extends CI_Controller{
 
             if(! $result) {
 
-                $msg = 'The account you entered is deactivated.';
-                $this->index($msg);
+                $msg = '<div class="alert alert-danger" role="alert">The account you entered is deactivated. </div>';
+                $this->session->set_flashdata('msg', $msg);
 
             } else {
-
-                $login_success = true;
-				$this->session->set_userdata('login_validated', $login_success);
 
                  $admin_new = $this->session->userdata['login_success']['info']['admin_new'];
             
                 if($admin_new == 1) {
 
-                    redirect('ChangePass');
+                    $msg = '<div class="alert alert-warning" role="alert">Set up your password first! </div>';
+                    $this->session->set_flashdata('msg', $msg);
+                    redirect('ChangePass/index');
 
                 } else {
+
+                    $login_success = true;
+				    $this->session->set_userdata('login_validated', $login_success);
 
                     $email = $this->session->userdata['login_success']['info']['admin_email'];
 
                     date_default_timezone_set('Asia/Manila');
                     $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
                     file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
-
+                    
                     redirect('Home');
 
                 }

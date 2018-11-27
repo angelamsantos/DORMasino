@@ -19,13 +19,12 @@ class Settings extends CI_Controller {
 
     }
 
-    public function index($msg = NULL){
+    public function index(){
 
         $this->validate_login();
         $this->load->view('sidebar_view');
         $email = $this->session->userdata['login_success']['info']['admin_email'];
         $data['email'] = $email;
-        $data['msg'] = $msg;
         $this->load->view('settings_view', $data);
 
     }
@@ -37,11 +36,15 @@ class Settings extends CI_Controller {
 
         if(! $result_email) {
 
-            $msg = "You entered the same email address!";
-            $this->index($msg);
+            $msg = '<div class="alert alert-danger" role="alert"><center> You entered the same email address! </center></div>';
+            $this->session->set_flashdata('msg', $msg);
+
+            redirect('Settings');
 
         } else {	
 
+            $msg = '<div class="alert alert-success" role="alert"><center> Your email was changed successfully! </center></div>';
+            $this->session->set_flashdata('msg', $msg);
             redirect('Logout/index');
 
         }
@@ -54,11 +57,15 @@ class Settings extends CI_Controller {
 
         if(! $result_password) {
 
-            $msg = "The passwords do not match!";
-            $this->index($msg);
+            $msg = '<div class="alert alert-danger" role="alert"><center> The passwords do not match! </center></div>';
+            $this->session->set_flashdata('msg', $msg);
+
+            redirect('Settings');
     
         } else {
     
+            $msg = '<div class="alert alert-success" role="alert"><center> Your password was changed successfully! </center></div>';
+            $this->session->set_flashdata('msg', $msg);
             redirect('Logout/index');
     
         }

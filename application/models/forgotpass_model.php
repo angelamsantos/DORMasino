@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class forgotpass_model extends CI_Controller{
+class forgotpass_model extends CI_Model{
     
-    function __construct(){
-        parent::__construct();
-		$this->load->database();
-        $this->load->library('session');
-    }
+    // function __construct(){
+    //     parent::__construct();
+	// 	$this->load->database();
+    //     $this->load->library('session');
+    // }
 
     public function check_email($email) {
 

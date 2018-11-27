@@ -18,6 +18,8 @@ class logout_model extends CI_Model {
 		file_put_contents('syslogs/syslogs_logout.txt', $log, FILE_APPEND);
 
         $this->session->sess_destroy();
+
+        $this->session->set_flashdata('msg', $msg);
     }
 
 }
