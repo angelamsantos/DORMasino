@@ -56,7 +56,7 @@ class login_model extends CI_Model {
 				$admin = $this->session->userdata['login_success']['info']['admin_email'];
 
 				date_default_timezone_set('Asia/Manila');
-				$log = date("F j, Y, g:ia").": ". $admin . " successfully logged in to the system".PHP_EOL;
+				$log = date("F j, Y, g:ia").": ". $admin . " successfully logged in to the system.".PHP_EOL;
 				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
 					
 				return true;
@@ -69,7 +69,7 @@ class login_model extends CI_Model {
 				$admin = $this->input->post('username');
 
 				date_default_timezone_set('Asia/Manila');
-				$log = date("F j, Y, g:ia").": ". $admin . " failed to log in to the system".PHP_EOL;
+				$log = date("F j, Y, g:ia").": ". $admin . " failed to log in to the system.".PHP_EOL;
 				file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);
 
 				return false;

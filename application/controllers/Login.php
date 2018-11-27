@@ -8,10 +8,20 @@ class Login extends CI_Controller{
 		$this->load->library('form_validation');
         $this->load->library('session');
     }
+
+    public function validate_login() {
+
+        $login = $this->session->userdata('login_success');
+        if (isset ($login)) {
+            redirect('Home');
+        } 
+
+    }
     
     public function index($msg = NULL){
         // Load our view to be displayed
         // to the user
+        $this->validate_login();
         $data['msg'] = $msg;
         $this->load->view('login_view', $data);
     }

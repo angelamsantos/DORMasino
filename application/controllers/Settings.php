@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Settings extends CI_Controller{
+class Settings extends CI_Controller {
 
 	function __construct(){
         parent::__construct();
@@ -23,29 +23,46 @@ class Settings extends CI_Controller{
 
         $this->validate_login();
         $this->load->view('sidebar_view');
+        $email = $this->session->userdata['login_success']['info']['admin_email'];
+        $data['email'] = $email;
         $data['msg'] = $msg;
         $this->load->view('settings_view', $data);
 
     }
 
-    public function process() {
+    public function process_email() {
 
         $this->load->model('settings_model');
-        $result = $this->settings_model->change_email();
+        $result_email = $this->settings_model->change_email();
 
-        if(! $result) {
+        if(! $result_email) {
 
-            $msg = "The email addresses are the same.";
+            $msg = "You entered the same email address!";
             $this->index($msg);
 
-        } else {
+        } else {	
 
             redirect('Logout/index');
 
         }
-
     }
 
+    public function process_password() {
 
+        $this->load->model('settings_model');
+        $result_password = $this->settings_model->change_password();
+
+        if(! $result_password) {
+
+            $msg = "The passwords do not match!";
+            $this->index($msg);
+    
+        } else {
+    
+            redirect('Logout/index');
+    
+        }
+            
+    }
 }
 ?>
