@@ -37,11 +37,11 @@ class login_model extends CI_Model {
 							'admin_cno' => $row->admin_cno,
 							'admin_attempts' => $row->admin_attempts,
 		 					);
-		 	$this->db->where('admin_id', $data['info']['admin_id']);
+			 $this->db->where('admin_id', $data['info']['admin_id']);
+			 
+			 $this->session->set_userdata('login_success', $data);
 
-		// 	$query1 = $this->db->get('usergroups_tbl');
-
-		 	$this->session->set_userdata('login_success', $data);
+		// 	$query1 = $this->db->get('admin_tbl');
 
 		// 	 if($query1->num_rows() == 1) {
 		// 	 		$row1 = $query1->row();
@@ -78,74 +78,27 @@ class login_model extends CI_Model {
 			 
 		}
 
-		public function login_checknew() {
-            return true;
-			// $username = $this->security->xss_clean($this->input->post('username'));
-			// $password = $this->security->xss_clean($this->input->post('password'));
+		public function login_checkstatus($admin_id) {
+			
+			$this->db->where('admin_id', $admin_id);
+			$query = $this->db->get('admin_tbl');
 
-			// $this->db->where('u_email', $username);
-			// $this->db->where('u_password', $password);
-
-			// $query = $this->db->get('user_tbl');
-
-			// if($query->num_rows() == 1) {
-			// 	$row = $query->row();
+			if ($query->num_rows() == 1) {
 				
-			// 	$utype= $row->u_id;
+				$row = $query->row();
 
-			// 	$data['new'] = array(
-			// 				'u_id' => $row->u_id,
-			// 				'u_fname' => $row->u_fname,
-			// 				'u_lname' => $row->u_lname,
-			// 				'u_email' => $row->u_email,
-			// 				'u_email' => $row->u_email,
-			// 				'u_new' => $row->u_new,
-			// 				'u_status' => $row->u_status,
-			// 				);
-			// 	$this->session->set_userdata('login_new', $data);
-				
-			// }
-			// if($data['new']['u_new'] == 0) {
+				if ($row->status == 1) {
 
-			// 		return false;
-			// 	} else {
-			// 		return true;
-			// 	}
-		}
+					return true;
 
-		public function login_checkstatus() {
-            return true;
-			// $username = $this->security->xss_clean($this->input->post('username'));
-			// $password = $this->security->xss_clean($this->input->post('password'));
+				} else {
 
-			// $this->db->where('u_email', $username);
-			// $this->db->where('u_password', $password);
+					return false;
 
-			// $query = $this->db->get('user_tbl');
+				}
 
-			// if($query->num_rows() == 1) {
-			// 	$row = $query->row();
-				
-			// 	$utype= $row->u_id;
+			}
 
-			// 	$data['status'] = array(
-			// 				'u_id' => $row->u_id,
-			// 				'u_fname' => $row->u_fname,
-			// 				'u_lname' => $row->u_lname,
-			// 				'u_email' => $row->u_email,
-			// 				'u_email' => $row->u_email,
-			// 				'u_new' => $row->u_new,
-			// 				'u_status' => $row->u_status,
-			// 				);
-			// 	$this->session->set_userdata('login_new', $data);
-				
-			// }
-			// if($data['status']['u_status'] == "deactivated") {
-
-			// 		return false;
-			// 	} else {
-			// 		return true;
-			// 	}
 		}
 	}
 
