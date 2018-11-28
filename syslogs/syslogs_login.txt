@@ -143,6 +143,25 @@ November 25, 2018, 8:43pm: arvin@gmail.com successfully logged in to the system
 November 25, 2018, 8:48pm: delacruz.arvin04@gmail.com successfully logged in to the system
 November 25, 2018, 8:52pm: arvin@gmail.com failed to log in to the system
 November 25, 2018, 8:52pm: arvin@gmail.com successfully logged in to the system
+<<<<<<< HEAD
+November 25, 2018, 9:46pm: bavi_admin@gmail.com failed to log in to the system
+November 25, 2018, 9:46pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:46pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:46pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:48pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:49pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:49pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:50pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:50pm: angela@gmail.com failed to log in to the system
+November 25, 2018, 9:51pm: angela@gmail.com successfully logged in to the system
+November 26, 2018, 8:13am: angela@gmail.com successfully logged in to the system
+November 26, 2018, 11:43am: angela@gmail.com successfully logged in to the system
+November 26, 2018, 3:32pm: angela@gmail.com successfully logged in to the system
+November 26, 2018, 5:25pm: angela@gmail.com successfully logged in to the system
+November 26, 2018, 8:37pm: angela@gmail.com successfully logged in to the system
+November 26, 2018, 9:19pm: angela@gmail.com successfully logged in to the system
+November 27, 2018, 12:11pm: angela@gmail.com successfully logged in to the system
+=======
 November 25, 2018, 9:05pm: delacruz.arvin04@gmail.com successfully logged in to the system
 November 25, 2018, 9:35pm: delacruz.arvin04@gmail.com successfully logged in to the system
 November 25, 2018, 9:36pm: delacruz.arvin04@gmail.com successfully logged in to the system
@@ -185,6 +204,13 @@ November 26, 2018, 3:52pm: delacruz.arvin04@gmail.com successfully logged in to 
 November 26, 2018, 9:09pm: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 27, 2018, 2:50am: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 27, 2018, 2:52am: delacruz.arvin04@gmail.com successfully logged in to the system.
+<<<<<<< HEAD
+>>>>>>> a668f888d487a54652a221ba3d24c013ed047f77
+November 27, 2018, 7:05pm: angela@gmail.com successfully logged in to the system.
+November 28, 2018, 12:50am: angela@gmail.com successfully logged in to the system.
+November 28, 2018, 8:30am: angela@gmail.com successfully logged in to the system.
+November 28, 2018, 4:20pm: angela@gmail.com successfully logged in to the system.
+=======
 November 27, 2018, 12:28pm: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 27, 2018, 1:12pm: delacruz.arvin@gmail.com failed to log in to the system.
 November 27, 2018, 1:13pm: delacruz.arvin04@gmail.com successfully logged in to the system.
@@ -243,6 +269,7 @@ November 27, 2018, 10:15pm: delacruz.arvin04@gmail.com successfully logged in to
 November 27, 2018, 10:15pm: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 27, 2018, 10:42pm: arvin@gmail.com successfully logged in to the system.
 November 28, 2018, 12:43am: delacruz.arvin04@gmail.com successfully logged in to the system.
+<<<<<<< HEAD
 November 28, 2018, 10:44am: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 28, 2018, 10:45am: delacruz.arvin@gmail.com successfully logged in to the system.
 November 28, 2018, 10:47am: delacruz.arvin04@gmail.com successfully logged in to the system.
@@ -288,3 +315,6 @@ November 29, 2018, 1:21am: delacruz.arvin04@gmail.com successfully logged in to 
 November 29, 2018, 1:37am: delacruz.arvin@gmail.com successfully logged in to the system.
 November 29, 2018, 1:42am: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 29, 2018, 4:59am: delacruz.arvin04@gmail.com successfully logged in to the system.
+=======
+>>>>>>> bfee76438bf552b264278c74ffa000fa1a79af01
+>>>>>>> c010a76fddec9aae6604c05375c9fa459a821864

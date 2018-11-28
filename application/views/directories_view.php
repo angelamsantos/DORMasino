@@ -2,44 +2,90 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<style>
+.form-control {
+    font-size: 14px;
+    height:35px;
+}
+</style>
+<script>
+    function roomView() {
+        var x = document.getElementById("room_view");
+        var y = document.getElementById("table_view");
+        var btnRoom = document.getElementById("btnroom");
+        var btnTable = document.getElementById("btntable");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            
+            y.style.display = "none";
+            btnRoom.style.backgroundColor="#28a745";
+            btnTable.style.backgroundColor="#83c592";
+        } 
+    }
+    function tableView() {
+        var x = document.getElementById("room_view");
+        var y = document.getElementById("table_view");
+        var btnRoom = document.getElementById("btnroom");
+        var btnTable = document.getElementById("btntable");
+        if (y.style.display === "none") {
+            y.style.display = "block";
+            
+            x.style.display = "none";
+            btnTable.style.backgroundColor="#28a745";
+            btnRoom.style.backgroundColor="#83c592";
+        } 
+    }
+    $(document).ready(function () {
+         $('#example').dataTable();
+    });
 
+</script>
         <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;">
                     <p style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
                 </div><a class="btn btn-link" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
-                <div
-                    class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    <div class="col" style="margin-top: 11px;padding-left: 36px;">
-                        <div class="btn-group" role="group"><button class="btn btn-success" type="button" style="font-size: 14px;">Room View</button><button class="btn btn-info" type="button" style="width: 106.656px;background-color: #83c592;border-color: #83c592;font-size: 14px;">User View</button></div>
+                <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;border:1px solid black;width:100%;">
+                        <div class="btn-group" role="group"><button id="btnroom" class="btn btn-success" onclick="roomView()" type="button" style="font-size: 14px;border:none;">Room View</button><button class="btn btn-info" id="btntable" onclick="tableView()" type="button" style="width: 106.656px;background-color: #83c592;border-color: #83c592;font-size: 14px;">User View</button></div>
                     </div>
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px; border:1px solid black;">
+                        <?php if(! is_null($this->session->flashdata('message'))) echo $this->session->flashdata('message');?>
+                    </div>
+                
+                
             </div>
-            <div class="row" style="margin-top: 21px;margin-left: 0px;margin-right: 0px;">
-                <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 36px;">
-
-                    <div role="tablist" id="accordion-1" style="width: 100%;">
-                    <?php  
-                        foreach ($floor->result() as $row)  
-                        {
-                    ?>
+            <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
+                <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
+                    <div id="room_view" style="width: 100%;display:block;">
+                    <div role="tablist" id="accordion-1" >
+                        <?php  
+                            
+                            foreach ($floor->result() as $row)  
+                            {
+                        ?>
                         <div class="card">
                             <div class="card-header" role="tab" style="padding-top: 9px;padding-bottom: 9px;">
                                 <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center mr-lg-auto align-items-xl-center mr-xl-auto mb-0">
-                                    <a class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="div#accordion-1 .item-1" style="font-size: 14px;width: 80%;">
-                                        Floor <?php echo $row->floor_number; ?>
+                                    <a class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
+                                        Floor <?php echo $row->floor_number ; ?>
+
                                     </a>
                                     <button class="btn btn-primary d-xl-flex ml-auto ml-lg-auto ml-xl-auto"
-                                        type="button" id="room" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;width: 16px;height: 16px;"
-                                        title="Add Tenant" data-toggle="modal" data-target="#AddRoom">
-                                        <i class="icon-plus" style="font-size: 16px;color: #555555;width: 5%;"></i>&nbsp;
+                                        type="button" id="room" style="padding-bottom: 0px;padding-top: 1px;padding-right: 0px;padding-left: 2.5px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;width: 16px;height: 16px;"
+                                        title="Add Tenant" data-toggle="modal" data-target="#AddRoom<?php echo $row->floor_number; ?>">
+                                        <i class="fa fa-plus" style="font-size: 14px;color: #555555;width: 5%;"></i>&nbsp;
                                     </button>
                                 </h5>
                             </div>
-                            <div class="collapse item-1" role="tabpanel" data-parent="#accordion-1">
+                            <div class="collapse item-<?php echo $row->floor_number; ?>" role="tabpanel" data-parent="#accordion-1">
                                 <div class="card-body">
                                     <div class="card-group">
                                         <?php foreach ($room->result() as $row1)  
                                             {
+                                                if ($row1->floor_id == $row->floor_id) {
+
+                                                
                                         ?>
                                         <div class="card">
                                             <div class="card-body">
@@ -48,120 +94,473 @@
                                                         <h6>Room <?php echo $row1->room_number; ?></h6>
                                                     </div>
                                                     <div class="col-xl-2" style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
-                                                            title="Add Tenant" data-toggle="modal" data-target="#AddUser"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
+                                                            title="Add Tenant" data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
                                                 </div>
                                                 <p class="card-text" style="font-weight: bold;font-size: 14px;">Tenants:</p>
-                                                <?php foreach ($dir->result() as $row2)  
-                                                    {
+                                                <?php 
+                                                if($dir->num_rows() == 0 ) {
                                                 ?>
-                                                <p class="card-text" style="font-weight: normal;font-size: 14px;"><?php echo $row2->tenant_fname ." ". $row2->tenant_lname;?></p>
-                                                <?php } ?>
+                                                
+                                                    <p class="card-text" style="font-weight: normal;font-size: 14px;">No tenant yet.</p>
+                                                <?php } else if($dir->num_rows() >= 1 ) {
+                                                    foreach ($dir->result() as $row2)  
+                                                    {
+                                                        if ($row2->room_id == $row1->room_id) {
+                                                            
+                                                ?>
+                                                    <p class="card-text" style="font-weight: normal;font-size: 14px;"><?php echo $row2->tenant_fname ." ". $row2->tenant_lname;?></p>
+                                                        <?php }
+                                                    } 
+                                                } ?>
                                             </div>
                                         </div>
-                                        <?php } ?>
+                                            <?php } 
+                                        } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     <?php } ?>
                     </div>
+                    </div>
+                    <div id="table_view" class="table-responsive" style="width:100%;display:none; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0);margin:-15px; padding:15px;">
+                        <table class="table" id="example" style="font-size:14px;">
+                            <thead class="logs">
+                                <tr style="text-align:center">
+                                    <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Name of Tenant</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Contract Period</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Days left  </th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($dir->result() as $tenant) {
+                                    date_default_timezone_set("Asia/Manila");
+                                    $a = strtotime($tenant->contract_start);
+                                    $due = date('Y-m-d', strtotime('+1 year' ,$a)); 
+                                    $now = new DateTime(date("y-m-d")); // or your date as well
+                                    $your_date = new DateTime($due);
+                                    $datediff = $now->diff($your_date);
+                                ?>
+                                     
+                                    <tr>
+                                        
+                                        <td><?php echo $tenant->room_number; ?></td>
+                                        <td><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></td>
+                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
+                                        <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
+                                             <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
+                                        <?php } else if ($datediff->days <= 10) { ?>
+                                            <td style="color: red;text-align:center"><?php echo $datediff->days ." days"; ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align:center"><?php echo $datediff->days ." days"; ?></td>
+                                        <?php } ?>
+                                       
+                                        <td style="text-align:center;">
+                                            <?php 
+                                                $status = $tenant->tenant_status;
+                                                if ( $status == 1) { ?>
+
+                                                <button title="Edit user" data-target="#EditUser<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                    <i class="fa fa-edit" style="font-size: 14px"></i>
+                                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
+                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                </button>
+
+                                            <?php } else { ?>
+                                                <button title="Activate user" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
+                                                <i class="fa fa-check" style="font-size: 14px"></i>
+                                                </button>
+                                            <?php } ?>
+                                        
+                                        </td>  
+                                    </tr>
+                                <?php } ?>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="modal fade" role="dialog" tabindex="-1" id="AddUser">
+                                        
+            <?php 
+           
+            foreach($room->result() as $row6){ ?>
+            
+            <div class="modal fade" role="dialog" tabindex="-1" id="AddUser<?php echo $row6->room_id; ?>">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                        <div class="modal-body">
-                            <form>
+                        <div class="modal-body" style="height:350px;">
+                            <form action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
-                                        <h6 style="font-weight: bold;">Tenant Information</h6>
+                                        <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
+                                        
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                                <div class="col"><select class="form-control"><optgroup label="This is a group"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></optgroup></select></div>
+                                                <div class="col">
+                                                <input name="floor_id" class="form-control" type="hidden" value="<?php echo $row6->floor_id; ?>" >
+                                                <input name="room_id" class="form-control" type="hidden" value="<?php echo $row6->room_id; ?>" >
+                                                <input name="room_number" class="form-control" type="text" value="<?php echo $row6->room_number; ?>" disabled>
+                                                       
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
+                                                <div class="col"><textarea name="tenant_address" class="form-control" row="2" type="text" placeholder="Enter tenant home address" required></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday</label></div>
-                                                <div class="col"><input class="form-control" type="date"></div>
+                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input name="tenant_email" class="form-control" type="email" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
+                                                <div class="col"><input name="tenant_fb" class="form-control" type="text" placeholder="Enter tenant facebook account" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
-                                                <div class="col"><input class="form-control" type="number"></div>
+                                                <div class="col"><input name="tenant_cno" class="form-control" type="number" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
+                                                <div class="col"><input name="tenant_school" class="form-control" type="text" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input name="tenant_course" class="form-control" type="text" required></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col" style="padding-left: 20px;padding-right: 20px;">
-                                        <h6 style="font-weight: bold;">Guardian Information</h6>
+                                        <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col"><input name="mother_mno" class="form-control" type="number" required></div>
+                                            </div>
+                                        </div>
+                                        <h6 style="font-weight: bold;font-size:14px;">Father</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col"><input name="father_mno" class="form-control" type="number" required></div>
+                                            </div>
+                                        </div>
+                                        <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col"><input name="guardian_name" class="form-control" type="text" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
+                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email</label></div>
-                                                <div class="col"><input class="form-control" type="email"></div>
+                                                <div class="col"><input name="guardian_email" class="form-control" type="email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Contact No</label></div>
-                                                <div class="col"><input class="form-control" type="number"></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col"><input name="guardian_mno" class="form-control" type="number" required></div>
                                             </div>
                                         </div>
-                                        <h6 style="font-weight: bold;">Move-in Information</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No</label></div>
+                                                <div class="col"><input name="guardian_lno" class="form-control" type="number" ></div>
+                                            </div>
+                                        </div>
+                                        <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in</label></div>
-                                                <div class="col"><input class="form-control" type="date"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount paid</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input name="contract_start" class="form-control" type="date"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            
                         </div>
-                        <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                        <div class="modal-footer"><button class="btn btn-primary" type="submit"  style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" role="dialog" tabindex="-1" id="AddRoom">
+
+            <?php //}
+            } 
+           
+            foreach($dir->result() as $editTenant){ ?>
+            
+            <div class="modal fade" role="dialog" tabindex="-1" id="EditUser<?php echo $editTenant->dir_id; ?>">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                            <h4 class="modal-title" style="color: #11334f;">Edit Tenant Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <div class="modal-body" style="height:350px;">
+                            <form action="<?php echo site_url('Directories/update_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
+                                <div class="form-row">
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
+                                        <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
+                                        
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
+                                                <div class="col">
+                                                 <select class="form-control selectize-multiple" name="etroom_number" id="etroom_number<?php echo $editTenant->dir_id; ?>" >
+                                                                <option value="<?php echo $editTenant->room_id;?>" selected><?php echo $editTenant->room_number;?></option>
+                                                                <?php  
+                                                                    foreach ($room->result() as $etRoom)  
+                                                                    {   
+                                                                        //$ut_status = $row->$ut_status;
+                                                                        //if( $row1->ut_status == "active") {
+                                                                            echo "<option value='" . $etRoom->room_id ."'>". $etRoom->room_number;
+                                                                            echo "</option>";
+                                                                        //}
+                                                                        
+                                                                    }
+                                                                ?>
+                                                </select>
+                                                <input name="etenant_id" class="form-control" type="hidden" value="<?php echo $editTenant->tenant_id; ?>" >
+                                                       
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
+                                                <div class="col"><input name="etenant_fname" class="form-control" type="text" value="<?php echo $editTenant->tenant_fname; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
+                                                <div class="col"><input name="etenant_lname" class="form-control" type="text" value="<?php echo $editTenant->tenant_lname; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
+                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text" placeholder="<?php echo $editTenant->tenant_address; ?>" required></textarea></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday</label></div>
+                                                <div class="col"><input name="etenant_bday" class="form-control" type="date" value="<?php echo $editTenant->tenant_birthday; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
+                                                <div class="col"><input name="etenant_email" class="form-control" type="email" value="<?php echo $editTenant->tenant_email; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
+                                                <div class="col"><input name="etenant_fb" class="form-control" type="text" value="<?php echo $editTenant->tenant_fb; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
+                                                <div class="col"><input name="etenant_cno" class="form-control" type="number" value="<?php echo $editTenant->tenant_cno; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
+                                                <div class="col"><input name="etenant_school" class="form-control" type="text" value="<?php echo $editTenant->tenant_school; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
+                                                <div class="col"><input name="etenant_course" class="form-control" type="text" value="<?php echo $editTenant->tenant_course; ?>" required></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
+                                        <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col"><input name="emother_name" class="form-control" type="text" value="<?php echo $editTenant->mother_name; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col"><input name="emother_mno" class="form-control" type="number" value="<?php echo $editTenant->mother_mno; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <h6 style="font-weight: bold;font-size:14px;">Father</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col"><input name="efather_name" class="form-control" type="text" value="<?php echo $editTenant->father_name; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col"><input name="efather_mno" class="form-control" type="number" value="<?php echo $editTenant->father_mno; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col"><input name="eguardian_name" class="form-control" type="text" value="<?php echo $editTenant->guardian_name; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
+                                                <div class="col"><input name="eguardian_rel" class="form-control" type="text" value="<?php echo $editTenant->guardian_rel; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email</label></div>
+                                                <div class="col"><input name="eguardian_email" class="form-control" type="email" value="<?php echo $editTenant->guardian_email; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col"><input name="eguardian_mno" class="form-control" type="number" value="<?php echo $editTenant->guardian_mno; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No</label></div>
+                                                <div class="col"><input name="eguardian_lno" class="form-control" type="number" value="<?php echo $editTenant->guardian_lno; ?>" ></div>
+                                            </div>
+                                        </div>
+                                        <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in</label></div>
+                                                <div class="col"><input name="econtract_start" class="form-control" type="date" value="<?php echo $editTenant->contract_start; ?>"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-primary" type="submit"  style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <?php  
+                }
+                foreach ($dir->result() as $deac)  
+                {  
+            ?>
+                <div id="ModalDeac<?php echo $deac->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                <h4 class="modal-title" style="color: #11334f;">Deactivate User</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            
+                            <form method="POST" name="deactivate_tenant" action="<?php echo site_url('Directories/deactivate_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                            <div class="modal-body text-center">
+                                    <p style="font-size: 17px;">Are you sure you want to deactivate tenant <?php echo $deac->tenant_fname." ".$deac->tenant_lname; ?> ?</p>
+                                    <input type="hidden" name="dtenant_id" value="<?php echo $deac->tenant_id; ?>" >
+                                </div>
+                                <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <?php }  
+                
+                foreach ($dir->result() as $activate)  
+                {  
+            ?>
+                <div id="ModalActivate<?php echo $activate->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                <h4 class="modal-title" style="color: #11334f;">Activate User</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                                <form method="POST" name="activate_tenant" action="<?php echo site_url('Directories/activate_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                                    <div class="modal-body text-center">
+                                        <p style="font-size: 17px;">Are you sure you want to activate tenant <?php echo $activate->tenant_fname." ".$activate->tenant_lname; ?> ?</p>
+                                        <input type="hidden" name="atenant_id" value="<?php echo $activate->tenant_id; ?>" >
+                                    </div>
+                                    <div class="modal-footer"><button class="btn btn-primary" name="activate_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+            <?php } 
+                     
+            foreach($floor->result() as $row4) { ?>
+
+            
+            <div class="modal fade" role="dialog" tabindex="-1" id="AddRoom<?php echo $row4->floor_number; ?>">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
@@ -170,8 +569,31 @@
                             <form>
                                 <div class="form-group">
                                     <div class="form-row">
+                                        <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Floor</label></div>
+                                        <div class="col"><input class="form-control d-xl-flex" type="text" value="<?php echo $row4->floor_number; ?>" disabled=""></div>
+                                    </div>
+                                </div>
+                                <?php 
+                                $a = 0;
+                                foreach($room->result() as $row5) {
+                                    if($row5->floor_id ==  $row4->floor_id) {
+                                        $a = $room->last_row();
+                                    }
+                                } ?>
+                                <div class="form-group">
+                                    <div class="form-row">
                                         <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                        <div class="col"><input class="form-control d-xl-flex" type="text" value="304" disabled=""></div>
+                                        <div class="col"><input class="form-control d-xl-flex" type="text" value="<?php 
+                                        if(empty($a->room_number)) {
+                                            echo ($row4->floor_number) * 100 + 1 ;
+                                        } else {
+                                            if(($a->room_number - ($row4->floor_number * 100))  == 12) {
+                                                echo ($a->room_number) + 2 ; 
+                                            } else {
+                                                echo ($a->room_number) + 1 ; 
+                                            }
+                                        }
+                                        ?>" disabled=""></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -192,12 +614,24 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
         </div>
     </div>
     </div>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
+    <script>
+        $(document).ready(function(){
+            <?php foreach($dir->result() as $selectize) { ?>
+                $('#etroom_number<?php echo $selectize->dir_id; ?>').selectize({
+                maxItems: 1
+            });
+            <?php } ?>
+            
+        });
+    </script>
 </body>
 
 </html>

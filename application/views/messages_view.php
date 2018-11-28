@@ -31,10 +31,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <p style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Messages</p>
                 </div><a class="btn btn-link" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;margin-bottom: -6px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
-                    <div class="card" style="height: 450px;overflow-y: scroll;">
+                    <div class="card" style="height: 450px;overflow-y: scroll; margin-top: 20px;">
                         <div class="card-body" style="padding: 0px;padding-top: 0px;padding-right: 0px;padding-bottom: 0px;">
                             <h5 class="d-xl-flex align-items-xl-center card-title" style="margin: 0px;margin-right: 0px;margin-left: 0px;background-color: #76b15b;padding: 5px;">Messages<button class="btn btn-primary d-xl-flex ml-auto ml-lg-auto ml-xl-auto" type="button" id="room" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;background-color: transparent;border: none;width: 16px;height: 16px;margin-top: 5px;"
-                                    title="Add Tenant" data-toggle="modal" data-target="#AddRoom"><i class="icon-plus" style="font-size: 17.5px;color: #555555;width: 5%;margin-top: 5px;"></i>&nbsp;</button></h5>
+                                    title="Add Tenant" data-toggle="modal" data-target="#AddRoom"><i class="fa fa-plus" style="font-size: 17.5px;color: #555555;width: 5%;margin-top: 5px;"></i>&nbsp;</button></h5>
                             <div class="card" style="border-bottom: 1px solid #c7c7c7;">
                                 <div class="card-body" style="padding: 10px;">
                                     <h5 class="card-title">Arvin Dela Cruz</h5>
