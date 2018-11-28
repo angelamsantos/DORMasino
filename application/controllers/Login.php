@@ -2,28 +2,29 @@
 
 class Login extends CI_Controller{
     
-    function __construct(){
-        parent::__construct();
-		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
-        $this->load->library('session');
-    }
+    // function __construct(){
+    //     parent::__construct();
+	// 	$this->load->helper(array('form', 'url'));
+	// 	$this->load->library('form_validation');
+    //     $this->load->library('session');
+    // }
 
     public function validate_login() {
 
-        $login = $this->session->userdata('login_success');
+        $login = $this->session->userdata('login_validated');
         if (isset ($login)) {
+
             redirect('Home');
+
         } 
 
     }
     
-    public function index($msg = NULL){
+    public function index(){
         // Load our view to be displayed
         // to the user
         $this->validate_login();
-        $data['msg'] = $msg;
-        $this->load->view('login_view', $data);
+        $this->load->view('login_view');
     }
     
     public function process(){
@@ -38,6 +39,12 @@ class Login extends CI_Controller{
             $attempt = $this->session->userdata('attempt');
             $attempt++;
             $this->session->set_userdata('attempt', $attempt);
+
+            $email = $this->input->post('username');
+
+            date_default_timezone_set('Asia/Manila');
+            $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
+            file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
 
                 if ($attempt == 3) {
                 $msg = "Due to too many login attempts, your account is locked for 5 minutes";
@@ -59,34 +66,54 @@ class Login extends CI_Controller{
                     //     $this->session->set_tempdata('penalty', false, 0);
 
                     // }
+   
 
                 } else {
 
-                    $msg = "Incorrect email or password.";
-                    $this->index($msg);
+                    $msg = '<div class="alert alert-danger" role="alert"><center>Incorrect email or password.</center></div>';
+                    $this->session->set_flashdata('msg', $msg);
+
+                    redirect('Login');
 
                 }
            
             // If user did not validate, then show them login page again
            
         } else {
-            // // If user did validate, 
-            // // Send them to members area
-            // $results = $this->login_model->login_checkstatus();
 
-            // if(! $results) {
-            //      $msg = '<font color=yellow><center>Your account has been deactivated</center></font><br />';
-            //     $this->index($msg);
-            // } else {
-            //      $resultc = $this->login_model->login_checknew();
+            $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+            $result = $this->login_model->login_checkstatus($admin_id);
+
+            if(! $result) {
+
+                $msg = '<div class="alert alert-danger" role="alert">The account you entered is deactivated. </div>';
+                $this->session->set_flashdata('msg', $msg);
+
+            } else {
+
+                 $admin_new = $this->session->userdata['login_success']['info']['admin_new'];
             
-            //     if(! $resultc) {
-            //         redirect('ChangePass');
-            //     } else {
-            //         redirect('Home');
-            //     }
-            // }
-            redirect('Home');
+                if($admin_new == 1) {
+
+                    $msg = '<div class="alert alert-warning" role="alert">Set up your password first! </div>';
+                    $this->session->set_flashdata('msg', $msg);
+                    redirect('ChangePass/index');
+
+                } else {
+
+                    $login_success = true;
+				    $this->session->set_userdata('login_validated', $login_success);
+
+                    $email = $this->session->userdata['login_success']['info']['admin_email'];
+
+                    date_default_timezone_set('Asia/Manila');
+                    $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
+                    file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
+                    
+                    redirect('Home');
+
+                }
+            }
         }        
     }
 }

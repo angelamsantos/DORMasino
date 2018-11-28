@@ -34,9 +34,9 @@
             </div>
             <div style="margin-top: 14px;">
                 <div class="table-responsive">
-                    <table class="table" id="example">
+                    <table class="table" id="example" style="text-align:center">
                         <thead class="logs">
-                            <tr style="text-align:center">
+                            <tr>
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
                                 <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
                                 <th style="padding-right: 0px;padding-left: 0px;width: 18%;">Name of Visitor</th>
@@ -51,7 +51,7 @@
                                 <td>606</td>
                                 <td>Arvin Dela Cruz</td>
                                 <td>Dave Fernandez</td>
-                                <td></td>
+                                <td>Capstone</td>
                                 <td>10:00</td>
                                 <td>10:00</td>
                                 <td>10:00</td>

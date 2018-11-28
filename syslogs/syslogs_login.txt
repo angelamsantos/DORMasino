@@ -204,8 +204,69 @@ November 26, 2018, 3:52pm: delacruz.arvin04@gmail.com successfully logged in to 
 November 26, 2018, 9:09pm: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 27, 2018, 2:50am: delacruz.arvin04@gmail.com successfully logged in to the system.
 November 27, 2018, 2:52am: delacruz.arvin04@gmail.com successfully logged in to the system.
+<<<<<<< HEAD
 >>>>>>> a668f888d487a54652a221ba3d24c013ed047f77
 November 27, 2018, 7:05pm: angela@gmail.com successfully logged in to the system.
 November 28, 2018, 12:50am: angela@gmail.com successfully logged in to the system.
 November 28, 2018, 8:30am: angela@gmail.com successfully logged in to the system.
 November 28, 2018, 4:20pm: angela@gmail.com successfully logged in to the system.
+=======
+November 27, 2018, 12:28pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:12pm: delacruz.arvin@gmail.com failed to log in to the system.
+November 27, 2018, 1:13pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:16pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:17pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:17pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 1:20pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 1:20pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:21pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:22pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:37pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 1:42pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 2:25pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:27pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:28pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:28pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:29pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:34pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:35pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:38pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:46pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:46pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 3:47pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:07pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:08pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 4:08pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:10pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:10pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:22pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 4:22pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:38pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:41pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 4:43pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 7:08pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 7:12pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 7:13pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 7:13pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 7:13pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 7:49pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 7:50pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 8:10pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 8:24pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 8:26pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 8:27pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 8:33pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 9:08pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 9:10pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 9:49pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 9:53pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 10:03pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 10:03pm: delacruz.arvin@gmail.com successfully logged in to the system.
+November 27, 2018, 10:06pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 10:13pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 10:14pm: delacruz.arvin04@gmail.com failed to log in to the system.
+November 27, 2018, 10:15pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 10:15pm: delacruz.arvin04@gmail.com successfully logged in to the system.
+November 27, 2018, 10:42pm: arvin@gmail.com successfully logged in to the system.
+November 28, 2018, 12:43am: delacruz.arvin04@gmail.com successfully logged in to the system.
+>>>>>>> bfee76438bf552b264278c74ffa000fa1a79af01

@@ -46,8 +46,9 @@
                                             <div class="col-12 col-xl-12"><label class="col-form-label">New email</label></div>
                                             <div class="col-xl-12" style="padding: 0px;"><input class="form-control" type="email" name="new_email" placeholder="Enter new email" style="font-size: 14px;" required></div>
                                         </div>
-                                        <?php echo '<center><p><h4 style="font-family:Roboto, sans-serif;color:rgb(255,0,0);font-size:16px;margin-left:0px;margin-bottom:1px;">'.$msg.'</h4></p></center>' ?>
-                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    </div>
+                                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                                    <button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
                                     <div class="modal fade" role="dialog" tabindex="-1" id="EmailSuccess">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -73,15 +74,17 @@
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-12 col-xl-12"><label class="col-form-label">New password</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="new_password" placeholder="Enter new password" style="font-size: 14px;" required></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="new_password" placeholder="Enter new password" minlength="6" style="font-size: 14px;" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-12 col-xl-12"><label class="col-form-label">Confirm new password</label></div>
-                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="confirm_password" placeholder="Re-enter new password" style="font-size: 14px;" required></div>
+                                            <div class="col-xl-12" style="padding: 0px;"><input class="form-control d-lg-flex" type="password" name="confirm_password" placeholder="Re-enter new password" minlength="6" style="font-size: 14px;" required></div>
                                         </div>
-                                    </div><button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    </div>
+                                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                                    <button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
                                     <div class="modal fade" role="dialog" tabindex="-1" id="PasswordSuccess">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
