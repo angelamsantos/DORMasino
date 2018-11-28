@@ -20,7 +20,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
+    <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
     
+    
+    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body style="font-family: Roboto, sans-serif;background-color: #ffffff;">
     <div id="wrapper">
