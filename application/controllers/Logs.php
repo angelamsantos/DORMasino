@@ -26,5 +26,6 @@ class Logs extends CI_Controller{
         $this->load->view('logs_view');
         
     }
+
 }
 ?>

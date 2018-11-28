@@ -20,6 +20,26 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').dataTable();
+        });
+        $('#table_id').dataTable( {
+            responsive: true
+        } );
+        $(document).ready( function() {
+            $('.main_menu').click(function(){
+                $(this).next().toggleClass('display_block');
+            });
+
+            $('.light').click(function() {
+            $('.content').toggleClass('night');
+            return false;
+        });
+        });
+    </script>
+
 </head>
 
         <div class="page-content-wrapper">
@@ -79,7 +99,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                    <h4 class="modal-title">Visit Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <h4 class="modal-title">Visitor Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group">

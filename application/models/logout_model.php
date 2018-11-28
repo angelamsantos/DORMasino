@@ -4,10 +4,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class logout_model extends CI_Model {
 
-    public function __construct() {
-		$this->load->database();
-		$this->load->library('session');
-    }
+    // public function __construct() {
+	// 	$this->load->database();
+	// 	$this->load->library('session');
+    // }
     
     public function logout() {
 
@@ -19,7 +19,6 @@ class logout_model extends CI_Model {
 
         $this->session->sess_destroy();
 
-        $this->session->set_flashdata('msg', $msg);
     }
 
 }

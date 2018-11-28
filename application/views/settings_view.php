@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
-                                    <button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    <button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save_email" value="save_email">Save</button>
                                     <div class="modal fade" role="dialog" tabindex="-1" id="EmailSuccess">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                     <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
-                                    <button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save">Save</button>
+                                    <button class="btn btn-primary btn-sm d-xl-flex ml-auto" type="submit" name="save_pass" value="save_pass">Save</button>
                                     <div class="modal fade" role="dialog" tabindex="-1" id="PasswordSuccess">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
