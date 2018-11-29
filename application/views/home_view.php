@@ -35,11 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </nav>
     <div class="page-content-wrapper">
         <div class="container-fluid justify-content-center">
-            <div class="row mx-auto" style="margin-top: 25px;width: 80%;">
-                <div class="col" style="margin-top: 0px;width: 80%;padding: 0px;padding-left: 10px;">
-                    <p style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;width: 100%;">Hello, Admin! Please select the type of service that you want:</p>
-                </div>
-            </div>
+            
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center mx-auto flex-sm-column align-items-sm-center flex-md-column align-items-md-center flex-lg-row justify-content-lg-center flex-xl-row justify-content-xl-center align-items-xl-center"
                 id="home-menu" style="margin-top: 9px;margin-right: 0px;margin-left: 0px;width: 95%;">
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-column align-items-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center service"
@@ -66,6 +62,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h3>Settings</h3>
                 </div>
             </div>
+            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
         </div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>

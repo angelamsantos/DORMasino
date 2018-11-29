@@ -1,7 +1,7 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class directories_model extends CI_Model {
+class transactions_model extends CI_Model {
 
 	public function __construct()
     {		
@@ -18,7 +18,9 @@ class directories_model extends CI_Model {
     }
 
     public function get_room() {
-        $query = $this->db->get('room_tbl');
+        $this->db->from('room_tbl');
+        $this->db->join('floor_tbl', 'room_tbl.floor_id=floor_tbl.floor_id');
+        $query = $this->db->get();
         return $query;
     }
 
@@ -104,7 +106,7 @@ class directories_model extends CI_Model {
             'contract_start' => $this->input->post('contract_start'),
             'contract_status' => 1,
         );
-        $this->db->insert('contract_tbl', $data5);
+        $this->db->insert('dir_tbl', $data4);
     }
 
     public function update_tenant($tenant_id) {
