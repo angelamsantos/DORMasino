@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             $('#table_id').dataTable();
         });
@@ -40,7 +40,7 @@
             return false;
         });
         });
-    </script>
+    </script> -->
 
 </head>
 
@@ -109,13 +109,13 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Number</label></div>
                                 <div class="col">
-                                <select class="form-control" name="room">
-                                <option value="">--- Select Room ---</option>
+                                <select class="form-control input-lg" name="room" id="room">
+                                <option value="">Select Room</option>
                                 <?php
 
                                     foreach ($room->result() as $row) {
 
-                                        echo '<option value=" '. $row->room_id .' "> '. $row->room_number .' </option>';
+                                        echo '<option value="'. $row->room_id .'"> '. $row->room_number .' </option>';
                                         
                                     }
 
@@ -128,7 +128,8 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Person to visit</label></div>
                                 <div class="col">
-                                <select class="form-control" name ="tenant">
+                                <select class="form-control input-lg" name="tenant" id="tenant">
+                                <option value="">Select Tenant</option>
                                 </select>
                                 </div>
                             </div>
@@ -199,30 +200,29 @@
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript">
+    <script>
 
-        $(document).ready(function() {
-            $('select[name="room"]').on('change', function() {
-                var room_num = $(this).val();
-                if(room_num) {
+        $(document).ready(function(){
+            $('#room').change(function(){
+                var room_id = $('#room').val();
+             
+                if(room_id != '') {
                     $.ajax({
-                        url: '/logs_view/ajax/'+room_num,
-                        type: "GET",
-                        dataType: "json",
+                        url:"<?php echo site_url('Logs/index'); ?>",
+                        method:"POST",
+                        data:{room_id:room_id},
                         success:function(data) {
-                            $('select[name="tenant"]').empty();
-                            $.each(data, function(key, value) {
-                                $('select[name="tenant"]').append('<option value="'+ value.room_id +'">'+ value.room_number +'</option>');
-                            });
+                        $('#tenant').html(data);
                         }
                     });
-                }else{
-                    $('select[name="tenant"]').empty();
+                } else {
+                    $('#tenant').html('<option value="">Select Tenant</option>');
                 }
             });
         });
 
     </script>
+
 </body>
 
 </html>
