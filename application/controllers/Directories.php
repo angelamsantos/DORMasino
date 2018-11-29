@@ -69,5 +69,17 @@ class Directories extends CI_Controller{
         $this->session->set_flashdata('message', $msg);
         redirect('Directories/index');
     }
+
+    public function show_tenants() {
+        $r_id = $this->input->post('show_rid');
+        $data['floor']=$this->directories_model->get_floor();
+        $data['room']=$this->directories_model->get_room();
+        $data['dir']=$this->directories_model->get_diruv($r_id);
+        $data['id'] = $this->input->post('show_rno');;
+        
+        $this->load->view('sidebar_view');
+        $this->load->view('directoriesusers_view', $data);
+
+    }
 }
 ?>

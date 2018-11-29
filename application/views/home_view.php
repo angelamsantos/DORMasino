@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 15px;"><button class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Logs/index'); ?>'"><img src="<?php echo base_url(); ?>/assets/img/login.png" width="120"></button>
                     <h3>Visitor Logs</h3>
                 </div>
-                <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 15px;"><button class="btn btn-primary d-xl-flex btn-home" type="button" onclick="location.href='<?php echo site_url('Settings/index'); ?>/index'"><img src="<?php echo base_url(); ?>/assets/img/settings.png" width="120"></button>
+                <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 15px;"><button class="btn btn-primary d-xl-flex btn-home" type="button" onclick="location.href='<?php echo site_url('Settings/index'); ?>'"><img src="<?php echo base_url(); ?>/assets/img/settings.png" width="120"></button>
                     <h3>Settings</h3>
                 </div>
             </div>
