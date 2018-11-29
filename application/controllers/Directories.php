@@ -15,11 +15,13 @@ class Directories extends CI_Controller{
         $data['floor']=$this->directories_model->get_floor();
         $data['room']=$this->directories_model->get_room();
         $data['dir']=$this->directories_model->get_dir();
+        $data['dir_count']=$this->directories_model->get_dircount();
         $this->load->view('sidebar_view');
         $this->load->view('directories_view', $data);
         
     }
 
+    
     public function create_tenant() {
         $data = array(
             'tenant_email' => $this->input->post('tenant_email'),

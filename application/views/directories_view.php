@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
+
 ?>
 <style>
 .form-control {
@@ -42,14 +43,13 @@
 </script>
         <div class="page-content-wrapper">
             <div class="container-fluid">
-                <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;">
-                    <p style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                </div><a class="btn btn-link" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
+                    <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;border:1px solid black;width:100%;">
-                        <div class="btn-group" role="group"><button id="btnroom" class="btn btn-success" onclick="roomView()" type="button" style="font-size: 14px;border:none;">Room View</button><button class="btn btn-info" id="btntable" onclick="tableView()" type="button" style="width: 106.656px;background-color: #83c592;border-color: #83c592;font-size: 14px;">User View</button></div>
-                    </div>
-                    <div class="col-xl-12" style="margin-top: 11px;padding:0px; border:1px solid black;">
+                    
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('message'))) echo $this->session->flashdata('message');?>
                     </div>
                 
@@ -90,28 +90,30 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row" style="margin: 0px;">
-                                                    <div class="col-xl-10" style="padding: 0px;">
-                                                        <h6>Room <?php echo $row1->room_number; ?></h6>
+                                                    <div class="col-xl-9" style="padding: 0px;">
+                                                        <h6 style="font-weight: bold;">Room <?php echo $row1->room_number; ?></h6>
                                                     </div>
-                                                    <div class="col-xl-2" style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
+                                                    <div class="col-xl-2" style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
+                                                            title="View Tenants" data-toggle="modal" data-target="#AddUser"><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button></div>
+                                                    <div class="col-xl-1"
+                                                        style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
                                                             title="Add Tenant" data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
                                                 </div>
-                                                <p class="card-text" style="font-weight: bold;font-size: 14px;">Tenants:</p>
-                                                <?php 
-                                                if($dir->num_rows() == 0 ) {
-                                                ?>
-                                                
-                                                    <p class="card-text" style="font-weight: normal;font-size: 14px;">No tenant yet.</p>
-                                                <?php } else if($dir->num_rows() >= 1 ) {
-                                                    foreach ($dir->result() as $row2)  
-                                                    {
-                                                        if ($row2->room_id == $row1->room_id) {
-                                                            
-                                                ?>
-                                                    <p class="card-text" style="font-weight: normal;font-size: 14px;"><?php echo $row2->tenant_fname ." ". $row2->tenant_lname;?></p>
-                                                        <?php }
-                                                    } 
+                                                    
+                                                <p class="card-text" style="font-weight: bold;font-size: 14px;">Room Information:</p>
+                                                <?php foreach ($dir_count->result() as $nt) {
+                                                    if ($nt->room_id == $row1->room_id) { ?>
+                                                        <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
+                                                        <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: <?php if ($nt->num_tenants > 4) {
+                                                             echo 0;
+                                                            } else { 
+                                                            echo (4 - $nt->num_tenants); }  ?></p>
+                                                        
+                                                    
+                                                <?php }
                                                 } ?>
+                                                
+                                               
                                             </div>
                                         </div>
                                             <?php } 
@@ -136,7 +138,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($dir->result() as $tenant) {
-                                    date_default_timezone_set("Asia/Manila");
+                                    
                                     $a = strtotime($tenant->contract_start);
                                     $due = date('Y-m-d', strtotime('+1 year' ,$a)); 
                                     $now = new DateTime(date("y-m-d")); // or your date as well
@@ -184,6 +186,7 @@
                         </table>
                     </div>
                 </div>
+                
             </div>
                                         
             <?php 
