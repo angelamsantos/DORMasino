@@ -24,17 +24,18 @@ class Logs extends CI_Controller {
         $this->validate_login();
 
         $this->load->model('logs_model');
-        $data['query'] = $this->logs_model->get_room_number();
-        // $data['query1'] = $this->logs_model->get_tenant_name();
+        $data['room'] = $this->logs_model->get_room_number();
+        // $data['dir'] = $this->logs_model->get_dir();
+        // $data['tenant'] = $this->logs_model->get_tenant();
         $this->load->view('sidebar_view');
         $this->load->view('logs_view', $data);
         
     }
 
-    public function process() {
+    public function process($room_id) {
 
-        // $this->load->model('logs_model');
-        // $result = $this->logs_model->get_db();
+        $result = $this->db->where("room_id", $room_id)->get("tenant_tbl")->result();
+        echo json_encode($result);
 
     }
 

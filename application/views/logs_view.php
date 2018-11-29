@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
+    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -108,12 +109,13 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Number</label></div>
                                 <div class="col">
-                                <select class="form-control" placeholder="Choose room number" id="mySelect" onChange="myFunction()">
+                                <select class="form-control" name="room">
+                                <option value="">--- Select Room ---</option>
                                 <?php
 
-                                    foreach ($query->result() as $row) {
+                                    foreach ($room->result() as $row) {
 
-                                        echo '<option value=" '. $row->room_number .' "> '. $row->room_number .' </option>';
+                                        echo '<option value=" '. $row->room_id .' "> '. $row->room_number .' </option>';
                                         
                                     }
 
@@ -127,9 +129,7 @@
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Person to visit</label></div>
                                 <div class="col">
                                 <select class="form-control" name ="tenant">
-                                <option value=""></option>
-                                <option value=""></option>
-                                <option value=""></option>
+                                <option value="">--- Select Tenant ---</option>
                                 </select>
                                 </div>
                             </div>
@@ -200,21 +200,30 @@
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
-    <script>
+    <script type="text/javascript">
 
-        function myFunction() {
+        $(document).ready(function() {
+            $('select[name="room"]').on('change', function() {
+                var room_num = $(this).val();
+                if(room_num) {
+                    $.ajax({
+                        url: '/logs_view/ajax/'+room_num,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+                            $('select[name="tenant"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="tenant"]').append('<option value="'+ value.room_id +'">'+ value.room_number +'</option>');
+                            });
+                        }
+                    });
+                }else{
+                    $('select[name="tenant"]').empty();
+                }
+            });
+        });
 
-            var x = document.getElementById("mySelect").value;
-            
-            if (x.value == "") {
-
-                document.data.tenant.options[0] = new Option("");
-
-            }
-
-        }
-
-    </script>
+</script>
 </body>
 
 </html>
