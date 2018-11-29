@@ -19,20 +19,27 @@ class Logout extends CI_Controller {
 
         if ($save == "save_email") {
 
-            $msg = '<div class="alert alert-success" role="alert"> You changed your email successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"> You have changed your email successfully! </div>';
             $this->session->set_flashdata('msg', $msg);
 
             $this->load->view('login_view');
 
         } elseif ($save == "save_pass") {
 
-            $msg = '<div class="alert alert-success" role="alert"> You changed your password successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"> You have changed your password successfully! </div>';
             $this->session->set_flashdata('msg', $msg);
 
             $this->load->view('login_view');
 
 
-        } 
+        } else {
+
+            $msg = '<div class="alert alert-success" role="alert"> You have logged out successfully! </div>';
+            $this->session->set_flashdata('msg', $msg);
+
+            Redirect('Login');
+
+        }
 
     }
 }

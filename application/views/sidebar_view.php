@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
- date_default_timezone_set("Asia/Manila");
+date_default_timezone_set("Asia/Manila");
+$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
@@ -36,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div id="wrapper">
         <div id="sidebar-wrapper" style="background-color: #11334f;/*border-right: 3px solid #49a221;*/">
             <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 8px;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 206px;height: 33px;margin-top: 21px;"></div>
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 12px;padding-bottom: 10px;color: rgb(255,255,255);border-bottom: 1px solid #c7c7c7;"><i class="fa fa-user-circle-o"></i>&nbsp; &nbsp;Admin</p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 12px;padding-bottom: 10px;color: rgb(255,255,255);border-bottom: 1px solid #c7c7c7;"><i class="fa fa-user-circle-o"></i>&nbsp; &nbsp;<?php echo $admin_fname ?></p>
 
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>"><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
 

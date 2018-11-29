@@ -34,7 +34,11 @@ class Logs extends CI_Controller {
 
     public function process($room_id) {
 
-        $result = $this->db->where("room_id", $room_id)->get("tenant_tbl")->result();
+        $this->db->from('dir_tbl');
+	    $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+
+        $result = $this->db->where('dir_tbl.room_id', $room_id)->get()->result();
         echo json_encode($result);
 
     }

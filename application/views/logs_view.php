@@ -129,7 +129,6 @@
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Person to visit</label></div>
                                 <div class="col">
                                 <select class="form-control" name ="tenant">
-                                <option value="">--- Select Tenant ---</option>
                                 </select>
                                 </div>
                             </div>
@@ -223,7 +222,7 @@
             });
         });
 
-</script>
+    </script>
 </body>
 
 </html>

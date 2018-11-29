@@ -12,13 +12,13 @@ class logs_model extends CI_Model {
     }
 
     // public function get_dir () {
+        
 	// 	$this->db->from('dir_tbl');
 	//     $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
     //     $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
-    
-	// 	//$this->db->where('taskassigned_tbl.u_id',$u_id);
-	// 	$query1 = $this->db->get();
-	// 	return $query1;
+
+    //     $result = $this->db->where('dir_tbl.room_id', $room_id)->get()->result();
+    //     echo json_encode($result);
 
     // }
 
