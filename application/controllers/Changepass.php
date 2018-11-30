@@ -35,7 +35,7 @@ class Changepass extends CI_Controller {
     
         } else {
     
-            $msg = '<div class="alert alert-success" role="alert"> The password was changed successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"> You have changed your password successfully! </div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Login/index');
     
@@ -55,7 +55,7 @@ class Changepass extends CI_Controller {
     
         } else {
     
-            $msg = '<div class="alert alert-success" role="alert"> Your password was changed successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"> You have changed your password successfully! </div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Login/index');
     

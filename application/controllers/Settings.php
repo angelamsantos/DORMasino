@@ -49,7 +49,7 @@ class Settings extends CI_Controller {
             $save = $this->input->post('save_email');
             $this->session->set_userdata('save', $save);
 
-            redirect('Logout/index');
+            redirect('Logout/index1');
 
         }
     }
@@ -74,7 +74,7 @@ class Settings extends CI_Controller {
             $save = $this->input->post('save_pass');
             $this->session->set_userdata('save', $save);
 
-            redirect('Logout/index');
+            redirect('Logout/index1');
     
         }
             
