@@ -20,6 +20,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
+    <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
+    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script> 
+    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
 </head>
 
 
@@ -36,13 +42,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                         
-                        <div id="table_view" class="table-responsive" style="width:100%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0);margin:-15px; padding:50px;">
+                        <div id="table_view" class="table-responsive" style="width:100%;">
                             <table class="table" id="example" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
+                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Edit Billing Statement</th>
                                     </tr>
                                 </thead>
                                 <tbody>

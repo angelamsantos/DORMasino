@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
+    <!-- <script src="<?php// echo base_url(); ?>assets/js/datatable.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
 </head>
 <body style="font-family: Roboto, sans-serif;background-color: #ffffff;">
@@ -40,26 +40,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>"><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
 
-            <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index') { ?>
+            <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/show_tenants' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/rooms' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/admin') { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a href="#manage-collapse" id="menu-active" data-toggle="collapse"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories</a></p>
+                <div id="manage-collapse" class="panel-collapse ">
+                    <ul class="list-group">
+
+                     <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/show_tenants' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index') { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Tenants</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Tenants</a></span></li>
+                     <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/rooms') { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
+                     <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/admin') { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" style="color: #b3e5fc;" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></span></li>
+                     <?php } ?>
+                    </ul>
+                </div>
             <?php } else {?> 
                 <p  style="margin-top: 15px;;margin-bottom: 0px;padding-left: 20px;"><a href="#manage-collapse"  data-toggle="collapse"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories</a></p>
-            <?php } ?>
-            <div id="manage-collapse" class="panel-collapse collapse">
+                <div id="manage-collapse" class="panel-collapse collapse">
             
 
                 <ul class="list-group">
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Users</a></span></li>
+                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Tenants</a></span></li>
 
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><a href="#"><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></li>
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><a href="#"><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></li>
+                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
+                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></span></li>
                 </ul>
             </div>
+            <?php } ?>
+            
 
             <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Transactions/index') { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Transactions/index'); ?>"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Transactions</a></p>
+                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Transactions/index'); ?>"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
             <?php } else {?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Transactions/index'); ?>"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Transactions</a></p>
+                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Transactions/index'); ?>"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
             <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Announcements/index') { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
