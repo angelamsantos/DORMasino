@@ -42,10 +42,10 @@
                                 <th style="padding-right: 0px;padding-left: 0px;width: 18%;">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="text-align:center">
                             <tr>
                                 <td>10001</td>
-                                <td>Gabriel Dela Cruz</td>
+                                <td>Thomasian Residences</td>
                                 <td style="text-align:center;"> 
                                 <button title="Edit user" data-target="#EditUser<?php //echo //$tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                     <i class="fa fa-edit" style="font-size: 14px"></i>
@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                                 <td>10002</td>
-                                <td>Aaron Santos</td>
+                                <td>Ms. Katrina G. Lim</td>
                                 <td style="text-align:center;"> 
                                 <button title="Edit user" data-target="#EditUser<?php //echo //$tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                     <i class="fa fa-edit" style="font-size: 14px"></i>
@@ -86,11 +86,11 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                <h4 class="modal-title" style="color: #11334f;">Deactivate User</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                <h4 class="modal-title" style="color: #11334f;">Deactivate Admin</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                             
                             <form method="POST" name="deactivate_tenant" action="<?php //echo site_url('Directories/deactivate_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                             <div class="modal-body text-center">
-                                    <p style="font-size: 17px;">Are you sure you want to deactivate tenant <?php //echo $deac->tenant_fname." ".$deac->tenant_lname; ?>?</p>
+                                    <p style="font-size: 17px;">Are you sure you want to deactivate admin <?php //echo $deac->tenant_fname." ".$deac->tenant_lname; ?>?</p>
                                     <input type="hidden" name="dtenant_id" value="<?php //echo $deac->tenant_id; ?>" >
                                 </div>
                                 <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
@@ -111,7 +111,7 @@
                             </div>
                                 <form method="POST" name="activate_tenant" action="<?php //echo site_url('Directories/activate_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                                     <div class="modal-body text-center">
-                                        <p style="font-size: 17px;">Are you sure you want to activate tenant <?php //echo $activate->tenant_fname." ".$activate->tenant_lname; ?>?</p>
+                                        <p style="font-size: 17px;">Are you sure you want to activate Admin <?php //echo $activate->tenant_fname." ".$activate->tenant_lname; ?>?</p>
                                         <input type="hidden" name="atenant_id" value="<?php //echo $activate->tenant_id; ?>" >
                                     </div>
                                     <div class="modal-footer"><button class="btn btn-primary" name="activate_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
