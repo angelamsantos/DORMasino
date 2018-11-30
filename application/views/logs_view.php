@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
-
+    date_default_timezone_set("Asia/Manila");
 ?>
 <html>
 
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
-    <!-- <script>
+    <script>
         $(document).ready(function () {
             $('#table_id').dataTable();
         });
@@ -40,7 +40,7 @@
             return false;
         });
         });
-    </script> -->
+    </script>
 
 </head>
 
@@ -55,14 +55,17 @@
                     class="row" style="margin: 0px;margin-top: 0px;">
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
             </div>
+            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+            <form method="post" action="<?php echo site_url('Logs/out'); ?>">
             <div style="margin-top: 14px;">
                 <div class="table-responsive">
-                    <table class="table" id="example" style="text-align:center">
+                    <table class="table" id="table_id" style="text-align:center">
                         <thead class="logs">
                             <tr>
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
-                                <th style="padding-right: 0px;padding-left: 0px;width: 18%;">Name of Visitor</th>
+                                <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
+                                <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Name of Visitor</th>
+                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Relation</th>
                                 <th style="width: 20%;">Purpose</th>
                                 <th style="width: 13%;padding-right: 0px;padding-left: 0px;">ID Presented</th>
                                 <th style="width: 9%;">Time In</th>
@@ -70,28 +73,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>606</td>
-                                <td>Arvin Dela Cruz</td>
-                                <td>Dave Fernandez</td>
-                                <td>Capstone</td>
-                                <td>School ID</td>
-                                <td>10:00</td>
-                                <td>10:00</td>
-                            </tr>
-                            <tr>
-                                <td>1006</td>
-                                <td>Raffy Torres</td>
-                                <td>Francis Gella</td>
-                                <td>Sleep</td>
-                                <td>School ID</td>
-                                <td>12:00</td>
-                                <td>12:00</td>
-                            </tr>
+                        <?php
+
+                            foreach ($vlogs->result() as $row2) {
+
+                                // $time_in = $row2->vlogs_in;
+                                // $in=date("d-m-Y g:ia", strtotime($time_in));
+                                
+                                echo "<tr >";
+                                
+                                    echo "<td>". $row2->room_number ."</td>";
+                                    echo "<td>". $row2->tenant_fname ." ". $row2->tenant_lname ."</td>";
+                                    echo "<td>". $row2->vlogs_name ."</td>";
+                                    echo "<td>". $row2->vlogs_relation ."</td>";
+                                    echo "<td>". $row2->vlogs_purpose ."</td>";
+                                    echo "<td>". $row2->vlogs_id_presented ."</td>";
+                                    echo "<td id='vlogs_in'>". $row2->vlogs_in ."<input type='hidden' name='vlogs_in' value='$row2->vlogs_in'></td>";
+                                    
+                                    if($row2->vlogs_out == "0000-00-00 00:00:00") {
+
+                                        $out='<button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out</button>';
+
+                                    } else {
+
+                                        // $time_out = $row2->vlogs_out;
+                                        // $out=date("d-m-Y g:ia", strtotime($time_out));
+                                        $out = $row2->vlogs_out;
+
+                                    }
+
+                                    echo "<td>". $out ."</td>";
+                                echo "</tr>";
+                                
+                            }
+                            
+                        ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+            </form>
             <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
                 <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
             </footer>
@@ -109,7 +130,7 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Number</label></div>
                                 <div class="col">
-                                <select class="form-control input-lg" name="room" id="room">
+                                <select class="form-control input-lg" name="room">
                                 <option value="">Select Room</option>
                                 <?php
 
@@ -128,8 +149,17 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Person to visit</label></div>
                                 <div class="col">
-                                <select class="form-control input-lg" name="tenant" id="tenant">
+                                <select class="form-control input-lg" name="tenant">
                                 <option value="">Select Tenant</option>
+                                <?php
+
+                                    foreach ($dir->result() as $row1) {
+
+                                        echo '<option value="'. $row1->tenant_id .'"> '. $row1->tenant_fname .' </option>';
+                                        
+                                    }
+
+                                ?>
                                 </select>
                                 </div>
                             </div>
@@ -137,19 +167,25 @@
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Name of visitor</label></div>
-                                <div class="col"><input class="form-control" type="text" placeholder="Enter name of visitor"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_name" placeholder="Enter name of visitor"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row" style="margin: 0px;">
+                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Relation</label></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_relation" placeholder="Enter relation to tenant"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Purpose</label></div>
-                                <div class="col"><input class="form-control" type="text" placeholder="Enter purpose of visit"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_purpose" placeholder="Enter purpose of visit"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">ID Presented</label></div>
-                                <div class="col"><input class="form-control" type="text" placeholder="Enter ID presented"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_id_presented" placeholder="Enter ID presented"></div>
                             </div>
                         </div>
                 </div>

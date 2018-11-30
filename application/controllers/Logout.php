@@ -37,7 +37,7 @@ class Logout extends CI_Controller {
             $msg = '<div class="alert alert-success" role="alert"> You have logged out successfully! </div>';
             $this->session->set_flashdata('msg', $msg);
 
-            Redirect('Login');
+            $this->load->view('login_view');
 
         }
 
