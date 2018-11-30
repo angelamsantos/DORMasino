@@ -102,7 +102,7 @@ class Login extends CI_Controller{
                 } else {
 
                     $login_success = true;
-				    $this->session->set_userdata('login_validated', $login_success);
+				    $this->session->set_userdata('login_validated', $login_success); 
 
                     $email = $this->session->userdata['login_success']['info']['admin_email'];
 

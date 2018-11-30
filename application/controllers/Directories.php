@@ -34,6 +34,7 @@ class Directories extends CI_Controller{
             'tenant_course' => $this->input->post('tenant_course'),
             'tenant_cno' => $this->input->post('tenant_cno'),
             'tenant_fb' => $this->input->post('tenant_fb'),
+            'tenant_medical' => $this->input->post('tenant_medical'),
             'tenant_new' => "1",
             'tenant_status' => "1"
         );
@@ -59,7 +60,7 @@ class Directories extends CI_Controller{
         $this->directories_model->deactivate_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully deactivated!</div>      ';
         $this->session->set_flashdata('message', $msg);
-        redirect('Directories/index');
+        redirect('Directories/show_tenants');
     }
 
     public function activate_tenant() {
@@ -67,7 +68,46 @@ class Directories extends CI_Controller{
         $this->directories_model->activate_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully activated!</div> ';
         $this->session->set_flashdata('message', $msg);
-        redirect('Directories/index');
+        redirect('Directories/show_tenants');
+    }
+
+    public function getRoom() {
+        $data['room_id'] = $this->input->post('show_rid');
+        $data['room_no'] = $this->input->post('show_rno');
+
+        $this->session->set_userdata('data', $data);
+
+        redirect('Directories/show_tenants');
+    }
+
+    public function show_tenants() {
+        // $data['room_id'] = $this->input->post('show_rid');
+        // $data['room_no'] = $this->input->post('show_rno');
+        $r_id = $this->session->userdata['data']['room_id'];
+        $r_no = $this->session->userdata['data']['room_no'];
+        $data['floor']=$this->directories_model->get_floor();
+        $data['room']=$this->directories_model->get_room();
+        $data['dir']=$this->directories_model->get_diruv($r_id);
+        
+       
+        $this->load->view('sidebar_view');
+        $this->load->view('directoriesusers_view', $data);
+        //$this->load->show_tenants($r_id, $r_no);
+
+    }
+
+    public function rooms() {
+        $data['floor']=$this->directories_model->get_floor();
+        $data['room']=$this->directories_model->get_room();
+        $data['dir']=$this->directories_model->get_dir();
+        $data['dir_count']=$this->directories_model->get_dircount();
+        $this->load->view('sidebar_view');
+        $this->load->view('directoriesroom_view', $data);
+    }
+
+    public function admin() {
+        $this->load->view('sidebar_view');
+        $this->load->view('directoriesadmin_view');
     }
 }
 ?>

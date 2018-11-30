@@ -8,6 +8,8 @@
     font-size: 14px;
     height:35px;
 }
+
+
 </style>
 <script>
     function roomView() {
@@ -66,16 +68,11 @@
                         ?>
                         <div class="card">
                             <div class="card-header" role="tab" style="padding-top: 9px;padding-bottom: 9px;">
-                                <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center mr-lg-auto align-items-xl-center mr-xl-auto mb-0">
+                                <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-start align-items-start justify-content-sm-start align-items-sm-start justify-content-md-start align-items-md-start align-items-lg-start mr-lg-start align-items-xl-start mr-xl-auto mb-0">
                                     <a class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
                                         Floor <?php echo $row->floor_number ; ?>
 
                                     </a>
-                                    <button class="btn btn-primary d-xl-flex ml-auto ml-lg-auto ml-xl-auto"
-                                        type="button" id="room" style="padding-bottom: 0px;padding-top: 1px;padding-right: 0px;padding-left: 2.5px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;width: 16px;height: 16px;"
-                                        title="Add Tenant" data-toggle="modal" data-target="#AddRoom<?php echo $row->floor_number; ?>">
-                                        <i class="fa fa-plus" style="font-size: 14px;color: #555555;width: 5%;"></i>&nbsp;
-                                    </button>
                                 </h5>
                             </div>
                             <div class="collapse item-<?php echo $row->floor_number; ?>" role="tabpanel" data-parent="#accordion-1">
@@ -87,15 +84,21 @@
 
                                                 
                                         ?>
-                                        <div class="card">
+                                        <div class="card d-inline-block" style="max-width:320px;min-width:274px;border:1px solid #c7c7c7" >
                                             <div class="card-body">
                                                 <div class="row" style="margin: 0px;">
-                                                    <div class="col-xl-9" style="padding: 0px;">
+                                                    <div class="col-xl-9 col-lg-8" style="padding: 0px;">
                                                         <h6 style="font-weight: bold;">Room <?php echo $row1->room_number; ?></h6>
                                                     </div>
-                                                    <div class="col-xl-2" style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
-                                                            title="View Tenants" data-toggle="modal" data-target="#AddUser"><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button></div>
-                                                    <div class="col-xl-1"
+                                                    <div class="col-xl-2 col-lg-2" style="padding: 0px;">
+                                                    <form action="<?php echo site_url('Directories/getRoom');?>" method="POST">
+                                                    <input type="hidden" value="<?php echo $row1->room_id; ?>" name="show_rid">
+                                                    <input type="hidden" value="<?php echo $row1->room_number; ?>" name="show_rno">
+                                                    <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
+                                                            title="View Tenants" ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
+                                                    </form>
+                                                    </div>
+                                                    <div class="col-xl-1 col-lg-2"
                                                         style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
                                                             title="Add Tenant" data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
                                                 </div>
@@ -203,6 +206,7 @@
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
+                                        <h6 style="font-size:12px;color:#c7c7c7;">* Optional</h6>
                                         
                                         <div class="form-group">
                                             <div class="form-row">
@@ -218,19 +222,19 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" placeholder="Enter first name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
-                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
-                                                <div class="col"><textarea name="tenant_address" class="form-control" row="2" type="text" placeholder="Enter tenant home address" required></textarea></div>
+                                                <div class="col"><textarea name="tenant_address" class="form-control" row="2" type="text" placeholder="Enter home address" required></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -242,31 +246,37 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
-                                                <div class="col"><input name="tenant_email" class="form-control" type="email" required></div>
+                                                <div class="col"><input name="tenant_email" class="form-control" type="email" placeholder="Enter email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
-                                                <div class="col"><input name="tenant_fb" class="form-control" type="text" placeholder="Enter tenant facebook account" required></div>
+                                                <div class="col"><input name="tenant_fb" class="form-control" type="text" placeholder="Enter facebook account" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
-                                                <div class="col"><input name="tenant_cno" class="form-control" type="number" required></div>
+                                                <div class="col"><input name="tenant_cno" class="form-control" type="number" placeholder="Enter contact number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
-                                                <div class="col"><input name="tenant_school" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="tenant_school" class="form-control" type="text" placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
-                                                <div class="col"><input name="tenant_course" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="tenant_course" class="form-control" type="text" placeholder="Enter course" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions *</label></div>
+                                                <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" ></textarea></div>
                                             </div>
                                         </div>
                                     </div>
@@ -275,57 +285,57 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="mother_name" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="mother_mno" class="form-control" type="number" required></div>
+                                                <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="father_name" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="father_mno" class="form-control" type="number" required></div>
+                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter fathers's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="guardian_name" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="guardian_name" class="form-control" type="text" placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
-                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" required></div>
+                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email</label></div>
-                                                <div class="col"><input name="guardian_email" class="form-control" type="email" required></div>
+                                                <div class="col"><input name="guardian_email" class="form-control" type="email" placeholder="Enter guardian's email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="guardian_mno" class="form-control" type="number" required></div>
+                                                <div class="col"><input name="guardian_mno" class="form-control" type="number" placeholder="Enter guardian's mobile number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No</label></div>
-                                                <div class="col"><input name="guardian_lno" class="form-control" type="number" ></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No *</label></div>
+                                                <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
