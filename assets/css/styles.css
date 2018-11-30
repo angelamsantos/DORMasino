@@ -248,9 +248,8 @@ input {
 }
 
 .footer {
-  position: fixed;
+  margin-top: 20px;
   left: 0;
-  bottom: 0;
   width: 100%;
   background-color: transparent;
   color: #868e96;

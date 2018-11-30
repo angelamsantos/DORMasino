@@ -23,6 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
+
+    <style>
+    li p {
+        font-size: 14px !important;
+    }
+    </style>
 </head>
 
         <div class="page-content-wrapper">
@@ -32,44 +38,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
-                    <div class="card" style="height: 450px;overflow-y: scroll; margin-top: 20px;">
-                        <div class="card-body" style="padding: 0px;padding-top: 0px;padding-right: 0px;padding-bottom: 0px;">
-                            <h5 class="d-xl-flex align-items-xl-center card-title" style="margin: 0px;margin-right: 0px;margin-left: 0px;background-color: #76b15b;padding: 5px;">Messages<button class="btn btn-primary d-xl-flex ml-auto ml-lg-auto ml-xl-auto" type="button" id="room" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;background-color: transparent;border: none;width: 16px;height: 16px;margin-top: 5px;"
-                                    title="Add Tenant" data-toggle="modal" data-target="#AddRoom"><i class="fa fa-plus" style="font-size: 17.5px;color: #555555;width: 5%;margin-top: 5px;"></i>&nbsp;</button></h5>
-                            <div class="card" style="border-bottom: 1px solid #c7c7c7;">
-                                <div class="card-body" style="padding: 10px;">
-                                    <h5 class="card-title">Arvin Dela Cruz</h5>
-                                    <h6 class="text-muted card-subtitle mb-2">October 1, 2018</h6>
-                                    <p class="card-text" style="margin-bottom: -5px;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                <div class="row" style="border: 1px solid #c7c7c7;margin: 0px;">
+                        <div class="col-xl-2" style="background-color: #ffffff;padding: 0px;">
+                            <ul class="list-group">
+                                <li class="list-group-item" style="background-color: #bdedc1;"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-envelope" style="font-size: 13px;"></i>&nbsp; &nbsp;Inbox</span></li>
+                                <li class="list-group-item"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-archive" style="font-size: 13px;"></i>&nbsp; &nbsp;Archive</span></li>
+                            </ul>
+                        </div>
+                        <div class="col" style="padding: 0px;">
+                            <ul class="list-group">
+                                <li class="list-group-item" style="padding-top:3px;padding-bottom:3px;">
+                                    <h6 class="d-flex" style="font-weight: bold;height: 31px;">Arvin Dela Cruz<button class="btn btn-primary ml-auto" type="button" style="color: #ffffff;background-color: #ffffff;border: 0px;"><i class="fa fa-archive" style="color: #868e96;font-size: 19px;" data-toggle="modal" data-target="#Archive"></i></button></h6>
+                                    <p
+                                        style="color: #868e96;">October 12, 2018</p>
+                                        <p>Hi Ate, I will pay the rent tomorrow.</p>
+                                </li>
+                                <li class="list-group-item" style="padding-top:4px;padding-bottom:0px;">
+                                    <h6 class="d-flex" style="font-weight: bold;height: 31px;">Dave Fernandez<button class="btn btn-primary ml-auto" type="button" style="color: #ffffff;background-color: #ffffff;border: 0px;"><i class="fa fa-archive" style="color: #868e96;font-size: 19px;"></i></button></h6>
+                                    <p
+                                        style="color: #868e96;">October 9, 2018</p>
+                                        <p>The noise from the next door bothers me a lot.</p>
+                                </li>
+                                <li class="list-group-item" style="padding-top:4px;padding-bottom:0px;">
+                                    <h6 class="d-flex" style="font-weight: bold;height: 31px;">Angela Santos<button class="btn btn-primary ml-auto" type="button" style="color: #ffffff;background-color: #ffffff;border: 0px;"><i class="fa fa-archive" style="color: #868e96;font-size: 19px;"></i></button></h6>
+                                    <p
+                                        style="color: #868e96;">October 2, 2018</p>
+                                        <p>What is the contact number of the admin?</p>
+                                </li>
+                                <li class="list-group-item" style="padding-top:3px;padding-bottom:3px;">
+                                    <h6 class="d-flex" style="font-weight: bold;height: 31px;">Francis Gella<button class="btn btn-primary ml-auto" type="button" style="color: #ffffff;background-color: #ffffff;border: 0px;"><i class="fa fa-archive" style="color: #868e96;font-size: 19px;"></i></button></h6>
+                                    <p
+                                        style="color: #868e96;">September 27, 2018</p>
+                                        <p>What time is the curfew?</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal fade" role="dialog" tabindex="-1" id="Archive">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                    <h4 class="modal-title" style="color: #11334f;">Archive Message</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                <div class="modal-body">
+                                    <h5 class="d-xl-flex justify-content-xl-center">Are you sure you want to archive message?</h5>
                                 </div>
-                            </div>
-                            <div class="card" style="border-bottom: 1px solid #c7c7c7;">
-                                <div class="card-body" style="padding: 10px;">
-                                    <h5 class="card-title">Dave Fernandez</h5>
-                                    <h6 class="text-muted card-subtitle mb-2">September 27, 2018</h6>
-                                    <p class="card-text" style="margin-bottom: -5px;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                </div>
-                            </div>
-                            <div class="card" style="border-bottom: 1px solid #c7c7c7;">
-                                <div class="card-body" style="padding: 10px;">
-                                    <h5 class="card-title">Francis Gella</h5>
-                                    <h6 class="text-muted card-subtitle mb-2">September 15, 2018</h6>
-                                    <p class="card-text" style="margin-bottom: -5px;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                </div>
-                            </div>
-                            <div class="card" style="border-bottom: 1px solid #c7c7c7;">
-                                <div class="card-body" style="padding: 10px;">
-                                    <h5 class="card-title">Angela Mae Santos</h5>
-                                    <h6 class="text-muted card-subtitle mb-2">September 12, 2018</h6>
-                                    <p class="card-text" style="margin-bottom: -5px;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                </div>
-                            </div>
-                            <div class="card" style="border-bottom: 1px solid #c7c7c7;">
-                                <div class="card-body" style="padding: 10px;">
-                                    <h5 class="card-title">Raffy Torres</h5>
-                                    <h6 class="text-muted card-subtitle mb-2">September 10, 2018</h6>
-                                    <p class="card-text" style="margin-bottom: -5px;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                </div>
+                                <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                             </div>
                         </div>
                     </div>

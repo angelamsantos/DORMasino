@@ -84,9 +84,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/index') { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Messages/index'); ?>"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+               
+                <div id="message-collapse" class="panel-collapse ">
+                    <ul class="list-group">
+
+                     <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/index' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index') { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
+                     <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/request') { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp; Request</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp; Request</a></span></li>
+                     <?php } ?>
+                    </ul>
+                </div>
+            
             <?php } else {?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Messages/index'); ?>"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#message-collapse" data-toggle="collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+                <div id="message-collapse" class="panel-collapse collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
+                     
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp;  Request</a></span></li>
+                     
+                    </ul>
+                </div>
             <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Logs/index') { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Logs/index'); ?>"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
             <?php } else {?>
