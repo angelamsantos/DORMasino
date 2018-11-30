@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
@@ -26,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user-circle-o" style="font-size: 21px;"></i>&nbsp;Admin</a>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user-circle-o" style="font-size: 21px;"></i>&nbsp;<?php echo $admin_fname; ?></a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">Logout</a></div>
                     </li>
                 </ul>
@@ -43,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h3>Directories</h3>
                 </div>
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 15px;"><button class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Transactions/index'); ?>'" ><img src="<?php echo base_url(); ?>/assets/img/bills.png" width="120"></button>
-                    <h3>Transactions</h3>
+                    <h3>Bills</h3>
                 </div>
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 15px;"><button class="btn btn-primary d-xl-flex btn-home" type="button" onclick="location.href='<?php echo site_url('Announcements/index'); ?>'"><img src="<?php echo base_url(); ?>/assets/img/request.png" width="120"></button>
                     <h3>Announcements</h3>

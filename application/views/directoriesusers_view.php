@@ -35,7 +35,7 @@
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     
                     <div id="table_view" class="table-responsive" style="width:100%; ">
-                        <table class="table" id="example" style="font-size:14px;">
+                        <table class="table" id="example" style="font-size:14px;" style="text-align:center">
                             <thead class="logs">
                                 <tr style="text-align:center">
                                     <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
@@ -45,7 +45,7 @@
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="text-align:center">
                                 <?php foreach ($dir->result() as $tenant) {
                                     
                                     $a = strtotime($tenant->contract_start);

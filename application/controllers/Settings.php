@@ -45,6 +45,10 @@ class Settings extends CI_Controller {
 
             $msg = '<div class="alert alert-success" role="alert"><center> Your email was changed successfully! </center></div>';
             $this->session->set_flashdata('msg', $msg);
+
+            $save = $this->input->post('save_email');
+            $this->session->set_userdata('save', $save);
+
             redirect('Logout/index');
 
         }
@@ -66,6 +70,10 @@ class Settings extends CI_Controller {
     
             $msg = '<div class="alert alert-success" role="alert"><center> Your password was changed successfully! </center></div>';
             $this->session->set_flashdata('msg', $msg);
+
+            $save = $this->input->post('save_pass');
+            $this->session->set_userdata('save', $save);
+
             redirect('Logout/index');
     
         }

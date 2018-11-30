@@ -42,8 +42,8 @@ class forgotpass_model extends CI_Model{
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'dentease20172018@gmail.com',
-            'smtp_pass' => '20172018dentease',
+            'smtp_user' => 'dormasino20182019@gmail.com',
+            'smtp_pass' => 'dormasino123',
             'mailtype'  => 'html',
             'charset'   => 'utf-8'
         );
@@ -60,7 +60,7 @@ class forgotpass_model extends CI_Model{
         $htmlContent .= '<p>'. $number .'</p>';
     
         $this->email->to($to_email);
-        $this->email->from('dentease20172018@gmail.com','DORMasino');
+        $this->email->from('dormasino20182019@gmail.com','DORMasino');
         $this->email->subject('DORMasino Forgot Password');
         $this->email->message($htmlContent);
     
