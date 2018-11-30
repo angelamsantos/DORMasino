@@ -84,7 +84,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
-            <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/index') { ?>
+            <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/index' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/request') { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
                 <div id="message-collapse" class="panel-collapse ">

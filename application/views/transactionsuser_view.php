@@ -73,11 +73,8 @@
                                                 $status = $tenant->tenant_status;
                                                 if ( $status == 1) { ?>
 
-                                                <button title="Edit user" data-target="#EditUser<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                <button title="Edit user" data-target="#Bill" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                     <i class="fa fa-edit" style="font-size: 14px"></i>
-                                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
-                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
                                                 </button>
 
                                             <?php } else { ?>
@@ -94,6 +91,50 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="modal fade"
+                    role="dialog" tabindex="-1" id="Bill">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                <h4 class="modal-title" style="color: #11334f;">Billing Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
+                                            <div class="col"><input class="form-control d-xl-flex" type="text" value="301" disabled=""></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
+                                            <div class="col"><input class="form-control" type="text" value="Arvin" disabled=""></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
+                                            <div class="col"><input class="form-control" type="text" value="Dela Cruz" disabled=""></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
+                                            <div class="col"><input class="form-control" type="text" value="Php 3, 500 " disabled=""></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
+                                            <div class="col"><input class="form-control" type="text"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Settle Bill</button></div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 
             </div>

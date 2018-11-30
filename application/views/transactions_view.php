@@ -40,9 +40,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                 </div>
                 <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
-                    <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
+                    <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
                         
-                        <div id="table_view" class="table-responsive" style="width:100%;">
+                        <div id="table_view" class="table-responsive" style="width:80%;">
                             <table class="table" id="example" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
@@ -58,7 +58,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                          
                                         <tr>
                                             <td style="text-align:center;"><?php echo $row->floor_number; ?></td>
-                                            <td style="text-align:center;"><?php echo $row->room_number; ?></td>
+                                            <td style="text-align:center;">
+                                                <form action="<?php echo site_url('Transactions/getRoom');?>" method="POST">
+                                                    <input type="hidden" value="<?php echo $row->room_id; ?>" name="show_rid">
+                                                    <input type="hidden" value="<?php echo $row->room_number; ?>" name="show_rno">
+                                                <button value="<?php echo $row->room_id; ?>"  type="submit" style="background:transparent; border:0px"> 
+                                                    <?php echo $row->room_number; ?>
+                                                </button>
+                                                </form>
+                                            </td>
                                             
                                             
                                            

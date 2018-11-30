@@ -33,7 +33,6 @@ class Directories extends CI_Controller{
             'tenant_school' => $this->input->post('tenant_school'),
             'tenant_course' => $this->input->post('tenant_course'),
             'tenant_cno' => $this->input->post('tenant_cno'),
-            'tenant_fb' => $this->input->post('tenant_fb'),
             'tenant_medical' => $this->input->post('tenant_medical'),
             'tenant_new' => "1",
             'tenant_status' => "1"

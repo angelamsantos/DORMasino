@@ -14,5 +14,10 @@ class Messages extends CI_Controller{
         $this->load->view('sidebar_view');
         $this->load->view('messages_view');
     }
+
+    public function request(){
+        $this->load->view('sidebar_view');
+        $this->load->view('messagesrequest_view');
+    }
 }
 ?>

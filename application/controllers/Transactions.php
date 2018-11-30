@@ -28,5 +28,31 @@ class Transactions extends CI_Controller{
         $this->load->view('transactions_view', $data);
         
     }
+
+    public function getRoom() {
+        $data['room_id'] = $this->input->post('show_rid');
+        $data['room_no'] = $this->input->post('show_rno');
+
+        $this->session->set_userdata('data', $data);
+
+        redirect('Transactions/show_tenants');
+    }
+
+    public function show_tenants() {
+        // $data['room_id'] = $this->input->post('show_rid');
+        // $data['room_no'] = $this->input->post('show_rno');
+        $r_id = $this->session->userdata['data']['room_id'];
+        $r_no = $this->session->userdata['data']['room_no'];
+        $data['floor']=$this->transactions_model->get_floor();
+        $data['room']=$this->transactions_model->get_room();
+        $data['dir']=$this->transactions_model->get_diruv($r_id);
+        
+       
+        $this->load->view('sidebar_view');
+        $this->load->view('transactionsuser_view', $data);
+        //$this->load->show_tenants($r_id, $r_no);
+
+    }
+
 }
 ?>

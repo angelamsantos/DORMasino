@@ -10,7 +10,16 @@
 }
 </style>
 <script>
-    
+    function agree() {
+        var x = document.getElementById("Terms");
+        var y = document.getElementById("form_adduser");
+        if (y.style.display === "none") {
+            y.style.display = "block";
+            
+            x.style.display = "none";
+        } 
+    }
+   
 
 </script>
         <div class="page-content-wrapper">
@@ -171,12 +180,6 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
-                                                <div class="col"><input name="etenant_fb" class="form-control" type="text" value="<?php echo $editTenant->tenant_fb; ?>" required></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
                                                 <div class="col"><input name="etenant_cno" class="form-control" type="number" value="<?php echo $editTenant->tenant_cno; ?>" required></div>
                                             </div>
@@ -323,7 +326,37 @@
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:350px;">
-                            <form action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
+                            <div class="row" id="Terms" style="padding:15px; display:block;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                                <div class="column">
+                                <p style="font-size: 13px;"> To create an account in DORMasino, you’ll need to agree to the Terms of Service below.
+                                    In addition, when you create an account, we process your information as described in our 
+                                    Privacy Policy, including these key points:</p>
+
+                                <p style="font-size: 13px;"> Data we process when you use DORMasino<br>
+
+                                - We store information you give us like your name, address, birthday, email, contact number, school/company and course.<br>
+                                - We process your transaction records, messages and information your visitors.<br><br>
+
+
+                                Why we process it<br>
+                                - Improve the quality of our services regarding the documenting of your electricity, water, and transactions. <br>
+                                - Improve security against data fraud.<br><br>
+
+                                You’re in control<br>
+                                Depending on your account settings, some of this data may be associated with your DORMasino Account and we treat this data as personal information.<br><br>
+
+                                Privacy<br>
+                                -The management is the only one to view process the information collected on this system. <br>
+                                -The management have the access to/collect information that you voluntarily submit to us via signing up the website.<br>
+                                -We will not make profit to this information to anyone.<br>
+                                -We will make sure that the information you submit to us is encrypted and transmitted to us in a secure way. You can verify this by looking at the lock icon <br>
+                                in the address bar and looking for "https" at the beginning of the address of the Web page. 
+                            
+                                </p>
+                                <button type="button" class="btn btn-primary" onclick="agree()" style="margin-right:auto;margin-left:auto;">I Agree</button>
+                                </div>
+                            </div>
+                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="display:none;height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
@@ -332,8 +365,8 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
                                                 <div class="col">
-                                                <input name="room_id" class="form-control" type="hidden" value="<?php echo $this->session->userdata['data']['r_id']; ?>" >
-                                                <input name="room_number" class="form-control" type="text" value="<?php echo $this->session->userdata['data']['r_no']; ?>" disabled>
+                                                <input name="room_id" class="form-control" type="hidden" value="<?php echo $this->session->userdata['data']['room_id']; ?>" >
+                                                <input name="room_number" class="form-control" type="text" value="<?php echo $this->session->userdata['data']['room_no']; ?>" disabled>
                                                        
                                                 </div>
                                             </div>
@@ -370,12 +403,6 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
-                                                <div class="col"><input name="tenant_fb" class="form-control" type="text" placeholder="Enter facebook account" required></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
                                                 <div class="col"><input name="tenant_cno" class="form-control" type="number" placeholder="Enter contact number" required></div>
                                             </div>
@@ -394,7 +421,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions *</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions <span style="color:#c7c7c7">*</span></label></div>
                                                 <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" required></textarea></div>
                                             </div>
                                         </div>
@@ -453,7 +480,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No *</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No <span style="color:#c7c7c7">*</span></label></div>
                                                 <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
