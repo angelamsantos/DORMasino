@@ -53,9 +53,9 @@
                 
                 <div
                     class="row" style="margin: 0px;margin-top: 0px;">
+                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
             </div>
-            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
             <form method="post" action="<?php echo site_url('Logs/out'); ?>">
             <div style="margin-top: 14px;">
                 <div class="table-responsive">

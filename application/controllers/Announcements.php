@@ -26,5 +26,11 @@ class Announcements extends CI_Controller{
         $this->load->view('announcements_view');
 
     }
+
+    public function process() {
+
+        $this->load->model('announcements_model');
+
+    }
 }
 ?>
