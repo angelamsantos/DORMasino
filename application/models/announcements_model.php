@@ -9,6 +9,7 @@ class announcements_model extends CI_Model {
         $query = $this->db->get('ann_tbl');
        // print_r($query);
         return $query;
+        
     }
 
     public function publish($data) {

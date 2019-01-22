@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
+    date_default_timezone_set("Asia/Manila");
 ?>
 <html>
 
@@ -50,18 +51,23 @@
                                     </div>
                                 </form>
                                 <div style="margin-top: 15px;border-top: 1px solid #c7c7c7;">
-                                    <div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">
-                                        <div class="card-body">
-                                            <h6 class="card-title">October 1, 2018</h6>
-                                            <p class="card-text" style="font-size: 14px;">Please inform your visitors to login and leave their ID before entering the premise. Thank you.</p>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">
-                                        <div class="card-body">
-                                            <h6 class="card-title">September 20, 2018</h6>
-                                            <p class="card-text" style="font-size: 14px;">The dorm will strictly implement a 12am curfew effective October 1, 2018. Thank you.</p>
-                                        </div>
-                                    </div>
+                                <?php
+
+                                    foreach ($ann->result() as $row3) {
+
+                                        $date_posted = $row3->date_posted;
+                                        $post=date("M d, Y g:ia", strtotime($date_posted));
+
+                                        echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
+                                        echo    '<div class="card-body">';
+                                        echo        '<h6 class="card-title">'. $post .'</h6>';
+                                        echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
+                                        echo    '</div>';
+                                        echo '</div>';
+
+                                    }
+
+                                ?>
                                 </div>
                             </div>
                         </div>
