@@ -11,4 +11,10 @@ class announcements_model extends CI_Model {
         return $query;
     }
 
+    public function publish($data) {
+
+        $this->db->insert('ann_tbl', $data);
+
+    }
+
 }

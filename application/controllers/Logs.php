@@ -40,8 +40,8 @@ class Logs extends CI_Controller {
 
         $this->logs_model->record_visitor($data);
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Visitor successfully recorded!</div>';
-        $this->session->set_flashdata('message', $msg);
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px;"><center>Visitor successfully recorded!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
 
         redirect('Logs/index');
 
@@ -53,8 +53,8 @@ class Logs extends CI_Controller {
         $vlogs_in = $this->input->post('vlogs_in');
         $this->logs_model->update_out($vlogs_in);
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Visitor timed out!</div>';
-        $this->session->set_flashdata('message', $msg);
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Visitor timed out!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
 
         redirect('Logs/index');
 

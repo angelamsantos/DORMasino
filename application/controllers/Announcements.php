@@ -31,6 +31,17 @@ class Announcements extends CI_Controller{
 
         $this->load->model('announcements_model');
 
+        $admin_id = $this->session
+
+        $data = array(
+            'ann_content' => $this->input->post('content'),
+            'admin_id' => $admin_id
+        );
+
+        $this->announcements_model->publish($data);
+
+        redirect('Announcements/index');
+
     }
 }
 ?>
