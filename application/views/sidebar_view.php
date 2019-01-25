@@ -15,6 +15,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/simple-line-icons.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/line-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
@@ -39,84 +40,114 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 8px;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 206px;height: 33px;margin-top: 21px;"></div>
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 12px;padding-bottom: 10px;color: rgb(255,255,255);border-bottom: 1px solid #c7c7c7;"><i class="fa fa-user-circle-o"></i>&nbsp; &nbsp;<?php echo $admin_fname ?></p>
 
-            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>"><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
+            <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>" ><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
 
-            <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/show_tenants' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/rooms' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/admin') { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a href="#manage-collapse" id="menu-active" data-toggle="collapse"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories</a></p>
-                <div id="manage-collapse" class="panel-collapse ">
+            <?php if(base_url(uri_string()) == "".base_url()."Directories/index" || 
+                     base_url(uri_string()) == "".base_url()."Directories/show_tenants" || 
+                     base_url(uri_string()) == "".base_url()."Directories/rooms" || 
+                     base_url(uri_string()) == "".base_url()."Directories/admin") { ?>
+                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" data-target="#manage-collapse" href="#manage-collapse" id="menu-active"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
+                <div id="manage-collapse" >
                     <ul class="list-group">
 
-                     <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/show_tenants' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index') { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Tenants</a></span></li>
+                     <?php if(base_url(uri_string()) == "".base_url()."Directories/show_tenants" || base_url(uri_string()) == "".base_url()."Directories/index") { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
                      <?php } else { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Tenants</a></span></li>
-                     <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/rooms') { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
+                     <?php } if(base_url(uri_string()) == "".base_url()."Directories/rooms") { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
-                     <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/admin') { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" style="color: #b3e5fc;" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></span></li>
+                     <?php } if(base_url(uri_string()) == "".base_url()."Directories/admin") { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" style="color: #b3e5fc;" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                      <?php } else { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                      <?php } ?>
                     </ul>
                 </div>
             <?php } else {?> 
-                <p  style="margin-top: 15px;;margin-bottom: 0px;padding-left: 20px;"><a href="#manage-collapse"  data-toggle="collapse"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories</a></p>
-                <div id="manage-collapse" class="panel-collapse collapse">
+                <p  style="margin-top: 15px;;margin-bottom: 0px;padding-left: 20px;"><a data-toggle="collapse" data-target="#manage-collapse" href="#manage-collapse" ><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
+                <div id="manage-collapse" class="collapse">
             
 
                 <ul class="list-group">
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp;Tenants</a></span></li>
+                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
 
                     <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp;Admin</a></span></li>
+                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                 </ul>
             </div>
             <?php } ?>
             
 
-            <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Transactions/index') { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Transactions/index'); ?>"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
-            <?php } else {?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Transactions/index'); ?>"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
-            <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Announcements/index') { ?>
+            <?php if(base_url(uri_string()) == "".base_url()."Transactions/index" || base_url(uri_string()) == "".base_url()."Transactions/show_tenants" || base_url(uri_string()) == "".base_url()."Transactions/records_room" ) { ?>
+                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a href="#bills-collapse" id="menu-active" data-toggle="collapse" ><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
+                <div id="bills-collapse" class="panel-collapse ">
+                    <ul class="list-group">
+
+                     <?php if(base_url(uri_string()) == "".base_url()."Transactions/index" || base_url(uri_string()) == "".base_url()."Transactions/show_tenants" ) { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
+                     <?php } if(base_url(uri_string()) == "".base_url()."Transactions/records_room") { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/records_rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp;&nbsp;Transaction Records</a></span></li>
+                     <?php } else { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/records_room'); ?>" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp; Transaction Records</a></span></li>
+                     <?php } ?>
+                    </ul>
+                </div>
+           
+           
+           
+           
+           <?php } else {?>
+                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#bills-collapse" data-toggle="collapse" ><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
+                <div id="bills-collapse" class="panel-collapse collapse">
+                    <ul class="list-group">
+
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
+
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/records_room'); ?>" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp; Transaction Records</a></span></li>
+                    
+                    </ul>
+                </div>
+            <?php } if(base_url(uri_string()) == "".base_url()."Announcements/index") { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
-            <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/index' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/request') { ?>
+            <?php } if(base_url(uri_string()) == "".base_url()."Messages/index" || base_url(uri_string()) == "".base_url()."Messages/request") { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
                 <div id="message-collapse" class="panel-collapse ">
                     <ul class="list-group">
-
-                     <?php if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/index' || base_url(uri_string()) == 'http://localhost:80/Dormasino/Directories/index') { ?>
+ 
+                     <?php if(base_url(uri_string()) == "".base_url()."Messages/index" ) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
-                     <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Messages/request') { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp; Request</a></span></li>
+                     <?php } if(base_url(uri_string()) == "".base_url()."Messages/request") { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      <?php } else { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp; Request</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      <?php } ?>
                     </ul>
                 </div>
             
-            <?php } else {?>
+            <?php } else { ?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#message-collapse" data-toggle="collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                 <div id="message-collapse" class="panel-collapse collapse">
                     <ul class="list-group">
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
-                     
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp;  Request</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      
                     </ul>
                 </div>
-            <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Logs/index') { ?>
+            <?php } ?>
+            <?php  if(base_url(uri_string()) == "".base_url()."Logs/index") { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Logs/index'); ?>"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Logs/index'); ?>"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
-            <?php } if(base_url(uri_string()) == 'http://localhost:80/Dormasino/Settings/index') { ?>
+            <?php } if(base_url(uri_string()) == "".base_url()."Settings/index") { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Settings/index'); ?>"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Settings/index'); ?>"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>

@@ -148,26 +148,36 @@
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Privileges</label></div>
-                                <div class="col-xl-8"><label style="font-weight: normal;margin-top: 9px;">Directories</label>
+                                <div class="col-xl-8"><label style="font-weight: bold;margin-top: 9px;">Directories</label>
                                     <div class="d-xl-flex align-items-xl-center">
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                    </div><label>Bills</label>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
+                                    </div><label style="font-weight: bold;">Bills</label>
                                     <div class="d-xl-flex align-items-xl-center">
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                    </div><label>Announcements</label>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
+                                    </div><label style="font-weight: bold;">Announcements</label>
                                     <div class="d-xl-flex align-items-xl-center">
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                    </div><label>Messages</label>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
+                                    </div><label style="font-weight: bold;">Messages</label>
                                     <div class="d-xl-flex align-items-xl-center">
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                    </div><label>Visitor Logs</label>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
+                                    </div><label style="font-weight: bold;">Visitor Logs</label>
                                     <div class="d-xl-flex align-items-xl-center">
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
                                         <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
+                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
                                     </div>
                                 </div>
                             </div>
