@@ -358,6 +358,7 @@ December 1, 2018, 1:37am: delacruz.arvin04@gmail.com failed to log in to the sys
 December 1, 2018, 1:39am: thores20182019@gmail.com successfully logged in to the system.
 December 1, 2018, 1:40am: thores20182019@gmail.com successfully logged in to the system.
 December 1, 2018, 1:41am: thores@gmail.com successfully logged in to the system.
+<<<<<<< HEAD
 December 1, 2018, 2:07am: thores20182019@gmail.com successfully logged in to the system.
 December 8, 2018, 9:17pm: thores20182019@gmail.com successfully logged in to the system.
 January 17, 2019, 9:37pm: thores20182019@gmail.com successfully logged in to the system.
@@ -374,3 +375,11 @@ January 24, 2019, 1:12pm: thores20182019@gmail.com successfully logged in to the
 January 24, 2019, 1:31pm: thores20182019@gmail.com successfully logged in to the system.
 January 25, 2019, 2:38pm: thores20182019@gmail.com successfully logged in to the system.
 January 27, 2019, 10:45am: thores20182019@gmail.com successfully logged in to the system.
+=======
+December 9, 2018, 1:59pm: thores20182019@gmail.com successfully logged in to the system.
+December 13, 2018, 10:20am: thores20182019@gmail.com successfully logged in to the system.
+January 18, 2019, 2:22pm: thores20181029@gmail.com failed to log in to the system.
+January 18, 2019, 2:22pm: thores20182019@gmail.com successfully logged in to the system.
+January 25, 2019, 2:31pm: thores20182019@gmail.com failed to log in to the system.
+January 25, 2019, 3:02pm: thores20182019@gmail.com successfully logged in to the system.
+>>>>>>> d9e26fb809635128f718beea2bfea0ca5c30ea4d

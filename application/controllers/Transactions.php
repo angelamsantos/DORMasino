@@ -54,5 +54,15 @@ class Transactions extends CI_Controller{
 
     }
 
+    public function records_room() {
+        $data['floor']=$this->transactions_model->get_floor();
+        $data['room']=$this->transactions_model->get_room();
+        $data['dir']=$this->transactions_model->get_dir();
+        $data['dir_count']=$this->transactions_model->get_dircount();
+        $this->load->view('sidebar_view');
+        $this->load->view('transactionsrecordsroom_view', $data);
+        
+    }
+
 }
 ?>
