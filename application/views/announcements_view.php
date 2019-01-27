@@ -39,7 +39,8 @@
                             </div>
                             <div class="card-body" style="background-color: #ffffff;padding-top: 10px;border: 1px solid #76b15b">
                                 <form method="post" action="<?php echo site_url('Announcements/process'); ?>">
-                                    <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;"></textarea>
+                                    <input type="text" class="form-control" name="title" placeholder="Title" style="font-size: 14px;" required><br>
+                                    <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;" required></textarea>
                                     <div class="form-row" style="margin: 0px;">
                                         <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;"><button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;"
                                                 title="Attach Image" data-toggle="modal" data-target="#AddUser"><i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;</button><button class="btn btn-primary d-xl-flex justify-content-xl-end"
@@ -53,14 +54,15 @@
                                 <div style="margin-top: 15px;border-top: 1px solid #c7c7c7;">
                                 <?php
 
-                                    foreach ($ann->result() as $row3) {
+                                    foreach ($ann as $row3) {
 
                                         $date_posted = $row3->date_posted;
                                         $post=date("M d, Y g:ia", strtotime($date_posted));
 
                                         echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
                                         echo    '<div class="card-body">';
-                                        echo        '<h6 class="card-title">'. $post .'</h6>';
+                                        echo        '<p class="card-text" style="font-size: 14px;float: right;">'. $post .'</p>';
+                                        echo        '<h6 class="card-title">'. $row3->ann_title .'</h6>';
                                         echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
                                         echo    '</div>';
                                         echo '</div>';
@@ -69,13 +71,14 @@
 
                                 ?>
                                 </div>
+                                <p class="card-text" style="font-size: 20px; text-align: right;"><?php echo $links; ?></p>
                             </div>
                         </div>
                     </div>
+                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                        <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                    </footer>
             </div>
-            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
-            </footer>
         </div>
     </div>
     </div>
