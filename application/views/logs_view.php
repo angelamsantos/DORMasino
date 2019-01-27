@@ -53,23 +53,24 @@
                 
                 <div
                     class="row" style="margin: 0px;margin-top: 0px;">
+                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
             </div>
-            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
             <form method="post" action="<?php echo site_url('Logs/out'); ?>">
             <div style="margin-top: 14px;">
                 <div class="table-responsive">
                     <table class="table" id="table_id" style="text-align:center">
                         <thead class="logs">
                             <tr>
+                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Date</th>
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
-                                <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Name of Visitor</th>
+                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
+                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">Name of Visitor</th>
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Relation</th>
-                                <th style="width: 20%;">Purpose</th>
-                                <th style="width: 13%;padding-right: 0px;padding-left: 0px;">ID Presented</th>
-                                <th style="width: 9%;">Time In</th>
-                                <th style="width: 10%;">Time Out</th>
+                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">Purpose</th>
+                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">ID Presented</th>
+                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Time In</th>
+                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Time Out</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,18 +78,19 @@
 
                             foreach ($vlogs->result() as $row2) {
 
-                                // $time_in = $row2->vlogs_in;
-                                // $in=date("d-m-Y g:ia", strtotime($time_in));
+                                $time_in = $row2->vlogs_in;
+                                $intime=date("g:ia", strtotime($time_in));
+                                $indate=date("M d, Y", strtotime($time_in));
                                 
                                 echo "<tr >";
-                                
+                                    echo "<td>". $indate ."</td>";
                                     echo "<td>". $row2->room_number ."</td>";
                                     echo "<td>". $row2->tenant_fname ." ". $row2->tenant_lname ."</td>";
                                     echo "<td>". $row2->vlogs_name ."</td>";
                                     echo "<td>". $row2->vlogs_relation ."</td>";
                                     echo "<td>". $row2->vlogs_purpose ."</td>";
                                     echo "<td>". $row2->vlogs_id_presented ."</td>";
-                                    echo "<td id='vlogs_in'>". $row2->vlogs_in ."<input type='hidden' name='vlogs_in' value='$row2->vlogs_in'></td>";
+                                    echo "<td id='vlogs_in'>". $intime ."<input type='hidden' name='vlogs_in' value='$row2->vlogs_in'></td>";
                                     
                                     if($row2->vlogs_out == "0000-00-00 00:00:00") {
 
@@ -96,9 +98,8 @@
 
                                     } else {
 
-                                        // $time_out = $row2->vlogs_out;
-                                        // $out=date("d-m-Y g:ia", strtotime($time_out));
-                                        $out = $row2->vlogs_out;
+                                        $time_out = $row2->vlogs_out;
+                                        $out=date("g:ia", strtotime($time_out));
 
                                     }
 

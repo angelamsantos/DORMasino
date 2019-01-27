@@ -21,10 +21,8 @@ class Login extends CI_Controller{
     }
     
     public function index(){
-        // Load our view to be displayed
-        // to the user
-        $this->validate_login();
-        $this->load->view('login_view');
+        $this->validate_login();            // Validates if a user has already logged in
+        $this->load->view('login_view');    // Load our view to be displayed to the user
     }
     
     public function process(){
