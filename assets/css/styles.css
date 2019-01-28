@@ -122,6 +122,15 @@ a:hover {
   text-decoration: none;
 }
 
+.info {
+  color: #000000;
+  text-decoration: none;
+}
+
+.info:hover {
+  color: #11334f;
+  text-decoration: underline;
+}
 .list-group-item:first-child {
   border-top-left-radius: 0rem;
   border-top-right-radius: 0rem;
@@ -141,6 +150,32 @@ a:hover {
   color: #fff;
   background-color: #ffffff;
   border-color: #76b15b;
+}
+
+#delete:hover {
+  color:black;
+  background-color: #e1f5fe;
+  border-color: #e1f5fe;
+}
+
+#delete {
+  color:black;
+  font-size: 19px;
+  background-color: #bdedc1;
+  border-color: #bdedc1;
+}
+
+#edit-tenant:hover {
+  color:black;
+  background-color: #e1f5fe;
+  border-color: #e1f5fe;
+}
+
+#edit-tenant {
+  color:black;
+  font-size: 19px;
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 
 #room {
@@ -255,6 +290,8 @@ input {
   color: #868e96;
   text-align: center;
 }
+
+
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2018 at 09:48 PM
+-- Generation Time: Jan 22, 2019 at 12:22 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -37,7 +37,7 @@ CREATE TABLE `admin_tbl` (
   `admin_lname` varchar(64) NOT NULL,
   `admin_new` int(32) UNSIGNED NOT NULL,
   `admin_status` int(32) UNSIGNED NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `admin_empno` int(32) UNSIGNED NOT NULL,
   `admin_cno` varchar(64) NOT NULL,
   `admin_attempts` int(32) DEFAULT '0'
@@ -48,7 +48,7 @@ CREATE TABLE `admin_tbl` (
 --
 
 INSERT INTO `admin_tbl` (`admin_id`, `admin_email`, `admin_password`, `admin_type`, `admin_fname`, `admin_lname`, `admin_new`, `admin_status`, `date_created`, `admin_empno`, `admin_cno`, `admin_attempts`) VALUES
-(1, 'angela@gmail.com', '25d55ad283aa400af464c76d713c07ad', 11111111, 'Angela', 'Santos', 0, 1, '2018-11-28 11:02:24', 2013055998, '09470142216', 0);
+(2, 'thores20182019@gmail.com', '09e7391395c56f591fa3ad9f004c63c9', 11111111, 'Thomasian Residences', 'Management', 0, 1, '2019-01-17 22:10:03', 1, '09999999999', 0);
 
 -- --------------------------------------------------------
 
@@ -75,6 +75,13 @@ CREATE TABLE `ann_tbl` (
   `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `admin_id` int(32) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ann_tbl`
+--
+
+INSERT INTO `ann_tbl` (`ann_id`, `ann_title`, `ann_content`, `date_posted`, `admin_id`) VALUES
+(1, '', 'Paunawa\r\n\r\nDahil sa paghihigpit ng DPS at GARBAGE COLLECTOR, ipinagbabawal na po ang pagtatapon ng mga basura sa likod ng elevator. Kailangan niyo pong ilagay ang tapunan kung ito ay \"NABUBULOK\" at \"HINDI NABUBULOK\". Ito po ay makikita sa pagpasok ng ating building. Maraming salamat!', '2019-01-22 11:22:01', 2);
 
 -- --------------------------------------------------------
 
@@ -119,8 +126,7 @@ CREATE TABLE `contract_tbl` (
 --
 
 INSERT INTO `contract_tbl` (`contract_id`, `contract_start`, `contract_status`, `tenant_id`) VALUES
-(1, '2018-12-01', 1, 1),
-(2, '2019-01-01', 1, 2);
+(4, '2018-09-01', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -139,8 +145,7 @@ CREATE TABLE `dir_tbl` (
 --
 
 INSERT INTO `dir_tbl` (`dir_id`, `tenant_id`, `room_id`) VALUES
-(1, 1, 1),
-(2, 2, 1);
+(4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -160,8 +165,7 @@ CREATE TABLE `father_tbl` (
 --
 
 INSERT INTO `father_tbl` (`father_id`, `father_name`, `father_mno`, `tenant_id`) VALUES
-(1, 'Alex Lopez Santos', '5312373', 1),
-(2, 'Dela Cruz', '5354804', 2);
+(4, 'Virgilio P. Dela Cruz', '09178732927', 4);
 
 -- --------------------------------------------------------
 
@@ -211,8 +215,7 @@ CREATE TABLE `guardian_tbl` (
 --
 
 INSERT INTO `guardian_tbl` (`guardian_id`, `guardian_name`, `guardian_rel`, `guardian_mno`, `guardian_lno`, `guardian_email`, `tenant_id`) VALUES
-(1, 'Alex Lopez Santos', 'Father', '5312373', '5312373', 'alsantos@yahoo.com', 1),
-(2, 'Dela Cruz', 'Father', '5354804', '5354804', 'papa@gmail.com', 2);
+(4, 'Virgilio P. Dela Cruz', 'Father', '09178732927', '', 'ghil_731@gmail.com', 4);
 
 -- --------------------------------------------------------
 
@@ -232,8 +235,7 @@ CREATE TABLE `mother_tbl` (
 --
 
 INSERT INTO `mother_tbl` (`mother_id`, `mother_name`, `mother_mno`, `tenant_id`) VALUES
-(1, 'Maggie A. Santos', '5312373', 1),
-(2, 'Dela Cruz', '5354804', 2);
+(4, 'Ma', '09123456789', 4);
 
 -- --------------------------------------------------------
 
@@ -246,6 +248,7 @@ CREATE TABLE `room_tbl` (
   `room_number` int(32) UNSIGNED NOT NULL,
   `room_tcount` int(32) UNSIGNED NOT NULL,
   `room_price` int(32) UNSIGNED NOT NULL,
+  `room_status` int(32) UNSIGNED NOT NULL,
   `floor_id` int(32) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -253,9 +256,12 @@ CREATE TABLE `room_tbl` (
 -- Dumping data for table `room_tbl`
 --
 
-INSERT INTO `room_tbl` (`room_id`, `room_number`, `room_tcount`, `room_price`, `floor_id`) VALUES
-(1, 301, 4, 14000, 1),
-(2, 312, 4, 14000, 1);
+INSERT INTO `room_tbl` (`room_id`, `room_number`, `room_tcount`, `room_price`, `room_status`, `floor_id`) VALUES
+(1, 301, 4, 14000, 1, 1),
+(2, 302, 4, 14000, 1, 1),
+(3, 303, 4, 14000, 1, 1),
+(4, 304, 4, 14000, 1, 1),
+(5, 305, 4, 14000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -274,7 +280,7 @@ CREATE TABLE `tenant_tbl` (
   `tenant_school` varchar(255) NOT NULL,
   `tenant_course` varchar(64) NOT NULL,
   `tenant_cno` varchar(64) NOT NULL,
-  `tenant_fb` varchar(255) NOT NULL,
+  `tenant_medical` varchar(255) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `tenant_new` int(32) UNSIGNED NOT NULL,
   `tenant_status` int(32) UNSIGNED NOT NULL
@@ -284,9 +290,11 @@ CREATE TABLE `tenant_tbl` (
 -- Dumping data for table `tenant_tbl`
 --
 
-INSERT INTO `tenant_tbl` (`tenant_id`, `tenant_email`, `tenant_password`, `tenant_fname`, `tenant_lname`, `tenant_address`, `tenant_birthday`, `tenant_school`, `tenant_course`, `tenant_cno`, `tenant_fb`, `date_created`, `tenant_new`, `tenant_status`) VALUES
-(1, 'maearon29@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angela Mae', 'Aron', 'Mandaluyong City', '1997-07-29', 'UP', 'BSIT', '09470142217', 'angeLamaesantos', '2018-11-28 03:41:52', 1, 0),
-(2, 'avdelacruz@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Arvin', 'Dela Cruz', 'Fairview, Quezon City', '1999-12-03', 'UST', 'BSIT', '09470142216', 'vindc', '2018-11-28 02:33:19', 1, 1);
+INSERT INTO `tenant_tbl` (`tenant_id`, `tenant_email`, `tenant_password`, `tenant_fname`, `tenant_lname`, `tenant_address`, `tenant_birthday`, `tenant_school`, `tenant_course`, `tenant_cno`, `tenant_medical`, `date_created`, `tenant_new`, `tenant_status`) VALUES
+(1, 'maesantos29@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angela', 'Santos', 'Mandaluyong City', '1997-07-29', 'UST', 'BSIT', '09470142216', 'none', '2018-11-30 07:23:36', 1, 1),
+(2, 'avdelacruz@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Arvin', 'Dela Cruz', 'Fairview QC', '1999-03-15', 'UST', 'BSIT', '09470142216', 'none', '2018-11-30 04:07:21', 1, 1),
+(3, 'dafernandez@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Dave', 'Fernandez', 'San Pedro Laguna', '1999-05-03', 'UST', 'BSIT', '09470142216', 'none', '2018-11-30 04:08:36', 1, 1),
+(4, 'delacruz.arvin04@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Arvin', 'Dela Cruz', 'Block 9 Lot 3, Franchise Street, BIR Village, Fairview, Quezon City', '1999-03-15', 'UST', 'BSIT', '09954036824', '', '2018-11-30 09:58:59', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -310,10 +318,25 @@ CREATE TABLE `trans_tbl` (
 CREATE TABLE `vlogs_tbl` (
   `vlogs_id` int(32) UNSIGNED NOT NULL,
   `vlogs_name` varchar(64) NOT NULL,
-  `vlogs_in` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `vlogs_relation` varchar(64) NOT NULL,
+  `vlogs_purpose` varchar(64) NOT NULL,
+  `vlogs_id_presented` varchar(64) NOT NULL,
+  `vlogs_in` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `vlogs_out` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `tenant_id` int(32) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vlogs_tbl`
+--
+
+INSERT INTO `vlogs_tbl` (`vlogs_id`, `vlogs_name`, `vlogs_relation`, `vlogs_purpose`, `vlogs_id_presented`, `vlogs_in`, `vlogs_out`, `tenant_id`) VALUES
+(1, 'Dave', 'Blockmate', 'Thesis', 'School ID', '2019-01-18 12:53:11', '2019-01-18 12:53:14', 4),
+(2, 'Angela Mae Santos', 'Friend', 'Makiki CR', 'School ID', '2019-01-18 13:17:47', '2019-01-22 10:08:29', 4),
+(3, 'Francis Gella', 'Blockmate', 'Thesis Meeting', 'School ID', '2019-01-22 08:35:24', '2019-01-22 09:05:15', 4),
+(4, 'Mark Bustos', 'Friend', 'Dinner', 'School ID', '2019-01-22 09:58:07', '2019-01-22 10:00:22', 4),
+(5, 'Alwyn Santos', 'Friend', 'Dinner', 'School ID', '2019-01-22 10:03:44', '0000-00-00 00:00:00', 4),
+(6, 'Andrea Mateo', 'Friend', 'Dinner', 'School ID', '2019-01-22 10:05:56', '2019-01-22 10:08:37', 4);
 
 --
 -- Indexes for dumped tables
@@ -430,7 +453,7 @@ ALTER TABLE `vlogs_tbl`
 -- AUTO_INCREMENT for table `admin_tbl`
 --
 ALTER TABLE `admin_tbl`
-  MODIFY `admin_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `annfile_tbl`
@@ -442,7 +465,7 @@ ALTER TABLE `annfile_tbl`
 -- AUTO_INCREMENT for table `ann_tbl`
 --
 ALTER TABLE `ann_tbl`
-  MODIFY `ann_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ann_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bill_tbl`
@@ -460,19 +483,19 @@ ALTER TABLE `btype_tbl`
 -- AUTO_INCREMENT for table `contract_tbl`
 --
 ALTER TABLE `contract_tbl`
-  MODIFY `contract_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `contract_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `dir_tbl`
 --
 ALTER TABLE `dir_tbl`
-  MODIFY `dir_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `dir_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `father_tbl`
 --
 ALTER TABLE `father_tbl`
-  MODIFY `father_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `father_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `floor_tbl`
@@ -484,25 +507,25 @@ ALTER TABLE `floor_tbl`
 -- AUTO_INCREMENT for table `guardian_tbl`
 --
 ALTER TABLE `guardian_tbl`
-  MODIFY `guardian_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `guardian_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `mother_tbl`
 --
 ALTER TABLE `mother_tbl`
-  MODIFY `mother_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `mother_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `room_tbl`
 --
 ALTER TABLE `room_tbl`
-  MODIFY `room_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `room_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tenant_tbl`
 --
 ALTER TABLE `tenant_tbl`
-  MODIFY `tenant_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `tenant_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `trans_tbl`
@@ -514,7 +537,7 @@ ALTER TABLE `trans_tbl`
 -- AUTO_INCREMENT for table `vlogs_tbl`
 --
 ALTER TABLE `vlogs_tbl`
-  MODIFY `vlogs_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `vlogs_id` int(32) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

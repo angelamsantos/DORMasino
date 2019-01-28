@@ -4,11 +4,29 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class announcements_model extends CI_Model { 
 
-    public function get_ann() {
-       
-        $query = $this->db->get('ann_tbl');
-       // print_r($query);
+    public function record_count() {
+
+        $query = $this->db->count_all('ann_tbl');
         return $query;
+    }    
+
+    public function get_ann($limit, $start) {
+       
+        $this->db->limit($limit, $start);
+
+        $this->db->from('ann_tbl');
+        $this->db->order_by('date_posted', 'desc');
+        $query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+
+            foreach ($query->result() as $row) {
+
+                $data[] = $row;
+
+            } return $data;
+
+        } return false;
         
     }
 
