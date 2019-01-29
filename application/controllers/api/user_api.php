@@ -29,14 +29,25 @@ require APPPATH . 'libraries/Format.php';
 
             
             
-            if($user){
+            if($details){
                 // Set the response and exit
                 $this->response([
                     'status' => TRUE,
-                    'message' => 'User login successful.',
-                    'data' => $details
+                    'message' => 'User login successful.'
+                    
                 ], REST_Controller::HTTP_OK);
-            }else{
+
+            }else if($details==null){
+                $this->response([
+                    'status' => TRUE,
+                    'message' => 'Login Failed. Please Try Again.'
+                    
+                ], REST_Controller::HTTP_OK);
+
+            }
+            
+            
+            else{
                 // Set the response and exit
                 $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
             }
@@ -44,6 +55,12 @@ require APPPATH . 'libraries/Format.php';
         
         
             
+        }else{
+            $this->response([
+                'status' => TRUE,
+                'message' => 'Login Failed. Please Try Again.'
+                
+            ], REST_Controller::HTTP_OK);
         }
     }
 }
