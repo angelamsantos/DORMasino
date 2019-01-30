@@ -21,10 +21,8 @@ class logs_model extends CI_Model {
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
     
-		//$this->db->where('taskassigned_tbl.u_id',$u_id);
 		$query = $this->db->get();
 		return $query;
-
 
     }
 
@@ -44,6 +42,28 @@ class logs_model extends CI_Model {
         $query = $this->db->get();
 		return $query;
 
+    }
+
+    public function fetch_tenant($room_id) {
+
+        $this->db->from('dir_tbl');
+		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+        $this->db->where('room_tbl.room_id', $room_id);
+        $query = $this->db->get();
+        
+
+
+        $output = '<option value="">Select Tenant</option>';
+
+            foreach ($query->result() as $row1) {
+
+                $output .= '<option value="'.$row1->tenant_id.'">'. $row1->tenant_fname.' '. $row1->tenant_lname .'</option>';
+
+            } 
+
+            $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
+            return $output;
     }
 
     public function update_out($vlogs_in) {

@@ -42,10 +42,15 @@
                                     <input type="text" class="form-control" name="title" placeholder="Title" style="font-size: 14px;" required><br>
                                     <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;" required></textarea>
                                     <div class="form-row" style="margin: 0px;">
-                                        <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;"><button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;"
-                                                title="Attach Image" data-toggle="modal" data-target="#AddUser"><i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;</button><button class="btn btn-primary d-xl-flex justify-content-xl-end"
-                                                type="button" id="attach" style="padding-bottom: 0px;padding-top: 7px;padding-right: 3px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;"
-                                                title="Attach File" data-toggle="modal" data-target="#AddUser"><i class="material-icons" style="font-size: 17px;color: #555555;">attach_file</i>&nbsp;</button></div>
+                                        <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
+                                            <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
+                                            <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;</button>
+                                            
+                                            <input type="file" accept="image/*" #file style="display: none" <p> asda </p>/>
+
+                                            <!-- <button class="btn btn-primary d-xl-flex justify-content-xl-end" type="button" id="attach" style="padding-bottom: 0px;padding-top: 7px;padding-right: 3px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach File"> -->
+                                            <!-- <i class="material-icons" style="font-size: 17px;color: #555555;">attach_file</i>&nbsp;</button> -->
+                                        </div>
                                     </div>
                                     <div class="form-row" style="margin: 0px;">
                                         <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;"><button class="btn btn-primary" type="submit" id="publish" style="font-size: 14px;">Publish</button></div>

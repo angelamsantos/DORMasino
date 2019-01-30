@@ -2,6 +2,12 @@
 
 class Logs extends CI_Controller {
 
+    public function __construct() {
+        parent:: __construct();
+        $this->load->helper('url');
+        $this->load->model('logs_model');
+    }
+
     public function validate_login() {
 
         $login = $this->session->userdata('login_success');
@@ -12,8 +18,7 @@ class Logs extends CI_Controller {
     }
 
     public function index() {
-        
-        $this->load->model('logs_model');
+          
         $this->validate_login();
         $data['vlogs']=$this->logs_model->get_vlogs();
         $data['floor']=$this->logs_model->get_floor();
@@ -25,10 +30,20 @@ class Logs extends CI_Controller {
         
     }
 
-    public function process() {
-        $this->load->model('logs_model');
+    public function fetch_tenant() {
 
-        $tenant_id = $this->input->post('tenant');
+        $room_id = $this->input->post('room_id');
+
+        if($room_id) {
+
+            echo $this->logs_model->fetch_tenant($room_id);
+
+        }
+    }
+
+    public function process() {
+
+        $tenant_id = $this->session->userdata['tenant_id'];
 
         $data = array(
             'vlogs_name' => $this->input->post('vlogs_name'),
