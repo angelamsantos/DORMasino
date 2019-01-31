@@ -105,38 +105,70 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Floor</label></div>
                                             <div class="col">
-                                                <select class="form-control d-xl-flex" name="arFloor" placeholder="Select region" id="region">
+                                                <!-- <select class="form-control d-xl-flex" name="arFloor" placeholder="Select region" id="region">
                                                     <option selected="Select floor number" disabled>Select floor number</option>
-                                                    <?php foreach($dir->result() as $arFloor) { 
-                                                            echo "<option value='" . $arFloor->floor_id ."'>". $arFloor->floor_number;
-                                                            echo "</option>";
-                                                     } ?>
+                                                    <?php 
+                                                        // foreach($dir->result() as $arFloor) { 
+                                                        //     echo "<option value='" . $arFloor->floor_id ."'>". $arFloor->floor_number;
+                                                        //     echo "</option>";
+                                                        // } 
+                                                     ?>
+                                                </select> -->
+
+                                                <select name="floor_id" id="sel_floor" class="form-control d-xl-flex" required>
+
+                                                    <option value="">Select Floor</option>
+                                                    <?php
+
+                                                        foreach ($floor->result() as $row4) {
+
+                                                            echo '<option value="'. $row4->floor_id .'"> '. $row4->floor_number .' </option>';
+                                                            
+                                                        }
+
+                                                    ?>
+
                                                 </select>
                                             </div>
-                                           
                                             </div>
                                     </div>
                                     <?php 
-                                    // $a = 0;
-                                    // foreach($room->result() as $row5) {
-                                    //     if($row5->floor_id ==  $row4->floor_id) {
-                                    //         $a = $room->last_row();
-                                    //     }
-                                    // } ?>
+                                        $a = 0;
+                                            foreach($room->result() as $row5) {
+
+                                                if($row5->floor_id == $row4->floor_id) {
+                                                    $a = $room->last_row();
+
+                                                }
+                                            } 
+                                    ?>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                            <div class="col"><input name="arRoomNo" class="form-control d-xl-flex" placeholder="Enter room number" type="text" value="<?php 
-                                            // if(empty($a->room_number)) {
-                                            //     echo ($row4->floor_number) * 100 + 1 ;
-                                            // } else {
-                                            //     if(($a->room_number - ($row4->floor_number * 100))  == 12) {
-                                            //         echo ($a->room_number) + 2 ; 
-                                            //     } else {
-                                            //         echo ($a->room_number) + 1 ; 
-                                            //     }
-                                            // }
-                                            ?>" ></div>
+                                            <div class="col"><input name="arRoomNo" id="sel_room" class="form-control d-xl-flex" placeholder="Room number" type="text" value="
+                                            <?php 
+
+                                                // if(empty($a->room_number)) {
+
+                                                //     echo ($row4->floor_number) * 100 + 1 ;
+
+                                                // } else {
+
+                                                //     if (($a->room_number - ($row4->floor_number * 100))  == 12) {
+
+                                                //         echo ($a->room_number) + 2 ; 
+
+                                                //     } else {
+
+                                                //         echo ($a->room_number) + 1 ; 
+
+                                                //     }
+                                                // }
+                                                
+                                            ?>
+                                            " disabled />
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -148,12 +180,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="text" placeholder="Enter number of people"></div>
+                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="text" placeholder="Enter number of people" min="3"></div>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -249,6 +281,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('#sel_floor').change(function(){
+                var floor_id = $('#sel_floor').val();
+             
+                if(floor_id != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Directories/fetch_room",
+                        method:"POST",
+                        data:{floor_id:floor_id},
+                        success:function(data) {
+                        $('#sel_room').html(data);
+                        }
+                    });
+                } else {
+                    $('#sel_room').val('Room Number');
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>

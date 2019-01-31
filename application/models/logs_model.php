@@ -17,6 +17,7 @@ class logs_model extends CI_Model {
     }
 
     public function get_dir () {
+
 		$this->db->from('dir_tbl');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
@@ -35,6 +36,7 @@ class logs_model extends CI_Model {
     public function get_vlogs() {
 
         $this->db->from('vlogs_tbl');
+        $this->db->order_by('vlogs_id', 'desc');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=vlogs_tbl.tenant_id', 'LEFT');
         $this->db->join('dir_tbl','dir_tbl.tenant_id=vlogs_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
@@ -66,34 +68,18 @@ class logs_model extends CI_Model {
             return $output;
     }
 
-    public function update_out($vlogs_in) {
+    public function update_out($id) {
         
         date_default_timezone_set("Asia/Manila");
         $date = date('Y-m-d H:i:s');
         
-        $this->db->set('vlogs_out', $date);
-        $this->db->where('vlogs_in', $vlogs_in);
-        $this->db->update('vlogs_tbl');
-
-        unset($row2);
+        $value = array('vlogs_out'=>$date);
+        $this->db->where('vlogs_id', $id);
+        $this->db->update('vlogs_tbl', $value);
+        
+        // print($id);
 
     }
-
-    // public function get_dir ($room_id) {
-       
-	//     $this->db->from('dir_tbl');
-	//     $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-    //     $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
-
-    //     $this->db->where('dir_tbl.room_id', $room_id);
-    //     $query = $this->db->get();
-    //     $output = '<option value="">Select Tenant</option>';
-    //     foreach($query->result() as $row) {
-
-    //         $output.= '<option value="'.$row->tenant_id.'">'.$row->tenant_fname.'</option>';
-
-    //     } return $output;
-    // }
 
 }
 ?>

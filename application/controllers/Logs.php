@@ -63,40 +63,19 @@ class Logs extends CI_Controller {
     }
 
     public function out() {
-        $this->load->model('logs_model');
 
-        $vlogs_in = $this->input->post('vlogs_in');
-        $this->logs_model->update_out($vlogs_in);
+        unset($row2);
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Visitor timed out!</center></div>';
-        $this->session->set_flashdata('msg', $msg);
+        $id = $this->input->post('name_id');
+        $this->logs_model->update_out($id);
 
-        redirect('Logs/index');
+        print($id);
+
+        // $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Visitor timed out!</center></div>';
+        // $this->session->set_flashdata('msg', $msg);
+
+        // redirect('Logs/index');
 
     }
-
-    // public function get_tenant() {
-
-    //     $room_id = $this->input->post('room_id');
-
-    //     if($room_id) {
-
-    //         echo $this->logs_model->get_dir($room_id);
-
-    //     }
-
-    // }
-
-    // public function process($room_id) {
-
-    //     $this->db->from('dir_tbl');
-	//     $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-    //     $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
-
-    //     $result = $this->db->where('dir_tbl.room_id', $room_id)->get()->result();
-    //     echo json_encode($result);
-
-    // }
-
 }
 ?>
