@@ -54,6 +54,30 @@ class Directories extends CI_Controller{
         redirect('Directories/index');
     }
 
+    public function mr_tenant() {
+        $tenant_id = $this->input->post('mr_tenantid');
+        $this->directories_model->mr_tenant($tenant_id);
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully moved a tenant!</div>      ';
+        $this->session->set_flashdata('message', $msg);
+        redirect('Directories/index');
+    }
+
+    public function cc_tenant() {
+        $tenant_id = $this->input->post('cc_tenantid');
+        $this->directories_model->cc_tenant($tenant_id);
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully changed a tenant\'s contract!</div>      ';
+        $this->session->set_flashdata('message', $msg);
+        redirect('Directories/index');
+    }
+
+    public function rp_tenant() {
+        $tenant_id = $this->input->post('rp_tenantid');
+        $this->directories_model->rp_tenant($tenant_id);
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully reset tenant\'s password!</div>      ';
+        $this->session->set_flashdata('message', $msg);
+        redirect('Directories/index');
+    }
+
     public function deactivate_tenant() {
         $tenant_id = $this->input->post('dtenant_id');
         $this->directories_model->deactivate_tenant($tenant_id);

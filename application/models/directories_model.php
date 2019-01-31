@@ -138,7 +138,6 @@ class directories_model extends CI_Model {
             'tenant_school' => $this->input->post('etenant_school'),
             'tenant_course' => $this->input->post('etenant_course'),
             'tenant_cno' => $this->input->post('etenant_cno'),
-            'tenant_fb' => $this->input->post('etenant_fb'),
         );
 
         $this->db->where('tenant_id', $tenant_id);
@@ -170,18 +169,41 @@ class directories_model extends CI_Model {
         $this->db->where('tenant_id', $tenant_id);
         $this->db->update('father_tbl', $data4);
 
+        // $data5 = array(
+        //     'room_id' => $this->input->post('etroom_number'),
+        // );
+        // $this->db->where('tenant_id', $tenant_id);
+        // $this->db->update('dir_tbl', $data5);
+
+        // $data6 = array(
+        //     'contract_start' => $this->input->post('econtract_start'),
+        // );
+
+        // $this->db->where('tenant_id', $tenant_id);
+        // $this->db->update('contract_tbl', $data6);
+    }
+    public function mr_tenant($tenant_id) {
         $data5 = array(
-            'room_id' => $this->input->post('etroom_number'),
+            'room_id' => $this->input->post('mr_roomno'),
         );
-        $this->db->where('tenant_id', $tenant_id);
-        $this->db->update('dir_tbl', $data5);
+            $this->db->where('tenant_id', $tenant_id);
+            $this->db->update('dir_tbl', $data5);
+    }
 
-        $data6 = array(
-            'contract_start' => $this->input->post('econtract_start'),
+    public function cc_tenant($tenant_id) {
+        $data5 = array(
+            'contract_start' => $this->input->post('cc_date'),
         );
+            $this->db->where('tenant_id', $tenant_id);
+            $this->db->update('contract_tbl', $data5);
+    }
 
-        $this->db->where('tenant_id', $tenant_id);
-        $this->db->update('contract_tbl', $data6);
+    public function rp_tenant($tenant_id) {
+        $data5 = array(
+            'tenant_password' => md5($this->input->post('rp_pw')),
+        );
+            $this->db->where('tenant_id', $tenant_id);
+            $this->db->update('tenant_tbl', $data5);
     }
 
     public function deactivate_tenant($tenant_id) {
