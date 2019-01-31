@@ -400,5 +400,10 @@ January 25, 2019, 2:31pm: thores20182019@gmail.com failed to log in to the syste
 January 25, 2019, 3:02pm: thores20182019@gmail.com successfully logged in to the system.
 >>>>>>> d9e26fb809635128f718beea2bfea0ca5c30ea4d
 >>>>>>> e2a60013cf4cdc999e334ba1926ee4b3045be3ab
+<<<<<<< HEAD
 January 30, 2019, 1:45pm: thores20182019@gmail.com successfully logged in to the system.
 January 31, 2019, 5:12pm: thores20182019@gmail.com successfully logged in to the system.
+=======
+January 28, 2019, 4:05pm: angela@gmail.com successfully logged in to the system.
+January 28, 2019, 4:07pm: angela@gmail.com successfully logged in to the system.
+>>>>>>> e54023e6635f528a22ab66629df1b66a89ca4721
