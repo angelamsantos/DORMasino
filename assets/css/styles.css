@@ -178,13 +178,13 @@ a:hover {
   border-color: #ffffff;
 }
 
-#modal-tenant:hover {
+.modal-tenant:hover {
   color:blue;
   background-color: #e1f5fe;
   border-color: #e1f5fe;
 }
 
-#modal-tenant {
+.modal-tenant {
   color:blue;
   font-size: 19px;
   background-color: #bdedc1;

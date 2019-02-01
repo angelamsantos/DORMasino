@@ -10,6 +10,7 @@
 }
 </style>
 <script>
+    
     function agree() {
         var x = document.getElementById("Terms");
         var y = document.getElementById("form_adduser");
@@ -20,31 +21,34 @@
         } 
     }
 
-    function edit() {
-        var x = document.getElementById("tenantInfo");
-        var y = document.getElementById("editTenant");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            
-            x.style.display = "none";
-        } else if (x.style.display === "none") {
-            x.style.display = "block";
-            
-            y.style.display = "none";
-        } 
-    }
+    $(document).ready(function(){
 
-    // function cancel() {
-    //     var y = document.getElementById("tenantInfo");
-    //     var x = document.getElementById("editTenant");
-    //     if (y.style.display === "none") {
-    //         y.style.display = "block";
+            <?php foreach($dir->result() as $edit) { ?>
+            $('#tenantInfo<?php echo $edit->dir_id; ?>').show();
+            $('#editTenant<?php echo $edit->dir_id; ?>').hide();
+            $('#cancelEdit<?php echo $edit->dir_id; ?>').click(function(){
+                    $('#tenantInfo<?php echo $edit->dir_id; ?>').show();
+                    $('#editTenant<?php echo $edit->dir_id; ?>').hide();
             
-    //         x.style.display = "none";
-    //     } 
-    // }
-   
+            });
+            $('#toggleEdit<?php echo $edit->dir_id; ?>').click(function(){
+                    $('#tenantInfo<?php echo $edit->dir_id; ?>').hide();
+                    $('#editTenant<?php echo $edit->dir_id; ?>').show();
+            
+            });
 
+            
+            <?php } ?>
+
+            $(function() {
+                $('.chk_boxes').click(function() {
+                    $('.chk_boxes1').prop('checked', this.checked);
+                });
+            });
+    
+        });
+
+    
 </script>
         <div class="page-content-wrapper">
             <div class="container-fluid">
@@ -68,17 +72,20 @@
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     
                     <div id="table_view" class="table-responsive" style="width:100%; ">
+                    <form action="" method="POST" >
                         <table class="table" id="example" style="font-size:14px;" style="text-align:center">
                             <thead class="logs">
                                 <tr style="text-align:center">
                                     <th style="text-align:left;width: 5%;padding-right:0px;">
+                                    
                                     <div class="form-check-inline" style="margin-right:0px">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="" style="margin-right:0px">
-                                            <button class="btn btn-primary" type="submit" id="delete" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px"
-                                                title="Delete Tenant/s" ><i class="icon ion-trash-b" style="font-size:19px;"></i></button>
+                                            <input type="checkbox" class="chk_boxes" value="" style="margin-right:0px">
+                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px"
+                                                title="Delete Tenant/s"></button>
                                         </label>
                                     </div>
+                                    
                                     </th>
                                     <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Name of Tenant</th>
@@ -101,12 +108,14 @@
                                         <td style="text-align:left">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" value="" style="margin-right:0px">
+                                                <input type="checkbox" class="chk_boxes1" name="delete_arr[]" value="<?php echo $tenant->dir_id; ?>" style="margin-right:0px">
                                             </label>
                                         </div>
+
                                         </td>
+                                        
                                         <td><?php echo $tenant->room_number; ?></td>
-                                        <td><a class="info" title="Click to show tenant information" href="#TenantInfo<?php echo $tenant->dir_id; ?>" data-toggle="modal" data-target="#TenantInfo<?php echo $tenant->dir_id; ?>"><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></a></td>
+                                        <td><a style="color:#0645AD ;" class="info" title="Click to show tenant information" href="#TenantInfo<?php echo $tenant->dir_id; ?>" data-toggle="modal" data-target="#TenantInfo<?php echo $tenant->dir_id; ?>"><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></a></td>
                                         <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
                                         <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
                                              <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
@@ -144,9 +153,28 @@
                                     </tr>
                                 <?php } ?>
                                 
-                                
                             </tbody>
                         </table>
+                    </form>
+                    <?php 
+
+                                    if(isset($_POST['delete'])){//to run PHP script on submit
+                                        if(!empty($_POST['delete_arr'])){
+                                            $delete_count = count($_POST['delete_arr']);
+                                        
+                                            foreach($_POST['delete_arr'] as $selected){
+                                                $deleteArr[] = $selected;
+                                            }
+
+                                            echo "<script>
+                                                $(document).ready(function(){
+                                                    $('#ModalDeac').modal('show');
+                                                });
+                                            </script>";
+                                        }
+                                    }
+
+                                    ?>
                     </div>
                 </div>
                 
@@ -158,10 +186,10 @@
             foreach($dir->result() as $tenantInfo){ ?>
             <div class="modal fade" role="dialog" tabindex="-1" id="TenantInfo<?php echo $tenantInfo->dir_id; ?>">
                 <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content" id="tenantInfo" style="display:block;">
+                    <div class="modal-content" id="tenantInfo<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Tenant Information</h4>
-                            <button onclick="edit()" title="Edit Information" id="modal-tenant"  id="toggleEdit" class="btn btn-primary ml-auto" style="border-radius:100px;padding:0px 8px;margin-right:0px">
+                            <button title="Edit Information"  id="toggleEdit<?php echo $tenantInfo->dir_id; ?>" class="modal-tenant btn btn-primary ml-auto" style="border-radius:100px;padding:0px 8px;margin-right:0px">
                             <i class="fa fa-edit" style="font-size:16px;font-color:blue"></i>
                             </button> 
                         </div>
@@ -303,10 +331,10 @@
                         <div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal" style="background-color: #bdedc1;color: #11334f;border: none;" >Close</button></div>
                         </form>
                     </div>
-                    <div class="modal-content" id="editTenant" style="display:none;">
+                    <div class="modal-content" id="editTenant<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Edit Tenant Information</h4>
-                            <button onclick="edit()" id="cancelEdit" class="ml-auto" style="border:none;background-color:transparent;font-size:14px;color:red">
+                            <button onclick="edit()" id="cancelEdit<?php echo $tenantInfo->dir_id; ?>" class="ml-auto" style="border:none;background-color:transparent;font-size:14px;color:red">
                                 Cancel Edit
                             </button>
                         </div>
@@ -334,7 +362,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
-                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text" placeholder="<?php echo $tenantInfo->tenant_address; ?>" required></textarea></div>
+                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text"  required><?php echo $tenantInfo->tenant_address; ?></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -440,7 +468,7 @@
                 foreach ($dir->result() as $moveRoom)  
                 {  
             ?>
-            <div id="MoveRoom<?php echo $moveRoom->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">
+            <div id="MoveRoom<?php echo $moveRoom->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">5
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
@@ -539,28 +567,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
-            <?php  
-                }
-                foreach ($dir->result() as $deac)  
-                {  
-            ?>
-                <div id="ModalDeac<?php echo $deac->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                <h4 class="modal-title" style="color: #11334f;">Deactivate User</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                            
-                            <form method="POST" name="deactivate_tenant" action="<?php echo site_url('Directories/deactivate_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
-                            <div class="modal-body text-center">
-                                    <p style="font-size: 17px;">Are you sure you want to deactivate tenant <?php echo $deac->tenant_fname." ".$deac->tenant_lname; ?>?</p>
-                                    <input type="hidden" name="dtenant_id" value="<?php echo $deac->tenant_id; ?>" >
-                                </div>
-                                <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                </div>                
             <?php }  
                 
                 foreach ($dir->result() as $activate)  
@@ -584,6 +591,28 @@
                 </div>
             <?php }  ?>
 
+            <!----MODAL DEACTIVATE-->
+            <div id="ModalDeac" class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                            <h4 class="modal-title" style="color: #11334f;">Deactivate User</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        
+                        <form method="POST" name="deactivate_tenant" action="<?php echo site_url('Directories/deactivate_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                        <div class="modal-body text-center">
+                                <?php if ($delete_count > 1 ) { ?>
+                                <p style="font-size: 17px;">Are you sure you want to deactivate <?php echo $delete_count; ?> tenants?</p>
+                                <?php } else { ?>
+                                    <p style="font-size: 17px;">Are you sure you want to deactivate <?php echo $delete_count; ?> tenant?</p>
+                                <?php } ?>
+                                <input type="hidden" name="dtenant_id" value="<?php echo $deleteArr; ?>" >
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!----END MODAL DEACTIVATE-->
             
             <!-- Modal Add User -->
             <div class="modal fade" role="dialog" tabindex="-1" id="AddUser">
@@ -781,7 +810,9 @@
                 maxItems: 1
             });
             <?php } ?>
+
             
+    
         });
     </script>
 </body>
