@@ -16,6 +16,8 @@ class announcements_model extends CI_Model {
 
         $this->db->from('ann_tbl');
         $this->db->order_by('date_posted', 'desc');
+        $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');
+
         $query = $this->db->get();
         
         if ($query->num_rows() > 0) {

@@ -51,7 +51,6 @@ November 27, 2018, 11:14pm: delacruz.arvin04@gmail.com successfully changed thei
 November 27, 2018, 11:16pm: delacruz.arvin04@gmail.com successfully changed their password.
 November 27, 2018, 11:34pm: delacruz.arvin04@gmail.com successfully changed their password.
 November 27, 2018, 11:55pm: delacruz.arvin04@gmail.com successfully changed their password.
-<<<<<<< HEAD
 November 28, 2018, 10:45am: delacruz.arvin04@gmail.com failed to change their email address.
 November 28, 2018, 10:45am: delacruz.arvin04@gmail.com successfully changed their email address.
 November 28, 2018, 10:46am: delacruz.arvin@gmail.com successfully changed their email address.
@@ -87,9 +86,7 @@ November 29, 2018, 1:16am: delacruz.arvin04@gmail.com successfully changed their
 November 29, 2018, 1:19am: delacruz.arvin@gmail.com successfully changed their email address.
 November 29, 2018, 1:21am: delacruz.arvin04@gmail.com successfully changed their email address.
 November 29, 2018, 1:38am: delacruz.arvin@gmail.com successfully changed their email address.
-=======
 November 28, 2018, 7:02pm: angela@gmail.com successfully changed their password.
->>>>>>> 3176135fd0d6327c88072e4adcf5a6ab75b8c783
 November 30, 2018, 5:02pm: delacruz.arvin04@gmail.com successfully changed their password.
 November 30, 2018, 5:45pm: thores20182019@gmail.com successfully changed their password.
 December 1, 2018, 1:40am: thores20182019@gmail.com failed to change their email address.

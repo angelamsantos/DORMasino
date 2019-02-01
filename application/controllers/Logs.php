@@ -2,6 +2,12 @@
 
 class Logs extends CI_Controller {
 
+    public function __construct() {
+        parent:: __construct();
+        $this->load->helper('url');
+        $this->load->model('logs_model');
+    }
+
     public function validate_login() {
 
         $login = $this->session->userdata('login_success');
@@ -12,8 +18,7 @@ class Logs extends CI_Controller {
     }
 
     public function index() {
-        
-        $this->load->model('logs_model');
+          
         $this->validate_login();
         $data['vlogs']=$this->logs_model->get_vlogs();
         $data['floor']=$this->logs_model->get_floor();
@@ -25,10 +30,20 @@ class Logs extends CI_Controller {
         
     }
 
-    public function process() {
-        $this->load->model('logs_model');
+    public function fetch_tenant() {
 
-        $tenant_id = $this->input->post('tenant');
+        $room_id = $this->input->post('room_id');
+
+        if($room_id) {
+
+            echo $this->logs_model->fetch_tenant($room_id);
+
+        }
+    }
+
+    public function process() {
+
+        $tenant_id = $this->session->userdata['tenant_id'];
 
         $data = array(
             'vlogs_name' => $this->input->post('vlogs_name'),
@@ -40,7 +55,7 @@ class Logs extends CI_Controller {
 
         $this->logs_model->record_visitor($data);
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px;"><center>Visitor successfully recorded!</center></div>';
+        $msg = '<div class="alert alert-success d-md-flex align-items-md-center" style="font-size:15px;height:35px;margin:0px;"><center>Visitor successfully recorded!</center></div>';
         $this->session->set_flashdata('msg', $msg);
 
         redirect('Logs/index');
@@ -48,10 +63,8 @@ class Logs extends CI_Controller {
     }
 
     public function out() {
-        $this->load->model('logs_model');
 
-        $vlogs_in = $this->input->post('vlogs_in');
-        $this->logs_model->update_out($vlogs_in);
+        $id = $this->input->post('name_id');
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Visitor timed out!</center></div>';
         $this->session->set_flashdata('msg', $msg);
@@ -59,29 +72,5 @@ class Logs extends CI_Controller {
         redirect('Logs/index');
 
     }
-
-    // public function get_tenant() {
-
-    //     $room_id = $this->input->post('room_id');
-
-    //     if($room_id) {
-
-    //         echo $this->logs_model->get_dir($room_id);
-
-    //     }
-
-    // }
-
-    // public function process($room_id) {
-
-    //     $this->db->from('dir_tbl');
-	//     $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-    //     $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
-
-    //     $result = $this->db->where('dir_tbl.room_id', $room_id)->get()->result();
-    //     echo json_encode($result);
-
-    // }
-
 }
 ?>

@@ -21,15 +21,14 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
-    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            $('#table_id').dataTable();
+            $('#table_id').dataTable( {
+                "ordering": false
+            });
         });
-        $('#table_id').dataTable( {
-            responsive: true
-        } );
         $(document).ready( function() {
             $('.main_menu').click(function(){
                 $(this).next().toggleClass('display_block');
@@ -62,15 +61,15 @@
                     <table class="table" id="table_id" style="text-align:center">
                         <thead class="logs">
                             <tr>
-                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Date</th>
-                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
-                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">Name of Visitor</th>
+                                <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Date</th>
+                                <th style="width: 8%;padding-right: 0px;padding-left: 0px;">Room</th>
+                                <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Person to Visit</th>
+                                <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Name of Visitor</th>
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Relation</th>
-                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">Purpose</th>
-                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">ID Presented</th>
-                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Time In</th>
-                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Time Out</th>
+                                <th style="width: 11%;padding-right: 0px;padding-left: 0px;">Purpose</th>
+                                <th style="width: 12%;padding-right: 0px;padding-left: 0px;">ID Presented</th>
+                                <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Time In</th>
+                                <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Time Out</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,16 +89,18 @@
                                     echo "<td>". $row2->vlogs_relation ."</td>";
                                     echo "<td>". $row2->vlogs_purpose ."</td>";
                                     echo "<td>". $row2->vlogs_id_presented ."</td>";
-                                    echo "<td id='vlogs_in'>". $intime ."<input type='hidden' name='vlogs_in' value='$row2->vlogs_in'></td>";
+                                    echo "<td>". $intime ."</td>";
                                     
-                                    if($row2->vlogs_out == "0000-00-00 00:00:00") {
+                                    $time_out = $row2->vlogs_out;
+                                    $id = $row2->vlogs_id;
 
-                                        $out='<button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out</button>';
+                                    if ($time_out != "0000-00-00 00:00:00") {
 
+                                        $out=date("g:ia", strtotime($time_out));
+                                        
                                     } else {
 
-                                        $time_out = $row2->vlogs_out;
-                                        $out=date("g:ia", strtotime($time_out));
+                                        $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" value='.$id.' name="name_id" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out'.$id.'</button>';
 
                                     }
 
@@ -125,13 +126,13 @@
             <div class="modal-content">
                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                     <h4 class="modal-title">Visitor Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                <div class="modal-body">
                     <form method="post" action="<?php echo site_url('Logs/process'); ?>">
+                <div class="modal-body">
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Number</label></div>
                                 <div class="col">
-                                <select class="form-control input-lg" name="room">
+                                <select name="room_id" id="sel_room" class="form-control d-xl-flex" required>
                                 <option value="">Select Room</option>
                                 <?php
 
@@ -150,17 +151,8 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Person to visit</label></div>
                                 <div class="col">
-                                <select class="form-control input-lg" name="tenant">
+                                <select name="sel_tenant" id="sel_tenant" class="form-control d-xl-flex" required>
                                 <option value="">Select Tenant</option>
-                                <?php
-
-                                    foreach ($dir->result() as $row1) {
-
-                                        echo '<option value="'. $row1->tenant_id .'"> '. $row1->tenant_fname .' </option>';
-                                        
-                                    }
-
-                                ?>
                                 </select>
                                 </div>
                             </div>
@@ -168,66 +160,30 @@
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Name of visitor</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_name" placeholder="Enter name of visitor"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_name" placeholder="Enter name of visitor" required></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Relation</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_relation" placeholder="Enter relation to tenant"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_relation" placeholder="Enter relation to tenant" required></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Purpose</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_purpose" placeholder="Enter purpose of visit"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_purpose" placeholder="Enter purpose of visit" required></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">ID Presented</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_id_presented" placeholder="Enter ID presented"></div>
+                                <div class="col"><input class="form-control" type="text" name="vlogs_id_presented" placeholder="Enter ID presented" required></div>
                             </div>
                         </div>
                 </div>
                 <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;border: none;color: #11334f;">Time-in</button></div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="ModalOut">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="height: 64px;background-color: #bdedc1;">
-                    <h4 class="modal-title">Visit Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <div class="form-row" style="margin: 0px;">
-                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Room Number</label></div>
-                                <div class="col">
-                                <select class="form-control">
-                                <optgroup label="This is a group">
-                                </optgroup>
-                                </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row" style="margin: 0px;">
-                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Person to visit</label></div>
-                                <div class="col"><select class="form-control"><optgroup label="This is a group"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></optgroup></select></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row" style="margin: 0px;">
-                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Name of visitor</label></div>
-                                <div class="col"><input class="form-control" type="text"></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-primary" type="button">Time-out</button></div>
             </div>
         </div>
     </div>
@@ -240,20 +196,20 @@
     <script>
 
         $(document).ready(function(){
-            $('#room').change(function(){
-                var room_id = $('#room').val();
+            $('#sel_room').change(function(){
+                var room_id = $('#sel_room').val();
              
                 if(room_id != '') {
                     $.ajax({
-                        url:"<?php echo site_url('Logs/index'); ?>",
+                        url:"<?php echo base_url(); ?>index.php/Logs/fetch_tenant",
                         method:"POST",
                         data:{room_id:room_id},
                         success:function(data) {
-                        $('#tenant').html(data);
+                        $('#sel_tenant').html(data);
                         }
                     });
                 } else {
-                    $('#tenant').html('<option value="">Select Tenant</option>');
+                    $('#sel_tenant').html('<option value="">Select Tenant</option>');
                 }
             });
         });

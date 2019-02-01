@@ -10,16 +10,17 @@ class Transactions extends CI_Controller{
         $this->load->model('transactions_model');
     }
 
-    // public function validate_login() {
+    public function validate_login() {
 
-    //     $login = $this->session->userdata('login_success');
-    //     if (!isset ($login)) {
-    //         redirect('Login');
-    //     }
+        $login = $this->session->userdata('login_success');
+        if (!isset ($login)) {
+            redirect('Login');
+        }
 
-    // }
+    }
 
     public function index() {
+        $this->validate_login();
         $data['floor']=$this->transactions_model->get_floor();
         $data['room']=$this->transactions_model->get_room();
         $data['dir']=$this->transactions_model->get_dir();

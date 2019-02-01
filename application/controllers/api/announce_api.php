@@ -5,43 +5,46 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-    class user_api extends REST_Controller {
+    class announce_api extends REST_Controller {
        
-        function test_post()
+        function announce_post()
         {
             
            // Get the post data
-        $email =$this->input->post('email');
-        $password = $this->input->post('password');    
+      
         
-   
-        if(!empty($email) && !empty($password)){
-            //search data
+   //check api key is correct
+        
+            //search data   
      
             // Check if any user exists with the given credentials
-            $this->db->select('*');
-            $this->db->from('tenant_tbl');
-            $this->db->where('tenant_email=', $email);
-            $this->db->where('tenant_password=',md5($password));
-            $this->db->where('tenant_status=',1);
+            $this->db->select('ann_tbl.*, admin_tbl.admin_fname, admin_tbl.admin_lname ');
+            $this->db->from('ann_tbl');
+            $this->db->order_by('date_posted', 'desc');
+		    $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');
+            
             $user=$this->db->get();
+            
             $details=$user->result();
-
+            
             
             
             if($details){
                 // Set the response and exit
                 $this->response([
                     'status' => 'Connected',
-                    'message' => 'User login successful.'
-                    //add api key to be passed to others
+                    
+                    'message' =>'API key verified' ,
+                    'data'=>$details
+                    
+                    
                 ], REST_Controller::HTTP_OK);
 
             }else if($details==null){
                 $this->response([
                     'status' => 'Connected',
-                    'message' => 'You have entered Wrong Email/Password. Please try again.'
-                    //return api key
+                    'message' => 'Error: API key does not match'
+                    
                 ], REST_Controller::HTTP_OK);
 
             }
@@ -51,15 +54,5 @@ require APPPATH . 'libraries/Format.php';
                 $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
             }
         
-        
-        
-            
-        }else{
-            $this->response([
-                'status' => 'Connected',
-                'message' => 'Login Failed. Please Enter Your Credentials.'
-                
-            ], REST_Controller::HTTP_OK);
-        }
     }
 }
