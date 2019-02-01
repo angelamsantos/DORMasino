@@ -188,10 +188,10 @@ class Directories extends CI_Controller{
 
     public function deactivate_room() {
 
-        $tenant_id = $this->input->post('dtenant_id');
-        $this->directories_model->deactivate_tenant($tenant_id);
+        $room_id = $this->input->post('droom_id');
+        $this->directories_model->deactivate_room($room_id);
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully deactivated!</div>      ';
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">The room was successfully deactivated!</div>      ';
         $this->session->set_flashdata('msg', $msg);
 
         redirect('Directories/rooms');
