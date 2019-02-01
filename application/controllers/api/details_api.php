@@ -5,9 +5,9 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-    class announce_api extends REST_Controller {
+    class  details_api extends REST_Controller {
        
-        function announce_post()
+        function detail_post()
         {
             
            // Get the post data
@@ -16,28 +16,17 @@ require APPPATH . 'libraries/Format.php';
    //check api key is correct
         
             //search data   
-            $email =$this->input->post('key');
-            
+            $email=$this->input->post('email');
+            // Check if any user exists with the given credentials
             $this->db->select('*');
             $this->db->from('tenant_tbl');
-            $this->db->where('tenant_email=',$email);
-            $confirm=$this->db->get();
-            $confirmdetails=$confirm->result();
-
-            // Check if any user exists with the given credentials
-            $this->db->select('ann_tbl.*, admin_tbl.admin_fname, admin_tbl.admin_lname ');
-            $this->db->from('ann_tbl');
-            $this->db->order_by('date_posted', 'desc');
-		    $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');
-            
+            $this->db->where('tenant_email=', $email)
             $user=$this->db->get();
-            
             $details=$user->result();
+
             
             
-            
-            
-            if($confirmdetails){
+            if($details){
                 // Set the response and exit
                 $this->response([
                     'status' => 'Connected',
@@ -48,7 +37,7 @@ require APPPATH . 'libraries/Format.php';
                     
                 ], REST_Controller::HTTP_OK);
 
-            }else if($confirmdetails==null){
+            }else if($details==null){
                 $this->response([
                     'status' => 'Connected',
                     'message' => 'Error: API key does not match'
@@ -63,5 +52,4 @@ require APPPATH . 'libraries/Format.php';
             }
         
     }
-    
 }
