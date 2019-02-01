@@ -604,8 +604,9 @@
                                 <p style="font-size: 17px;">Are you sure you want to deactivate <?php echo $delete_count; ?> tenants?</p>
                                 <?php } else { ?>
                                     <p style="font-size: 17px;">Are you sure you want to deactivate <?php echo $delete_count; ?> tenant?</p>
+                                <?php } foreach($deleteArr as $a) { ?>
+                                <input type="hidden" name="dtenant_id[]" value="<?php echo $a;  ?>" >
                                 <?php } ?>
-                                <input type="hidden" name="dtenant_id" value="<?php echo $deleteArr; ?>" >
                             </div>
                             <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                         </form>

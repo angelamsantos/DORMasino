@@ -208,9 +208,12 @@ class directories_model extends CI_Model {
 
     public function deactivate_tenant($tenant_id) {
         $status=0;
-        $this->db->set('tenant_status', $status);
-        $this->db->where('tenant_id', $tenant_id);
-        $this->db->update('tenant_tbl');
+        foreach($tenant_id as $deac) {
+            $this->db->set('tenant_status', $status);
+            $this->db->where('tenant_id', $deac);
+            $this->db->update('tenant_tbl');
+        }
+        
     }
 
     public function activate_tenant($tenant_id) {
