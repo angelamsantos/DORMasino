@@ -2,7 +2,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set("Asia/Manila");
-$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+
+    $login = $this->session->userdata('login_success');
+        if (!isset ($login)) {
+            redirect('Login');
+        }
+
+    $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
 <html>

@@ -53,8 +53,6 @@ class logs_model extends CI_Model {
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
         $this->db->where('room_tbl.room_id', $room_id);
         $query = $this->db->get();
-        
-
 
         $output = '<option value="">Select Tenant</option>';
 

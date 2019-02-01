@@ -219,5 +219,39 @@ class directories_model extends CI_Model {
         $this->db->where('tenant_id', $tenant_id);
         $this->db->update('tenant_tbl');
     }
+
+    public function fetch_room($floor_id) {
+
+        $this->db->from('floor_tbl');
+        $this->db->join('room_tbl','room_tbl.floor_id=floor_tbl.floor_id', 'LEFT');
+        $this->db->where('floor_tbl.floor_id', $floor_id);
+        $query = $this->db->get();
+
+            foreach ($query->result() as $out) {
+                        
+                if (($out->room_number - ($out->floor_number * 100))  == 7) {
+
+                    $output = "The floor is already full";
+
+                } else if ($out->room_number != 0) {
+
+                    $output = ($out->room_number) + 1 ; 
+
+                } else {
+
+                    $output = ($out->floor_number) * 100  + 1 ; 
+
+                }
+            }
+
+        $floor_id = $this->session->set_userdata('floor_id', $floor_id);
+        return $output;
+    }
+
+    public function record_room($data) {
+
+        $this->db->insert('room_tbl', $data);
+
+    }
 }
 ?>

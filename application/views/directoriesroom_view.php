@@ -37,6 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
+                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button></div>
                 </div>
                 <div class="row" style="margin-top: 20px;margin-left:0px;">
@@ -105,15 +106,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Floor</label></div>
                                             <div class="col">
-                                                <!-- <select class="form-control d-xl-flex" name="arFloor" placeholder="Select region" id="region">
-                                                    <option selected="Select floor number" disabled>Select floor number</option>
-                                                    <?php 
-                                                        // foreach($dir->result() as $arFloor) { 
-                                                        //     echo "<option value='" . $arFloor->floor_id ."'>". $arFloor->floor_number;
-                                                        //     echo "</option>";
-                                                        // } 
-                                                     ?>
-                                                </select> -->
 
                                                 <select name="floor_id" id="sel_floor" class="form-control d-xl-flex" required>
 
@@ -132,55 +124,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                             </div>
                                     </div>
-                                    <?php 
-                                        $a = 0;
-                                            foreach($room->result() as $row5) {
-
-                                                if($row5->floor_id == $row4->floor_id) {
-                                                    $a = $room->last_row();
-
-                                                }
-                                            } 
-                                    ?>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                            <div class="col"><input name="arRoomNo" id="sel_room" class="form-control d-xl-flex" placeholder="Room number" type="text" value="
-                                            <?php 
-
-                                                // if(empty($a->room_number)) {
-
-                                                //     echo ($row4->floor_number) * 100 + 1 ;
-
-                                                // } else {
-
-                                                //     if (($a->room_number - ($row4->floor_number * 100))  == 12) {
-
-                                                //         echo ($a->room_number) + 2 ; 
-
-                                                //     } else {
-
-                                                //         echo ($a->room_number) + 1 ; 
-
-                                                //     }
-                                                // }
-                                                
-                                            ?>
-                                            " disabled />
-
+                                            <div class="col"><input name="arRoomNo" id="sel_room" class="form-control d-xl-flex" type="text" value="Room number" readonly="readonly" required />
+                                            
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="arRoomPrice"  class="form-control" type="text" placeholder="Enter price of room"></div>
+                                            <div class="col"><input name="arRoomPrice"  class="form-control" type="text" placeholder="Enter price of room" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="text" placeholder="Enter number of people" min="3"></div>
+                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="text" placeholder="Enter number of people" min="3" required></div>
                                         </div>
                                     </div>
                             </div>
@@ -191,6 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             <!--End Modal Add Room -->  
             <!--Modal Edit Room -->
+            <form action="<?php echo site_url('Directories/edit_room');?>" method="POST">
             <?php foreach($room->result() as $rmedit) { ?>
                 <div class="modal fade" role="dialog" tabindex="-1" id="EditRoom<?php echo $rmedit->room_id; ?>">
                     <div class="modal-dialog" role="document">
@@ -202,13 +164,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Floor</label></div>
-                                            <div class="col"><input  class="form-control d-xl-flex" type="text" value="<?php echo $rmedit->floor_number; ?>" disabled></div>
+                                            <div class="col"><input  class="form-control d-xl-flex" type="text" value="<?php echo $rmedit->floor_number; ?>" readonly="readonly"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                            <div class="col"><input name="edit_roomno" class="form-control d-xl-flex" type="text" value="<?php echo $rmedit->room_number; ?>"></div>
+                                            <div class="col"><input name="edit_roomno" class="form-control d-xl-flex" type="text" value="<?php echo $rmedit->room_number; ?>" readonly="readonly"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -223,10 +185,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <div class="col"><input name="edit_roomtcpunt" class="form-control" type="text" value="<?php echo $rmedit->room_tcount; ?>"></div>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                             <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
                         </div>
+                        </form>
                     </div>
                 </div>
             <?php } ?>
@@ -293,11 +255,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         method:"POST",
                         data:{floor_id:floor_id},
                         success:function(data) {
-                        $('#sel_room').html(data);
+                        $('#sel_room').val(data);
                         }
                     });
                 } else {
-                    $('#sel_room').val('Room Number');
+                    $('#sel_room').val('Room number');
                 }
             });
         });
