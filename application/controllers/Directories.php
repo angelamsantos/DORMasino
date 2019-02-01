@@ -59,52 +59,32 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('etenant_id');
         $this->directories_model->update_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully edited!</div>      ';
-<<<<<<< HEAD
-        $this->session->set_flashdata('message', $msg);
-        redirect('Directories/show_tenants');
-=======
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
->>>>>>> 39ccfd4ca147e78b78e396045da94a41283c92d8
+        redirect('Directories/show_tenants');
     }
 
     public function mr_tenant() {
         $tenant_id = $this->input->post('mr_tenantid');
         $this->directories_model->mr_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully moved a tenant!</div>      ';
-<<<<<<< HEAD
-        $this->session->set_flashdata('message', $msg);
-        redirect('Directories/show_tenants');
-=======
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
->>>>>>> 39ccfd4ca147e78b78e396045da94a41283c92d8
+        redirect('Directories/show_tenants');
     }
 
     public function cc_tenant() {
         $tenant_id = $this->input->post('cc_tenantid');
         $this->directories_model->cc_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully changed a tenant\'s contract!</div>      ';
-<<<<<<< HEAD
-        $this->session->set_flashdata('message', $msg);
-        redirect('Directories/show_tenants');
-=======
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
->>>>>>> 39ccfd4ca147e78b78e396045da94a41283c92d8
+        redirect('Directories/show_tenants');
     }
 
     public function rp_tenant() {
         $tenant_id = $this->input->post('rp_tenantid');
         $this->directories_model->rp_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully reset tenant\'s password!</div>      ';
-<<<<<<< HEAD
-        $this->session->set_flashdata('message', $msg);
-        redirect('Directories/show_tenants');
-=======
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
->>>>>>> 39ccfd4ca147e78b78e396045da94a41283c92d8
+        redirect('Directories/show_tenants');
     }
 
     public function deactivate_tenant() {
