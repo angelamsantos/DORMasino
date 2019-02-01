@@ -253,5 +253,19 @@ class directories_model extends CI_Model {
         $this->db->insert('room_tbl', $data);
 
     }
+
+    public function update_room($room_id) {
+
+        $data = array(
+
+            'room_price' => $this->input->post('update_roomprice'),
+            'room_tcount' => $this->input->post('update_roomtcount')
+            
+        );
+
+        $this->db->where('room_id', $room_id);
+        $this->db->update('room_tbl', $data);
+
+    }
 }
 ?>

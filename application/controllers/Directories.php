@@ -51,7 +51,7 @@ class Directories extends CI_Controller{
         $this->directories_model->create_tenantcontacts($data);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully created!</div>      ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/index');
     }
 
@@ -59,7 +59,7 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('etenant_id');
         $this->directories_model->update_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully edited!</div>      ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/index');
     }
 
@@ -67,7 +67,7 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('mr_tenantid');
         $this->directories_model->mr_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully moved a tenant!</div>      ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/index');
     }
 
@@ -75,7 +75,7 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('cc_tenantid');
         $this->directories_model->cc_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully changed a tenant\'s contract!</div>      ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/index');
     }
 
@@ -83,7 +83,7 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('rp_tenantid');
         $this->directories_model->rp_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully reset tenant\'s password!</div>      ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/index');
     }
 
@@ -91,7 +91,7 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('dtenant_id');
         $this->directories_model->deactivate_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully deactivated!</div>      ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
     }
 
@@ -99,7 +99,7 @@ class Directories extends CI_Controller{
         $tenant_id = $this->input->post('atenant_id');
         $this->directories_model->activate_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully activated!</div> ';
-        $this->session->set_flashdata('message', $msg);
+        $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
     }
 
@@ -174,9 +174,27 @@ class Directories extends CI_Controller{
 
     }
 
-    public function edit_room() {
+    public function update_room() {
 
+        $room_id = $this->input->post('room_id');
+        $this->directories_model->update_room($room_id);
+        
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">The room was successfully edited!</div>      ';
+        $this->session->set_flashdata('msg', $msg);
 
+        redirect('Directories/rooms');
+
+    }
+
+    public function deactivate_room() {
+
+        $tenant_id = $this->input->post('dtenant_id');
+        $this->directories_model->deactivate_tenant($tenant_id);
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully deactivated!</div>      ';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Directories/rooms');
 
     }
 }
