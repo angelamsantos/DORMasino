@@ -53,13 +53,13 @@
                 <div class="row" style="margin: 0px;margin-top: 0px;">
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
-	                    <?php if(! is_null($this->session->flashdata('message'))) echo $this->session->flashdata('message');?>
+	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
                 </div>
             <div style="margin-top: 14px;">
                 <div class="table-responsive">
-                <form method="post" style="border:1px solid black"  action="<?php echo site_url('Logs/out'); ?>">
-                    <table class="table" id="table_id" style="text-align:center; border:1px solid black">
+                
+                    <table class="table" id="table_id" style="font-size:14px;text-align:center;">
                         <thead class="logs">
                             <tr>
                                 <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Date</th>
@@ -77,7 +77,7 @@
                         <?php
 
                             foreach ($vlogs->result() as $row2) {
-
+ 
                                 $time_in = $row2->vlogs_in;
                                 $intime=date("g:ia", strtotime($time_in));
                                 $indate=date("M d, Y", strtotime($time_in));
@@ -100,12 +100,11 @@
                                         $out=date("g:ia", strtotime($time_out));
                                         
                                     } else {
-
-                                        $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" value='.$id.' name="name_id" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out'.$id.'</button>';
-
+                                        $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out'.$id.'</button>';
+                                      
                                     }
 
-                                    echo "<td>". $out ."</td>";
+                                    echo "<td><form method='post' action='".site_url("Logs/out")."'>". $out ."</form></td>";
                                 echo "</tr>";
                                 
                             }
@@ -113,7 +112,7 @@
                         ?>
                         </tbody>
                     </table>
-                    </form>
+                    
                 </div>
             </div>
             <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">

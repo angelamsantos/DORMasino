@@ -60,7 +60,7 @@ class Directories extends CI_Controller{
         $this->directories_model->update_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Tenant successfully edited!</div>      ';
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
+        redirect('Directories/show_tenants');
     }
 
     public function mr_tenant() {
@@ -68,7 +68,7 @@ class Directories extends CI_Controller{
         $this->directories_model->mr_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully moved a tenant!</div>      ';
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
+        redirect('Directories/show_tenants');
     }
 
     public function cc_tenant() {
@@ -76,7 +76,7 @@ class Directories extends CI_Controller{
         $this->directories_model->cc_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully changed a tenant\'s contract!</div>      ';
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
+        redirect('Directories/show_tenants');
     }
 
     public function rp_tenant() {
@@ -84,7 +84,7 @@ class Directories extends CI_Controller{
         $this->directories_model->rp_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">Successfully reset tenant\'s password!</div>      ';
         $this->session->set_flashdata('msg', $msg);
-        redirect('Directories/index');
+        redirect('Directories/show_tenants');
     }
 
     public function deactivate_tenant() {
