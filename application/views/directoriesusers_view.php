@@ -59,7 +59,7 @@
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                 <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button></div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
-                        <?php if(! is_null($this->session->flashdata('message'))) echo $this->session->flashdata('message');?>
+                        <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
                     
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">

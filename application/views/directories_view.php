@@ -61,7 +61,7 @@
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
-                        <?php if(! is_null($this->session->flashdata('message'))) echo $this->session->flashdata('message');?>
+                        <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
                 
                 

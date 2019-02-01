@@ -24,8 +24,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script> 
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+
+    $(document).ready(function () {
+        $('#room_datatable').dataTable( {
+            "aLengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+            "pageLength": 7,
+            "ordering": false
+        });
+    });
+
+    </script>
 </head>
 
 
@@ -44,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                         
                         <div id="table_view" class="table-responsive" style="width:100%;">
-                            <table class="table" id="example" style="font-size:14px;">
+                            <table class="table" id="room_datatable" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
@@ -152,7 +162,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             <!--End Modal Add Room -->  
             <!--Modal Edit Room -->
-            <form action="<?php echo site_url('Directories/edit_room');?>" method="POST">
             <?php foreach($room->result() as $rmedit) { ?>
                 <div class="modal fade" role="dialog" tabindex="-1" id="EditRoom<?php echo $rmedit->room_id; ?>">
                     <div class="modal-dialog" role="document">
@@ -161,6 +170,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h4 class="modal-title" style="color: #11334f;">Edit Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                             <div class="modal-body">
                                 <form action="<?php echo site_url('Directories/update_room');?>" method="POST">
+                                <input type="hidden" name="room_id" value="<?php echo $rmedit->room_id; ?>" />
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Floor</label></div>
@@ -176,13 +186,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="edit_roomprice"  class="form-control" type="text" value="<?php echo $rmedit->room_price; ?>" ></div>
+                                            <div class="col"><input name="update_roomprice"  class="form-control" type="text" value="<?php echo $rmedit->room_price; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                            <div class="col"><input name="edit_roomtcpunt" class="form-control" type="text" value="<?php echo $rmedit->room_tcount; ?>"></div>
+                                            <div class="col"><input name="update_roomtcount" class="form-control" type="text" value="<?php echo $rmedit->room_tcount; ?>" required></div>
                                         </div>
                                     </div>
                             </div>

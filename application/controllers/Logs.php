@@ -66,6 +66,8 @@ class Logs extends CI_Controller {
 
         $id = $this->input->post('name_id');
 
+        $this->logs_model->update_out($id);
+
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Visitor timed out!</center></div>';
         $this->session->set_flashdata('msg', $msg);
 
