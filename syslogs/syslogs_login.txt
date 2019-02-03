@@ -431,8 +431,12 @@ February 1, 2019, 10:02pm: thores20182019@gmail.com successfully logged in to th
 =======
 February 1, 2019, 9:51pm: thores20182019@gmail.com failed to log in to the system.
 February 1, 2019, 9:51pm: thores20182019@gmail.com successfully logged in to the system.
+<<<<<<< HEAD
 >>>>>>> 33cda3bf0b79dd9f94919ccee9fb8527acb45bbb
 February 2, 2019, 7:46am: thores20182019@gmail.com successfully logged in to the system.
 February 2, 2019, 7:58am: !!@gmail.com failed to log in to the system.
 February 2, 2019, 11:16am: thores20182019@gmail.com successfully logged in to the system.
 February 3, 2019, 2:20pm: thores20182019@gmail.com successfully logged in to the system.
+=======
+February 3, 2019, 2:26pm: thores20182019@gmail.com successfully logged in to the system.
+>>>>>>> 9a988938d185da4b1a422c429caee96c166cd327

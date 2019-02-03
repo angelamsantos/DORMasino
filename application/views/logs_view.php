@@ -23,10 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
     
-    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+   
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -198,6 +195,10 @@
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     <script>
 
