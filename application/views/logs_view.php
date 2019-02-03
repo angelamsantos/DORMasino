@@ -21,6 +21,14 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
+    <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
+    
+    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <script>
@@ -132,8 +140,8 @@
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Number</label></div>
                                 <div class="col">
-                                <select name="room_id" id="sel_room" class="form-control d-xl-flex" required>
-                                <option value="">Select Room</option>
+                                <select name="room_id" id="sel_room"  class="form-control single-select" required>
+                                <option value="">Select Room</option>  
                                 <?php
 
                                     foreach ($room->result() as $row) {
@@ -189,13 +197,15 @@
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     <script>
 
         $(document).ready(function(){
+            $(document).ready(function() {
+                $('#sel_room').selectize({
+                    create: false,
+                });
+            });
             $('#sel_room').change(function(){
                 var room_id = $('#sel_room').val();
              
