@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
+    $login = $this->session->userdata('login_success');
+    if (!isset ($login)) {
+        redirect('Login');
+    }
 
+$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <style>
 .form-control {
@@ -11,16 +16,7 @@
 </style>
 <script>
     
-    function agree() {
-        var x = document.getElementById("Terms");
-        var y = document.getElementById("form_adduser");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            
-            x.style.display = "none";
-        } 
-    }
-
+ 
     $(document).ready(function(){
 
             <?php foreach($dir->result() as $edit) { ?>
@@ -54,10 +50,17 @@
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button></div>
+                    <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
+                        <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-arrow-swap" style="font-size:19px;"></i> - Move Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-ios-calendar-outline" style="font-size:19px;"></i> - Change Contract &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-ios-redo" style="font-size:19px;"></i> - Reset Password
+                        </p>
+                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button>
+                    </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
@@ -617,46 +620,17 @@
             
             <!-- Modal Add User -->
             <div class="modal fade" role="dialog" tabindex="-1" id="AddUser">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                        <div class="modal-body" style="height:350px;">
-                            <div class="row" id="Terms" style="padding:15px; display:block;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                                <div class="column">
-                                <p style="font-size: 13px;"> To create an account in DORMasino, you’ll need to agree to the Terms of Service below.
-                                    In addition, when you create an account, we process your information as described in our 
-                                    Privacy Policy, including these key points:</p>
-
-                                <p style="font-size: 13px;"> Data we process when you use DORMasino<br>
-
-                                - We store information you give us like your name, address, birthday, email, contact number, school/company and course.<br>
-                                - We process your transaction records, messages and information your visitors.<br><br>
-
-
-                                Why we process it<br>
-                                - Improve the quality of our services regarding the documenting of your electricity, water, and transactions. <br>
-                                - Improve security against data fraud.<br><br>
-
-                                You’re in control<br>
-                                Depending on your account settings, some of this data may be associated with your DORMasino Account and we treat this data as personal information.<br><br>
-
-                                Privacy<br>
-                                -The management is the only one to view process the information collected on this system. <br>
-                                -The management have the access to/collect information that you voluntarily submit to us via signing up the website.<br>
-                                -We will not make profit to this information to anyone.<br>
-                                -We will make sure that the information you submit to us is encrypted and transmitted to us in a secure way. You can verify this by looking at the lock icon <br>
-                                in the address bar and looking for "https" at the beginning of the address of the Web page. 
-                            
-                                </p>
-                                <button type="button" class="btn btn-primary" onclick="agree()" style="margin-right:auto;margin-left:auto;">I Agree</button>
-                                </div>
-                            </div>
-                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="display:none;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                        <div class="modal-body" style="height:500px;">
+                           
+                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
-                                        <h6 style="font-size:12px;color:#c7c7c7;">* Optional</h6>
+                                        <h6 style="font-size:12px;color:red;">* Optional</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -717,7 +691,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions <span style="color:#c7c7c7">*</span></label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions <span style="color:red">*</span></label></div>
                                                 <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" required></textarea></div>
                                             </div>
                                         </div>

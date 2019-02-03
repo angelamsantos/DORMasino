@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
+    $login = $this->session->userdata('login_success');
+        if (!isset ($login)) {
+            redirect('Login');
+        }
+
+    $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
 <style>
@@ -12,41 +18,8 @@
 
 </style>
 <script>
-    function roomView() {
-        var x = document.getElementById("room_view");
-        var y = document.getElementById("table_view");
-        var btnRoom = document.getElementById("btnroom");
-        var btnTable = document.getElementById("btntable");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            
-            y.style.display = "none";
-            btnRoom.style.backgroundColor="#28a745";
-            btnTable.style.backgroundColor="#83c592";
-        } 
-    }
-    function tableView() {
-        var x = document.getElementById("room_view");
-        var y = document.getElementById("table_view");
-        var btnRoom = document.getElementById("btnroom");
-        var btnTable = document.getElementById("btntable");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            
-            x.style.display = "none";
-            btnTable.style.backgroundColor="#28a745";
-            btnRoom.style.backgroundColor="#83c592";
-        } 
-    }
-    function agree() {
-        var x = document.getElementById("Terms");
-        var y = document.getElementById("form_adduser");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            
-            x.style.display = "none";
-        } 
-    }
+    
+   
     $(document).ready(function () {
          $('#example').dataTable();
     });
@@ -56,7 +29,7 @@
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
@@ -116,10 +89,14 @@
                                                 <?php foreach ($dir_count->result() as $nt) {
                                                     if ($nt->room_id == $row1->room_id) { ?>
                                                         <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
-                                                        <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: <?php if ($nt->num_tenants > 4) {
-                                                             echo 0;
-                                                            } else { 
-                                                            echo (4 - $nt->num_tenants); }  ?></p>
+
+                                                        <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                            <?php $acc = $nt->num_tenants; if (($acc - 4) != 0) { ?>
+                                                            <span style="color:green"> <?php echo (4 - $acc); ?> </span>
+                                                            <?php } else if (($acc - 4) == 0) { ?>
+                                                            <span style="color:red"> 0 </span> 
+                                                            <?php }  ?>
+                                                        </p>
                                                         
                                                     
                                                 <?php }
@@ -206,46 +183,17 @@
             foreach($room->result() as $row6){ ?>
             
             <div class="modal fade" role="dialog" tabindex="-1" id="AddUser<?php echo $row6->room_id; ?>">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                        <div class="modal-body" style="height:350px;">
-                            <div class="row" id="Terms" style="padding:15px; display:block;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                                <div class="column">
-                                <p style="font-size: 13px;"> To create an account in DORMasino, you’ll need to agree to the Terms of Service below.
-                                    In addition, when you create an account, we process your information as described in our 
-                                    Privacy Policy, including these key points:</p>
-
-                                <p style="font-size: 13px;"> Data we process when you use DORMasino<br>
-
-                                - We store information you give us like your name, address, birthday, email, contact number, school/company and course.<br>
-                                - We process your transaction records, messages and information your visitors.<br><br>
-
-
-                                Why we process it<br>
-                                - Improve the quality of our services regarding the documenting of your electricity, water, and transactions. <br>
-                                - Improve security against data fraud.<br><br>
-
-                                You’re in control<br>
-                                Depending on your account settings, some of this data may be associated with your DORMasino Account and we treat this data as personal information.<br><br>
-
-                                Privacy<br>
-                                -The management is the only one to view process the information collected on this system. <br>
-                                -The management have the access to/collect information that you voluntarily submit to us via signing up the website.<br>
-                                -We will not make profit to this information to anyone.<br>
-                                -We will make sure that the information you submit to us is encrypted and transmitted to us in a secure way. You can verify this by looking at the lock icon <br>
-                                in the address bar and looking for "https" at the beginning of the address of the Web page. 
+                        <div class="modal-body" style="height:500px;">
                             
-                                </p>
-                                <button type="button" class="btn btn-primary" onclick="agree()" style="margin-right:auto;margin-left:auto;">I Agree</button>
-                                </div>
-                            </div>
-                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="display:none;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
-                                        <h6 style="font-size:12px;color:#c7c7c7;">* Optional</h6>
+                                        <h6 style="font-size:12px;color:red">* Optional</h6>
                                         
                                         <div class="form-group">
                                             <div class="form-row">
@@ -308,7 +256,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions *</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions <span style="color:red">*</span></label></div>
                                                 <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" ></textarea></div>
                                             </div>
                                         </div>
@@ -367,7 +315,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No *</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
