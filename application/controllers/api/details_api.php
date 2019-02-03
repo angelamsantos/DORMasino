@@ -20,11 +20,12 @@ require APPPATH . 'libraries/Format.php';
             // Check if any user exists with the given credentials
             $this->db->select('*');
             $this->db->from('tenant_tbl');
-            $this->db->where('tenant_email=', $email)
+            $this->db->join('guardian_tbl','tenant_tbl.tenant_id=guardian_tbl.tenant_id', 'LEFT');
+            $this->db->where('tenant_email=', $email);
             $user=$this->db->get();
             $details=$user->result();
 
-            
+             
             
             if($details){
                 // Set the response and exit
