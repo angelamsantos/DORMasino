@@ -37,6 +37,7 @@
                 "ordering": false
             });
         });
+        
         $(document).ready( function() {
             $('.main_menu').click(function(){
                 $(this).next().toggleClass('display_block');

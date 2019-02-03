@@ -47,8 +47,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button></div>
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
+	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                    </div>
                 </div>
                 <div class="row" style="margin-top: 20px;margin-left:0px;">
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
@@ -217,7 +219,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <form method="POST" name="deactivate_tenant" action="<?php echo site_url('Directories/deactivate_room');?>" class="justify" style="width: 100%;margin: 0 auto;">
                             <input type="hidden" name="droom_id" value="<?php echo $deac->room_id; ?>" />
                             <div class="modal-body text-center">
-                                    <p style="font-size: 17px;">Are you sure you want to deactivate Room <?php echo $deac->room_number; ?>?</p>
+                                    <p style="font-size: 17px;">Are you sure you want to deactivate room <?php echo $deac->room_number; ?>?</p>
                                     <input type="hidden" name="dtenant_id" value="<?php echo $deac->room_id; ?>" >
                                 </div>
                                 <div class="modal-footer"><button class="btn btn-primary" name="delete_room" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
@@ -237,9 +239,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h4 class="modal-title" style="color: #11334f;">Activate Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                                 <form method="POST" name="activate_tenant" action="<?php echo site_url('Directories/activate_room');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                                <input type="hidden" name="aroom_id" value="<?php echo $activate->room_id; ?>" />
                                     <div class="modal-body text-center">
-                                        <p style="font-size: 17px;">Are you sure you want to activate room <?php echo $deac->room_number;  ?>?</p>
-                                        <input type="hidden" name="atenant_id" value="<?php echo $deac->room_id;  ?>" >
+                                        <p style="font-size: 17px;">Are you sure you want to activate room <?php echo $activate->room_number;  ?>?</p>
+                                        <input type="hidden" name="atenant_id" value="<?php echo $activate->room_id;  ?>" >
                                     </div>
                                     <div class="modal-footer"><button class="btn btn-primary" name="activate_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                                 </form>

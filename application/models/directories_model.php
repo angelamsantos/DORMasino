@@ -278,5 +278,12 @@ class directories_model extends CI_Model {
         $this->db->update('room_tbl');
     }
 
+    public function activate_room($room_id) {
+        $status=1;
+        $this->db->set('room_status', $status);
+        $this->db->where('room_id', $room_id);
+        $this->db->update('room_tbl');
+    }
+
 }
 ?>
