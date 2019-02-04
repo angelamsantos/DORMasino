@@ -19,7 +19,7 @@ require APPPATH . 'libraries/Format.php';
             //search data
      
             // Check if any user exists with the given credentials
-            $this->db->select('*');
+            $this->db->select('tenant_fname');
             $this->db->from('tenant_tbl');
             $this->db->where('tenant_email=', $email);
             $this->db->where('tenant_password=',md5($password));
@@ -33,7 +33,8 @@ require APPPATH . 'libraries/Format.php';
                 // Set the response and exit
                 $this->response([
                     'status' => 'Connected',
-                    'message' => 'User login successful.'
+                    'message' => 'User login successful.',
+                    'data'=> $details
                     //add api key to be passed to others
                 ], REST_Controller::HTTP_OK);
 

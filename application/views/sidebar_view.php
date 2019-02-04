@@ -62,9 +62,9 @@ date_default_timezone_set("Asia/Manila");
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
                      <?php } if(base_url(uri_string()) == "".base_url()."Directories/rooms") { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Room Details</a></span></li>
                      <?php } else { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Room Details</a></span></li>
                      <?php } if(base_url(uri_string()) == "".base_url()."Directories/admin") { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" style="color: #b3e5fc;" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                      <?php } else { ?>
@@ -80,7 +80,7 @@ date_default_timezone_set("Asia/Manila");
                 <ul class="list-group">
                     <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
 
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
+                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Room Details</a></span></li>
                     <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                 </ul>
             </div>
