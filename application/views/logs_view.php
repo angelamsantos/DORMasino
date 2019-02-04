@@ -22,10 +22,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
-    
-   
 
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <script>
@@ -106,7 +103,7 @@
                                         $out=date("g:ia", strtotime($time_out));
                                         
                                     } else {
-                                        $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out'.$id.'</button>';
+                                        $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out</button>';
                                       
                                     }
 
@@ -166,7 +163,7 @@
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Name of visitor</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_name" placeholder="Enter name of visitor" required></div>
+                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The name must contain only letters." name="vlogs_name" placeholder="Enter name of visitor" required></div>
                             </div>
                         </div>
                         <div class="form-group">

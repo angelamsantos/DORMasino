@@ -440,3 +440,6 @@ February 3, 2019, 2:20pm: thores20182019@gmail.com successfully logged in to the
 =======
 February 3, 2019, 2:26pm: thores20182019@gmail.com successfully logged in to the system.
 >>>>>>> 9a988938d185da4b1a422c429caee96c166cd327
+February 3, 2019, 5:27pm: thores220182019@gmail.com failed to log in to the system.
+February 3, 2019, 5:27pm: thores20182019@gmail.com successfully logged in to the system.
+February 4, 2019, 12:17pm: thores20182019@gmail.com successfully logged in to the system.
