@@ -2,6 +2,7 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
     date_default_timezone_set("Asia/Manila");
+    $login = $this->session->userdata('login_success');
     if (!isset ($login)) {
         redirect('Login');
     }

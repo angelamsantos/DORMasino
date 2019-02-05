@@ -5,7 +5,7 @@ class Announcements extends CI_Controller{
     public function __construct() {
         parent:: __construct();
         $this->load->helper(array('form', 'url'));
-        $this->load->library(array('upload','pagination'));
+        $this->load->library('pagination');
         $this->load->model('announcements_model');
     }
 
@@ -40,7 +40,7 @@ class Announcements extends CI_Controller{
 
     }
 
-    public function process() {
+    public function do_upload() {
 
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
 
@@ -52,7 +52,37 @@ class Announcements extends CI_Controller{
 
         $this->announcements_model->publish($data);
 
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
         redirect('Announcements/index');
+
+        // $config = array(
+        //     'upload_path' => "./uploads/",
+        //     'allowed_types' => "gif|jpg|png|jpeg|pdf",
+        //     'overwrite' => TRUE,
+        //     'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+        //     'max_height' => "768",
+        //     'max_width' => "1024"
+        // );
+
+        // $this->load->library('upload', $config);
+
+        //     if( ! $this->upload->do_upload('userfile')) {
+
+        //         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><centerAnnouncement posted!</center></div>';
+        //         $this->session->set_flashdata('msg', $msg);
+
+        //         redirect('Announcements/index');
+
+        //     } else {
+
+        //         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
+        //         $this->session->set_flashdata('msg', $msg);
+
+        //         redirect('Announcements/index');
+
+        //     }
 
     }
 }
