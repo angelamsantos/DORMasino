@@ -32,6 +32,8 @@ date_default_timezone_set("Asia/Manila");
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Tabbed-Panel.css">
+
     <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
     
     
@@ -41,6 +43,19 @@ date_default_timezone_set("Asia/Manila");
     <!-- <script src="<?php// echo base_url(); ?>assets/js/datatable.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/popper.min.js"></script>
+    <style>
+            .expand_caret {
+                color:red;
+                border: 1px solid black;
+                height: 20px;
+            transform: scale(1.6);
+            margin-left: 8px;
+            margin-top: -4px;
+        }
+        a[aria-expanded='false'] > .expand_caret .icon .ion-arrow-down-b{
+            transform: scale(1.6) rotate(-90deg);
+        }
+    </style>
 </head>
 <body style="font-family: Roboto, sans-serif;background-color: #ffffff;">
     <div id="wrapper">
@@ -54,7 +69,7 @@ date_default_timezone_set("Asia/Manila");
                      current_url() == site_url('Directories/show_tenants') || 
                      current_url() == site_url('Directories/rooms') || 
                      current_url() == site_url('Directories/admin')) { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" href="#manage-collapse" id="menu-active"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
+                <p class="menu-active menu-side" style="margin-top: 15px;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" href="#manage-collapse" id="menu-active" aria-expanded="false"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories <span class="expand_caret icon ion-arrow-down-b"></span></a></p>
                 <div id="manage-collapse" class="collapse show" >
                     <ul class="list-group">
 
@@ -74,7 +89,7 @@ date_default_timezone_set("Asia/Manila");
                     </ul>
                 </div>
             <?php } else { ?> 
-                <p style="margin-top: 15px;margin-bottom: 0px;padding-left: 20px;"><a data-toggle="collapse" href="#manage-collapse2"  ><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
+                <p style="margin-top: 15px;margin-bottom: 0px;padding-left: 20px;"><a data-toggle="collapse" href="#manage-collapse2" aria-expanded="false" ><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories <i class="expand_caret icon ion-arrow-down-b"></i></a></p>
                 <div id="manage-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
