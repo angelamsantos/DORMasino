@@ -72,7 +72,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($room->result() as $row) {
+                                    <?php foreach ($dir_count->result() as $row) {
                                        
                                     ?>
                                          
@@ -84,15 +84,29 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                            
                                             <td style="text-align:center;">
                                                 <?php 
+
                                                     $status = $row->room_status;
+                                                    $capacity = $row->num_tenants;
+
                                                     if ( $status == 1) { ?>
 
-                                                    <button title="Edit Room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
-                                                        <i class="fa fa-edit" style="font-size: 14px"></i>
-                                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
-                                                        <i class="fa fa-ban" style="font-size: 14px"></i>
-                                                    </button>
+                                                            <button title="Edit Room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                                <i class="fa fa-edit" style="font-size: 14px"></i>
+                                                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                            <?php if ($capacity == 0) { ?>
+
+                                                                <button title="Deactivate room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
+                                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                                </button>
+
+                                                            <?php } else { ?>
+
+                                                                <button title="Deactivating is disabled. The room is still occupied." name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;" disabled>
+                                                                <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                                </button>
+
+                                                            <?php } ?>
 
                                                 <?php } else { ?>
                                                     <button title="Activate user" data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">

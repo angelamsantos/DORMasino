@@ -2,13 +2,6 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
     date_default_timezone_set("Asia/Manila");
-    $login = $this->session->userdata('login_success');
-        if (!isset ($login)) {
-            redirect('Login');
-        }
-
-    $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
-
 ?>
 <html>
 
@@ -57,7 +50,7 @@
             <div class="container-fluid d-flex flex-column">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Visitor Logs</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 
                 <div class="row" style="margin: 0px;margin-top: 0px;">
@@ -90,7 +83,7 @@
  
                                 $time_in = $row2->vlogs_in;
                                 $intime=date("g:ia", strtotime($time_in));
-                                $indate=date("M d, Y", strtotime($time_in));
+                                $indate=date("m/d/Y", strtotime($time_in));
                                 
                                 echo "<tr >";
                                     echo "<td>". $indate ."</td>";
@@ -170,13 +163,13 @@
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Name of visitor</label></div>
-                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The name must contain only letters." name="vlogs_name" placeholder="Enter name of visitor" required></div>
+                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your name must contain only letters." name="vlogs_name" placeholder="Enter name of visitor" required></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Relation</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_relation" placeholder="Enter relation to tenant" required></div>
+                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relation must contain only letters." name="vlogs_relation" placeholder="Enter relation to tenant" required></div>
                             </div>
                         </div>
                         <div class="form-group">
