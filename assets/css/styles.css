@@ -36,10 +36,18 @@
   box-shadow: none;
 }
 
+@media (min-width: 1200px) {
+  .modal-big {
+    max-height: 600px;
+    max-width: 1500px;
+    
+  }
+}
+
 @media (min-width: 992px) {
   .modal-big {
     max-height: 600px;
-    max-width: 1000px;
+    max-width: 1300px;
     
   }
 }
