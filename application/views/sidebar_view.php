@@ -50,23 +50,23 @@ date_default_timezone_set("Asia/Manila");
 
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>" ><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
 
-            <?php if(base_url(uri_string()) == "".base_url()."Directories/index" || 
-                     base_url(uri_string()) == "".base_url()."Directories/show_tenants" || 
-                     base_url(uri_string()) == "".base_url()."Directories/rooms" || 
-                     base_url(uri_string()) == "".base_url()."Directories/admin") { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" data-target="#manage-collapse" href="#manage-collapse" id="menu-active"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
-                <div id="manage-collapse" class="collapse show">
+            <?php if(current_url() == site_url('Directories/index') || 
+                     current_url() == site_url('Directories/show_tenants') || 
+                     current_url() == site_url('Directories/rooms') || 
+                     current_url() == site_url('Directories/admin')) { ?>
+                <p class="menu-active menu-side" style="margin-top: 15px;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" href="#manage-collapse" id="menu-active"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
+                <div id="manage-collapse" class="collapse show" >
                     <ul class="list-group">
 
-                     <?php if(base_url(uri_string()) == "".base_url()."Directories/show_tenants" || base_url(uri_string()) == "".base_url()."Directories/index") { ?>
+                     <?php if(current_url() == site_url('Directories/show_tenants') || current_url() == site_url('Directories/index')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
-                     <?php } if(base_url(uri_string()) == "".base_url()."Directories/rooms") { ?>
+                     <?php } if(current_url() == site_url('Directories/rooms')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
-                     <?php } if(base_url(uri_string()) == "".base_url()."Directories/admin") { ?>
+                     <?php } if(current_url() == site_url('Directories/admin')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" style="color: #b3e5fc;" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
@@ -74,43 +74,40 @@ date_default_timezone_set("Asia/Manila");
                     </ul>
                 </div>
             <?php } else { ?> 
-                <p  style="margin-top: 15px;;margin-bottom: 0px;padding-left: 20px;"><a data-toggle="collapse" data-target="#manage-collapse2" href="#manage-collapse2" ><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
-                <div id="manage-collapse2" class="collapse">
-            
+                <p style="margin-top: 15px;margin-bottom: 0px;padding-left: 20px;"><a data-toggle="collapse" href="#manage-collapse2"  ><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories </a></p>
+                <div id="manage-collapse2" class="collapse" data-parent="#sidebar-wrapper">
+                    <ul class="list-group">
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
 
-                <ul class="list-group">
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
-
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms </a></span></li>
-                    <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin </a></span></li>
-                </ul>
-            </div>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms </a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin </a></span></li>
+                    </ul>
+                </div>
             <?php } ?>
             
 
-            <?php if(base_url(uri_string()) == "".base_url()."Transactions/index" || base_url(uri_string()) == "".base_url()."Transactions/show_tenants" || base_url(uri_string()) == "".base_url()."Transactions/records_room" ) { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a href="#bills-collapse" id="menu-active" data-toggle="collapse" ><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
-                <div id="bills-collapse" class="panel-collapse ">
+            <?php if(current_url() == site_url('Transactions/index') ||
+                     current_url() == site_url('Transactions/show_tenants') || 
+                     current_url() == site_url('Transactions/records_room')) { ?>
+                <p class="menu-active menu-side" style="margin-top: 15px;margin-bottom: 0px;padding-left: 17.5px;">
+                <a href="#bills-collapse" id="menu-active" data-toggle="collapse"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
+                <div id="bills-collapse" class="collapse show" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
 
-                     <?php if(base_url(uri_string()) == "".base_url()."Transactions/index" || base_url(uri_string()) == "".base_url()."Transactions/show_tenants" ) { ?>
+                     <?php if(current_url() == site_url('Transactions/index') || current_url() == site_url('Transactions/show_tenants') ) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
-                     <?php } if(base_url(uri_string()) == "".base_url()."Transactions/records_room") { ?>
+                     <?php } if(current_url() == site_url('Transactions/records_room')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/records_rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp;&nbsp;Transaction Records</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/records_room'); ?>" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp; Transaction Records</a></span></li>
                      <?php } ?>
                     </ul>
                 </div>
-           
-           
-           
-           
            <?php } else {?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#bills-collapse" data-toggle="collapse" ><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
-                <div id="bills-collapse" class="panel-collapse collapse">
+                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a class="collapsed" href="#bills-collapse2" data-toggle="collapse" ><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
+                <div id="bills-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
 
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
@@ -119,21 +116,21 @@ date_default_timezone_set("Asia/Manila");
                     
                     </ul>
                 </div>
-            <?php } if(base_url(uri_string()) == "".base_url()."Announcements/index" || base_url(uri_string()) == "".base_url()."Announcements/index/") { ?>
+            <?php } if(current_url() == site_url('Announcements/index') || current_url() == site_url('Announcements/index')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
-            <?php } if(base_url(uri_string()) == "".base_url()."Messages/index" || base_url(uri_string()) == "".base_url()."Messages/request") { ?>
+            <?php } if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/request')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
-                <div id="message-collapse" class="panel-collapse ">
+                <div id="message-collapse" class="collapse show" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
  
-                     <?php if(base_url(uri_string()) == "".base_url()."Messages/index" ) { ?>
+                     <?php if(current_url() == site_url('Messages/index') ) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
-                     <?php } if(base_url(uri_string()) == "".base_url()."Messages/request") { ?>
+                     <?php } if(current_url() == site_url('Messages/request')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
@@ -142,8 +139,8 @@ date_default_timezone_set("Asia/Manila");
                 </div>
             
             <?php } else { ?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#message-collapse" data-toggle="collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
-                <div id="message-collapse" class="panel-collapse collapse">
+                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#message-collapse2" data-toggle="collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
+                <div id="message-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
@@ -151,16 +148,17 @@ date_default_timezone_set("Asia/Manila");
                     </ul>
                 </div>
             <?php } ?>
-            <?php  if(base_url(uri_string()) == "".base_url()."Logs/index") { ?>
+            <?php  if(current_url() == site_url('Logs/index')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Logs/index'); ?>"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Logs/index'); ?>"><i class="fa fa-address-book-o"></i>&nbsp; &nbsp; &nbsp;Visitor Logs</a></p>
-            <?php } if(base_url(uri_string()) == "".base_url()."Settings/index") { ?>
+            <?php } if(current_url() == site_url('Settings/index')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Settings/index'); ?>"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Settings/index'); ?>"><i class="fa fa-gear"></i>&nbsp; &nbsp; &nbsp;Settings</a></p>
             <?php } ?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Logout/index'); ?>"><i class="fa fa-sign-out"></i>&nbsp; &nbsp; &nbsp;Logout</a></p>
+                
         </div>
 <!--     
     <script src="<?php //echo base_url(); ?>assets/js/jquery.min.js"></script>
