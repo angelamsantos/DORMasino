@@ -6,7 +6,7 @@
         redirect('Login');
     }
 
-$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+    $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <style>
 .form-control {
@@ -188,7 +188,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <?php 
             foreach($dir->result() as $tenantInfo){ ?>
             <div class="modal fade" role="dialog" tabindex="-1" id="TenantInfo<?php echo $tenantInfo->dir_id; ?>">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content" id="tenantInfo<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Tenant Information</h4>
@@ -471,7 +471,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 foreach ($dir->result() as $moveRoom)  
                 {  
             ?>
-            <div id="MoveRoom<?php echo $moveRoom->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">5
+            <div id="MoveRoom<?php echo $moveRoom->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
@@ -482,7 +482,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current Room</label></div>
-                                        <div class="col-xl-12" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;font-size:16px"><?php echo $tenantInfo->room_number;?></label> 
+                                        <div class="col-xl-12" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;font-size:16px"><?php echo $moveRoom->room_number;?></label> 
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +490,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-row">
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">New Room</label></div>
                                         <div class="col-xl-12">
-                                            <select class="form-control selectize-multiple" style="font-size:14px" name="mr_roomno" id="etroom_number<?php echo $tenantInfo->dir_id; ?>" >
+                                            <select class="form-control selectize-multiple" style="font-size:14px" name="mr_roomno" id="etroom_number<?php echo $moveRoom->dir_id; ?>" >
                                                             <option selected>Select Room</option>
                                                             <?php  
                                                                 foreach ($room->result() as $etRoom)  
@@ -504,7 +504,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                                 }
                                                             ?>
                                             </select>
-                                            <input name="mr_tenantid" class="form-control" type="hidden" value="<?php echo $tenantInfo->tenant_id; ?>">
+                                            <input name="mr_tenantid" class="form-control" type="hidden" value="<?php echo $moveRoom->tenant_id; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -623,75 +623,68 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $this->session->userdata['data']['room_no']; ?>: Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:500px;">
                            
                             <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
-                                        <h6 style="font-size:12px;color:red;">* Optional</h6>
+                                        <h6 style="font-size:12px;color:red;">* Required</h6>
+                                        
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                                <div class="col">
-                                                <input name="room_id" class="form-control" type="hidden" value="<?php echo $this->session->userdata['data']['room_id']; ?>" >
-                                                <input name="room_number" class="form-control" type="text" value="<?php echo $this->session->userdata['data']['room_no']; ?>" disabled>
-                                                       
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_fname" class="form-control" type="text" placeholder="Enter first name" required></div>
+                                                <input name="room_id" class="form-control" type="hidden" value="<?php echo $this->session->userdata['data']['room_id']; ?>" >
+                                                <input name="room_number" class="form-control" type="hidden" value="<?php echo $this->session->userdata['data']['room_no']; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_lname" class="form-control" type="text" placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address<span style="color:red">*</span></label></div>
                                                 <div class="col"><textarea name="tenant_address" class="form-control" row="2" type="text" placeholder="Enter home address" required></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_email" class="form-control" type="email" placeholder="Enter email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_cno" class="form-control" type="number" placeholder="Enter contact number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_school" class="form-control" type="text" placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_course" class="form-control" type="text" placeholder="Enter course" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions <span style="color:red">*</span></label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions </label></div>
                                                 <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" required></textarea></div>
                                             </div>
                                         </div>
@@ -700,64 +693,64 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter fathers's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_name" class="form-control" type="text" placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_rel" class="form-control" type="text" placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_email" class="form-control" type="email" placeholder="Enter guardian's email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_mno" class="form-control" type="number" placeholder="Enter guardian's mobile number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No <span style="color:#c7c7c7">*</span></label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No </label></div>
                                                 <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="contract_start" class="form-control" type="date"></div>
                                             </div>
                                         </div>
