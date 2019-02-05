@@ -186,6 +186,19 @@ a:hover {
   border-color: #ffffff;
 }
 
+#ann:hover {
+  color:black;
+  background-color: #e1f5fe;
+  border-color: #e1f5fe;
+}
+
+#ann {
+  color:black;
+  font-size: 19px;
+  background-color: #eeeeee;
+  border-color: #eeeeee;
+}
+
 .modal-tenant:hover {
   color:blue;
   background-color: #e1f5fe;

@@ -11,38 +11,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Messages</title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/line-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/chat.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Community-ChatComments.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
-
-    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
-
-    <style>
-    li p {
-        font-size: 14px !important;
-    }
-    </style>
-</head>
 
         <div class="page-content-wrapper">
             <div class="container-fluid">
@@ -117,7 +85,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             </div>
         </div>
     </div>
-    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
 </body>
 
 </html>

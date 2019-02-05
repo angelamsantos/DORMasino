@@ -70,14 +70,23 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                             $date_posted = $row3->date_posted;
                                             $post=date("M d, Y g:ia", strtotime($date_posted));
-
+                                            
                                             echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
-                                            echo    '<div class="card-body">';
+                                            echo '';
+                                            echo    '<div class="card-body" >';
+                                           
                                             echo        '<p class="card-title" style="font-size: 14px;float: right;">'. $post .'</p>';
                                             echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
                                             echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                             echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
-                                            echo        '<p class="card-text" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.'</p>';
+                                            echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                        <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.'
+                                                        </p>
+                                                        <div class="ml-xl-auto ml-lg-auto ml-md-auto">
+                                                            <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
+                                                            <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Delete" style="    border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
                                             echo    '</div>';
                                             echo '</div>';
 
@@ -94,8 +103,26 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     }
 
                                 ?>
+                                <!----MODAL Delete-->
+                                <div id="Delete" class="modal fade" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                                <h4 class="modal-title" style="color: #11334f;">Delete announcement</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                            
+                                            <form method="POST" name="delete_ann" action="" class="justify" style="width: 100%;margin: 0 auto;">
+                                            <div class="modal-body text-center">
+                                                    <p style="font-size: 17px;">Are you sure you want to delete announcement?</p>
+                                                   
+                                                </div>
+                                                <div class="modal-footer"><button class="btn btn-primary" name="delete_ann" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
+                                <!----END MODAL Delete-->
+                                </div>
+                                <p class="card-text" style="color: black;font-size: 18px;margin-bottom: 0px; text-align: right"><a style="color:#11334f"><?php echo $links; ?></a></p>
                             </div>
                         </div>
                     </div>
@@ -106,8 +133,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         </div>
     </div>
     </div>
-    <script src="<?php echo base_url(); ?>/assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/Sidebar-Menu.js"></script>
 </body>
 
