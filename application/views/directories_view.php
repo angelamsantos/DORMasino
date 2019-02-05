@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
+    $login = $this->session->userdata('login_success');
+        if (!isset ($login)) {
+            redirect('Login');
+        }
+
+    $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
 <style>
@@ -12,41 +18,8 @@
 
 </style>
 <script>
-    function roomView() {
-        var x = document.getElementById("room_view");
-        var y = document.getElementById("table_view");
-        var btnRoom = document.getElementById("btnroom");
-        var btnTable = document.getElementById("btntable");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            
-            y.style.display = "none";
-            btnRoom.style.backgroundColor="#28a745";
-            btnTable.style.backgroundColor="#83c592";
-        } 
-    }
-    function tableView() {
-        var x = document.getElementById("room_view");
-        var y = document.getElementById("table_view");
-        var btnRoom = document.getElementById("btnroom");
-        var btnTable = document.getElementById("btntable");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            
-            x.style.display = "none";
-            btnTable.style.backgroundColor="#28a745";
-            btnRoom.style.backgroundColor="#83c592";
-        } 
-    }
-    function agree() {
-        var x = document.getElementById("Terms");
-        var y = document.getElementById("form_adduser");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            
-            x.style.display = "none";
-        } 
-    }
+    
+   
     $(document).ready(function () {
          $('#example').dataTable();
     });
@@ -56,7 +29,7 @@
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
@@ -75,7 +48,7 @@
                             foreach ($floor->result() as $row)  
                             {
                         ?>
-                        <div class="card">
+                        <div class="card mx-auto">
                             <div class="card-header" role="tab" style="padding-top: 9px;padding-bottom: 9px;">
                                 <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-start align-items-start justify-content-sm-start align-items-sm-start justify-content-md-start align-items-md-start align-items-lg-start mr-lg-start align-items-xl-start mr-xl-auto mb-0">
                                     <a class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
@@ -85,7 +58,7 @@
                                 </h5>
                             </div>
                             <div class="collapse item-<?php echo $row->floor_number; ?>" role="tabpanel" data-parent="#accordion-1">
-                                <div class="card-body">
+                                <div class="card-body mx-auto">
                                     <div class="card-group">
                                         <?php foreach ($room->result() as $row1)  
                                             {
@@ -93,7 +66,7 @@
 
                                                 
                                         ?>
-                                        <div class="card d-inline-block" style="max-width:320px;min-width:274px;border:1px solid #c7c7c7" >
+                                        <div class="card d-inline-block" style="max-width:290px;min-width:270px;border:1px solid #c7c7c7" >
                                             <div class="card-body">
                                                 <div class="row" style="margin: 0px;">
                                                     <div class="col-xl-9 col-lg-8" style="padding: 0px;">
@@ -116,10 +89,14 @@
                                                 <?php foreach ($dir_count->result() as $nt) {
                                                     if ($nt->room_id == $row1->room_id) { ?>
                                                         <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
-                                                        <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: <?php if ($nt->num_tenants > 4) {
-                                                             echo 0;
-                                                            } else { 
-                                                            echo (4 - $nt->num_tenants); }  ?></p>
+
+                                                        <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                            <?php $acc = $nt->num_tenants; if (($acc - 4) != 0) { ?>
+                                                            <span style="color:green"> <?php echo (4 - $acc); ?> </span>
+                                                            <?php } else if (($acc - 4) == 0) { ?>
+                                                            <span style="color:red"> 0 </span> 
+                                                            <?php }  ?>
+                                                        </p>
                                                         
                                                     
                                                 <?php }
@@ -206,109 +183,74 @@
             foreach($room->result() as $row6){ ?>
             
             <div class="modal fade" role="dialog" tabindex="-1" id="AddUser<?php echo $row6->room_id; ?>">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                        <div class="modal-body" style="height:350px;">
-                            <div class="row" id="Terms" style="padding:15px; display:block;height:100%;overflow-y:scroll;overflow-x:hidden;">
-                                <div class="column">
-                                <p style="font-size: 13px;"> To create an account in DORMasino, you’ll need to agree to the Terms of Service below.
-                                    In addition, when you create an account, we process your information as described in our 
-                                    Privacy Policy, including these key points:</p>
-
-                                <p style="font-size: 13px;"> Data we process when you use DORMasino<br>
-
-                                - We store information you give us like your name, address, birthday, email, contact number, school/company and course.<br>
-                                - We process your transaction records, messages and information your visitors.<br><br>
-
-
-                                Why we process it<br>
-                                - Improve the quality of our services regarding the documenting of your electricity, water, and transactions. <br>
-                                - Improve security against data fraud.<br><br>
-
-                                You’re in control<br>
-                                Depending on your account settings, some of this data may be associated with your DORMasino Account and we treat this data as personal information.<br><br>
-
-                                Privacy<br>
-                                -The management is the only one to view process the information collected on this system. <br>
-                                -The management have the access to/collect information that you voluntarily submit to us via signing up the website.<br>
-                                -We will not make profit to this information to anyone.<br>
-                                -We will make sure that the information you submit to us is encrypted and transmitted to us in a secure way. You can verify this by looking at the lock icon <br>
-                                in the address bar and looking for "https" at the beginning of the address of the Web page. 
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $row6->room_number; ?>: Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <div class="modal-body" style="height:500px;">
                             
-                                </p>
-                                <button type="button" class="btn btn-primary" onclick="agree()" style="margin-right:auto;margin-left:auto;">I Agree</button>
-                                </div>
-                            </div>
-                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="display:none;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                            <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
-                                        <h6 style="font-size:12px;color:#c7c7c7;">* Optional</h6>
+                                        <h6 style="font-size:12px;color:red">* Required</h6>
+                                        
                                         
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                                <div class="col">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name<span style="color:red">*</span></label></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" placeholder="Enter first name" required></div>
                                                 <input name="floor_id" class="form-control" type="hidden" value="<?php echo $row6->floor_id; ?>" >
                                                 <input name="room_id" class="form-control" type="hidden" value="<?php echo $row6->room_id; ?>" >
-                                                <input name="room_number" class="form-control" type="text" value="<?php echo $row6->room_number; ?>" disabled>
+                                                <input name="room_number" class="form-control" type="hidden" value="<?php echo $row6->room_number; ?>">
                                                        
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" placeholder="Enter first name" required></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_lname" class="form-control" type="text" placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address<span style="color:red">*</span></label></div>
                                                 <div class="col"><textarea name="tenant_address" class="form-control" row="2" type="text" placeholder="Enter home address" required></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_email" class="form-control" type="email" placeholder="Enter email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_cno" class="form-control" type="number" placeholder="Enter contact number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_school" class="form-control" type="text" placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_course" class="form-control" type="text" placeholder="Enter course" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions *</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions</label></div>
                                                 <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" ></textarea></div>
                                             </div>
                                         </div>
@@ -317,64 +259,64 @@
                                         <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter fathers's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_name" class="form-control" type="text" placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_rel" class="form-control" type="text" placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Email <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_email" class="form-control" type="email" placeholder="Enter guardian's email" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="guardian_mno" class="form-control" type="number" placeholder="Enter guardian's mobile number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No *</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No </label></div>
                                                 <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="contract_start" class="form-control" type="date"></div>
                                             </div>
                                         </div>

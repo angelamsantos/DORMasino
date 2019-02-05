@@ -34,7 +34,7 @@ class logs_model extends CI_Model {
     }
 
     public function get_vlogs() {
-
+  
         $this->db->from('vlogs_tbl');
         $this->db->order_by('vlogs_id', 'desc');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=vlogs_tbl.tenant_id', 'LEFT');

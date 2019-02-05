@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$login = $this->session->userdata('login_success');
+if (!isset ($login)) {
+    redirect('Login');
+}
+
+$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+
 ?>
 <html>
 
@@ -43,17 +50,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Rooms</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><?php echo  date("D, j M Y"); ?> &nbsp;</p>
+                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button></div>
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
+	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                    </div>
                 </div>
                 <div class="row" style="margin-top: 20px;margin-left:0px;">
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                         
-                        <div id="table_view" class="table-responsive" style="width:100%;">
+                        <div id="table_view" class="table-responsive" style="width:60%;">
                             <table class="table" id="room_datatable" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
@@ -167,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                <h4 class="modal-title" style="color: #11334f;">Edit Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                <h4 class="modal-title" style="color: #11334f;">Edit Room Details</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                             <div class="modal-body">
                                 <form action="<?php echo site_url('Directories/update_room');?>" method="POST">
                                 <input type="hidden" name="room_id" value="<?php echo $rmedit->room_id; ?>" />
@@ -215,8 +224,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h4 class="modal-title" style="color: #11334f;">Deactivate Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                             
                             <form method="POST" name="deactivate_tenant" action="<?php echo site_url('Directories/deactivate_room');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                            <input type="hidden" name="droom_id" value="<?php echo $deac->room_id; ?>" />
                             <div class="modal-body text-center">
-                                    <p style="font-size: 17px;">Are you sure you want to deactivate Room <?php echo $deac->room_number; ?>?</p>
+                                    <p style="font-size: 17px;">Are you sure you want to deactivate room <?php echo $deac->room_number; ?>?</p>
                                     <input type="hidden" name="dtenant_id" value="<?php echo $deac->room_id; ?>" >
                                 </div>
                                 <div class="modal-footer"><button class="btn btn-primary" name="delete_room" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
@@ -236,9 +246,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h4 class="modal-title" style="color: #11334f;">Activate Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                                 <form method="POST" name="activate_tenant" action="<?php echo site_url('Directories/activate_room');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                                <input type="hidden" name="aroom_id" value="<?php echo $activate->room_id; ?>" />
                                     <div class="modal-body text-center">
-                                        <p style="font-size: 17px;">Are you sure you want to activate tenant <?php echo $deac->room_number;  ?>?</p>
-                                        <input type="hidden" name="atenant_id" value="<?php echo $deac->room_id;  ?>" >
+                                        <p style="font-size: 17px;">Are you sure you want to activate room <?php echo $activate->room_number;  ?>?</p>
+                                        <input type="hidden" name="atenant_id" value="<?php echo $activate->room_id;  ?>" >
                                     </div>
                                     <div class="modal-footer"><button class="btn btn-primary" name="activate_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                                 </form>
