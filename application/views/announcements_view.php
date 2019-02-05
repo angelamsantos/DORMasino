@@ -44,17 +44,21 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             <div class="card-header" style="background-image: none;background-color: #76b15b;padding-top: 8px;padding-bottom: 8px;">
                                 <h6 class="mb-0">Announcements&nbsp;</h6>
                             </div>
+                            <?php foreach($ann as $annrow) { ?>
                             <div class="card-body" style="background-color: #ffffff;padding-top: 10px;border: 1px solid #76b15b">
-                                <form method="post" action="<?php echo site_url('Announcements/process'); ?>">
+                                <?php echo form_open_multipart('Announcements/process');?>
+                                <input type="hidden" name="ann_id" value="<?php echo $annrow->ann_id; ?>" />
                                     <input type="text" class="form-control" name="title" placeholder="Title" style="font-size: 14px;" required><br>
                                     <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;" required></textarea>
                                     <div class="form-row" style="margin: 0px;">
                                         <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
+
                                             <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
                                             <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;</button>
-                                            
+                                            <input type='file' name='userfile' size='20' />
                                             <button class="btn btn-primary d-xl-flex justify-content-xl-end" type="button" id="attach" style="padding-bottom: 0px;padding-top: 7px;padding-right: 3px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach File">
                                             <i class="material-icons" style="font-size: 17px;color: #555555;">attach_file</i>&nbsp;</button>
+
                                         </div>
                                     </div>
                                     <div class="form-row" style="margin: 0px;">
@@ -97,6 +101,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 </div>
                                 <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">

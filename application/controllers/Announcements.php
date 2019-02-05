@@ -4,9 +4,9 @@ class Announcements extends CI_Controller{
 
     public function __construct() {
         parent:: __construct();
-        $this->load->helper('url');
+        $this->load->helper(array('form', 'url'));
+        $this->load->library(array('upload','pagination'));
         $this->load->model('announcements_model');
-        $this->load->library('pagination');
     }
 
     public function validate_login() {
