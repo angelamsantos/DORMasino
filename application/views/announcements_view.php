@@ -85,7 +85,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                         <div class="ml-xl-auto ml-lg-auto ml-md-auto">
                                                             <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
                                                                 <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
-                                                            <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                            <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="    border-radius:90px 90px 90px 90px;padding:0px 8px;">
                                                                 <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
                                             echo    '</div>';
                                             echo '</div>';
@@ -103,8 +103,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     }
 
                                 ?>
-                                <!----MODAL Delete-->
-                                <div id="Delete" class="modal fade" role="dialog" tabindex="-1">
+                                 <!----MODAL Delete-->
+                                 <div id="Delete" class="modal fade" role="dialog" tabindex="-1">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
@@ -121,6 +121,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     </div>
                                 </div>
                                 <!----END MODAL Delete-->
+                                
                                 <!----MODAL edit-->
                                 <div id="Edit" class="modal fade" role="dialog" tabindex="-1">
                                     <div class="modal-dialog" role="document">
@@ -132,17 +133,16 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <div class="modal-body text-center">
                                                 <div class="form-group">
                                                     <div class="form-row">
-                                                        <div class="col-xl-12"><label class="col-form-label" style="font-weight: normal;">Title</label></div>
+                                                        <div class="col" style="text-align:left"><label class="col-form-label mr-auto" style="font-weight: bold;">Title</label></div>
                                                         <div class="col-xl-12"><input name="etenant_lname" class="form-control" type="text" value="" required></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-row">
-                                                        <div class="col-xl-12"><label class="col-form-label" style="font-weight: normal;">Content</label></div>
+                                                        <div class="col" style="text-align:left"><label class="col-form-label mr-auto" style="font-weight: bold;">Content</label></div>
                                                         <div class="col-xl-12"><textarea name="etenant_address" class="form-control" row="2" type="text"  required></textarea></div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
                                                 </div>
                                                 <div class="modal-footer"><button class="btn btn-primary" name="delete_ann" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                                             </form>
@@ -151,7 +151,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 </div>
                                 <!----END MODAL edit-->
                                 </div>
-                                <p class="card-text" style="color: black;font-size: 18px;margin-bottom: 0px; text-align: right"><a style="color:#11334f"><?php echo $links; ?></a></p>
+                                <p class="card-text" style="color: blue;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
                             </div>
                         </div>
                     </div>
