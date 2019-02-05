@@ -13,7 +13,7 @@ class logout_model extends CI_Model {
 
         $admin = $this->session->userdata['login_success']['info']['admin_email'];
 
-        if (isset ($$admin)) {
+        if (isset ($admin)) {
             
             date_default_timezone_set('Asia/Manila');
             $log  = date("F j, Y, g:ia").": ". $admin . " logged out from the system".PHP_EOL;
