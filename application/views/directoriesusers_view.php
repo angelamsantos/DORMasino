@@ -8,29 +8,6 @@
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>DORMasino</title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
-
-
-    <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
     <style>
         .form-control {
             font-size: 14px;
@@ -51,15 +28,20 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             $('#tenantInfo<?php echo $edit->dir_id; ?>').hide();
                             $('#editTenant<?php echo $edit->dir_id; ?>').show();
                     });
+
+                    $('#TenantInfo<?php echo $edit->dir_id; ?>').on('hidden.bs.modal', function () {
+                            $('#tenantInfo<?php echo $edit->dir_id; ?>').show();
+                            $('#editTenant<?php echo $edit->dir_id; ?>').hide();
+                    })
                  <?php } ?>
                 
                     $('.chk_boxes').click(function() {
                         $('.chk_boxes1').prop('checked', this.checked);
                     });
+                    
                 
             });
     </script>
-</head>
 
         <div class="page-content-wrapper">
             <div class="container-fluid">
@@ -339,7 +321,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     </div>
                     <div class="modal-content" id="editTenant<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenant->tenant_lname; ?>:Edit Tenant Information</h4>
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenant->tenant_lname; ?>: Edit Tenant Information</h4>
                             <button onclick="edit()" id="cancelEdit<?php echo $tenantInfo->dir_id; ?>" class="ml-auto" style="border:none;background-color:transparent;font-size:14px;color:red">
                                 Cancel Edit
                             </button>
@@ -779,8 +761,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         </div>
     </div>
     </div>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     <script>
