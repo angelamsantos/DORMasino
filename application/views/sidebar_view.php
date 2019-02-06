@@ -23,6 +23,7 @@ date_default_timezone_set("Asia/Manila");
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/simple-line-icons.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/line-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/material-icons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
