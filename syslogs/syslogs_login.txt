@@ -460,4 +460,9 @@ February 5, 2019, 4:21pm: thores20182019@gmail.com successfully logged in to the
 >>>>>>> 751ce8d310787e64c6087ab9351cff2960237256
 >>>>>>> 408be7b88536bb710519869b57627338330406b6
 February 5, 2019, 8:19pm: thores20182019@gmail.com successfully logged in to the system.
+<<<<<<< HEAD
 February 6, 2019, 8:45am: thores20182019@gmail.com successfully logged in to the system.
+=======
+February 5, 2019, 11:20pm: thores20182019@gmail.com successfully logged in to the system.
+February 6, 2019, 8:37am: thores20182019@gmail.com successfully logged in to the system.
+>>>>>>> f5aa1944cafbb482ad8017e257eb664c8b7ba20b
