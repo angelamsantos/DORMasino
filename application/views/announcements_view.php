@@ -12,23 +12,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>DORMasino</title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/material-icons.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/Sidebar-Menu-1.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/Sidebar-Menu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/styles.css">
-</head>
 
 
         <div class="page-content-wrapper">
@@ -82,7 +65,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
                                             echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                             echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
-                                            echo        '<p class="card-text" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.'</p>';
+                                            echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                        <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.'
+                                                        </p>
+                                                        <div class="ml-xl-auto ml-lg-auto ml-md-auto">
+                                                            <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
+                                                            <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
                                             echo    '</div>';
                                             echo '</div>';
 
@@ -99,6 +89,52 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     }
 
                                 ?>
+                                <!----MODAL Delete-->
+                                <div id="Delete" class="modal fade" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                                <h4 class="modal-title" style="color: #11334f;">Delete announcement</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                            
+                                            <form method="POST" name="delete_ann" action="" class="justify" style="width: 100%;margin: 0 auto;">
+                                            <div class="modal-body text-center">
+                                                    <p style="font-size: 17px;">Are you sure you want to delete announcement?</p>
+                                                   
+                                                </div>
+                                                <div class="modal-footer"><button class="btn btn-primary" name="delete_ann" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----END MODAL Delete-->
+                                <!----MODAL edit-->
+                                <div id="Edit" class="modal fade" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                                <h4 class="modal-title" style="color: #11334f;">Edit announcement</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                            
+                                            <form method="POST" name="delete_ann" action="" class="justify" style="width: 100%;margin: 0 auto;">
+                                            <div class="modal-body text-center">
+                                                <div class="form-group">
+                                                    <div class="form-row">
+                                                        <div class="col-xl-12" style="text-align:left"><label class="col-form-label" style="font-weight: normal;">Title</label></div>
+                                                        <div class="col-xl-12"><input name="etenant_lname" class="form-control" type="text" value="" required></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-row">
+                                                        <div class="col-xl-12" style="text-align:left"><label class="col-form-label" style="font-weight: normal;">Content</label></div>
+                                                        <div class="col-xl-12"><textarea name="etenant_address" class="form-control" row="2" type="text"  required></textarea></div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="modal-footer"><button class="btn btn-primary" name="delete_ann" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----END MODAL edit-->
                                 </div>
                                 <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
                             </div>
@@ -111,8 +147,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         </div>
     </div>
     </div>
-    <script src="<?php echo base_url(); ?>/assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/Sidebar-Menu.js"></script>
 </body>
 
