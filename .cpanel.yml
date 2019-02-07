@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/user/public_html/
-    - /bin/cp -R images $DEPLOYPATH/images
+    - export DEPLOYPATH=/home/thomasi1/repositories/DORMasino
+    - /bin/cp * $DEPLOYPATH
