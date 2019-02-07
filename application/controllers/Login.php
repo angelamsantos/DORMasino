@@ -29,7 +29,7 @@ class Login extends CI_Controller{
         // Load the model
         $this->load->model('Login_model');
         // Validate the user can login
-        $result = $this->login_model->login_validate();
+        $result = $this->Login_model->login_validate();
         // Now we verify the result
         if(! $result) {
             
