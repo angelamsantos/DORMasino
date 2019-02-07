@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'http://thomasianresidences.net/',
+	'hostname' => 'www.thomasianresidences.net',
 	'username' => 'thomasi1_UST',
 	'password' => '@ thoreS123',
 	'database' => 'thomasi1_dormasino',
