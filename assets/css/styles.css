@@ -186,6 +186,26 @@ a:hover {
   border-color: #ffffff;
 }
 
+#edit-room:disabled , #edit-room[disabled] {
+  color:black;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+#edit-room {
+  color:black;
+  font-size: 19px;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+#edit-room:hover {
+  color:black;
+  background-color: #e1f5fe;
+  border-color: #e1f5fe;
+}
+
+
+
 #ann:hover {
   color:black;
   background-color: #e1f5fe;

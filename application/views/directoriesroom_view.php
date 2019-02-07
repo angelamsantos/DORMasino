@@ -69,20 +69,25 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                                     if ( $status == 1) { ?>
 
+<<<<<<< HEAD
+                                                            <button title="Edit Room" type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
+=======
                                                             <button title="Edit Room Details" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                                 <i class="fa fa-edit" style="font-size: 14px"></i>
+>>>>>>> 9ab40724ce9d4a62de5ed9f90043f6bb96afd4f5
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                             <?php if ($capacity == 0) { ?>
 
-                                                                <button title="Deactivate room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
-                                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                                <button title="Deactivate room"  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                    <i class="icon ion-minus-circled" style="font-size: 19px; color:#0645AD;"></i>
                                                                 </button>
-
+ 
                                                             <?php } else { ?>
 
-                                                                <button title="Deactivating is disabled. The room is still occupied." name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;" disabled>
-                                                                <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                                <button title="Deactivating is disabled. The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
+                                                                <i class="icon ion-minus-circled" style="font-size: 19px;"></i>
                                                                 </button>
 
                                                             <?php } ?>

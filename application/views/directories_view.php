@@ -90,13 +90,16 @@
                                                     if ($nt->room_id == $row1->room_id) { ?>
                                                         <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
 
-                                                        <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
-                                                            <?php $acc = $nt->num_tenants; if (($acc - 4) != 0) { ?>
-                                                            <span style="color:green"> <?php echo (4 - $acc); ?> </span>
-                                                            <?php } else if (($acc - 4) == 0) { ?>
-                                                            <span style="color:red"> 0 </span> 
+                                                        
+                                                            <?php $acc = $nt->num_tenants; if ((4 - $acc) > 0) { ?>
+                                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                                <span style="color:green"> <?php echo (4 - $acc); ?> </span></p>
+                                                            <?php } else if ((4 - $acc) == 0) { ?>
+                                                                <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
+                                                            <?php } else if ((4 - $acc) < 0) { ?>
+                                                                <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p>
                                                             <?php }  ?>
-                                                        </p>
+                                                        
                                                         
                                                     
                                                 <?php }
@@ -259,27 +262,27 @@
                                         <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" required></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" required></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No </label></div>
+                                                <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
                                                 <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter fathers's mobile number" required></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No </label></div>
+                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter father's mobile number" required></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
