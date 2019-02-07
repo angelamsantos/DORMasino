@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/thomasi1/public_html/DORMasino
+    - export DEPLOYPATH=/home/thomasi1/repositories/DORMasino
     - /bin/cp * $DEPLOYPATH
