@@ -11,27 +11,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>DORMasino</title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fullcalendar.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
-    <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
-    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+
     <script>
 
     $(document).ready(function () {
@@ -43,7 +23,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     });
 
     </script>
-</head>
 
 
     <div class="page-content-wrapper">
@@ -72,7 +51,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($room->result() as $row) {
+                                    <?php foreach ($dir_count->result() as $row) {
                                        
                                     ?>
                                          
@@ -84,15 +63,29 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                            
                                             <td style="text-align:center;">
                                                 <?php 
+
                                                     $status = $row->room_status;
+                                                    $capacity = $row->num_tenants;
+
                                                     if ( $status == 1) { ?>
 
-                                                    <button title="Edit Room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
-                                                        <i class="fa fa-edit" style="font-size: 14px"></i>
-                                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
-                                                        <i class="fa fa-ban" style="font-size: 14px"></i>
-                                                    </button>
+                                                            <button title="Edit Room Details" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                                <i class="fa fa-edit" style="font-size: 14px"></i>
+                                                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                            <?php if ($capacity == 0) { ?>
+
+                                                                <button title="Deactivate room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
+                                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                                </button>
+
+                                                            <?php } else { ?>
+
+                                                                <button title="Deactivating is disabled. The room is still occupied." name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;" disabled>
+                                                                <i class="fa fa-ban" style="font-size: 14px"></i>
+                                                                </button>
+
+                                                            <?php } ?>
 
                                                 <?php } else { ?>
                                                     <button title="Activate user" data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
@@ -234,7 +227,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         </div>
                     </div>
                 </div>
-            <?php }  
+            <?php }
                 
                 foreach ($dir->result() as $activate)  
                 {  

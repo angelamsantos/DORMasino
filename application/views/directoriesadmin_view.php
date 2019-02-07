@@ -201,8 +201,6 @@
     </div>
     </div>
     
-    
-    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
     
 </body>

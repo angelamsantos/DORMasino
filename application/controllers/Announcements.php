@@ -4,9 +4,9 @@ class Announcements extends CI_Controller{
 
     public function __construct() {
         parent:: __construct();
-        $this->load->helper('url');
-        $this->load->model('announcements_model');
+        $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
+        $this->load->model('announcements_model');
     }
 
     public function validate_login() {
@@ -31,6 +31,7 @@ class Announcements extends CI_Controller{
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
         $data['ann']=$this->announcements_model->get_ann($config['per_page'], $page);
+        // $data['ann_id']=$this->announcements_model->get_ann_id();
         $data['links'] = $this->pagination->create_links();
 
         $this->validate_login();
@@ -40,7 +41,7 @@ class Announcements extends CI_Controller{
 
     }
 
-    public function process() {
+    public function do_upload() {
 
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
 
@@ -50,10 +51,56 @@ class Announcements extends CI_Controller{
             'admin_id' => $admin_id
         );
 
-        $this->announcements_model->publish($data);
+        date_default_timezone_set("Asia/Manila");
+        $date = date("m-d-Y");
+        $path = "./assets/uploads/documents/".$date."/";
+      
+        $conf = array(
+            'upload_path' => "./assets/uploads/documents/".$date."/",
+            'allowed_types' => "xls|docx|doc|pdf",
+            'overwrite' => FALSE,
+            'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+            'max_height' => "768",
+            'max_width' => "1024"
+        );
 
-        redirect('Announcements/index');
+        $this->load->library('upload', $conf);
 
-    }
+        if (!is_dir("assets/uploads/documents/".$date."/")) {
+
+            mkdir($path, 0777, true);
+            
+        }
+
+            if (!$this->upload->do_upload()) {
+
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement was not posted!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
+
+                redirect('Announcements/index');
+
+            } else {
+
+                $this->announcements_model->publish($data);
+
+                $ann_id = $this->input->post('ann_id');
+
+                // $data2 = array(
+                //     'annfile_path' => $path,
+                //     'ann_id' => $ann_id
+                // );
+
+                // $this->announcements_model->publishFile($data2);
+
+                $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
+
+                $data3 = array('upload_data' => $this->upload->data());
+
+                redirect('Announcements/index');
+
+            }
+        }
+
 }
 ?>

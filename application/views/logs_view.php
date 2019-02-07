@@ -3,33 +3,16 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
     date_default_timezone_set("Asia/Manila");
     $login = $this->session->userdata('login_success');
-        if (!isset ($login)) {
-            redirect('Login');
-        }
+    if (!isset ($login)) {
+        redirect('Login');
+    }
 
-    $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
-
+$admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>DORMasino</title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
-    <link href="<?php echo base_url(); ?>/assets/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css">
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <script>
@@ -90,7 +73,7 @@
  
                                 $time_in = $row2->vlogs_in;
                                 $intime=date("g:ia", strtotime($time_in));
-                                $indate=date("M d, Y", strtotime($time_in));
+                                $indate=date("m/d/Y", strtotime($time_in));
                                 
                                 echo "<tr >";
                                     echo "<td>". $indate ."</td>";
@@ -170,13 +153,13 @@
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Name of visitor</label></div>
-                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The name must contain only letters." name="vlogs_name" placeholder="Enter name of visitor" required></div>
+                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your name must contain only letters." name="vlogs_name" placeholder="Enter name of visitor" required></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Relation</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_relation" placeholder="Enter relation to tenant" required></div>
+                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relation must contain only letters." name="vlogs_relation" placeholder="Enter relation to tenant" required></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -197,8 +180,6 @@
             </form>
         </div>
     </div>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>

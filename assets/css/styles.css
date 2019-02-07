@@ -36,18 +36,10 @@
   box-shadow: none;
 }
 
-@media (min-width: 1200px) {
-  .modal-big {
-    max-height: 600px;
-    max-width: 1500px;
-    
-  }
-}
-
 @media (min-width: 992px) {
   .modal-big {
-    max-height: 600px;
-    max-width: 1300px;
+    max-height: 500px;
+    max-width: 1000px;
     
   }
 }
@@ -192,6 +184,19 @@ a:hover {
   font-size: 19px;
   background-color: #ffffff;
   border-color: #ffffff;
+}
+
+#ann:hover {
+  color:black;
+  background-color: #e1f5fe;
+  border-color: #e1f5fe;
+}
+
+#ann {
+  color:black;
+  font-size: 19px;
+  background-color: #eeeeee;
+  border-color: #eeeeee;
 }
 
 .modal-tenant:hover {
