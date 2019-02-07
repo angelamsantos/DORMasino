@@ -27,9 +27,9 @@ class Login extends CI_Controller{
     
     public function process(){
         // Load the model
-        $this->load->model(site_url('login_model'));
+        $this->load->model(site_url('Login_model'));
         // Validate the user can login
-        $result = $this->login_model->login_validate();
+        $result = $this->Login_model->login_validate();
         // Now we verify the result
         if(! $result) {
             
@@ -80,7 +80,7 @@ class Login extends CI_Controller{
         } else {
 
             $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
-            $result = $this->login_model->login_checkstatus($admin_id);
+            $result = $this->Login_model->login_checkstatus($admin_id);
 
             if(! $result) {
 
