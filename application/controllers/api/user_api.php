@@ -19,7 +19,7 @@ require APPPATH . 'libraries/Format.php';
             //search data
      
             // Check if any user exists with the given credentials
-            $this->db->select('tenant_fname');
+            $this->db->select('tenant_fname,tenant_new');
             $this->db->from('tenant_tbl');
             $this->db->where('tenant_email=', $email);
             $this->db->where('tenant_password=',md5($password));
