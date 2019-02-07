@@ -74,28 +74,24 @@ class Announcements extends CI_Controller{
 
             if (!$this->upload->do_upload()) {
 
-                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement was not posted!</center></div>';
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File size or extension is invalid!</center></div>';
                 $this->session->set_flashdata('msg', $msg);
 
                 redirect('Announcements/index');
 
             } else {
 
+                $upload_data = $this->upload->data();
+
+                $file_name = $upload_data['file_name'];
+
+                $path .= $file_name;
+
                 $this->announcements_model->publish($data);
-
-                $ann_id = $this->input->post('ann_id');
-
-                // $data2 = array(
-                //     'annfile_path' => $path,
-                //     'ann_id' => $ann_id
-                // );
-
-                // $this->announcements_model->publishFile($data2);
+                $this->announcements_model->publishFile($path);
 
                 $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
                 $this->session->set_flashdata('msg', $msg);
-
-                $data3 = array('upload_data' => $this->upload->data());
 
                 redirect('Announcements/index');
 
