@@ -32,9 +32,30 @@ class announcements_model extends CI_Model {
         
     }
 
+    // public function get_ann_id() {
+
+    //     $this->db->select('ann_id');
+    //     $this->db->from('ann_tbl');
+    //     $query = $this->db->get();
+    //     return $query;
+
+    // }
+
     public function publish($data) {
 
         $this->db->insert('ann_tbl', $data);
+
+    }
+
+    public function publishFile($data) {
+
+        $this->db->insert('annfile_tbl', $data);
+
+    }
+
+    public function publishImage($data) {
+
+        $this->db->insert('annfile_tbl', $data);
 
     }
 

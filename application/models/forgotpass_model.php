@@ -30,54 +30,6 @@ class forgotpass_model extends CI_Model{
 
     }
 
-    public function send_mail($email) {
-
-        $number = random_string('numeric', 6);
-
-        //Load email library
-        $this->load->library('email');
-    
-        //SMTP & mail configuration
-        $config = array(
-            'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'dormasino20182019@gmail.com',
-            'smtp_pass' => 'dormasino123',
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8'
-        );
-        $this->email->initialize($config);
-        $this->email->set_mailtype("html");
-        $this->email->set_newline("\r\n");
-    
-        //Email content
-    
-        $to_email = $email; 
-    
-        $htmlContent = '<h1>DORMasino Forgot Password</h1>';
-        $htmlContent .= '<p>Verification code: </p>';
-        $htmlContent .= '<p>'. $number .'</p>';
-    
-        $this->email->to($to_email);
-        $this->email->from('dormasino20182019@gmail.com','DORMasino');
-        $this->email->subject('DORMasino Forgot Password');
-        $this->email->message($htmlContent);
-    
-        //Send email
-        if ($this->email->send()) {
-
-            $this->session->set_userdata('email', $email);
-            $this->session->set_userdata('session_vcode', $number);
-            return true;
-            
-		} else {
-
-            return false;
-            
-		}
-    }
-
     public function check_vcode($vcode) {
 
         $email = $this->session->userdata['email'];

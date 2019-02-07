@@ -69,7 +69,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                                     if ( $status == 1) { ?>
 
-                                                            <button title="Edit Room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                            <button title="Edit Room Details" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                                 <i class="fa fa-edit" style="font-size: 14px"></i>
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -227,7 +227,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         </div>
                     </div>
                 </div>
-            <?php }  
+            <?php }
                 
                 foreach ($dir->result() as $activate)  
                 {  

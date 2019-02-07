@@ -11,7 +11,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
 <html>
-
         <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
@@ -30,6 +29,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 	                            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                             </div><br>
                                 <?php echo form_open_multipart('Announcements/do_upload');?>
+                                    <input type="hidden" name="ann_id" />
                                     <input type="text" class="form-control" name="title" placeholder="Title" style="font-size: 14px;" required><br>
                                     <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;" required></textarea>
                                     <div class="form-row" style="margin: 0px;">
@@ -44,9 +44,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         </div>
                                     </div>
                                     <div class="form-row" style="margin: 0px;">
-                                        <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;"><button class="btn btn-primary" type="submit" name="upload" id="publish" style="font-size: 14px;">Publish</button></div>
+                                        <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
+                                        <button class="btn btn-primary" type="submit" style="font-size: 14px;">Publish</button></div>
                                     </div>
-                                </form>
                                 <div style="margin-top: 15px;border-top: 1px solid #c7c7c7;">
                                 <?php
 
