@@ -31,6 +31,7 @@ class Announcements extends CI_Controller{
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
         $data['ann']=$this->announcements_model->get_ann($config['per_page'], $page);
+        // $data['ann_id']=$this->announcements_model->get_ann_id();
         $data['links'] = $this->pagination->create_links();
 
         $this->validate_login();
@@ -50,40 +51,52 @@ class Announcements extends CI_Controller{
             'admin_id' => $admin_id
         );
 
-        $this->announcements_model->publish($data);
+        date_default_timezone_set("Asia/Manila");
+        $date = date("m-d-Y");
+        $path = "./assets/uploads/documents/".$date."/";
+      
+        $conf = array(
+            'upload_path' => "./assets/uploads/documents/".$date."/",
+            'allowed_types' => "xls|docx|doc|pdf",
+            'overwrite' => FALSE,
+            'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+            'max_height' => "768",
+            'max_width' => "1024"
+        );
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
-        $this->session->set_flashdata('msg', $msg);
+        $this->load->library('upload', $conf);
 
-        redirect('Announcements/index');
+        if (!is_dir("assets/uploads/documents/".$date."/")) {
 
-        // $config = array(
-        //     'upload_path' => "./uploads/",
-        //     'allowed_types' => "gif|jpg|png|jpeg|pdf",
-        //     'overwrite' => TRUE,
-        //     'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
-        //     'max_height' => "768",
-        //     'max_width' => "1024"
-        // );
+            mkdir($path, 0777, true);
+            
+        }
 
-        // $this->load->library('upload', $config);
+            if (!$this->upload->do_upload()) {
 
-        //     if( ! $this->upload->do_upload('userfile')) {
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File size or extension is invalid!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
 
-        //         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><centerAnnouncement posted!</center></div>';
-        //         $this->session->set_flashdata('msg', $msg);
+                redirect('Announcements/index');
 
-        //         redirect('Announcements/index');
+            } else {
 
-        //     } else {
+                $upload_data = $this->upload->data();
 
-        //         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
-        //         $this->session->set_flashdata('msg', $msg);
+                $file_name = $upload_data['file_name'];
 
-        //         redirect('Announcements/index');
+                $path .= $file_name;
 
-        //     }
+                $this->announcements_model->publish($data);
+                $this->announcements_model->publishFile($path);
 
-    }
+                $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
+
+                redirect('Announcements/index');
+
+            }
+        }
+
 }
 ?>

@@ -11,9 +11,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
 <html>
-
-
-
         <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
@@ -32,11 +29,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 	                            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                             </div><br>
                                 <?php echo form_open_multipart('Announcements/do_upload');?>
+                                    <input type="hidden" name="ann_id" />
                                     <input type="text" class="form-control" name="title" placeholder="Title" style="font-size: 14px;" required><br>
                                     <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;" required></textarea>
                                     <div class="form-row" style="margin: 0px;">
                                         <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
-                                            <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
+                                        <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
                                             <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;</button>
                                             
                                             <input type="file" name="userfile" size="20" />
@@ -46,9 +44,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         </div>
                                     </div>
                                     <div class="form-row" style="margin: 0px;">
-                                        <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;"><button class="btn btn-primary" type="submit" name="upload" id="publish" style="font-size: 14px;">Publish</button></div>
+                                        <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
+                                        <button class="btn btn-primary" type="submit" style="font-size: 14px;">Publish</button></div>
                                     </div>
-                                </form>
                                 <div style="margin-top: 15px;border-top: 1px solid #c7c7c7;">
                                 <?php
 
@@ -59,15 +57,18 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             $date_posted = $row3->date_posted;
                                             $post=date("M d, Y g:ia", strtotime($date_posted));
 
+                                            $filepath = $row3->annfile_path;
+                                            $filename = explode("/", $filepath);
+
                                             echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
                                             echo    '<div class="card-body">';
                                             echo        '<p class="card-title" style="font-size: 14px;float: right;">'. $post .'</p>';
                                             echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
                                             echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                             echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
+                                            echo        '<p class="card-text" style="font-size: 14px;"><a href="../../'.$row3->annfile_path.'">'.$filename[5].'</a></p>';
                                             echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
-                                                        <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.'
-                                                        </p>
+                                                        <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
                                                         <div class="ml-xl-auto ml-lg-auto ml-md-auto">
                                                             <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
                                                                 <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
