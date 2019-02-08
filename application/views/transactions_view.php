@@ -9,10 +9,8 @@ if (!isset ($login)) {
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
+
 <html>
-
-
-
 
     <div class="page-content-wrapper">
             <div class="container-fluid">
@@ -24,6 +22,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
                 </div>
+
                 <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
                         
@@ -91,6 +90,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Basic Rent Rate</label></div>
                                                 <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($row2->room_price, 2); ?>" disabled=""></div>
+                                                <input class="form-control" type="hidden" name="rid" value="<?php echo $row2->room_id; ?>" >
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -173,7 +173,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                <div class="col"><input class="form-control" type="date"></div>
+                                                
+                                                <div class="col"><input class="form-control" type="text" value="<?php echo date('m/d/Y', strtotime('first day of next month')); ?>"disabled></div>
                                             </div>
                                         </div>
                                     </div>
@@ -183,37 +184,46 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
-                                                <div class="col"><input class="form-control" type="text" disabled></div>
+                                                <div class="col"><input class="form-control" type="text" value="Maynilad"  disabled></div>
                                             </div>
                                         </div>
+                                        <?php foreach($water->result() as $w) { 
+                                            if ($w->wroom_id == $row2->room_id) {
+                                                // if(empty($w->water_current)) {
+                                                //     $wc = 0;
+                                                // } else {
+                                                //     $wc = $w->water_current;
+                                                // }
+                                        ?>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
-                                                <div class="col"><input class="form-control" type="text" disabled></div>
+                                                <div class="col"><input class="form-control" id="pre" disabled style="text-align:right" type="number" value="<?php echo number_format($w->water_current, 2); ?>"></div>
                                             </div>
                                         </div>
+                                        <?php } } ?>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" required></div>
+                                                <div class="col"><input class="form-control" id="cur" style="text-align:right" type="number" style="text-align:right" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" disabled></div>
+                                                <div class="col"><input class="form-control" id="cm" type="number" style="text-align:right" value="65" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" disabled></div>
+                                                <div class="col"><input class="form-control" id="wb" type="number" style="text-align:right" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" disabled></div>
+                                                <div class="col"><input class="form-control" name="pt" type="number" style="text-align:right" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -244,6 +254,16 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script> 
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+
+// $(document).ready(function () {
+    $("#cur").keyup(function() {
+        $("#wb").val(($("#pre").val()-$("#cur").val())*$("#cm").val());
+    });
+// });
+
+
+</script>
 </body>
 
 </html>

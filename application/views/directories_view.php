@@ -276,13 +276,13 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name" required></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No </label></div>
-                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter father's mobile number" required></div>
+                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter father's mobile number"></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>

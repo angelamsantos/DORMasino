@@ -25,6 +25,8 @@ class Transactions extends CI_Controller{
         $data['room']=$this->transactions_model->get_room();
         $data['dir']=$this->transactions_model->get_dir();
         $data['dir_count']=$this->transactions_model->get_dircount();
+        $data['water']=$this->transactions_model->get_water();
+
         $this->load->view('sidebar_view');
         $this->load->view('transactions_view', $data);
         

@@ -117,10 +117,11 @@ date_default_timezone_set("Asia/Manila");
 
             <?php if(current_url() == site_url('Transactions/index') ||
                      current_url() == site_url('Transactions/show_tenants') || 
-                     current_url() == site_url('Transactions/records_room')) { ?>
+                     current_url() == site_url('Transactions/records_room') || 
+                     current_url() == site_url('Transactions/payments')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;margin-bottom: 0px;padding-left: 17.5px;">
                 <a href="#bills-collapse" id="menu-active" data-toggle="collapse"><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
-                <div id="bills-collapse" class="collapse show" data-parent="#sidebar-wrapper">
+                <div id="bills-collapse" class="collapse show" >
                     <ul class="list-group">
 
                      <?php if(current_url() == site_url('Transactions/index') || current_url() == site_url('Transactions/show_tenants') ) { ?>
@@ -128,7 +129,7 @@ date_default_timezone_set("Asia/Manila");
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
                      <?php } if(current_url() == site_url('Transactions/payments')) { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/payments'); ?>" style="color: #b3e5fc;" ><i class="icon ion-cash"></i>&nbsp; &nbsp;&nbsp;&nbsp;Payments</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/payments'); ?>" style="color: #b3e5fc;" ><i class="icon ion-cash"></i>&nbsp;&nbsp;&nbsp;&nbsp;Payments</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/payments'); ?>" ><i class="icon ion-cash"></i>&nbsp; &nbsp;&nbsp;Payments</a></span></li>
                      <?php } if(current_url() == site_url('Transactions/records_room')) { ?>
@@ -144,7 +145,7 @@ date_default_timezone_set("Asia/Manila");
                     <ul class="list-group">
 
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
-
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/payments'); ?>" ><i class="icon ion-cash"></i>&nbsp; &nbsp;&nbsp;Payments</a></span></li>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/records_room'); ?>" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp; Transaction Records</a></span></li>
                     
                     </ul>
@@ -156,7 +157,7 @@ date_default_timezone_set("Asia/Manila");
             <?php } if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/request')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
-                <div id="message-collapse" class="collapse show" data-parent="#sidebar-wrapper">
+                <div id="message-collapse" class="collapse show">
                     <ul class="list-group">
  
                      <?php if(current_url() == site_url('Messages/index') ) { ?>
