@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'www.thomasianresidences.net',
-	'username' => 'thomasi1_UST',
-	'password' => '@ thoreS123',
-	'database' => 'thomasi1_dormasino',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'dormasino',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
