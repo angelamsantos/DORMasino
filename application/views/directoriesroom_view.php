@@ -69,13 +69,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                                     if ( $status == 1) { ?>
 
-<<<<<<< HEAD
-                                                            <button title="Edit Room" type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                            <button title="Edit Room Details" type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                                 <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
-=======
-                                                            <button title="Edit Room Details" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
-                                                                <i class="fa fa-edit" style="font-size: 14px"></i>
->>>>>>> 9ab40724ce9d4a62de5ed9f90043f6bb96afd4f5
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                             <?php if ($capacity == 0) { ?>

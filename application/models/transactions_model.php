@@ -23,7 +23,6 @@ class transactions_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
-
     public function get_dir () {
 		$this->db->from('dir_tbl');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
@@ -32,12 +31,20 @@ class transactions_model extends CI_Model {
         $this->db->join('mother_tbl','mother_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('father_tbl','father_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('contract_tbl','contract_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-    
-		//$this->db->where('taskassigned_tbl.u_id',$u_id);
 		$query = $this->db->get();
 		return $query;
 
 
+    }
+    public function get_water () {
+        $SELECT = "SELECT water_id, water_current, wroom_id 
+                    FROM water_tbl 
+                    WHERE water_id 
+                    IN (SELECT MAX(water_id) 
+                    from water_tbl 
+                    GROUP by wroom_id ORDER by wroom_id ASC)";
+        $query = $this->db->query($SELECT);
+        return $query;
     }
 
     public function get_diruv($r_id) {

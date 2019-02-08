@@ -53,17 +53,30 @@ class announcements_model extends CI_Model {
         $ann_id = $this->db->insert_id();
 
         $data2 = array(
-                    'annfile_path' => $path,
-                    'ann_id' => $ann_id
-                );
+
+            'annfile_type' => "file",
+            'annfile_path' => $path,
+            'ann_id' => $ann_id
+
+        );
 
         $this->db->insert('annfile_tbl', $data2);
 
     }
 
-    public function publishImage($data) {
+    public function publishImg($path) {
 
-        $this->db->insert('annfile_tbl', $data);
+        $ann_id = $this->db->insert_id();
+
+        $data2 = array(
+
+            'annfile_type' => "image",
+            'annfile_path' => $path,
+            'ann_id' => $ann_id
+
+        );
+
+        $this->db->insert('annfile_tbl', $data2);
 
     }
 

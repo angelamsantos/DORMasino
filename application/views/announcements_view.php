@@ -29,18 +29,22 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 	                            <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                             </div><br>
                                 <?php echo form_open_multipart('Announcements/do_upload');?>
-                                    <input type="hidden" name="ann_id" />
                                     <input type="text" class="form-control" name="title" placeholder="Title" style="font-size: 14px;" required><br>
                                     <textarea class="form-control" name="content" placeholder="Write something..." style="font-size: 14px;" required></textarea>
                                     <div class="form-row" style="margin: 0px;">
                                         <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
-                                        <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
-                                            <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;</button>
+
+                                            <input type="file" name="img" size="20" value="img" />
+
+                                            <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
+                                            <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;
+                                            </button>
                                             
-                                            <input type="file" name="userfile" size="20" />
+                                            <input type="file" name="file" size="20" value="file" />
 
                                             <button class="btn btn-primary d-xl-flex justify-content-xl-end" type="button" id="attach" style="padding-bottom: 0px;padding-top: 7px;padding-right: 3px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach File">
-                                            <i class="material-icons" style="font-size: 17px;color: #555555;">attach_file</i>&nbsp;</button>
+                                            <i class="material-icons" style="font-size: 17px;color: #555555;">attach_file</i>&nbsp;
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="form-row" style="margin: 0px;">
@@ -56,26 +60,74 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                             $date_posted = $row3->date_posted;
                                             $post=date("M d, Y g:ia", strtotime($date_posted));
+                                            $filetype = $row3->annfile_type;
 
-                                            $filepath = $row3->annfile_path;
-                                            $filename = explode("/", $filepath);
+                                            if ($filetype == "file") {
 
-                                            echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
-                                            echo    '<div class="card-body">';
-                                            echo        '<p class="card-title" style="font-size: 14px;float: right;">'. $post .'</p>';
-                                            echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
-                                            echo        '<p class="card-text" style="font-size: 14px;"></p>';
-                                            echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
-                                            echo        '<p class="card-text" style="font-size: 14px;"><a href="../../'.$row3->annfile_path.'">'.$filename[5].'</a></p>';
-                                            echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
-                                                        <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
-                                                        <div class="ml-xl-auto ml-lg-auto ml-md-auto">
-                                                            <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
-                                                                <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
-                                                            <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
-                                                                <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
-                                            echo    '</div>';
-                                            echo '</div>';
+                                                $filepath = $row3->annfile_path;
+                                                $filename = explode("/", $filepath);
+
+                                                echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
+                                                echo    '<div class="card-body">';
+                                                echo        '<p class="card-title" style="font-size: 14px;float: right;">'. $post .'</p>';
+                                                echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
+                                                echo        '<p class="card-text" style="font-size: 14px;"></p>';
+                                                echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
+                                                echo        '<p class="card-text" style="font-size: 14px;"><a href="../../'.$row3->annfile_path.'">'.$filename[5].'</a></p>';
+                                                echo    '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                            <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
+                                                            <div class="ml-xl-auto ml-lg-auto ml-md-auto">
+                                                                <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i>
+                                                                </button>
+                                                                <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                    <i class="icon ion-edit" style="font-size:14px;"></i>
+                                                                </button>
+                                                            </div>';
+                                                echo    '</div>';
+                                                echo '</div>';
+
+                                            } else if ($filetype == "image") {
+    
+                                                echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
+                                                echo    '<div class="card-body">';
+                                                echo        '<p class="card-title" style="font-size: 14px;float: right;">'. $post .'</p>';
+                                                echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
+                                                echo        '<p class="card-text" style="font-size: 14px;"></p>';
+                                                echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
+                                                echo        '<p class="card-text" style="font-size: 14px;"><img src="'.base_url(), $row3->annfile_path.'" class="img-responsive" style="width:25%;height:25%;></p>';
+                                                echo    '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                            <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
+                                                            <div class="ml-xl-auto ml-lg-auto ml-md-auto">
+                                                                <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i>
+                                                                </button>
+                                                                <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                    <i class="icon ion-edit" style="font-size:14px;"></i>
+                                                                </button>
+                                                            </div>';
+                                                echo    '</div>';
+                                                echo '</div>';
+                                                
+                                            } else {
+    
+                                                echo '<div class="card" style="margin-top: 22px;background-color: #eeeeee;border:none">';
+                                                echo    '<div class="card-body">';
+                                                echo        '<p class="card-title" style="font-size: 14px;float: right;">'. $post .'</p>';
+                                                echo        '<h6 class="card-title"><b>'. $row3->ann_title .'</b></h6>';
+                                                echo        '<p class="card-text" style="font-size: 14px;"></p>';
+                                                echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
+                                                echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                            <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
+                                                            <div class="ml-xl-auto ml-lg-auto ml-md-auto">
+                                                                <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
+                                                                <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
+                                                                    <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
+                                                echo    '</div>';
+                                                echo '</div>';
+
+                                            }
 
                                         }
 
@@ -139,11 +191,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 </div>
                                 <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
                             </div>
+                            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                            </footer>
                         </div>
                     </div>
-                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                        <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
-                    </footer>
             </div>
         </div>
     </div>
