@@ -74,13 +74,16 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                                 echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
                                                 echo        '<p class="card-text" style="font-size: 14px;"><a href="../../'.$row3->annfile_path.'">'.$filename[5].'</a></p>';
-                                                echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                echo    '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
                                                             <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
                                                             <div class="ml-xl-auto ml-lg-auto ml-md-auto">
                                                                 <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
-                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
+                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i>
+                                                                </button>
                                                                 <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
-                                                                    <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
+                                                                    <i class="icon ion-edit" style="font-size:14px;"></i>
+                                                                </button>
+                                                            </div>';
                                                 echo    '</div>';
                                                 echo '</div>';
 
@@ -93,13 +96,16 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                                 echo        '<p class="card-text" style="font-size: 14px;">'. $row3->ann_content .'</p>';
                                                 echo        '<p class="card-text" style="font-size: 14px;"><img src="'.base_url(), $row3->annfile_path.'" class="img-responsive" style="width:25%;height:25%;></p>';
-                                                echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
+                                                echo    '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
                                                             <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
                                                             <div class="ml-xl-auto ml-lg-auto ml-md-auto">
                                                                 <button title="Delete announcement" type="button" class="btn btn-primary" id="ann" data-toggle="modal" data-target="#Delete" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;">
-                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i></button>
+                                                                    <i class="icon ion-trash-a" style="font-size:15px;"></i>
+                                                                </button>
                                                                 <button title="Edit announcement" type="button" class="btn btn-primary ml-auto" id="ann" data-toggle="modal" data-target="#Edit" style="border-radius:90px 90px 90px 90px;padding:0px 8px;">
-                                                                    <i class="icon ion-edit" style="font-size:14px;"></i></button></div></div>';
+                                                                    <i class="icon ion-edit" style="font-size:14px;"></i>
+                                                                </button>
+                                                            </div>';
                                                 echo    '</div>';
                                                 echo '</div>';
                                                 
@@ -185,11 +191,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 </div>
                                 <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
                             </div>
+                            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                            </footer>
                         </div>
                     </div>
-                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                        <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
-                    </footer>
             </div>
         </div>
     </div>
