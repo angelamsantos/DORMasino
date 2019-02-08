@@ -74,4 +74,71 @@ require APPPATH . 'libraries/Format.php';
             }
         
     }
+
+
+
+
+function usernew_post()
+{
+    
+   // Get the post data
+
+
+//check api key is correct
+
+    //search data   
+    $email=$this->input->post('email');
+    $confpw=$this->input->post('confpw');
+    $newpw=$this->input->post('newpw');
+    // Check if any user exists with the given credentials
+    $this->db->select('tenant_password');
+    $this->db->from('tenant_tbl');
+    
+    $this->db->where('tenant_email=', $email);
+    $user=$this->db->get();
+    $details=$user->result();
+    
+    if($details){
+        if($newpw==$confpw){
+            $data=array(
+                'tenant_password'=> md5($confpw),
+                'tenant_new' => 0
+            );
+            $this->db->where('tenant_email=', $email);
+            $this->db->update('tenant_tbl', $data);
+
+        
+        $this->response([
+            'status' => 'Connected',
+            
+            'message' =>'API key verified' ,
+            'prompt'  => 'Change Password Successful!',
+            
+            
+            
+        ], REST_Controller::HTTP_OK);
+    }else{
+        $this->response([
+            'status' => 'Connected',
+            
+            'message' =>'API key verified' ,
+            'prompt' => 'Change Password Failed. Please Try Again.',
+            
+            
+            
+        ], REST_Controller::HTTP_OK);
+    }
+
+    }else if($details==null){
+        $this->response([
+            'status' => 'Connected',
+            'message' => 'Error: API key does not match'
+            
+        ], REST_Controller::HTTP_OK);
+
+    }
+
+    
+
+}
 }

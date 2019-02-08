@@ -33,7 +33,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Edit Billing Statement</th>
+                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,9 +56,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             
                                            
                                             <td style="text-align:center;">
-                                            
-                                                    <button title="Edit Billing Statement" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
-                                                        <i class="fa fa-edit" style="font-size: 14px"></i>
+                                                
+                                                    <button title="Edit Billing Statement" id="edit-room" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                    <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                     </button>&nbsp;&nbsp;&nbsp;&nbsp;                                                                                   
                                             </td>  
                                         </tr>
@@ -78,7 +78,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                
            
             <div class="modal fade" role="dialog" tabindex="-1" id="ModalBill<?php echo $row2->room_id; ?>">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Edit Billing Statement: <?php echo $row2->room_number; ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
@@ -90,7 +90,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Basic Rent Rate</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="<?php echo $row2->room_price; ?>" disabled=""></div>
+                                                <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($row2->room_price, 2); ?>" disabled=""></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -146,10 +146,10 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                         if($dc->num_tenants > $row2->room_tcount) {
                                                             $extra = ($dc->num_tenants -  $row2->room_tcount) * 1500 ; ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                                            <div class="col"><input class="form-control" type="text" value="<?php echo $extra ?>" disabled=""  ></div>
+                                                            <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($extra, 2) ?>" disabled=""  ></div>
                                                         <?php } else { ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                                        <div class="col"><input class="form-control" type="text" value="0" disabled=""  ></div>
+                                                        <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format(0, 2) ?>" disabled=""  ></div>
                                                 <?php } }
                                                 } ?>
                                             </div>
@@ -162,10 +162,10 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                             $ex = ($dc->num_tenants -  $row2->room_tcount) * 1500; 
                                                             $tr = $row2->room_price + $ex ; ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
-                                                            <div class="col"><input class="form-control" type="text" value="<?php echo $tr ?>" disabled=""  ></div>
+                                                            <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($tr, 2) ?>" disabled=""  ></div>
                                                         <?php } else { ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
-                                                        <div class="col"><input class="form-control" type="text" value="0" disabled=""  ></div>
+                                                        <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($row2->room_price, 2); ?>" disabled=""  ></div>
                                                 <?php } }
                                             } ?>
                                             </div>
@@ -176,69 +176,53 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col"><input class="form-control" type="date"></div>
                                             </div>
                                         </div>
-                                        <h6 style="font-weight: bold;">Utility Charges</h6>
-                                        <h6 style="font-weight: bold;">Water&nbsp;</h6>
+                                    </div>
+                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
+                                        <h6 style="font-weight: bold;">Utility Charges: Water</h6>
+                                        
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input class="form-control" type="text" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Reading</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                                <div class="col"><input class="form-control" type="text" disabled></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" disabled></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                <div class="col"><input class="form-control" type="date"></div>
+                                                <div class="col"><input class="form-control" type="date" required></div>
                                             </div>
                                         </div>
-                                        <h6 style="font-weight: bold;">Electricty</h6>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Electricity Provider</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Reading</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Electricity Bill</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Electricity Bill per Tenant</label></div>
-                                                <div class="col"><input class="form-control" type="text"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                <div class="col"><input class="form-control" type="date"></div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </form>
