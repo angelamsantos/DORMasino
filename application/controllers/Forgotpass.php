@@ -30,8 +30,8 @@ class Forgotpass extends CI_Controller {
 
         $email = $this->input->post('email');
 
-        $this->load->model('forgotpass_model');
-        $isValid = $this->forgotpass_model->check_email($email);
+        $this->load->model('Forgotpass_model');
+        $isValid = $this->Forgotpass_model->check_email($email);
 
         if(! $isValid) {
 
@@ -42,7 +42,7 @@ class Forgotpass extends CI_Controller {
 
         } else {	
 
-            $sent = $this->forgotpass_model->send_mail($email);
+            $sent = $this->Forgotpass_model->send_mail($email);
 
             if($sent) {
                 
@@ -63,8 +63,8 @@ class Forgotpass extends CI_Controller {
 
         $vcode = $this->input->post('vcode');
 
-        $this->load->model('forgotpass_model');
-        $isValid = $this->forgotpass_model->check_vcode($vcode);
+        $this->load->model('Forgotpass_model');
+        $isValid = $this->Forgotpass_model->check_vcode($vcode);
 
         if(! $isValid) {
 

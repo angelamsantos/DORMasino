@@ -25,9 +25,10 @@ require APPPATH . 'libraries/Format.php';
             $confirmdetails=$confirm->result();
 
             // Check if any user exists with the given credentials
-            $this->db->select('ann_tbl.*, admin_tbl.admin_fname, admin_tbl.admin_lname ');
+            $this->db->select('ann_tbl.*, admin_tbl.admin_fname, admin_tbl.admin_lname, annfile_tbl.annfile_id ,annfile_tbl.annfile_path, annfile_tbl.annfile_type ');
             $this->db->from('ann_tbl');
             $this->db->order_by('date_posted', 'desc');
+            $this->db->join('annfile_tbl','ann_tbl.ann_id=annfile_tbl.ann_id', 'LEFT');
 		    $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');
             
             $user=$this->db->get();

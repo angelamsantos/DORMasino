@@ -5,7 +5,7 @@ class Logs extends CI_Controller {
     public function __construct() {
         parent:: __construct();
         $this->load->helper('url');
-        $this->load->model('logs_model');
+        $this->load->model('Logs_model');
     }
 
     public function validate_login() {
@@ -20,10 +20,10 @@ class Logs extends CI_Controller {
     public function index() {
           
         $this->validate_login();
-        $data['vlogs']=$this->logs_model->get_vlogs();
-        $data['floor']=$this->logs_model->get_floor();
-        $data['room']=$this->logs_model->get_room();
-        $data['dir']=$this->logs_model->get_dir();
+        $data['vlogs']=$this->Logs_model->get_vlogs();
+        $data['floor']=$this->Logs_model->get_floor();
+        $data['room']=$this->Logs_model->get_room();
+        $data['dir']=$this->Logs_model->get_dir();
         
         $this->load->view('sidebar_view');
         $this->load->view('logs_view', $data);
@@ -36,7 +36,7 @@ class Logs extends CI_Controller {
 
         if($room_id) {
 
-            echo $this->logs_model->fetch_tenant($room_id);
+            echo $this->Logs_model->fetch_tenant($room_id);
 
         }
     }
@@ -53,7 +53,7 @@ class Logs extends CI_Controller {
             'tenant_id' => $tenant_id
         );
 
-        $this->logs_model->record_visitor($data);
+        $this->Logs_model->record_visitor($data);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px;"><center>Visitor successfully recorded!</center></div>';
         $this->session->set_flashdata('msg', $msg);
@@ -66,7 +66,7 @@ class Logs extends CI_Controller {
 
         $id = $this->input->post('name_id');
 
-        $this->logs_model->update_out($id);
+        $this->Logs_model->update_out($id);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Visitor successfully timed out!</center></div>';
         $this->session->set_flashdata('msg', $msg);

@@ -27,9 +27,9 @@ class Login extends CI_Controller{
     
     public function process(){
         // Load the model
-        $this->load->model('login_model');
+        $this->load->model('Login_model');
         // Validate the user can login
-        $result = $this->login_model->login_validate();
+        $result = $this->Login_model->login_validate();
         // Now we verify the result
         if(! $result) {
             
@@ -40,9 +40,9 @@ class Login extends CI_Controller{
 
             $email = $this->input->post('username');
 
-            date_default_timezone_set('Asia/Manila');
-            $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
-            file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
+            // date_default_timezone_set('Asia/Manila');
+            // $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
+            // file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
 
                 if ($attempt == 3) {
                 $msg = "Due to too many login attempts, your account is locked for 5 minutes";
@@ -80,7 +80,7 @@ class Login extends CI_Controller{
         } else {
 
             $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
-            $result = $this->login_model->login_checkstatus($admin_id);
+            $result = $this->Login_model->login_checkstatus($admin_id);
 
             if(! $result) {
 
@@ -104,9 +104,9 @@ class Login extends CI_Controller{
 
                     $email = $this->session->userdata['login_success']['info']['admin_email'];
 
-                    date_default_timezone_set('Asia/Manila');
-                    $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
-                    file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
+                    // date_default_timezone_set('Asia/Manila');
+                    // $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
+                    // file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
                     
                     redirect('Home');
 

@@ -7,7 +7,7 @@ class Directories extends CI_Controller{
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->library('session');
-        $this->load->model('directories_model');
+        $this->load->model('Directories_model');
     }
 
     public function validate_login() {
@@ -21,10 +21,10 @@ class Directories extends CI_Controller{
 
     public function index() {
         $this->validate_login();
-        $data['floor']=$this->directories_model->get_floor();
-        $data['room']=$this->directories_model->get_room();
-        $data['dir']=$this->directories_model->get_dir();
-        $data['dir_count']=$this->directories_model->get_dircount();
+        $data['floor']=$this->Directories_model->get_floor();
+        $data['room']=$this->Directories_model->get_room();
+        $data['dir']=$this->Directories_model->get_dir();
+        $data['dir_count']=$this->Directories_model->get_dircount();
         $this->load->view('sidebar_view');
         $this->load->view('directories_view', $data);
         
@@ -47,8 +47,8 @@ class Directories extends CI_Controller{
             'tenant_status' => "1"
         );
 
-        $this->directories_model->create_tenant($data);
-        $this->directories_model->create_tenantcontacts($data);
+        $this->Directories_model->create_tenant($data);
+        $this->Directories_model->create_tenantcontacts($data);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Tenant successfully created!</center></div>';
         $this->session->set_flashdata('msg', $msg);
@@ -57,7 +57,7 @@ class Directories extends CI_Controller{
 
     public function update_tenant() {
         $tenant_id = $this->input->post('etenant_id');
-        $this->directories_model->update_tenant($tenant_id);
+        $this->Directories_model->update_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Tenant successfully edited!</center></div>';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
@@ -65,7 +65,7 @@ class Directories extends CI_Controller{
 
     public function mr_tenant() {
         $tenant_id = $this->input->post('mr_tenantid');
-        $this->directories_model->mr_tenant($tenant_id);
+        $this->Directories_model->mr_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Successfully moved a tenant!</center></div>      ';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
@@ -73,7 +73,7 @@ class Directories extends CI_Controller{
 
     public function cc_tenant() {
         $tenant_id = $this->input->post('cc_tenantid');
-        $this->directories_model->cc_tenant($tenant_id);
+        $this->Directories_model->cc_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Successfully changed a tenant\'s contract!</center></div>      ';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
@@ -81,7 +81,7 @@ class Directories extends CI_Controller{
 
     public function rp_tenant() {
         $tenant_id = $this->input->post('rp_tenantid');
-        $this->directories_model->rp_tenant($tenant_id);
+        $this->Directories_model->rp_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Successfully reset tenant\'s password!</center></div>      ';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
@@ -89,7 +89,7 @@ class Directories extends CI_Controller{
 
     public function deactivate_tenant() {
         $tenant_id = $this->input->post('dtenant_id');
-        $this->directories_model->deactivate_tenant($tenant_id);
+        $this->Directories_model->deactivate_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Tenant successfully deactivated!</center></div>';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
@@ -97,7 +97,7 @@ class Directories extends CI_Controller{
 
     public function activate_tenant() {
         $tenant_id = $this->input->post('atenant_id');
-        $this->directories_model->activate_tenant($tenant_id);
+        $this->Directories_model->activate_tenant($tenant_id);
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Tenant successfully activated!</center></div> ';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
@@ -117,9 +117,9 @@ class Directories extends CI_Controller{
         // $data['room_no'] = $this->input->post('show_rno');
         $r_id = $this->session->userdata['data']['room_id'];
         $r_no = $this->session->userdata['data']['room_no'];
-        $data['floor']=$this->directories_model->get_floor();
-        $data['room']=$this->directories_model->get_room();
-        $data['dir']=$this->directories_model->get_diruv($r_id);
+        $data['floor']=$this->Directories_model->get_floor();
+        $data['room']=$this->Directories_model->get_room();
+        $data['dir']=$this->Directories_model->get_diruv($r_id);
         
        
         $this->load->view('sidebar_view');
@@ -129,10 +129,10 @@ class Directories extends CI_Controller{
     }
 
     public function rooms() {
-        $data['floor']=$this->directories_model->get_floor();
-        $data['room']=$this->directories_model->get_room();
-        $data['dir']=$this->directories_model->get_dir();
-        $data['dir_count']=$this->directories_model->get_dircount();
+        $data['floor']=$this->Directories_model->get_floor();
+        $data['room']=$this->Directories_model->get_room();
+        $data['dir']=$this->Directories_model->get_dir();
+        $data['dir_count']=$this->Directories_model->get_dircount();
         $this->load->view('sidebar_view');
         $this->load->view('directoriesroom_view', $data);
     }
@@ -148,7 +148,7 @@ class Directories extends CI_Controller{
 
         if($floor_id) {
 
-            echo $this->directories_model->fetch_room($floor_id);
+            echo $this->Directories_model->fetch_room($floor_id);
 
         }
     }
@@ -165,7 +165,7 @@ class Directories extends CI_Controller{
             'floor_id' => $floor_id
         );
 
-        $this->directories_model->record_room($data);
+        $this->Directories_model->record_room($data);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The room was successfully added!</center></div>';
         $this->session->set_flashdata('msg', $msg);
@@ -177,7 +177,7 @@ class Directories extends CI_Controller{
     public function update_room() {
 
         $room_id = $this->input->post('room_id');
-        $this->directories_model->update_room($room_id);
+        $this->Directories_model->update_room($room_id);
         
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The room was successfully edited!</center></div>      ';
         $this->session->set_flashdata('msg', $msg);
@@ -189,7 +189,7 @@ class Directories extends CI_Controller{
     public function deactivate_room() {
 
         $room_id = $this->input->post('droom_id');
-        $this->directories_model->deactivate_room($room_id);
+        $this->Directories_model->deactivate_room($room_id);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The room was successfully deactivated!</center></div>      ';
         $this->session->set_flashdata('msg', $msg);
@@ -201,7 +201,7 @@ class Directories extends CI_Controller{
     public function activate_room() {
 
         $room_id = $this->input->post('aroom_id');
-        $this->directories_model->activate_room($room_id);
+        $this->Directories_model->activate_room($room_id);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px">center>The room was successfully activated!</center></div>      ';
         $this->session->set_flashdata('msg', $msg);

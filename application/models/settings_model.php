@@ -16,9 +16,9 @@ class settings_model extends CI_Model {
 
             if ($email == $new_email) {
 
-                date_default_timezone_set('Asia/Manila');
-                $log = date("F j, Y, g:ia").": ". $email . " failed to change their email address.".PHP_EOL;
-                file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+                // date_default_timezone_set('Asia/Manila');
+                // $log = date("F j, Y, g:ia").": ". $email . " failed to change their email address.".PHP_EOL;
+                // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
 
                 return false;
 
@@ -29,9 +29,9 @@ class settings_model extends CI_Model {
                 $this->db->where('admin_email', $email);
                 $this->db->update('admin_tbl');
 
-                date_default_timezone_set('Asia/Manila');
-                $log = date("F j, Y, g:ia").": ". $email . " successfully changed their email address.".PHP_EOL;
-                file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+                // date_default_timezone_set('Asia/Manila');
+                // $log = date("F j, Y, g:ia").": ". $email . " successfully changed their email address.".PHP_EOL;
+                // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
 
                 return true;
 
@@ -55,17 +55,17 @@ class settings_model extends CI_Model {
                 $this->db->where('admin_email', $email);
                 $this->db->update('admin_tbl');
 
-                date_default_timezone_set('Asia/Manila');
-                $log = date("F j, Y, g:ia").": ". $email . " successfully changed their password.".PHP_EOL;
-                file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+                // date_default_timezone_set('Asia/Manila');
+                // $log = date("F j, Y, g:ia").": ". $email . " successfully changed their password.".PHP_EOL;
+                // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
 
                 return true;
 
             } else {
 
-                date_default_timezone_set('Asia/Manila');
-                $log = date("F j, Y, g:ia").": ". $email . " failed to change their password.".PHP_EOL;
-                file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+                // date_default_timezone_set('Asia/Manila');
+                // $log = date("F j, Y, g:ia").": ". $email . " failed to change their password.".PHP_EOL;
+                // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
                 //new password and confirm password did not match
                 return false;
 
@@ -73,9 +73,9 @@ class settings_model extends CI_Model {
 
         } else {
 
-            date_default_timezone_set('Asia/Manila');
-            $log = date("F j, Y, g:ia").": ". $email . " failed to change their password.".PHP_EOL;
-            file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+            // date_default_timezone_set('Asia/Manila');
+            // $log = date("F j, Y, g:ia").": ". $email . " failed to change their password.".PHP_EOL;
+            // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
             //old password did not match
             return false;
 
