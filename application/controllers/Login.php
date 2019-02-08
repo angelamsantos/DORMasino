@@ -40,9 +40,9 @@ class Login extends CI_Controller{
 
             $email = $this->input->post('username');
 
-            date_default_timezone_set('Asia/Manila');
-            $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
-            file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
+            // date_default_timezone_set('Asia/Manila');
+            // $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
+            // file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
 
                 if ($attempt == 3) {
                 $msg = "Due to too many login attempts, your account is locked for 5 minutes";
@@ -104,9 +104,9 @@ class Login extends CI_Controller{
 
                     $email = $this->session->userdata['login_success']['info']['admin_email'];
 
-                    date_default_timezone_set('Asia/Manila');
-                    $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
-                    file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
+                    // date_default_timezone_set('Asia/Manila');
+                    // $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
+                    // file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
                     
                     redirect('Home');
 
