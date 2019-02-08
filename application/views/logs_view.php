@@ -93,6 +93,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         $out=date("g:ia", strtotime($time_out));
                                         
                                     } else {
+
                                         $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out</button>';
                                       
                                     }
@@ -119,12 +120,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="modal-content">
                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                     <h4 class="modal-title">Visitor Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                    <form method="post" action="<?php echo site_url('Logs/process'); ?>">
                 <div class="modal-body">
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Number</label></div>
                                 <div class="col">
+                                <form method="post" action="<?php echo site_url('Logs/process'); ?>">
                                 <select name="room_id" id="sel_room"  class="form-control single-select" required>
                                 <option value="">Select Room</option>  
                                 <?php
@@ -171,13 +172,15 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">ID Presented</label></div>
-                                <div class="col"><input class="form-control" type="text" name="vlogs_id_presented" placeholder="Enter ID presented" required></div>
+                                <div class="col"><input class="form-control" type="text" pattern="[a-zA-Z0-9- .']{2,30}" title="Your ID must not contain special characters except (-, ')." name="vlogs_id_presented" placeholder="Enter ID presented" required></div>
                             </div>
                         </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;border: none;color: #11334f;">Time-in</button></div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" style="background-color: #bdedc1;border: none;color: #11334f;">Time-in</button>
+                </form>
+                </div>
             </div>
-            </form>
         </div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>

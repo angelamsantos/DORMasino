@@ -188,13 +188,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="update_roomprice"  class="form-control" type="text" value="<?php echo $rmedit->room_price; ?>" required></div>
+                                            <div class="col"><input name="update_roomprice"  class="form-control" type="number" value="<?php echo $rmedit->room_price; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                            <div class="col"><input name="update_roomtcount" class="form-control" type="text" value="<?php echo $rmedit->room_tcount; ?>" required></div>
+                                            <div class="col"><input name="update_roomtcount" class="form-control" type="number" value="<?php echo $rmedit->room_tcount; ?>" required></div>
                                         </div>
                                     </div>
                             </div>

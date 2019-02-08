@@ -176,7 +176,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content" id="tenantInfo<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenant->tenant_lname; ?>: Tenant Information</h4>
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenantInfo->tenant_lname; ?>: Tenant Information</h4>
                             <button title="Edit Information"  id="toggleEdit<?php echo $tenantInfo->dir_id; ?>" class="modal-tenant btn btn-primary ml-auto" style="border-radius:100px;padding:0px 8px;margin-right:0px">
                             <i class="fa fa-edit" style="font-size:16px;font-color:blue"></i>
                             </button> 
@@ -337,14 +337,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                                <div class="col"><input name="etenant_fname" class="form-control" type="text" value="<?php echo $tenantInfo->tenant_fname; ?>" required></div>
+                                                <div class="col"><input name="etenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your first name must contain only letters." value="<?php echo $tenantInfo->tenant_fname; ?>" required></div>
                                                 <input name="etenant_id" class="form-control" type="hidden" value="<?php echo $tenantInfo->tenant_id; ?>" >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
-                                                <div class="col"><input name="etenant_lname" class="form-control" type="text" value="<?php echo $tenantInfo->tenant_lname; ?>" required></div>
+                                                <div class="col"><input name="etenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your last name must contain only letters." value="<?php echo $tenantInfo->tenant_lname; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -368,19 +368,19 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
-                                                <div class="col"><input name="etenant_cno" class="form-control" type="number" value="<?php echo $tenantInfo->tenant_cno; ?>" required></div>
+                                                <div class="col"><input name="etenant_cno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" value="<?php echo $tenantInfo->tenant_cno; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
-                                                <div class="col"><input name="etenant_school" class="form-control" type="text" value="<?php echo $tenantInfo->tenant_school; ?>" required></div>
+                                                <div class="col"><input name="etenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your school or company must contain only letters." value="<?php echo $tenantInfo->tenant_school; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
-                                                <div class="col"><input name="etenant_course" class="form-control" type="text" value="<?php echo $tenantInfo->tenant_course; ?>" required></div>
+                                                <div class="col"><input name="etenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your course must contain only letters. N/A if not applicable." value="<?php echo $tenantInfo->tenant_course; ?>" required></div>
                                             </div>
                                         </div>
                                     </div>
@@ -389,39 +389,39 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="emother_name" class="form-control" type="text" value="<?php echo $tenantInfo->mother_name; ?>" required></div>
+                                                <div class="col"><input name="emother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your mother's name must contain only letters." value="<?php echo $tenantInfo->mother_name; ?>"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="emother_mno" class="form-control" type="number" value="<?php echo $tenantInfo->mother_mno; ?>" required></div>
+                                                <div class="col"><input name="emother_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" value="<?php echo $tenantInfo->mother_mno; ?>"></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="efather_name" class="form-control" type="text" value="<?php echo $tenantInfo->father_name; ?>" required></div>
+                                                <div class="col"><input name="efather_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your father's name must contain only letters." value="<?php echo $tenantInfo->father_name; ?>"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="efather_mno" class="form-control" type="number" value="<?php echo $tenantInfo->father_mno; ?>" required></div>
+                                                <div class="col"><input name="efather_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" value="<?php echo $tenantInfo->father_mno; ?>"></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="eguardian_name" class="form-control" type="text" value="<?php echo $tenantInfo->guardian_name; ?>" required></div>
+                                                <div class="col"><input name="eguardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your guardian's name must contain only letters." value="<?php echo $tenantInfo->guardian_name; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
-                                                <div class="col"><input name="eguardian_rel" class="form-control" type="text" value="<?php echo $tenantInfo->guardian_rel; ?>" required></div>
+                                                <div class="col"><input name="eguardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relationship with the guardian must contain only letters." value="<?php echo $tenantInfo->guardian_rel; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -433,13 +433,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="eguardian_mno" class="form-control" type="number" value="<?php echo $tenantInfo->guardian_mno; ?>" required></div>
+                                                <div class="col"><input name="eguardian_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" value="<?php echo $tenantInfo->guardian_mno; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No</label></div>
-                                                <div class="col"><input name="eguardian_lno" class="form-control" type="number" value="<?php echo $tenantInfo->guardian_lno; ?>" ></div>
+                                                <div class="col"><input name="eguardian_lno" class="form-control" type="tel" maxlength="7" pattern="[0-9]{7}" title="The telephone number should be 7 digits." value="<?php echo $tenantInfo->guardian_lno; ?>" ></div>
                                             </div>
                                         </div>
                                     </div>
