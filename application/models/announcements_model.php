@@ -2,7 +2,7 @@
 //hi //hello
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class announcements_model extends CI_Model { 
+class Announcements_model extends CI_Model { 
 
     public function record_count() {
 
