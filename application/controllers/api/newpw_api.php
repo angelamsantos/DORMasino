@@ -30,23 +30,43 @@ require APPPATH . 'libraries/Format.php';
             $details=$user->result();
             
             if($details){
-                if($newpw==$confpw){
-                    $data=array(
-                        'tenant_password'=> md5($confpw),
-                    );
-                    $this->db->where('tenant_email=', $email);
-                    $this->db->update('tenant_tbl', $data);
 
-                
-                $this->response([
-                    'status' => 'Connected',
+                if($newpw==$confpw){
+                    if(strlen($newpw)>=6){
+                        $data=array(
+                            'tenant_password'=> md5($confpw),
+                        );
+                        $this->db->where('tenant_email=', $email);
+                        $this->db->update('tenant_tbl', $data);
+    
                     
-                    'message' =>'API key verified' ,
-                    'prompt'  => 'Change Password Successful!',
-                    
-                    
-                    
-                ], REST_Controller::HTTP_OK);
+                    $this->response([
+                        'status' => 'Connected',
+                        
+                        'message' =>'API key verified' ,
+                        'prompt'  => 'Change Password Successful!',
+                        
+                        
+                        
+                    ], REST_Controller::HTTP_OK);
+
+
+                    }else if(strlen($newpw)<6){
+
+                        $this->response([
+                            'status' => 'Connected',
+                            
+                            'message' =>'API key verified' ,
+                            'prompt'  => 'Please try again.Password must be atleast 6 characters.',
+                            
+                            
+                            
+                        ], REST_Controller::HTTP_OK);
+
+
+
+                    }
+                   
             }else{
                 $this->response([
                     'status' => 'Connected',
