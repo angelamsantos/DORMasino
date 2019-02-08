@@ -12,8 +12,8 @@ class Logout extends CI_Controller {
     public function index(){
         // Load our view to be displayed
         // to the user
-        $this->load->model('logout_model');
-        $this->logout_model->logout();
+        $this->load->model('Logout_model');
+        $this->Logout_model->logout();
 
             $msg = '<div class="alert alert-success" role="alert"> You have logged out successfully! </div>';
             $this->session->set_flashdata('msg', $msg);
@@ -25,8 +25,8 @@ class Logout extends CI_Controller {
     public function index1(){
         // Load our view to be displayed
         // to the user
-        $this->load->model('logout_model');
-        $this->logout_model->logout();
+        $this->load->model('Logout_model');
+        $this->Logout_model->logout();
 
         $save = $this->session->userdata['save'];
 

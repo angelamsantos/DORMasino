@@ -6,7 +6,7 @@ class Announcements extends CI_Controller{
         parent:: __construct();
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
-        $this->load->model('announcements_model');
+        $this->load->model('Announcements_model');
     }
 
     public function validate_login() {
@@ -22,7 +22,7 @@ class Announcements extends CI_Controller{
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Announcements/index";
-        $config['total_rows'] = $this->announcements_model->record_count();
+        $config['total_rows'] = $this->Announcements_model->record_count();
         $config['per_page'] = 5;
         $config['uri_segment'] = 3;
 
@@ -30,8 +30,7 @@ class Announcements extends CI_Controller{
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $data['ann']=$this->announcements_model->get_ann($config['per_page'], $page);
-        // $data['ann_id']=$this->announcements_model->get_ann_id();
+        $data['ann']=$this->Announcements_model->get_ann($config['per_page'], $page);
         $data['links'] = $this->pagination->create_links();
 
         $this->validate_login();
@@ -59,7 +58,7 @@ class Announcements extends CI_Controller{
 
         if (empty($file) && empty($img)) {
 
-            $this->announcements_model->publish($data);
+            $this->Announcements_model->publish($data);
 
             $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
             $this->session->set_flashdata('msg', $msg);
@@ -115,8 +114,8 @@ class Announcements extends CI_Controller{
 
                         $path .= $file_name;
 
-                        $this->announcements_model->publish($data);
-                        $this->announcements_model->publishFile($path);
+                        $this->Announcements_model->publish($data);
+                        $this->Announcements_model->publishFile($path);
 
                         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
                         $this->session->set_flashdata('msg', $msg);
@@ -163,8 +162,8 @@ class Announcements extends CI_Controller{
     
                             $path .= $file_name;
     
-                            $this->announcements_model->publish($data);
-                            $this->announcements_model->publishImg($path);
+                            $this->Announcements_model->publish($data);
+                            $this->Announcements_model->publishImg($path);
     
                             $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
                             $this->session->set_flashdata('msg', $msg);

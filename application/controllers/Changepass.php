@@ -24,9 +24,9 @@ class Changepass extends CI_Controller {
 
     public function process() {
         
-        $this->load->model('changepass_model');
+        $this->load->model('Changepass_model');
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
-        $result = $this->changepass_model->change_password($admin_id);
+        $result = $this->Changepass_model->change_password($admin_id);
 
         if(! $result) {
 
@@ -45,8 +45,8 @@ class Changepass extends CI_Controller {
 
     public function process1() {
         
-        $this->load->model('changepass_model');
-        $result = $this->changepass_model->change_password($email);
+        $this->load->model('Changepass_model');
+        $result = $this->Changepass_model->change_password($email);
 
         if(! $result) {
 

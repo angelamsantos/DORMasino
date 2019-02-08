@@ -31,8 +31,8 @@ class Settings extends CI_Controller {
 
     public function process_email() {
 
-        $this->load->model('settings_model');
-        $result_email = $this->settings_model->change_email();
+        $this->load->model('Settings_model');
+        $result_email = $this->Settings_model->change_email();
 
         if(! $result_email) {
 
@@ -56,8 +56,8 @@ class Settings extends CI_Controller {
 
     public function process_password() {
 
-        $this->load->model('settings_model');
-        $result_password = $this->settings_model->change_password();
+        $this->load->model('Settings_model');
+        $result_password = $this->Settings_model->change_password();
 
         if(! $result_password) {
 

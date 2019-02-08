@@ -7,7 +7,7 @@ class Transactions extends CI_Controller{
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->library('session');
-        $this->load->model('transactions_model');
+        $this->load->model('Transactions_model');
     }
 
     public function validate_login() {
@@ -21,11 +21,11 @@ class Transactions extends CI_Controller{
 
     public function index() {
         $this->validate_login();
-        $data['floor']=$this->transactions_model->get_floor();
-        $data['room']=$this->transactions_model->get_room();
-        $data['dir']=$this->transactions_model->get_dir();
-        $data['dir_count']=$this->transactions_model->get_dircount();
-        $data['water']=$this->transactions_model->get_water();
+        $data['floor']=$this->Transactions_model->get_floor();
+        $data['room']=$this->Transactions_model->get_room();
+        $data['dir']=$this->Transactions_model->get_dir();
+        $data['dir_count']=$this->Transactions_model->get_dircount();
+        $data['water']=$this->Transactions_model->get_water();
 
         $this->load->view('sidebar_view');
         $this->load->view('transactions_view', $data);
@@ -34,10 +34,10 @@ class Transactions extends CI_Controller{
 
     public function payments() {
         $this->validate_login();
-        $data['floor']=$this->transactions_model->get_floor();
-        $data['room']=$this->transactions_model->get_room();
-        $data['dir']=$this->transactions_model->get_dir();
-        $data['dir_count']=$this->transactions_model->get_dircount();
+        $data['floor']=$this->Transactions_model->get_floor();
+        $data['room']=$this->Transactions_model->get_room();
+        $data['dir']=$this->Transactions_model->get_dir();
+        $data['dir_count']=$this->Transactions_model->get_dircount();
         $this->load->view('sidebar_view');
         $this->load->view('payments_view', $data);
         
@@ -59,9 +59,9 @@ class Transactions extends CI_Controller{
         // $data['room_no'] = $this->input->post('show_rno');
         $r_id = $this->session->userdata['data']['room_id'];
         $r_no = $this->session->userdata['data']['room_no'];
-        $data['floor']=$this->transactions_model->get_floor();
-        $data['room']=$this->transactions_model->get_room();
-        $data['dir']=$this->transactions_model->get_diruv($r_id);
+        $data['floor']=$this->Transactions_model->get_floor();
+        $data['room']=$this->Transactions_model->get_room();
+        $data['dir']=$this->Transactions_model->get_diruv($r_id);
         
        
         $this->load->view('sidebar_view');
@@ -71,10 +71,10 @@ class Transactions extends CI_Controller{
     }
 
     public function records_room() {
-        $data['floor']=$this->transactions_model->get_floor();
-        $data['room']=$this->transactions_model->get_room();
-        $data['dir']=$this->transactions_model->get_dir();
-        $data['dir_count']=$this->transactions_model->get_dircount();
+        $data['floor']=$this->Transactions_model->get_floor();
+        $data['room']=$this->Transactions_model->get_room();
+        $data['dir']=$this->Transactions_model->get_dir();
+        $data['dir_count']=$this->Transactions_model->get_dircount();
         $this->load->view('sidebar_view');
         $this->load->view('transactionsrecordsroom_view', $data);
         
