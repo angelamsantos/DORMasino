@@ -57,11 +57,18 @@ class Announcements extends CI_Controller{
         $img = $_FILES["img"]["name"];
         $img_ext = pathinfo($img, PATHINFO_EXTENSION);
 
-        if (empty($file) & empty($img)) {
+        if (empty($file) && empty($img)) {
 
             $this->announcements_model->publish($data);
 
             $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement posted!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+
+            redirect('Announcements/index');
+
+        } else if (!empty($file) && !empty($img)) {
+
+            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. Could not upload both an image and a file!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             redirect('Announcements/index');
@@ -118,8 +125,7 @@ class Announcements extends CI_Controller{
 
                     }
 
-            } else if (!empty($img) && 
-
+            } else if (!empty($img) &&
                 $img_ext == "png" || $img_ext == "gif" ||
                 $img_ext == "jpg" || $img_ext == "jpeg") {
 
