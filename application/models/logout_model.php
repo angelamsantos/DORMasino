@@ -2,7 +2,7 @@
 //hi //hello
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class logout_model extends CI_Model {
+class Logout_model extends CI_Model {
 
     // public function __construct() {
 	// 	$this->load->database();

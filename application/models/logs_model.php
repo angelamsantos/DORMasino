@@ -2,7 +2,7 @@
 //hi //hello
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class logs_model extends CI_Model { 
+class Logs_model extends CI_Model { 
 
     public function get_floor() {
        
