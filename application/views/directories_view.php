@@ -202,7 +202,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" placeholder="Enter first name" required></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your first name must contain only letters." placeholder="Enter first name" required></div>
                                                 <input name="floor_id" class="form-control" type="hidden" value="<?php echo $row6->floor_id; ?>" >
                                                 <input name="room_id" class="form-control" type="hidden" value="<?php echo $row6->room_id; ?>" >
                                                 <input name="room_number" class="form-control" type="hidden" value="<?php echo $row6->room_number; ?>">
@@ -212,7 +212,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" placeholder="Enter last name" required></div>
+                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your last name must contain only letters." placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -236,19 +236,19 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_cno" class="form-control" type="number" placeholder="Enter contact number" required></div>
+                                                <div class="col"><input name="tenant_cno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter contact number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_school" class="form-control" type="text" placeholder="Enter school or company" required></div>
+                                                <div class="col"><input name="tenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your school or company must contain only letters." placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_course" class="form-control" type="text" placeholder="Enter course" required></div>
+                                                <div class="col"><input name="tenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your course must contain only letters. N/A if not applicable." placeholder="Enter course" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -263,39 +263,39 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" ></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your mother's name must contain only letters." placeholder="Enter mother's full name" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No </label></div>
-                                                <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" ></div>
+                                                <div class="col"><input name="mother_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter mother's mobile number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name"></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your father's name must contain only letters." placeholder="Enter father's full name"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No </label></div>
-                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter father's mobile number"></div>
+                                                <div class="col"><input name="father_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter father's mobile number"></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_name" class="form-control" type="text" placeholder="Enter guardian's full name" required></div>
+                                                <div class="col"><input name="guardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your guardian's name must contain only letters." placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" placeholder="Enter relationship to the guardian" required></div>
+                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relationship with the guardian must contain only letters." placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -307,13 +307,13 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_mno" class="form-control" type="number" placeholder="Enter guardian's mobile number" required></div>
+                                                <div class="col"><input name="guardian_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter guardian's mobile number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No </label></div>
-                                                <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
+                                                <div class="col"><input name="guardian_lno" class="form-control" type="tel" maxlength="7" pattern="[0-9]{7}" title="The telephone number should be 7 digits." placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>

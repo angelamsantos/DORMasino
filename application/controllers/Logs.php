@@ -43,14 +43,12 @@ class Logs extends CI_Controller {
 
     public function process() {
 
-        $tenant_id = $this->session->userdata['tenant_id'];
-
         $data = array(
             'vlogs_name' => $this->input->post('vlogs_name'),
             'vlogs_relation' => $this->input->post('vlogs_relation'),
             'vlogs_purpose' => $this->input->post('vlogs_purpose'),
             'vlogs_id_presented' => $this->input->post('vlogs_id_presented'),
-            'tenant_id' => $tenant_id
+            'tenant_id' => $this->input->post('sel_tenant')
         );
 
         $this->Logs_model->record_visitor($data);
