@@ -30,6 +30,17 @@ class Transactions extends CI_Controller{
         
     }
 
+    public function payments() {
+        $this->validate_login();
+        $data['floor']=$this->transactions_model->get_floor();
+        $data['room']=$this->transactions_model->get_room();
+        $data['dir']=$this->transactions_model->get_dir();
+        $data['dir_count']=$this->transactions_model->get_dircount();
+        $this->load->view('sidebar_view');
+        $this->load->view('payments_view', $data);
+        
+    }
+
     public function getRoom() {
         $data['room_id'] = $this->input->post('show_rid');
         $data['room_no'] = $this->input->post('show_rno');
@@ -38,6 +49,8 @@ class Transactions extends CI_Controller{
 
         redirect('Transactions/show_tenants');
     }
+
+    
 
     public function show_tenants() {
         // $data['room_id'] = $this->input->post('show_rid');
