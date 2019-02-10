@@ -5,7 +5,7 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-    class user_api extends REST_Controller {
+    class User_api extends REST_Controller {
        
         function test_post()
         {

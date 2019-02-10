@@ -5,7 +5,7 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-    class forgotpw_api extends REST_Controller {
+    class Forgotpw_api extends REST_Controller {
        
      function sendemail($email, $key) {
 
