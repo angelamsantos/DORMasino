@@ -27,22 +27,22 @@ class Transactions_model extends CI_Model {
 		$this->db->from('dir_tbl');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
-        $this->db->join('guardian_tbl','guardian_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-        $this->db->join('mother_tbl','mother_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-        $this->db->join('father_tbl','father_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('contract_tbl','contract_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+    
 		$query = $this->db->get();
 		return $query;
 
 
     }
     public function get_water () {
-        $SELECT = "SELECT water_id, water_current, wroom_id 
+        $SELECT = "SELECT water_id, water_current, water_tbl.tenant_id, dir_tbl.room_id
                     FROM water_tbl 
+                    LEFT JOIN dir_tbl
+                    ON dir_tbl.tenant_id = water_tbl.tenant_id
                     WHERE water_id 
                     IN (SELECT MAX(water_id) 
                     from water_tbl 
-                    GROUP by wroom_id ORDER by wroom_id ASC)";
+                    GROUP by room_id)";
         $query = $this->db->query($SELECT);
         return $query;
     }
@@ -75,16 +75,64 @@ class Transactions_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+
+    public function get_unpaidwater() {
+        $SELECT = "SELECT water_tbl.*, dir_tbl.*, room_tbl.*, tenant_tbl.*
+                    FROM water_tbl
+                    LEFT JOIN tenant_tbl
+                    ON tenant_tbl.tenant_id = water_tbl.tenant_id
+                    LEFT JOIN dir_tbl
+                    ON dir_tbl.tenant_id = water_tbl.tenant_id
+                    LEFT JOIN room_tbl
+                    ON room_tbl.room_id = dir_tbl.room_id
+                    WHERE water_tbl.water_status = 0";
+        $query = $this->db->query($SELECT);
+        return $query;
+    }
     
-    // public function get_floor2() {
-    //     $this->db->from('floor_tbl');
-	// 	$this->db->join('dir_tbl','dir_tbl.floor_id=floor_tbl.floor_id', 'LEFT');
-    //     $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
-    //     $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-	// 	//$this->db->where('taskassigned_tbl.u_id',$u_id);
-	// 	$query = $this->db->get();
-	// 	return $query;
-    // }
+    public function get_unpaidrent() {
+        $SELECT = "SELECT rent_tbl.*, dir_tbl.*, room_tbl.*, tenant_tbl.*
+                    FROM rent_tbl
+                    LEFT JOIN tenant_tbl
+                    ON tenant_tbl.tenant_id = rent_tbl.tenant_id
+                    LEFT JOIN dir_tbl
+                    ON dir_tbl.tenant_id = rent_tbl.tenant_id
+                    LEFT JOIN room_tbl
+                    ON room_tbl.room_id = dir_tbl.room_id
+                    WHERE rent_tbl.rent_status = 0";
+        $query = $this->db->query($SELECT);
+        return $query;
+    }
+
+
+    public function insert_bill() {
+        foreach ($this->input->post('tenant_id') as $value) {
+            $data = array(
+                'rent_rate' => $this->input->post('rent_rate'),
+                'rent_extra' => $this->input->post('rent_extra'),
+                'rent_total' => $this->input->post('rent_total'),
+                'rent_status' => 0, //0 for unpaid and 1 for paid
+                'rent_due' => $this->input->post('rent_due'),
+                'tenant_id' => $value,
+            );
+            print_r($data);
+            $this->db->insert('rent_tbl', $data);
+
+            $data1 = array(
+                'water_provider' => $this->input->post('water_provider'),
+                'water_previous' => $this->input->post('water_previous'),
+                'water_current' => $this->input->post('water_current'),
+                'water_cm' => $this->input->post('water_cm'),
+                'water_total' => $this->input->post('water_total'),
+                'water_status' => 0,
+                'water_due' => $this->input->post('water_due'),
+                'tenant_id' => $value,
+            );
+            $this->db->insert('water_tbl', $data1);
+        }
+    }
+
+    
 
    
 }

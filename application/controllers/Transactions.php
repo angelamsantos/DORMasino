@@ -38,6 +38,9 @@ class Transactions extends CI_Controller{
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
         $data['dir_count']=$this->Transactions_model->get_dircount();
+        $data['water']=$this->Transactions_model->get_unpaidwater();
+        $data['rent']=$this->Transactions_model->get_unpaidrent();
+        
         $this->load->view('sidebar_view');
         $this->load->view('payments_view', $data);
         
@@ -79,6 +82,16 @@ class Transactions extends CI_Controller{
         $this->load->view('transactionsrecordsroom_view', $data);
         
     }
+
+    public function insert_bill() {
+             
+         $this->Transactions_model->insert_bill();
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Bill successfully updated!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/index');
+    }
+
+    
 
 }
 ?>

@@ -111,12 +111,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     </div>
                     <?php foreach ($dir->result() as $tenant) { ?>
                     <div class="modal fade" role="dialog" tabindex="-1" id="Rent<?php echo $tenant->dir_id; ?>">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                     <h4 class="modal-title" style="color: #11334f;">Rental Bill</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                 <div class="modal-body">
                                     <form>
+                                    <div class="form-row">
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -136,7 +138,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="rrn" placeholder="Enter receipt no" disabled=""></div>
+                                                <div class="col"><input class="form-control" type="text" name="rrn" placeholder="Enter receipt no"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -144,18 +146,26 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for the month of</label></div>
                                                 <div class="col">
                                                     <select class="form-control" name="rm">
-                                                        <option value="0">Cash</option>
-                                                        <option value="1">Check</option>
+                                                        <option selected disabled>Select month</option>
+                                                        <?php foreach($rent->result() as $unrent) {
+                                                                if($unrent->tenant_id == $tenant->tenant_id) {
+                                                                    echo '<option value="0">'.date('F', strtotime($unrent->rent_due)).'</option>';
+                                                                }
+                                                        } ?>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
+                                            
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
                                                 <div class="col"><input class="form-control" type="text" style="text-align:right" value="3, 500.00" disabled=""></div>
                                             </div>
                                         </div>
+                                    
+                                    </div>
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">To pay</label></div>
@@ -193,6 +203,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col"><input class="form-control" name="ra" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    </div>
                                     </div>
                                     <div class="modal-footer"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#CBill" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
                                 </form>
@@ -262,12 +274,15 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                     <?php foreach ($dir->result() as $tenant) { ?>
                     <div class="modal fade" role="dialog" tabindex="-1" id="Water<?php echo $tenant->dir_id; ?>">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                     <h4 class="modal-title" style="color: #11334f;">Water Bill</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                 <div class="modal-body">
                                     <form>
+                                    <div class="form-row">
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
+
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -294,8 +309,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for the month of</label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="wm">
-                                                        <option selcted>Rent Bill</option>
+                                                <select class="form-control" name="rm">
+                                                        <option selected disabled>Select month</option>
+                                                        <?php foreach($water->result() as $unpaid) {
+                                                                if($unpaid->tenant_id == $tenant->tenant_id) {
+                                                                    echo '<option value="0">'.date('F', strtotime($unpaid->water_due)).'</option>';
+                                                                }
+                                                        } ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -306,6 +326,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col"><input class="form-control" type="text" style="text-align:right" value="3, 500.00" disabled=""></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">To pay</label></div>
@@ -343,6 +365,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
+                                    </div>
+
                                     <div class="modal-footer"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#CBill" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
                                 </form>
                             </div>
