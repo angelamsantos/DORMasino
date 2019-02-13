@@ -1,5 +1,4 @@
 <?php
-//hi //hello
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Announcements_model extends CI_Model { 
