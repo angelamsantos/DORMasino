@@ -33,7 +33,6 @@ class Announcements extends CI_Controller{
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
         $data['ann']=$this->Announcements_model->get_ann($config['per_page'], $page);
-        $data['ann2']=$this->Announcements_model->get_ann2();
         $data['links'] = $this->pagination->create_links();
 
         $this->load->view('sidebar_view');
