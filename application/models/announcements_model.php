@@ -11,11 +11,12 @@ class Announcements_model extends CI_Model {
     }    
 
     public function get_ann($limit, $start) {
-       
+
         $this->db->limit($limit, $start);
 
+        $this->db->select('ann_tbl.ann_id AS id, date_posted, annfile_type, annfile_path, ann_title, ann_content, admin_fname, admin_lname, ann_status');
         $this->db->from('ann_tbl');
-        $this->db->order_by('date_posted', 'desc');
+        $this->db->order_by('id', 'desc');
         $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');
         $this->db->join('annfile_tbl','annfile_tbl.ann_id=ann_tbl.ann_id', 'LEFT');
 
@@ -33,14 +34,14 @@ class Announcements_model extends CI_Model {
         
     }
 
-    // public function get_ann_id() {
+    public function get_ann2() {
 
-    //     $this->db->select('ann_id');
-    //     $this->db->from('ann_tbl');
-    //     $query = $this->db->get();
-    //     return $query;
+        $this->db->from('ann_tbl');
+        $this->db->order_by('date_posted', 'desc');
+        $query = $this->db->get();
+        return $query;
 
-    // }
+    }
 
     public function publish($data) {
 
@@ -86,6 +87,42 @@ class Announcements_model extends CI_Model {
         $query = $this->db->get();
         return $query;
 
+    }
+
+    public function delete_ann($ann_id) {
+
+        $status=0;
+        
+        $this->db->set('ann_status', $status);
+        $this->db->where('ann_id', $ann_id);
+        $this->db->update('ann_tbl');
+        
+    }
+
+    public function edit_ann($ann_id) {
+        
+        $data3 = array(
+
+            'ann_status' => 0
+
+        );
+
+        $this->db->where('ann_id', $ann_id);
+        $this->db->update('ann_tbl', $data3);
+        
+    }
+
+    public function remove_attach($ann_id) {
+        
+        $data4 = array(
+
+            'annfile_type' => ''
+
+        );
+
+        $this->db->where('ann_id', $ann_id);
+        $this->db->update('annfile_tbl', $data4);
+        
     }
 
 }

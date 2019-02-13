@@ -11,9 +11,8 @@ class Directories_model extends CI_Model {
     }
 
     public function get_floor() {
-       
+    
         $query = $this->db->get('floor_tbl');
-       // print_r($query);
         return $query;
     }
 
