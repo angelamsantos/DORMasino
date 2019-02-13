@@ -154,7 +154,7 @@ date_default_timezone_set("Asia/Manila");
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
-            <?php } if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/request')) { ?>
+            <?php } if(current_url() == site_url('Messages/index') || current_url() == site_url('Requests/index')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
                 <div id="message-collapse" class="collapse show">
@@ -164,10 +164,10 @@ date_default_timezone_set("Asia/Manila");
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
-                     <?php } if(current_url() == site_url('Messages/request')) { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
+                     <?php } if(current_url() == site_url('Requests/index')) { ?>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      <?php } else { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      <?php } ?>
                     </ul>
                 </div>
@@ -177,7 +177,7 @@ date_default_timezone_set("Asia/Manila");
                 <div id="message-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/request'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Request</a></span></li>
                      
                     </ul>
                 </div>

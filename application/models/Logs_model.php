@@ -5,9 +5,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Logs_model extends CI_Model { 
 
     public function get_floor() {
-       
+    
         $query = $this->db->get('floor_tbl');
-       // print_r($query);
         return $query;
     }
 

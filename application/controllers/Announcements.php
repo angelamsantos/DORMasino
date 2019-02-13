@@ -20,6 +20,8 @@ class Announcements extends CI_Controller{
 
     public function index(){
 
+        $this->validate_login();
+
         $config = array();
         $config["base_url"] = base_url() . "index.php/Announcements/index";
         $config['total_rows'] = $this->Announcements_model->record_count();
@@ -33,8 +35,6 @@ class Announcements extends CI_Controller{
         $data['ann']=$this->Announcements_model->get_ann($config['per_page'], $page);
         $data['links'] = $this->pagination->create_links();
 
-        $this->validate_login();
-
         $this->load->view('sidebar_view');
         $this->load->view('announcements_view', $data);
 
@@ -42,19 +42,24 @@ class Announcements extends CI_Controller{
 
     public function do_upload() {
 
+        $this->validate_login();
+
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
 
         $data = array(
             'ann_title' => $this->input->post('title'),
             'ann_content' => $this->input->post('content'),
+            'ann_status' => 1,
             'admin_id' => $admin_id
         );
 
         $file = $_FILES["file"]["name"];
         $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+        $file_ext1 = strtolower($file_ext);
 
         $img = $_FILES["img"]["name"];
         $img_ext = pathinfo($img, PATHINFO_EXTENSION);
+        $img_ext1 = strtolower($img_ext);
 
         if (empty($file) && empty($img)) {
 
@@ -75,8 +80,8 @@ class Announcements extends CI_Controller{
         } else {
 
             if (!empty($file) && 
-                $file_ext == "xls" || $file_ext == "pdf" ||
-                $file_ext == "doc" || $file_ext == "docx") {
+                $file_ext1 == "xls" || $file_ext1 == "pdf" ||
+                $file_ext1 == "doc" || $file_ext1 == "docx") {
 
                 date_default_timezone_set("Asia/Manila");
                 $date = date("m-d-Y");
@@ -125,8 +130,8 @@ class Announcements extends CI_Controller{
                     }
 
             } else if (!empty($img) &&
-                $img_ext == "png" || $img_ext == "gif" ||
-                $img_ext == "jpg" || $img_ext == "jpeg") {
+                $img_ext1 == "png" || $img_ext1 == "gif" ||
+                $img_ext1 == "jpg" || $img_ext1 == "jpeg") {
 
                     date_default_timezone_set("Asia/Manila");
                     $date = date("m-d-Y");
@@ -134,7 +139,7 @@ class Announcements extends CI_Controller{
             
                     $conf = array(
                         'upload_path' => "./assets/uploads/images/".$date."/",
-                        'allowed_types' => "png|gif|jpg|jpeg",
+                        'allowed_types' => "png|gif|jpg|jpeg|PNG|GIF|JPG|JPEG",
                         'overwrite' => FALSE,
                         'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
                     );
@@ -181,6 +186,184 @@ class Announcements extends CI_Controller{
 
             }
         }
+        
+    }
+
+    public function delete() {
+
+        $ann_id = $this->input->post('ann_id');
+
+        $this->Announcements_model->delete_ann($ann_id);
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The announcement has been deleted! </center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Announcements/index');
+
+    }
+
+    public function edit() {
+
+        $ann_id = $this->input->post('ann_id');
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+        $data = array(
+            'ann_title' => $this->input->post('edit_title'),
+            'ann_content' => $this->input->post('edit_content'),
+            'ann_status' => 1,
+            'admin_id' => $admin_id
+        );
+
+        $file = $_FILES["file"]["name"];
+        $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+        $file_ext1 = strtolower($file_ext);
+
+        $img = $_FILES["img"]["name"];
+        $img_ext = pathinfo($img, PATHINFO_EXTENSION);
+        $img_ext1 = strtolower($img_ext);
+
+        if (empty($file) && empty($img)) {
+
+            $this->Announcements_model->edit_ann($ann_id);
+            $this->Announcements_model->publish($data);
+
+            $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement edited!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+
+            redirect('Announcements/index');
+
+        } else if (!empty($file) && !empty($img)) {
+
+            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. Could not upload both an image and a file!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+
+            redirect('Announcements/index');
+
+        } else {
+
+            if (!empty($file) && 
+                $file_ext1 == "xls" || $file_ext1 == "pdf" ||
+                $file_ext1 == "doc" || $file_ext1 == "docx") {
+
+                date_default_timezone_set("Asia/Manila");
+                $date = date("m-d-Y");
+                $path = "./assets/uploads/documents/".$date."/";
+        
+                $conf = array(
+                    'upload_path' => "./assets/uploads/documents/".$date."/",
+                    'allowed_types' => "xls|docx|doc|pdf",
+                    'overwrite' => FALSE,
+                    'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+                    'max_height' => "768",
+                    'max_width' => "1024"
+                );
+
+                $this->load->library('upload', $conf);
+
+                if (!is_dir("assets/uploads/documents/".$date."/")) {
+
+                    mkdir($path, 0777, true);
+                    
+                }
+
+                    if (!$this->upload->do_upload('file')) {
+
+                        $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File size is invalid!</center></div>';
+                        $this->session->set_flashdata('msg', $msg);
+
+                        redirect('Announcements/index');
+
+                    } else {
+
+                        $upload_data = $this->upload->data();
+
+                        $file_name = $upload_data['file_name'];
+
+                        $path .= $file_name;
+
+                        $this->Announcements_model->edit_ann($ann_id);
+                        $this->Announcements_model->publish($data);
+                        $this->Announcements_model->publishFile($path);
+
+                        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement edited!</center></div>';
+                        $this->session->set_flashdata('msg', $msg);
+
+                        redirect('Announcements/index');
+
+                    }
+
+            } else if (!empty($img) &&
+                $img_ext1 == "png" || $img_ext1 == "gif" ||
+                $img_ext1 == "jpg" || $img_ext1 == "jpeg") {
+
+                    date_default_timezone_set("Asia/Manila");
+                    $date = date("m-d-Y");
+                    $path = "./assets/uploads/images/".$date."/";
+            
+                    $conf = array(
+                        'upload_path' => "./assets/uploads/images/".$date."/",
+                        'allowed_types' => "png|gif|jpg|jpeg|PNG|GIF|JPG|JPEG",
+                        'overwrite' => FALSE,
+                        'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+                    );
+    
+                    $this->load->library('upload', $conf);
+    
+                    if (!is_dir("assets/uploads/images/".$date."/")) {
+    
+                        mkdir($path, 0777, true);
+                        
+                    }
+    
+                        if (!$this->upload->do_upload('img')) {
+    
+                            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File size is invalid!</center></div>';
+                            $this->session->set_flashdata('msg', $msg);
+    
+                            redirect('Announcements/index');
+    
+                        } else {
+    
+                            $upload_data = $this->upload->data();
+    
+                            $file_name = $upload_data['file_name'];
+    
+                            $path .= $file_name;
+    
+                            $this->Announcements_model->edit_ann($ann_id);
+                            $this->Announcements_model->publish($data);
+                            $this->Announcements_model->publishImg($path);
+    
+                            $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Announcement edited!</center></div>';
+                            $this->session->set_flashdata('msg', $msg);
+    
+                            redirect('Announcements/index');
+    
+                        }
+
+            } else {
+
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File extension is invalid!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
+
+                redirect('Announcements/index');
+
+            }
+        }
+
+    }
+
+    public function remove() {
+
+        $ann_id = $this->input->post('remove_id');
+        
+        $this->Announcements_model->remove_attach($ann_id);
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The file attachment has been removed! </center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Announcements/index');
+
     }
 
 }

@@ -135,7 +135,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <button title="Reset password" type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                   
+                                
                                         
                                         </td>  
                                     </tr>
@@ -168,7 +168,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 
             </div>
                                         
-           
+    
 
             <?php 
             foreach($dir->result() as $tenantInfo){ ?>
@@ -456,7 +456,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 foreach ($dir->result() as $moveRoom)  
                 {  
             ?>
-            <div id="MoveRoom<?php echo $moveRoom->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">5
+            <div id="MoveRoom<?php echo $moveRoom->dir_id; ?>" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
@@ -466,9 +466,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         <div class="modal-body">
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $tenantInfo->tenant_fname." ". $tenant->tenant_lname; ?></label></div>
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $moveRoom->tenant_fname." ". $tenant->tenant_lname; ?></label></div>
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current Room</label></div>
-                                        <div class="col-xl-12" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;font-size:16px"><?php echo $tenantInfo->room_number;?></label> 
+                                        <div class="col-xl-12" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;font-size:16px"><?php echo $moveRoom->room_number;?></label> 
                                         </div>
                                     </div>
                                 </div>
@@ -476,21 +476,21 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-row">
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">New Room</label></div>
                                         <div class="col-xl-12">
-                                            <select class="form-control selectize-multiple" style="font-size:14px" name="mr_roomno" id="etroom_number<?php echo $tenantInfo->dir_id; ?>" >
+                                            <select class="form-control selectize-multiple" style="font-size:14px" name="mr_roomno" id="etroom_number<?php echo $moveRoom->dir_id; ?>" >
                                                             <option selected>Select Room</option>
                                                             <?php  
                                                                 foreach ($room->result() as $etRoom)  
                                                                 {   
                                                                     //$ut_status = $row->$ut_status;
                                                                     //if( $row1->ut_status == "active") {
-                                                                        echo "<option value='" . $moveRoom->room_id ."'>". $moveRoom->room_number;
+                                                                        echo "<option value='" . $etRoom->room_id ."'>". $etRoom->room_number;
                                                                         echo "</option>";
                                                                     //}
                                                                     
                                                                 }
                                                             ?>
                                             </select>
-                                            <input name="mr_tenantid" class="form-control" type="hidden" value="<?php echo $tenantInfo->tenant_id; ?>">
+                                            <input name="mr_tenantid" class="form-control" type="hidden" value="<?php echo $moveRoom->tenant_id; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -515,7 +515,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         <div class="modal-body">
                                 <div class="form-group">
                                     <div class="form-row">
-                                    <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $tenantInfo->tenant_fname." ". $tenant->tenant_lname; ?></label></div>
+                                    <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $changeCon->tenant_fname." ". $tenant->tenant_lname; ?></label></div>
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Start of Contract</label></div>
                                         <div class="col-xl-12" style="font-weight: normal;"><input name="cc_start" class="form-control" type="date" value="<?php echo $changeCon->contract_start; ?>" disabled>
                                         </div>
@@ -612,7 +612,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Add Tenant</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:500px;">
-                           
+                        
                             <form id="form_adduser" action="<?php echo site_url('Directories/create_tenant');?>" method="POST" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
@@ -624,7 +624,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col">
                                                 <input name="room_id" class="form-control" type="hidden" value="<?php echo $this->session->userdata['data']['room_id']; ?>" >
                                                 <input name="room_number" class="form-control" type="text" value="<?php echo $this->session->userdata['data']['room_no']; ?>" disabled>
-                                                       
+                                            
                                                 </div>
                                             </div>
                                         </div>

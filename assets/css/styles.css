@@ -219,6 +219,16 @@ a:hover {
   border-color: #eeeeee;
 }
 
+#active_ann:hover {
+  background-color: #ffffff;
+}
+
+#active_ann {
+  background-color: #bdedc1;
+  border:none;
+  color:black;
+}
+
 .modal-tenant:hover {
   color:blue;
   background-color: #e1f5fe;
