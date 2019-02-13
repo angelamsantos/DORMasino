@@ -5,7 +5,7 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-    class  details_api extends REST_Controller {
+    class  Details_api extends REST_Controller {
        
         function detail_post()
         {
