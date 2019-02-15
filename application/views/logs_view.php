@@ -95,7 +95,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     } else {
 
                                         $out='<input type="hidden" name="name_id" value="'.$id.'" /><button class="btn btn-primary" type="submit" style="background-color: #28a745;color: #ffffff;border: none;">Time out</button>';
-                                      
+                                    
                                     }
 
                                     echo "<td><form method='post' action='".site_url("Logs/out")."'>". $out ."</form></td>";
@@ -198,7 +198,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             });
             $('#sel_room').change(function(){
                 var room_id = $('#sel_room').val();
-             
+            
                 if(room_id != '') {
                     $.ajax({
                         url:"<?php echo base_url(); ?>index.php/Logs/fetch_tenant",

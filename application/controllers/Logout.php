@@ -9,7 +9,17 @@ class Logout extends CI_Controller {
     //     $this->load->library('session');
     // }
 
+    public function validate_login() {
+
+        $login = $this->session->userdata('login_success');
+        if (!isset ($login)) {
+            redirect('Login');
+        }
+
+    }
+
     public function index(){
+        $this->validate_login();
         // Load our view to be displayed
         // to the user
         $this->load->model('Logout_model');
