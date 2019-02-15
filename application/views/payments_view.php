@@ -16,6 +16,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     height:35px;
 }
 </style>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
   
   $(document).ready(function(){
@@ -54,7 +55,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
-                        <?php if(! is_null($this->session->flashdata('message'))) echo $this->session->flashdata('message');?>
+                        <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
             </div>
             <div class="row" style="margin-top: 5px;margin-left:0px;">
@@ -111,12 +112,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     </div>
                     <?php foreach ($dir->result() as $tenant) { ?>
                     <div class="modal fade" role="dialog" tabindex="-1" id="Rent<?php echo $tenant->dir_id; ?>">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                     <h4 class="modal-title" style="color: #11334f;">Rental Bill</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                 <div class="modal-body">
-                                    <form>
+                                <form method="POST" action="<?php echo site_url('Transactions/rent_payment');?>">
+                                    <div class="form-row">
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -128,24 +131,29 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Tenant Name</label></div>
                                                 <div class="col"><input class="form-control" type="text" value="<?php echo $tenant->tenant_fname." ".$tenant->tenant_lname; ?>" disabled=""></div>
                                                 <input class="form-control" type="hidden" name="rf" value="<?php echo $tenant->tenant_fname;?>">
-                                                <input class="form-control" type="hidden" name="rl" value="<?php echo $tenant->tenant_lname;?>">
-                                                <input class="form-control" type="hidden" name="ri" value="<?php echo $tenant->tenant_id;?>">
-                                            
+                                                <input class="form-control" type="hidden" name="rtenant_id" id="r_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
+                                                <input class="form-control" type="hidden" name="rr" id="r_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
+                                                <input class="form-control" type="hidden" name="rent_id" id="rid<?php echo $tenant->dir_id; ?>" value="">
                                             </div>
                                         </div>
+                                        
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="rrn" placeholder="Enter receipt no" disabled=""></div>
+                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" placeholder="Enter receipt no"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for the month of</label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="rm">
-                                                        <option value="0">Cash</option>
-                                                        <option value="1">Check</option>
+                                                    <select class="form-control" name="rm" id="rent_month<?php echo $tenant->dir_id; ?>">
+                                                        <option value="">Select month</option>
+                                                        <?php foreach($rent->result() as $unrent) {
+                                                                if($unrent->tenant_id == $tenant->tenant_id) {
+                                                                    echo '<option value="'.$unrent->rent_due.'">'.date('F', strtotime($unrent->rent_due)).'</option>';
+                                                                }
+                                                        } ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -153,14 +161,19 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="text" style="text-align:right" value="3, 500.00" disabled=""></div>
+                                                <div class="col"><input class="form-control" type="text" name="rtrans_amount" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                
+                                                </div>
                                             </div>
                                         </div>
+                                    
+                                    </div>
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">To pay</label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="rt" id="rt<?php echo $tenant->dir_id; ?>">
+                                                    <select class="form-control" name="rtrans_mode" id="rt<?php echo $tenant->dir_id; ?>">
                                                     
                                                         <option value="0">Cash</option>
                                                         <option value="1">Check</option>
@@ -172,29 +185,31 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group rcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check No</label></div>
-                                                <div class="col"><input class="form-control" name="rcn" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="rcheck_no" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group rcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Bank</label></div>
-                                                <div class="col"><input class="form-control" name="rcb" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="rcheck_bank" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group rcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
-                                                <div class="col"><input class="form-control" name="rcd" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="rcheck_date" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="ra" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="ra" style="text-align:right"  type="number"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#CBill" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
                                 </form>
                             </div>
                         </div>
@@ -262,12 +277,15 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                     <?php foreach ($dir->result() as $tenant) { ?>
                     <div class="modal fade" role="dialog" tabindex="-1" id="Water<?php echo $tenant->dir_id; ?>">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                     <h4 class="modal-title" style="color: #11334f;">Water Bill</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                 <div class="modal-body">
-                                    <form>
+                                <form method="POST" action="<?php echo site_url('Transactions/water_payment');?>">
+                                    <div class="form-row">
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
+
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -278,24 +296,30 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Tenant Name</label></div>
                                                 <div class="col"><input class="form-control" type="text" value="<?php echo $tenant->tenant_fname." ".$tenant->tenant_lname; ?>" disabled=""></div>
-                                                <input class="form-control" type="hidden" name="wf" value="<?php echo $tenant->tenant_fname;?>">
+                                                <input class="form-control" type="hidden" name="wf"  value="<?php echo $tenant->tenant_fname;?>">
                                                 <input class="form-control" type="hidden" name="wl" value="<?php echo $tenant->tenant_lname;?>">
-                                                <input class="form-control" type="hidden" name="wi" value="<?php echo $tenant->tenant_id;?>">
-                                            
+                                                <input class="form-control" type="hidden" name="wtenant_id" id="w_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
+                                                <input class="form-control" type="hidden" name="wi" id="w_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
+                                                <input class="form-control" type="hidden" name="water_id" id="wid<?php echo $tenant->dir_id; ?>" value="">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="wrn" placeholder="Enter receipt no" disabled=""></div>
+                                                <div class="col"><input class="form-control" type="text" name="wtrans_rno" placeholder="Enter receipt no" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for the month of</label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="wm">
-                                                        <option selcted>Rent Bill</option>
+                                                    <select class="form-control" name="payment" id="sel_payment<?php echo $tenant->dir_id; ?>">
+                                                        <option value="">Select month</option>
+                                                        <?php foreach($water->result() as $unpaid) {
+                                                                if($unpaid->tenant_id == $tenant->tenant_id) {
+                                                                    echo '<option value="'.$unpaid->water_due.'">'.date('F', strtotime($unpaid->water_due)).'</option>';
+                                                                }
+                                                        } ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -303,14 +327,18 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="text" style="text-align:right" value="3, 500.00" disabled=""></div>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_amount" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                               
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">To pay</label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="wt" id="wt<?php echo $tenant->dir_id; ?>">
+                                                    <select class="form-control" name="wtrans_mode" id="wt<?php echo $tenant->dir_id; ?>">
                                                         <option value="0">Cash</option>
                                                         <option value="1">Check</option>
                                                    
@@ -321,29 +349,32 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group wcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check No</label></div>
-                                                <div class="col"><input class="form-control" name="wcn" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="wcheck_no" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group wcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Bank</label></div>
-                                                <div class="col"><input class="form-control" name="wcb" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="wcheck_bank" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group wcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
-                                                <div class="col"><input class="form-control" name="wcd" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="wcheck_date" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="wa" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="wa" style="text-align:right"  type="amount"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#CBill" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
                                 </form>
                             </div>
                         </div>
@@ -355,20 +386,68 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         </div>
     </div>
     </div>
-    
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     <script>
         $(document).ready(function(){
-            <?php foreach($dir->result() as $selectize) { ?>
-                $('#etroom_number<?php echo $selectize->dir_id; ?>').selectize({
-                maxItems: 1
+            <?php foreach($dir->result() as $d) { ?>
+            $('#sel_payment<?php echo $d->dir_id; ?>').change(function(){
+                var month = $('#sel_payment<?php echo $d->dir_id; ?>').val();
+                var tenant = $('#w_tenantid<?php echo $d->dir_id; ?>').val();
+                var room = $('#w_roomid<?php echo $d->dir_id; ?>').val();
+                if(month != '' && tenant != '' && room != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Transactions/amount_due",
+                        method:"POST",
+                        // contentType: "application/json; charset=utf-8",
+                        // dataType:'json',
+                        data:{month:month, tenant:tenant, room:room},
+                        success:function(data) {
+                            $.each(data, function (i, obj) {
+                                $('#sel_amount<?php echo $d->dir_id; ?>').val(data.wt);
+                                $('#wid<?php echo $d->dir_id; ?>').val(data.wi);
+                            });
+                        
+                        }
+                    });
+                } else {
+                    $('#sel_amount<?php echo $d->dir_id; ?>').val(0);
+                }
             });
-            <?php } ?>
             
+
+            $('#rent_month<?php echo $d->dir_id; ?>').change(function(){
+                var m = $('#rent_month<?php echo $d->dir_id; ?>').val();
+                var t = $('#r_tenantid<?php echo $d->dir_id; ?>').val();
+                var r = $('#r_roomid<?php echo $d->dir_id; ?>').val();
+                if(m != '' && t != '' && r != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Transactions/rent_due",
+                        method:"POST",
+                        data:{m:m, t:t, r:r},
+                        // contentType: "application/json; charset=utf-8",
+                        // dataType: "json",  
+                        success:function(data) {
+                            $.each(data, function (i, obj) {
+                                $('#rent_amount<?php echo $d->dir_id; ?>').val(data.rt);
+                                $('#rid<?php echo $d->dir_id; ?>').val(data.ri);
+                            });
+                        
+                        }
+                    });
+                } else {
+                    $('#rent_amount<?php echo $d->dir_id; ?>').val(0);
+                }
+            });
+
+           
+            <?php } ?>
         });
-    </script>
+
+</script>
 </body>
 
 </html>
