@@ -34,17 +34,17 @@ class Changepass_model extends CI_Model {
             $data = array('admin_password' => $confirm_password, 'admin_new' => 0 );
 			$this->update($data, $email);
 
-            date_default_timezone_set('Asia/Manila');
-            $log = date("F j, Y, g:ia").": ". $email . " successfully changed their password.".PHP_EOL;
-            file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+            // date_default_timezone_set('Asia/Manila');
+            // $log = date("F j, Y, g:ia").": ". $email . " successfully changed their password.".PHP_EOL;
+            // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
 
             return true;
 
         } else {
 
-            date_default_timezone_set('Asia/Manila');
-            $log = date("F j, Y, g:ia").": ". $email . " failed to change their password.".PHP_EOL;
-            file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
+            // date_default_timezone_set('Asia/Manila');
+            // $log = date("F j, Y, g:ia").": ". $email . " failed to change their password.".PHP_EOL;
+            // file_put_contents('syslogs/syslogs_settings.txt', $log, FILE_APPEND);
             //new password and confirm password did not match
             return false;
 
