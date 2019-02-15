@@ -46,7 +46,7 @@ class Changepass extends CI_Controller {
     public function process1() {
         
         $this->load->model('Changepass_model');
-        $result = $this->Changepass_model->change_password($email);
+        $result = $this->Changepass_model->change_password();
 
         if(! $result) {
 
