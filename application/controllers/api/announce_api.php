@@ -30,7 +30,8 @@ require APPPATH . 'libraries/Format.php';
             $this->db->order_by('date_posted', 'desc');
             $this->db->join('annfile_tbl','ann_tbl.ann_id=annfile_tbl.ann_id', 'LEFT');
 		    $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');
-            
+            $this->db->where('ann_status=',1);
+          
             $user=$this->db->get();
             
             $details=$user->result();
