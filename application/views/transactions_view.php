@@ -177,11 +177,16 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     if ($dc->room_id == $row2->room_id) {
                                                         if($dc->num_tenants > $row2->room_tcount) {
                                                             $ex = ($dc->num_tenants -  $row2->room_tcount) * 1500; 
-                                                            $tr = $row2->room_price + $ex ; ?>
+                                                            $tr = $row2->room_price + $ex ;
+                                                            $final = $tr / $dc->num_tenants ; ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
                                                             <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($tr, 2) ?>" readonly  ></div>
-                                                            <input class="form-control" type="hidden" name="rent_total" value="<?php echo $tr; ?>" >
-                                                        <?php } else { ?>
+                                                            <input class="form-control" type="hidden" name="rent_total" value="<?php echo $final; ?>" >
+                                                        <?php } else if($dc->num_tenants > 0) { ?>
+                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
+                                                        <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format((int)$row2->room_price, 2); ?>" readonly  ></div>
+                                                        <input class="form-control" type="hidden" name="rent_total" value="<?php echo $row2->room_price / $dc->num_tenants; ?>" >
+                                                        <?php } else if($dc->num_tenants = 0) { ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
                                                         <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format((int)$row2->room_price, 2); ?>" readonly  ></div>
                                                         <input class="form-control" type="hidden" name="rent_total" value="<?php echo $row2->room_price; ?>" >
@@ -223,16 +228,20 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                         $wc = $w->water_current;
                                                     }
                                                 }
+
+                                                echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                                <div class="col">
+                                                    <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number" value="'.$wc.'" readonly>
+                                                </div>';
                                             }
                                             else {
-                                                //echo "no";
-                                                $wc = 0;
+                                                echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                                <div class="col">
+                                                    <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number">
+                                                </div>';
                                             }
                                             ?>
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
-                                                <div class="col">
-                                                    <input class="form-control" id="pre<?php echo $row2->room_id; ?>" name="water_previous" style="text-align:right" type="number" value="<?php echo $wc; ?>" readonly>
-                                                </div>
+                                                
                                                 
                                             </div>
                                         </div>
@@ -253,7 +262,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="water_total" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
                                             </div>
                                         </div>
                                         <?php foreach ($dir_count->result() as $nt) { 
@@ -264,7 +273,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <div class="form-row">
                                                 <input class="form-control" id="aa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="pt" value="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="number" style="text-align:right" readonly></div>
                                             </div>
                                         </div>
                                         <?php } } ?>
