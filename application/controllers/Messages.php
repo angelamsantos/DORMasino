@@ -25,7 +25,7 @@ class Messages extends CI_Controller{
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/index";
         $config['total_rows'] = $this->Messages_model->record_count();
-        $config['per_page'] = 3;
+        $config['per_page'] = 10;
         $config['uri_segment'] = 3;
 
         $this->pagination->initialize($config);
@@ -39,7 +39,57 @@ class Messages extends CI_Controller{
         $data['links'] = $this->pagination->create_links();
 
         $this->load->view('sidebar_view');
-        $this->load->view('messages_view', $data);
+        $this->load->view('inbox_view', $data);
+
+    }
+
+    public function sent() {
+
+        $this->validate_login();
+
+        $config = array();
+        $config["base_url"] = base_url() . "index.php/Messages/sent";
+        $config['total_rows'] = $this->Messages_model->record_count();
+        $config['per_page'] = 10;
+        $config['uri_segment'] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $data['msg']=$this->Messages_model->get_msg($config['per_page'], $page);
+        $data['floor']=$this->Messages_model->get_floor();
+        $data['room']=$this->Messages_model->get_room();
+        $data['dir']=$this->Messages_model->get_dir();
+        $data['links'] = $this->pagination->create_links();
+
+        $this->load->view('sidebar_view');
+        $this->load->view('sent_view', $data);
+
+    }
+
+    public function archive() {
+
+        $this->validate_login();
+
+        $config = array();
+        $config["base_url"] = base_url() . "index.php/Messages/archive";
+        $config['total_rows'] = $this->Messages_model->record_count();
+        $config['per_page'] = 10;
+        $config['uri_segment'] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $data['msg']=$this->Messages_model->get_msg($config['per_page'], $page);
+        $data['floor']=$this->Messages_model->get_floor();
+        $data['room']=$this->Messages_model->get_room();
+        $data['dir']=$this->Messages_model->get_dir();
+        $data['links'] = $this->pagination->create_links();
+
+        $this->load->view('sidebar_view');
+        $this->load->view('archive_view', $data);
 
     }
 
@@ -92,6 +142,57 @@ class Messages extends CI_Controller{
         $this->session->set_flashdata('msg', $msg);
 
         redirect('Messages/index');
+
+    }
+
+    public function archive_inbox() {
+
+        $send_id = $this->input->post('send_id');
+
+        foreach ($send_id as $value) {
+
+                echo $this->Messages_model->archive_msg($value);
+
+        }
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The message/s have been archived!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Messages/index');
+
+    }
+
+    public function archive_sent() {
+
+        $send_id = $this->input->post('send_id');
+
+        foreach ($send_id as $value) {
+
+                echo $this->Messages_model->archive_msg($value);
+
+        }
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The message/s have been archived!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Messages/sent');
+
+    }
+
+    public function restore() {
+
+        $send_id = $this->input->post('send_id');
+
+        foreach ($send_id as $value) {
+
+                echo $this->Messages_model->restore_msg($value);
+
+        }
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The message/s have been restored!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Messages/archive');
 
     }
 
