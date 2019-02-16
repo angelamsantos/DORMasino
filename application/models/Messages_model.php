@@ -133,5 +133,21 @@ class Messages_model extends CI_Model {
 
     }
 
+    public function archive_msg($value) {
+
+        $this->db->set('send_archive', 1);
+        $this->db->where('send_id', $value);
+        $this->db->update('send_tbl');
+
+    }
+
+    public function restore_msg($value) {
+
+        $this->db->set('send_archive', 0);
+        $this->db->where('send_id', $value);
+        $this->db->update('send_tbl');
+
+    }
+
 }
 ?>

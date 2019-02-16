@@ -51,8 +51,8 @@ button.link {
 
                                             <input type="text" id="bleh" class="form-control" style="font-size: 14px; background-color:#fff; border: none;" readonly />
 
-                                            <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 1.5px;padding-top: 7px;padding-right: 4px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
-                                            <input type="file" name="img" size="20" value="img" style="position:relative; opacity:0;" onchange="readURL(this); changeEventHandler(event);" />
+                                            <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 0px;padding-top: 0px;padding-right: 4px;padding-left: 4px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
+                                            <input type="file" name="img" size="20" value="img" style="position:relative; opacity:0s" onchange="readURL(this); changeEventHandler(event);" />
                                             <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;
                                             </button>
 

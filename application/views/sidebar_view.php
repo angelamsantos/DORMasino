@@ -160,7 +160,7 @@ date_default_timezone_set("Asia/Manila");
                 <div id="message-collapse" class="collapse show">
                     <ul class="list-group">
  
-                     <?php if(current_url() == site_url('Messages/index') ) { ?>
+                     <?php if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/sent') || current_url() == site_url('Messages/archive')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
