@@ -11,7 +11,19 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
+<script>
+        $(document).ready(function () {
+            $('#rent').dataTable( {
+                "ordering": false
+            });
+            $('#water').dataTable( {
+                "ordering": false
+            });
+        });
 
+        
+        
+    </script>
 
     <div class="page-content-wrapper">
             <div class="container-fluid">
@@ -23,76 +35,74 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
                 </div>
-                <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
-                    <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
-                        
-                        <div id="table_view" class="table-responsive" style="width:100%;">
-                            <table class="table" id="example" style="font-size:14px;">
-                                <thead class="logs">
-                                    <tr style="text-align:center">
-                                        <th style="padding-right: 0px;padding-left: 0px;">Reference Number</th>
-                                        <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
-                                        <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
-                                        <th style="padding-right: 0px;padding-left: 0px;">Transaction Type</th>
-                                        <th style="padding-right: 0px;padding-left: 0px;">Date</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                
-                                         
-                                        <tr>
-                                            <td style="text-align:center;">R20180001</td>
-                                            <td style="text-align:center;">301</td>
-                                            <td style="text-align:center;">Arvin Dela Cruz</td>
-                                            <td style="text-align:center;">Rent</td>
-                                            <td style="text-align:center;">01-01-2018</td>
-                                        </tr>
+                <!-- <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
+                    <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;"> -->
+                    <div class="panel panel-default">
+                        <ul class="nav nav-tabs panel-heading">
+                            <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Rent</a></li>
+                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Water</a></li>
+                        </ul>
+                        <div class="tab-content panel-body">
+                            <div class="tab-pane active" role="tabpanel" id="tab-1" style="padding-top:20px;padding-bottom:20px">
+                                <div id="table_view" class="table-responsive mx-auto" style="width:98%;">
+                                    <table class="table" id="rent" style="font-size:14px;">
+                                        <thead class="logs">
+                                            <tr style="text-align:center">
+                                                <th style="padding-right: 0px;padding-left: 0px;">Receipt Number</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Date</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($rtrans->result() as $r) { ?>
+                                                
+                                                <tr>
+                                                    <td style="text-align:center;"><?php echo $r->rtrans_rno ;?></td>
+                                                    <td style="text-align:center;"><?php echo $r->room_number ;?></td>
+                                                    <td style="text-align:center;"><?php echo $r->tenant_fname.' '.$w->tenant_lname;?></td>
+                                                    <td style="text-align:center;"><?php echo $r->rtrans_date ;?></td>
+                                                </tr>
 
-                                        <tr>
-                                            <td style="text-align:center;">R20180001</td>
-                                            <td style="text-align:center;">301</td>
-                                            <td style="text-align:center;">Arvin Dela Cruz</td>
-                                            <td style="text-align:center;">Rent</td>
-                                            <td style="text-align:center;">01-01-2018</td>
-                                        </tr>
+                                                
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="tab-2" style="padding-top:20px;padding-bottom:20px">
+                            <div id="table_view" class="table-responsive mx-auto" style="width:98%;">
+                                    <table class="table" id="water" style="font-size:14px;">
+                                        <thead class="logs">
+                                            <tr style="text-align:center">
+                                                <th style="padding-right: 0px;padding-left: 0px;">Receipt Number</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Date</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($wtrans->result() as $w) { ?>
+                                                
+                                                <tr>
+                                                    <td style="text-align:center;"><?php echo $w->wtrans_rno ;?></td>
+                                                    <td style="text-align:center;"><?php echo $w->room_number ;?></td>
+                                                    <td style="text-align:center;"><?php echo $w->tenant_fname.' '.$w->tenant_lname;?></td>
+                                                    <td style="text-align:center;"><?php echo $w->wtrans_date ;?></td>
+                                                </tr>
 
-                                        <tr>
-                                            <td style="text-align:center;">R20180001</td>
-                                            <td style="text-align:center;">301</td>
-                                            <td style="text-align:center;">Arvin Dela Cruz</td>
-                                            <td style="text-align:center;">Rent</td>
-                                            <td style="text-align:center;">01-01-2018</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="text-align:center;">R20180001</td>
-                                            <td style="text-align:center;">301</td>
-                                            <td style="text-align:center;">Arvin Dela Cruz</td>
-                                            <td style="text-align:center;">Rent</td>
-                                            <td style="text-align:center;">01-01-2018</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="text-align:center;">R20180001</td>
-                                            <td style="text-align:center;">301</td>
-                                            <td style="text-align:center;">Arvin Dela Cruz</td>
-                                            <td style="text-align:center;">Rent</td>
-                                            <td style="text-align:center;">01-01-2018</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="text-align:center;">R20180001</td>
-                                            <td style="text-align:center;">301</td>
-                                            <td style="text-align:center;">Arvin Dela Cruz</td>
-                                            <td style="text-align:center;">Rent</td>
-                                            <td style="text-align:center;">01-01-2018</td>
-                                        </tr>
-                                    
-                                </tbody>
-                            </table>
+                                                
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    <!-- </div>
+                        
+                    </div> -->
                     <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
                         <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                     </footer>
@@ -105,7 +115,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     
     
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script> 
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
 </body>

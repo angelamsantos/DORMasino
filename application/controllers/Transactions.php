@@ -78,6 +78,8 @@ class Transactions extends CI_Controller{
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
         $data['dir_count']=$this->Transactions_model->get_dircount();
+        $data['rtrans']=$this->Transactions_model->get_rtrans();
+        $data['wtrans']=$this->Transactions_model->get_wtrans();
         $this->load->view('sidebar_view');
         $this->load->view('transactionsrecordsroom_view', $data);
         

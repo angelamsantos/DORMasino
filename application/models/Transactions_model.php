@@ -34,6 +34,8 @@ class Transactions_model extends CI_Model {
 
 
     }
+
+
     public function get_water () {
         $SELECT = "SELECT water_id, water_current, water_tbl.tenant_id, dir_tbl.room_id
                     FROM water_tbl 
@@ -247,7 +249,33 @@ class Transactions_model extends CI_Model {
             );
                 $this->db->where('water_id', $water);
                 $this->db->update('water_tbl', $data2);
-}
+    }
+    public function get_rtrans () {
+		$this->db->from('rtrans_tbl');
+		$this->db->join('rent_tbl','rent_tbl.rent_id=rtrans_tbl.rent_id', 'LEFT');
+        $this->db->join('rcheck_tbl','rcheck_tbl.rtrans_id=rtrans_tbl.rtrans_id', 'LEFT');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=rtrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('dir_tbl','dir_tbl.tenant_id=rtrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+    
+		$query = $this->db->get();
+		return $query;
+
+
+    }
+    public function get_wtrans () {
+		$this->db->from('wtrans_tbl');
+		$this->db->join('water_tbl','water_tbl.water_id=wtrans_tbl.water_id', 'LEFT');
+        $this->db->join('wcheck_tbl','wcheck_tbl.wtrans_id=wtrans_tbl.wtrans_id', 'LEFT');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=wtrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('dir_tbl','dir_tbl.tenant_id=wtrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+    
+		$query = $this->db->get();
+		return $query;
+
+
+    }
 
    
 }

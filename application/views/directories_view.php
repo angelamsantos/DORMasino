@@ -15,6 +15,31 @@
     height:35px;
 }
 
+    #panel[aria-expanded="false"]:before
+    {
+        font-family: 'Ionicons';
+        content: "\f363"; 
+        float: right;
+        margin-right:10px;
+        color: #b0c5d8;
+        font-size: 20px;
+        line-height: 22px;
+/*         
+        -webkit-transform: rotate(-90deg);
+        -moz-transform:    rotate(-90deg);
+        -ms-transform:     rotate(-90deg);
+        -o-transform:      rotate(-90deg);
+        transform:         rotate(-90deg); */
+    }
+    #panel[aria-expanded=""]:before
+    {
+        -webkit-transform: rotate(90deg);
+        -moz-transform:    rotate(90deg);
+        -ms-transform:     rotate(90deg);
+        -o-transform:      rotate(90deg);
+        transform:         rotate(90deg);
+    }
+
 
 </style>
 <script>
@@ -51,7 +76,7 @@
                         <div class="card mx-auto">
                             <div class="card-header" role="tab" style="padding-top: 9px;padding-bottom: 9px;">
                                 <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-start align-items-start justify-content-sm-start align-items-sm-start justify-content-md-start align-items-md-start align-items-lg-start mr-lg-start align-items-xl-start mr-xl-auto mb-0">
-                                    <a class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
+                                    <a id="panel" class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
                                         Floor <?php echo $row->floor_number ; ?>
 
                                     </a>
