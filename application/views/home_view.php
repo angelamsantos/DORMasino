@@ -5,7 +5,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 ?>
 <html>
 
-<head>
+<head profile="<?php echo base_url(); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/dormasino-favicon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>DORMasino</title>
