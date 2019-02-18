@@ -41,7 +41,7 @@ date_default_timezone_set("Asia/Manila");
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
-    <!-- <script src="<?php// echo base_url(); ?>assets/js/datatable.js"></script> -->
+    <!-- <script src="<?php // echo base_url(); ?>assets/js/datatable.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/popper.min.js"></script>
     <style>
