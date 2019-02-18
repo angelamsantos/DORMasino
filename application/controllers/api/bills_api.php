@@ -78,17 +78,19 @@ require APPPATH . 'libraries/Format.php';
                 $data=$bills->result();
 
                 }else if($query=="rwu"){
-                    $search="SELECT water_tbl.water_id, water_tbl.water_total, water_tbl.water_due,water_tbl.water_status,'water' as type,(@cnt := @cnt + 1) AS rowNumber from water_tbl left join tenant_tbl on water_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND water_tbl.water_status=0 UNION 
-                    SELECT rent_tbl.rent_id,rent_tbl.rent_total,rent_tbl.rent_due,rent_tbl.rent_status,'rent' as type, (@cnt := @cnt + 1) AS rowNumbers from rent_tbl left join tenant_tbl on rent_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND rent_tbl.rent_status=0 ORDER by water_due";
+                    $set="SET @cnt=0";
+                    $this->db->query($set);
+                    $search=" SELECT water_tbl.water_id, water_tbl.water_total, water_tbl.water_due,water_tbl.water_status,'Water' as type,(@cnt := @cnt + 1) AS rowNumber from water_tbl left join tenant_tbl on water_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND water_tbl.water_status=0 UNION 
+                    SELECT rent_tbl.rent_id,rent_tbl.rent_total,rent_tbl.rent_due,rent_tbl.rent_status,'Rent' as type, (@cnt := @cnt + 1) AS rowNumbers from rent_tbl left join tenant_tbl on rent_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND rent_tbl.rent_status=0 ORDER by water_due DESC";
                    
                     $data=$this->db->query($search, array($id,$id))->result();
                     }else if($query=="rwp"){
-                        $search="SELECT water_tbl.water_id, water_tbl.water_total, water_tbl.water_due,water_tbl.water_status,'water' as type,(@cnt := @cnt + 1) AS rowNumber from water_tbl left join tenant_tbl on water_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND water_tbl.water_status=1 UNION 
-                        SELECT rent_tbl.rent_id,rent_tbl.rent_total,rent_tbl.rent_due,rent_tbl.rent_status,'rent' as type, (@cnt := @cnt + 1) AS rowNumbers from rent_tbl left join tenant_tbl on rent_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND rent_tbl.rent_status=1 ORDER by water_due";
-                   
+                        $set="SET @cnt=0";
+                        $this->db->query($set);
+                        $search="SELECT water_tbl.water_id, water_tbl.water_total, water_tbl.water_due,water_tbl.water_status,'Water' as type,(@cnt := @cnt + 1) AS rowNumber from water_tbl left join tenant_tbl on water_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND water_tbl.water_status=1 UNION 
+                        SELECT rent_tbl.rent_id,rent_tbl.rent_total,rent_tbl.rent_due,rent_tbl.rent_status,'Rent' as type, (@cnt := @cnt + 1) AS rowNumbers from rent_tbl left join tenant_tbl on rent_tbl.tenant_id=tenant_tbl.tenant_id where tenant_tbl.tenant_id=? AND rent_tbl.rent_status=1 ORDER by water_due DESC";
+                 
                     $data=$this->db->query($search, array($id,$id))->result();
-
-
                     }
                     
                
