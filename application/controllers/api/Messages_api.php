@@ -32,31 +32,13 @@ require APPPATH . 'libraries/Format.php';
             
             
             if($confirmdetails){
-<<<<<<< HEAD
-                
-                $this->db->select('send_tbl.send_id,send_tbl.send_type,tenant_tbl.tenant_email,tenant_tbl.tenant_fname,tenant_tbl.tenant_lname, admin_tbl.admin_email, admin_tbl.admin_fname,admin_tbl.admin_lname,msg_tbl.*');
-                $this->db->from('send_tbl ');
-=======
                 if($sort=="inbox"){
                 $this->db->select('send_tbl.*,tenant_tbl.tenant_email,tenant_tbl.tenant_fname,admin_tbl.admin_id,tenant_tbl.tenant_lname, admin_tbl.admin_email, admin_tbl.admin_fname,admin_tbl.admin_lname,msg_tbl.*');
                 $this->db->from('send_tbl ');   
->>>>>>> master
                 $this->db->join('tenant_tbl','send_tbl.tenant_id=tenant_tbl.tenant_id','left');
                 $this->db->join('admin_tbl','admin_tbl.admin_id=send_tbl.admin_id','left');
                 $this->db->join('msg_tbl','send_tbl.msg_id=msg_tbl.msg_id ','left');
                 $this->db->where('tenant_tbl.tenant_email=',$email);
-<<<<<<< HEAD
-                
-                $this->db->order_by('msg_date','DESC');
-    
-    
-              
-                $user=$this->db->get();
-                
-                $details=$user->result();
-
-
-=======
                 $this->db->where('send_tbl.send_type=',1);
                 
                 $this->db->order_by('msg_date','DESC');
@@ -81,7 +63,6 @@ require APPPATH . 'libraries/Format.php';
                
 
                
->>>>>>> master
                 // Set the response and exit
                 $this->response([
                     'status' => 'Connected',
@@ -104,13 +85,6 @@ require APPPATH . 'libraries/Format.php';
             else{
                 // Set the response and exit
                 $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
-<<<<<<< HEAD
-            }
-        
-    }
-}
-   
-=======
             }   
         
     }
@@ -226,4 +200,3 @@ require APPPATH . 'libraries/Format.php';
     }
 }
  
->>>>>>> master
