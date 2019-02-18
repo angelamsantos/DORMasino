@@ -39,7 +39,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room 
                            
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button>
+                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>

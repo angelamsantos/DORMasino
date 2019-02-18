@@ -23,6 +23,16 @@ class Directories_model extends CI_Model {
         return $query;
     }
 
+    public function get_admin() {
+        $this->db->from('admin_tbl');
+        $this->db->join('adcontrol_tbl', 'admin_tbl.admin_id=adcontrol_tbl.admin_id');
+        $query = $this->db->get();
+        $data['info'] = $query->result();
+        $this->session->set_userdata('admin', $data);
+        return $query;
+
+    }
+
     public function get_dir () {
 		$this->db->from('dir_tbl');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
@@ -285,6 +295,75 @@ class Directories_model extends CI_Model {
         $this->db->set('room_status', $status);
         $this->db->where('room_id', $room_id);
         $this->db->update('room_tbl');
+    }
+
+    public function add_admin() {
+        
+        $data = array (
+            'admin_email' => $this->input->post('email'),
+            'admin_password' => md5("thores123"),
+            'admin_fname' => $this->input->post('fname'),
+            'admin_lname' => $this->input->post('lname'),
+            'admin_new' => "1",
+            'admin_status' => "1",
+            'admin_empno' => $this->input->post('empno'),
+            'admin_cno' => $this->input->post('cno'),
+            'admin_attempts' => "0",
+
+        );
+        $this->db->insert('admin_tbl', $data);
+        $admin = $this->db->insert_id();
+
+        $dir = "";
+        
+        for($i=1;$i<=12;$i++){
+            $a = $this->input->post('d'.$i);
+            
+            $dir.=$a;
+        
+        }
+
+        $bill = "";
+        
+        for($j=1;$j<=5;$j++){
+            $b = $this->input->post('p'.$j);
+            
+            $bill.=$b;
+        
+        }
+        $ann = "";
+        
+        for($k=1;$k<=2;$k++){
+            $c = $this->input->post('a'.$k);
+            
+            $ann.=$c;
+        
+        }
+        $msg = "";
+        
+        for($l=1;$l<=7;$l++){
+            $d = $this->input->post('m'.$l);
+            
+            $msg.=$d;
+        
+        }
+        
+            $vis = $this->input->post('v1');
+          
+        $data2 = array(
+            'adcontrol_dir' => $dir,
+            'adcontrol_bills' => $bill,
+            'adcontrol_ann' => $ann,
+            'adcontrol_msg' => $msg,
+            'adcontrol_logs' => $vis,
+            'admin_id' => $admin,
+        );
+        // echo $dir.'<br />';
+        // echo $bill.'<br />';
+        // echo $ann.'<br />';
+        // echo $msg.'<br />';
+        // echo $vis.'<br />';
+        $this->db->insert('adcontrol_tbl', $data2);
     }
 
 }
