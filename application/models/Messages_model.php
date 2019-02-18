@@ -24,10 +24,13 @@ class Messages_model extends CI_Model {
 
         $this->db->limit($limit, $start);
 
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
         $this->db->from('send_tbl');
         $this->db->order_by('send_id', 'desc');
         $this->db->join('msg_tbl','msg_tbl.msg_id=send_tbl.msg_id', 'LEFT');
         $this->db->join('tenant_tbl','tenant_tbl.tenant_id=send_tbl.tenant_id', 'LEFT');
+        $this->db->where('admin_id', $admin_id);
     
 		$query = $this->db->get();
         

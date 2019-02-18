@@ -17,9 +17,25 @@ class Requests_model extends CI_Model {
     
     }
 
-    public function complete($id) {
+    public function approve_req($id) {
 
         $this->db->set('req_status', 1);
+        $this->db->where('req_id', $id);
+        $this->db->update('req_tbl');
+
+    }
+
+    public function reject_req($id) {
+
+        $this->db->set('req_status', 2);
+        $this->db->where('req_id', $id);
+        $this->db->update('req_tbl');
+
+    }
+
+    public function complete_req($id) {
+
+        $this->db->set('req_status', 3);
         $this->db->where('req_id', $id);
         $this->db->update('req_tbl');
 
