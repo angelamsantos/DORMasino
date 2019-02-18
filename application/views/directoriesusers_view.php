@@ -15,7 +15,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         }
     </style>
     <script>
-  
+
             $(document).ready(function(){
                 <?php foreach($dir->result() as $edit) { ?>
                     $('#tenantInfo<?php echo $edit->dir_id; ?>').show();
@@ -33,7 +33,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             $('#tenantInfo<?php echo $edit->dir_id; ?>').show();
                             $('#editTenant<?php echo $edit->dir_id; ?>').hide();
                     })
-                 <?php } ?>
+                <?php } ?>
                 
                     $('.chk_boxes').click(function() {
                         $('.chk_boxes1').prop('checked', this.checked);
@@ -81,8 +81,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-check-inline" style="margin-right:0px">
                                         <label class="form-check-label">
                                             <input type="checkbox" class="chk_boxes my-auto" value="" style="margin-right:0px">
-                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px"
-                                                title="Delete Tenant/s"></button>
+                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Delete Tenant/s"></button>
                                         </label>
                                     </div>
                                     
@@ -103,7 +102,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     $your_date = new DateTime($due);
                                     $datediff = $now->diff($your_date);
                                 ?>
-                                     
+                                    
                                     <tr style="border-bottom:1px solid #c7c7c7">
                                         <td style="text-align:left">
                                         <div class="form-check-inline">
@@ -118,13 +117,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <td><a style="color:#0645AD;font-weight:bold ;" class="info" title="Click to show tenant information" href="#TenantInfo<?php echo $tenant->dir_id; ?>" data-toggle="modal" data-target="#TenantInfo<?php echo $tenant->dir_id; ?>"><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></a></td>
                                         <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
                                         <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
-                                             <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
+                                            <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
                                         <?php } else if ($datediff->days <= 10) { ?>
                                             <td style="color: red;text-align:center"><?php echo $datediff->days ." days"; ?></td>
                                         <?php } else { ?>
                                             <td style="text-align:center"><?php echo $datediff->days ." days"; ?></td>
                                         <?php } ?>
-                                       
+                                    
                                         <td style="text-align:center;">
                                                 <button title="Move room" type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-arrow-swap" style="font-size:19px;color:#0645AD;"></i>
@@ -189,7 +188,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Tenant Information</h6>
-                                       
+                                    
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Room No</label></div>

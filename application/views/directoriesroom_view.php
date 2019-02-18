@@ -33,7 +33,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button></div>
+                    <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
+                        <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room 
+                           
+                        </p>
+                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button>
+                    </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>

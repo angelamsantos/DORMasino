@@ -17,12 +17,13 @@ require APPPATH . 'libraries/Format.php';
         
             //search data   
             $email =$this->input->post('key');
-            
+            $sort=$this->input->post('sort');
             $this->db->select('*');
             $this->db->from('tenant_tbl');
             $this->db->where('tenant_email=',$email);
+
             $confirm=$this->db->get();
-            $confirmdetails=$confirm->result();
+            $confirmdetails=$confirm->row();
 
 
             
@@ -31,13 +32,20 @@ require APPPATH . 'libraries/Format.php';
             
             
             if($confirmdetails){
+<<<<<<< HEAD
                 
                 $this->db->select('send_tbl.send_id,send_tbl.send_type,tenant_tbl.tenant_email,tenant_tbl.tenant_fname,tenant_tbl.tenant_lname, admin_tbl.admin_email, admin_tbl.admin_fname,admin_tbl.admin_lname,msg_tbl.*');
                 $this->db->from('send_tbl ');
+=======
+                if($sort=="inbox"){
+                $this->db->select('send_tbl.*,tenant_tbl.tenant_email,tenant_tbl.tenant_fname,admin_tbl.admin_id,tenant_tbl.tenant_lname, admin_tbl.admin_email, admin_tbl.admin_fname,admin_tbl.admin_lname,msg_tbl.*');
+                $this->db->from('send_tbl ');   
+>>>>>>> master
                 $this->db->join('tenant_tbl','send_tbl.tenant_id=tenant_tbl.tenant_id','left');
                 $this->db->join('admin_tbl','admin_tbl.admin_id=send_tbl.admin_id','left');
                 $this->db->join('msg_tbl','send_tbl.msg_id=msg_tbl.msg_id ','left');
                 $this->db->where('tenant_tbl.tenant_email=',$email);
+<<<<<<< HEAD
                 
                 $this->db->order_by('msg_date','DESC');
     
@@ -48,6 +56,32 @@ require APPPATH . 'libraries/Format.php';
                 $details=$user->result();
 
 
+=======
+                $this->db->where('send_tbl.send_type=',1);
+                
+                $this->db->order_by('msg_date','DESC');
+                $user=$this->db->get();
+                
+                $details=$user->result();
+                }else if($sort=="sent"){
+                    $this->db->select('send_tbl.*,tenant_tbl.tenant_email,tenant_tbl.tenant_fname,tenant_tbl.tenant_lname, admin_tbl.admin_email,admin_tbl.admin_id, admin_tbl.admin_fname,admin_tbl.admin_lname,msg_tbl.*');
+                    $this->db->from('send_tbl ');   
+                    $this->db->join('tenant_tbl','send_tbl.tenant_id=tenant_tbl.tenant_id','left');
+                    $this->db->join('admin_tbl','admin_tbl.admin_id=send_tbl.admin_id','left');
+                    $this->db->join('msg_tbl','send_tbl.msg_id=msg_tbl.msg_id ','left');
+                    $this->db->where('tenant_tbl.tenant_email=',$email);
+                    $this->db->where('send_tbl.send_type=',0); 
+                    $this->db->order_by('msg_date','DESC'); 
+                    $user=$this->db->get();
+                
+                    $details=$user->result();
+                }
+                
+              
+               
+
+               
+>>>>>>> master
                 // Set the response and exit
                 $this->response([
                     'status' => 'Connected',
@@ -70,8 +104,126 @@ require APPPATH . 'libraries/Format.php';
             else{
                 // Set the response and exit
                 $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
+<<<<<<< HEAD
             }
         
     }
 }
    
+=======
+            }   
+        
+    }
+    function sendMessage_post(){
+        $email =$this->input->post('key');
+        $subject=$this->input->post('subject');
+        $notes=$this->input->post('notes');
+        $to=$this->input->post('to');
+        $this->db->select('*');
+        $this->db->from('tenant_tbl');
+        $this->db->where('tenant_email=',$email);
+
+        $confirm=$this->db->get();
+        $confirmdetails=$confirm->row();
+
+            if($confirmdetails){
+
+                if(!empty($subject)&&!empty($notes)){
+                    if($to!=''){
+                        $data = array(
+                            'msg_subject'=>$subject,
+                            'msg_body'=>$notes,
+                            'msg_status'=>0,
+                        );
+                    
+                        $this->db->insert('msg_tbl',$data);
+                       
+                        $msg_id = $this->db->insert_id();
+                        $data2=array(
+                        'send_type'=>0,
+                        'send_status'=>0,
+                        'send_archive'=>0,
+                        'msg_id'=>$msg_id,
+                        'admin_id'=>$to,
+                        'tenant_id'=>intval($confirmdetails->tenant_id),
+                        );
+                        $this->db->insert('send_tbl',$data2);
+                    }else if($to==''){
+                        $data = array(
+                            'msg_subject'=>$subject,
+                            'msg_body'=>$notes,
+                            'msg_status'=>0,
+                        );
+                    
+                        $this->db->insert('msg_tbl',$data);
+                        $this->db->select('*');
+                        $this->db->from('msg_tbl');
+                        $this->db->where('msg_subject=', $subject);
+                        $this->db->where('msg_body=',$notes);
+                        $this->db->where('msg_status=',0);
+                        $msgid=$this->db->get();
+                        foreach($msgid->msg as $row){
+                            $data=array(
+                                'send_type'=>0,
+                                'send_status'=>0,
+                                'send_archive'=>0,
+                                'msg_id'=>mysql_insert_id(),
+                                'admin_id'=>intval($row->tenant_id),
+                                'tenant_id'=>intval($confirmdetails->tenant_id),
+                                );
+
+                        }
+
+
+                    }
+                   
+
+
+
+                    $this->response([
+                        'status' => 'Connected',
+                        
+                        'message' =>'API key verified' ,
+                        'response'=>'Message has been sent.'
+                        
+                        
+                    ], REST_Controller::HTTP_OK);
+                }else{
+                    $this->response([
+                        'status' => 'Connected',
+                        
+                        'message' =>'API key verified' ,
+                        'response'=>'Message has not been sent. Please try again.'
+                        
+                        
+                    ], REST_Controller::HTTP_OK);
+                }
+               
+            
+            
+            
+            }else if($confirmdetails==null){
+                $this->response([
+                    'status' => 'Connected',
+                    'message' => 'Error: API key does not match'
+                    
+                ], REST_Controller::HTTP_OK);
+
+            }
+
+            else{
+                // Set the response and exit
+                $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
+            }
+
+
+
+
+
+
+
+
+    }
+}
+ 
+>>>>>>> master
