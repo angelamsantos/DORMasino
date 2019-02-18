@@ -28,12 +28,37 @@ class Requests extends CI_Controller{
 
     }
 
-    public function process() {
+    public function approve() {
 
         $id = $this->input->post('req_id');
-        $this->Requests_model->complete($id);
+        $requestBtn = $this->input->post('requestBtn');
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Request successfully completed!</center></div>';
+            if ($requestBtn == "approve") {
+
+                $this->Requests_model->approve_req($id);
+
+                $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Request approved!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
+
+            } else {
+
+                $this->Requests_model->reject_req($id);
+
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Request rejected!</center></div>';
+                $this->session->set_flashdata('msg', $msg);
+
+            }
+
+        redirect('Requests/index');
+
+    }
+
+    public function complete() {
+
+        $id = $this->input->post('req_id');
+        $this->Requests_model->complete_req($id);
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Request completed!</center></div>';
         $this->session->set_flashdata('msg', $msg);
 
         redirect('Requests/index');

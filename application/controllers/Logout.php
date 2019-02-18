@@ -2,12 +2,10 @@
 
 class Logout extends CI_Controller { 
 
-    // function __construct(){
-    //     parent::__construct();
-	// 	$this->load->helper(array('form', 'url'));
-	// 	$this->load->library('form_validation');
-    //     $this->load->library('session');
-    // }
+    function __construct(){
+        parent::__construct();
+        $this->load->model('Logout_model');
+    }
 
     public function validate_login() {
 
@@ -22,10 +20,9 @@ class Logout extends CI_Controller {
         $this->validate_login();
         // Load our view to be displayed
         // to the user
-        $this->load->model('Logout_model');
         $this->Logout_model->logout();
 
-            $msg = '<div class="alert alert-success" role="alert"> You have logged out successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"><center>You have logged out successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             $this->load->view('login_view');
@@ -35,21 +32,20 @@ class Logout extends CI_Controller {
     public function index1(){
         // Load our view to be displayed
         // to the user
-        $this->load->model('Logout_model');
         $this->Logout_model->logout();
 
         $save = $this->session->userdata['save'];
 
         if ($save == "save_email") {
 
-            $msg = '<div class="alert alert-success" role="alert"> You have changed your email successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"><center>You have changed your email successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             $this->load->view('login_view');
 
-        } elseif ($save == "save_pass") {
+        } else if ($save == "save_pass") {
 
-            $msg = '<div class="alert alert-success" role="alert"> You have changed your password successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"><center>You have changed your password successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             $this->load->view('login_view');
@@ -57,7 +53,7 @@ class Logout extends CI_Controller {
 
         } else {
 
-            $msg = '<div class="alert alert-success" role="alert"> You have logged out successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"><center>You have logged out successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             $this->load->view('login_view');
