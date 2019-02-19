@@ -73,7 +73,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <label class="form-check-label">
                                                 <div class="row ml-1">
                                                     <input type="checkbox" class="chk_boxes mt-2  my-auto" value="">
-                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive message/s">
+                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive selected message/s">
                                                     <i class="icon ion-android-archive" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                 </div>

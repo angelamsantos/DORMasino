@@ -70,7 +70,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <label class="form-check-label">
                                                 <div class="row ml-1">
                                                     <input type="checkbox" class="chk_boxes mt-2  my-auto" value="">
-                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive message/s">
+                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive selected message/s">
                                                     <i class="icon ion-android-archive" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                 </div>
@@ -229,9 +229,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="modal-content">
                                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                                 <h4 class="modal-title" style="color: #11334f;">Sent message to: <?php echo $sview->tenant_fname.' '.$sview->tenant_lname ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                                            <div class="modal-body text-center">
-                                                    <p style="font-size: 17px;">Subject: <?php echo $sview->msg_subject ?></p>
-                                                    <p style="font-size: 14px;"><?php echo $sview->msg_body ?></p>
+                                                <div class="modal-body">
+                                                    <p style="font-size: 17px;"><b><?php echo $sview->msg_subject ?></b></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 14px;"><?php echo $sview->msg_body ?></p><hr style="border-bottom: 1px;">
                                             </div>
                                                 <div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Close</button></div>
                                             </form>

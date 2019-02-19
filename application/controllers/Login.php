@@ -95,7 +95,7 @@ class Login extends CI_Controller{
 
                     $msg = '<div class="alert alert-warning" role="alert">Set up your password first! </div>';
                     $this->session->set_flashdata('msg', $msg);
-                    redirect('ChangePass/index');
+                    redirect('Changepass/index');
 
                 } else {
 
