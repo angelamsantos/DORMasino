@@ -8,6 +8,19 @@
 
     $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
+    $a="";
+    $b="";
+    if($adir[0] == 1) { 
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
+
+    if($adir[3] == 1) { 
+        $b = "";
+    } else {
+        $b = "visibility:hidden;";
+    } 
 
 ?>
 <style>
@@ -102,12 +115,12 @@
                                                     <form action="<?php echo site_url('Directories/getRoom');?>" method="POST">
                                                     <input type="hidden" value="<?php echo $row1->room_id; ?>" name="show_rid">
                                                     <input type="hidden" value="<?php echo $row1->room_number; ?>" name="show_rno">
-                                                    <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
+                                                    <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="<?php echo $b; ?>padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
                                                             title="View Tenants" ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
                                                     </form>
                                                     </div>
                                                     <div class="col-xl-1 col-lg-2"
-                                                        style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
+                                                        style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="<?php echo $a; ?>padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
                                                             title="Add Tenant" data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
                                                 </div>
                                                     
@@ -182,7 +195,7 @@
                                                 $status = $tenant->tenant_status;
                                                 if ( $status == 1) { ?>
 
-                                                <button title="Edit user" data-target="#EditUser<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                <button hidden title="Edit user" data-target="#EditUser<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                     <i class="fa fa-edit" style="font-size: 14px"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">

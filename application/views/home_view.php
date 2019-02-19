@@ -54,32 +54,32 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         $c="";
         $d="";
         $e="";
-        if($adir[3] == 1 || $adir[7] == 1 || $adir[11] == 1 ) { 
-            $a = "";
-        } else {
+        if($adir == 000000000000 ) { 
             $a = "disabled title='This feature is not available for your account.'";
+        } else  {
+            $a = "";
         } 
         
-        if($abills[0] == 1 || $abills[2] == 1 || $abills[4] == 1 ) { 
-            $b = "";
-        } else {
+        if($abills == 00000 ) { 
             $b = "disabled title='This feature is not available for your account.'";
+        } else {
+            $b = "";
         }
 
-        if($aann[0] == 1) { 
-            $c = "";
-        } else {
+        if($aann == 00) { 
             $c = "disabled title='This feature is not available for your account.'";
-        }
-        if($amsg[0] == 1 || $amsg[4] == 1  ) {
-            $d = "";
         } else {
+            $c = "";
+        }
+        if($amsg == 0000000) {
             $d = "disabled title='This feature is not available for your account.'";
-        }
-        if($alogs[0] == 1) {
-            $e = "";
         } else {
+            $d = "";
+        }
+        if($alogs == 00) {
             $e = "disabled title='This feature is not available for your account.'";
+        } else {
+            $e = "";
         }
         ?>
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center mx-auto flex-sm-column align-items-sm-center flex-md-column align-items-md-center flex-lg-row justify-content-lg-center flex-xl-row justify-content-xl-center align-items-xl-center"

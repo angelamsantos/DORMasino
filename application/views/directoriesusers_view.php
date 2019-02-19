@@ -7,7 +7,34 @@
     }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
+    $a="";
+    $b="";
+    $c="";
+    $d="";
+    if($adir[0] == 1) { //add
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
 
+    if($adir[1] == 1) { //edit
+        $b = "";
+    } else {
+        $b = "visibility:hidden;";
+    }
+    
+    if($adir[2] == 1) { //delete
+        $c = "";
+    } else {
+        $c = "visibility:hidden;";
+    } 
+
+    if($adir[3] == 1) { //view
+        $d = "";
+    } else {
+        $d = "visibility:hidden;";
+    }
 ?>
     <style>
         .form-control {
@@ -57,7 +84,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             <i class="icon ion-ios-calendar-outline" style="font-size:19px;"></i> - Change Contract &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-ios-redo" style="font-size:19px;"></i> - Reset Password
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button>
+                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Add User</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -83,7 +110,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-check-inline" style="margin-right:0px">
                                         <label class="form-check-label">
                                             <input type="checkbox" class="chk_boxes my-auto" value="" style="margin-right:0px">
-                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Delete Tenant/s"></button>
+                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="<?php echo $c; ?>color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Delete Tenant/s"></button>
                                         </label>
                                     </div>
                                     
@@ -127,13 +154,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <?php } ?>
                                     
                                         <td style="text-align:center;">
-                                                <button title="Move room" type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button title="Move room" type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-arrow-swap" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Change contract" type="button" id="edit-tenant" data-target="#ChangeContract<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button title="Change contract" type="button" id="edit-tenant" data-target="#ChangeContract<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-calendar-outline" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Reset password" type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button title="Reset password" type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 
@@ -178,7 +205,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <div class="modal-content" id="tenantInfo<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenantInfo->tenant_lname; ?>: Tenant Information</h4>
-                            <button title="Edit Information"  id="toggleEdit<?php echo $tenantInfo->dir_id; ?>" class="modal-tenant btn btn-primary ml-auto" style="border-radius:100px;padding:0px 8px;margin-right:0px">
+                            <button title="Edit Information"  id="toggleEdit<?php echo $tenantInfo->dir_id; ?>" class="modal-tenant btn btn-primary ml-auto" style="<?php echo $b; ?>border-radius:100px;padding:0px 8px;margin-right:0px">
                             <i class="fa fa-edit" style="font-size:16px;font-color:blue"></i>
                             </button> 
                         </div>
