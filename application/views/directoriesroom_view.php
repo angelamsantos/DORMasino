@@ -7,7 +7,34 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$abill = $this->session->userdata['login_success']['info']['adcontrol_bill'];
+    $a="";
+    $b="";
+    $c="";
+    $d="";
+    if($abill[0] == 1) { //add
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
 
+    if($abill[1] == 1) { //edit
+        $b = "";
+    } else {
+        $b = "visibility:hidden;";
+    }
+    
+    if($abill[2] == 1) { //delete
+        $c = "";
+    } else {
+        $c = "visibility:hidden;";
+    } 
+
+    if($abill[3] == 1) { //view
+        $d = "";
+    } else {
+        $d = "visibility:hidden;";
+    }
 ?>
 <html>
 
@@ -39,7 +66,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room 
                            
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
+                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -48,13 +75,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="row" style="margin-top: 20px;margin-left:0px;">
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                         
-                        <div id="table_view" class="table-responsive" style="width:60%;">
+                        <div id="table_view" class="table-responsive" style="width:100%;">
                             <table class="table" id="room_datatable" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room Capacity</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Capacity</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Price</th>
                                         <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                     </tr>
                                 </thead>
@@ -66,7 +94,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <tr>
                                             <td style="text-align:center;"><?php echo $row->floor_number; ?></td>
                                             <td style="text-align:center;"><?php echo $row->room_number; ?></td>
-                                            
+                                            <td style="text-align:center;"><?php echo $row->room_tcount; ?></td>
+                                            <td style="text-align:center;"><?php echo "Php ".number_format($row->room_price, 2); ?></td>
                                             
                                            
                                             <td style="text-align:center;">
@@ -78,19 +107,19 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     if ( $status == 1) { ?>
 
                                                             <button title="Edit Room Details" type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                                <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
+                                                                <i class="icon ion-edit" style="<?php echo $b; ?>font-size: 19px;color:#0645AD;"></i>
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                             <?php if ($capacity == 0) { ?>
 
                                                                 <button title="Deactivate room"  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                                    <i class="icon ion-minus-circled" style="font-size: 19px; color:#0645AD;"></i>
+                                                                    <i class="icon ion-minus-circled" style="<?php echo $b; ?>font-size: 19px; color:#0645AD;"></i>
                                                                 </button>
  
                                                             <?php } else { ?>
 
                                                                 <button title="Deactivating is disabled. The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
-                                                                <i class="icon ion-minus-circled" style="font-size: 19px;"></i>
+                                                                <i class="icon ion-minus-circled" style="<?php echo $b; ?>font-size: 19px;"></i>
                                                                 </button>
 
                                                             <?php } ?>

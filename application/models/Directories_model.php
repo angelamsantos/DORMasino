@@ -70,6 +70,8 @@ class Directories_model extends CI_Model {
         $this->db->select("room_tbl.room_id");
         $this->db->select("room_tbl.room_number");
         $this->db->select("room_tbl.room_status");
+        $this->db->select("room_tbl.room_tcount");
+        $this->db->select("room_tbl.room_price");
         $this->db->select("floor_tbl.floor_number");
         $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
         $this->db->from("room_tbl");
