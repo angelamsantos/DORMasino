@@ -1,0 +1,7 @@
+------ START OF TRANS FILE (DATE) - (TIME)
+
+
+2019-02-16 12:49:20 -- SUPERADMIN RM user angela santos - END OF CONTRACT PERIOD ( Date)
+2019-02-16 12:59:20 -- SUPERADMIN MV user juan dela cruz from room 301 to room 302
+
+------ END OF FILE

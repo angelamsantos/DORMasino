@@ -16,8 +16,32 @@
 }
 </style>
 <script>
-    
-
+    $(document).ready(function(){
+        $('.tenant').click(function() {
+            $('.dt').prop('checked', this.checked);
+        });
+        $('.room').click(function() {
+            $('.dr').prop('checked', this.checked);
+        });
+        $('.admin').click(function() {
+            $('.da').prop('checked', this.checked);
+        });
+        $('.bill').click(function() {
+            $('.bl').prop('checked', this.checked);
+        });
+        $('.pay').click(function() {
+            $('.py').prop('checked', this.checked);
+        });
+        $('.trans').click(function() {
+            $('.tr').prop('checked', this.checked);
+        });
+        $('.msg').click(function() {
+            $('.gm').prop('checked', this.checked);
+        });
+        $('.req').click(function() {
+            $('.rq').prop('checked', this.checked);
+        });
+    });
 </script>
         <div class="page-content-wrapper">
             <div class="container-fluid">
@@ -127,70 +151,240 @@
                 </div>
             <?php //}  ?>
             <div class="modal fade" role="dialog" tabindex="-1" id="AddAdmin">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                     <h4 class="modal-title">Admin Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <div class="form-row" style="margin: 0px;">
-                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                <div class="col"><input class="form-control" type="text" placeholder="Enter first name"></div>
+                <div class="modal-body" style="font-size:14px;">
+                    <form method="POST" action="<?php echo site_url('Directories/add_admin');?>">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group"><label style="font-weight: normal;">First Name</label><input class="form-control" type="text" name="fname" placeholder="Enter first name"></div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group"><label style="font-weight: normal;">Last Name</label><input class="form-control" type="text" name="lname" placeholder="Enter last name"></div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row" style="margin: 0px;">
-                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
-                                <div class="col"><input class="form-control" type="text" placeholder="Enter last name"></div>
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group"><label style="font-weight: normal;">Contact No</label><input class="form-control" type="text" name="cno" placeholder="Enter contact number"></div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group"><label style="font-weight: normal;">Email</label><input class="form-control" type="email" name="email" placeholder="Enter email address"></div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row" style="margin: 0px;">
-                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No</label></div>
-                                <div class="col"><input class="form-control" type="text" placeholder="Enter contact number"></div>
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group"><label style="font-weight: normal;">Employee No</label><input class="form-control" type="text" name="empno" placeholder="Enter employee number"></div>
                             </div>
+                            <div class="col"></div>
                         </div>
                         <div class="form-group">
                             <div class="form-row" style="margin: 0px;">
                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Privileges</label></div>
-                                <div class="col-xl-8"><label style="font-weight: bold;margin-top: 9px;">Directories</label>
-                                    <div class="d-xl-flex align-items-xl-center">
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
-                                    </div><label style="font-weight: bold;">Bills</label>
-                                    <div class="d-xl-flex align-items-xl-center">
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
-                                    </div><label style="font-weight: bold;">Announcements</label>
-                                    <div class="d-xl-flex align-items-xl-center">
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
-                                    </div><label style="font-weight: bold;">Messages</label>
-                                    <div class="d-xl-flex align-items-xl-center">
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
-                                    </div><label style="font-weight: bold;">Visitor Logs</label>
-                                    <div class="d-xl-flex align-items-xl-center">
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Add</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Edit</label></div>
-                                        <div class="form-check" style="width: 50%;"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Delete</label></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="panel panel-default" style="font-size:14px;">
+                                        <ul class="nav nav-tabs panel-heading">
+                                            <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Directories</a></li>
+                                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Bills</a></li>
+                                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-3">Announcements</a></li>
+                                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-4">Messages</a></li>
+                                            <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-5">Visitor Logs</a></li>
+                                        </ul>
+                                        <div class="tab-content panel-body">
+                                            <div class="tab-pane active align-content-center" role="tabpanel" id="tab-1" style="font-size: 14px;">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead style="background-color: #ffffff;">
+                                                            <tr>
+                                                                <th style="width: 115px;"></th>
+                                                                <th class="text-xl-center d-xl-flex justify-content-xl-center">
+                                                                    <div class="form-check"><input class="tenant form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Tenants</label></div>
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    <div class="form-check"><input class="form-check-input room" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Rooms</label></div>
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    <div class="form-check"><input class="form-check-input admin" type="checkbox"  id="formCheck-1"><label class="form-check-label" for="formCheck-1">Admin</label></div>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Add</td>
+                                                                <td class="text-center">
+                                                                    <input type="hidden" name="d1" value="0">
+                                                                    <div class="form-check"><input class="dt form-check-input" type="checkbox"  name="d1" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                <input type="hidden" name="d5" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dr" type="checkbox" name="d5" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"> <input type="hidden" name="d9" value="0">
+                                                                    <div class="form-check"><input class="form-check-input da" type="checkbox" name="d9" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Edit</td>
+                                                                <td class="text-center"> <input type="hidden" name="d2" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dt" type="checkbox" name="d2" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"> <input type="hidden" name="d6" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dr" type="checkbox"   name="d6" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"> <input type="hidden" name="d10" value="0">
+                                                                    <div class="form-check"><input class="form-check-input da" type="checkbox"   name="d10" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Delete</td>
+                                                                <td class="text-md-center"> <input type="hidden" name="d3" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dt" type="checkbox"   name="d3" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"> <input type="hidden" name="d7" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dr" type="checkbox"   name="d7" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"> <input type="hidden" name="d11" value="0">
+                                                                    <div class="form-check"><input class="form-check-input da" type="checkbox"   name="d11" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>View</td>
+                                                                <td class="text-md-center"> <input type="hidden" name="d4" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dt" type="checkbox"   name="d4" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"> <input type="hidden" name="d8" value="0">
+                                                                    <div class="form-check"><input class="form-check-input dr" type="checkbox"   name="d8" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"> <input type="hidden" name="d12" value="0">
+                                                                    <div class="form-check"><input class="form-check-input da" type="checkbox"   name="d12" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" role="tabpanel" id="tab-2">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped" style="font-size:14px;">
+                                                        <thead style="background-color: #ffffff;">
+                                                            <tr>
+                                                                <th style="width: 115px;"></th>
+                                                                <th class="text-xl-center d-xl-flex justify-content-xl-center">
+                                                                    <div class="form-check"><input class="form-check-input bill" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Update Bills</label></div>
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    <div class="form-check"><input class="form-check-input pay" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Payments</label></div>
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    <div class="form-check"><input class="form-check-input trans" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Transaction Records</label></div>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>View</td>
+                                                                <td class="text-md-center"><input type="hidden" name="p1" value="0">
+                                                                    <div class="form-check"><input class="form-check-input bl" type="checkbox" name="p1"  id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"><input type="hidden" name="p3" value="0">
+                                                                    <div class="form-check"><input class="form-check-input py" type="checkbox" name="p3" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"><input type="hidden" name="p5" value="0">
+                                                                    <div class="form-check"><input class="form-check-input tr" type="checkbox" name="p5" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Update</td>
+                                                                <td class="text-center"><input type="hidden" name="p2" value="0">
+                                                                    <div class="form-check"><input class="form-check-input bl" type="checkbox" name="p2" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"><input type="hidden" name="p4" value="0">
+                                                                    <div class="form-check"><input class="form-check-input py" type="checkbox" name="p4" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" role="tabpanel" id="tab-3" style="font-size:14px; padding-top:20px;padding-bottom:20px;">
+                                                <div class="form-check d-flex d-xl-flex align-content-center flex-wrap mx-auto" style="width: 203px;"><input type="hidden" name="a1" value="0"><input class="form-check-input" name="a1" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View announcements</label></div>
+                                                <div class="form-check d-flex d-xl-flex align-content-center flex-wrap mx-auto"
+                                                    style="margin-top: 20px;width: 203px;"><input type="hidden" name="a2" value="0"><input class="form-check-input" type="checkbox" id="formCheck-1" name="a2" value="1"><label class="form-check-label" for="formCheck-1">Publish announcements</label></div>
+                                            </div>
+                                            <div class="tab-pane" role="tabpanel" id="tab-4">
+                                                <div class="table-responsive" style="font-size:14px;">
+                                                    <table class="table table-striped">
+                                                        <thead style="background-color: #ffffff;">
+                                                            <tr>
+                                                                <th style="width: 115px;"></th>
+                                                                <th class="text-xl-center d-xl-flex justify-content-xl-center">
+                                                                    <div class="form-check"><input class="form-check-input msg" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">General Messages</label></div>
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    <div class="form-check"><input class="form-check-input req" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Requests</label></div>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>View</td>
+                                                                <td class="text-center"><input type="hidden" name="m1" value="0">
+                                                                    <div class="form-check"><input class="form-check-input gm" name="m1" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"><input type="hidden" name="m5" value="0">
+                                                                    <div class="form-check"><input class="form-check-input rq" name="m5" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Receive</td>
+                                                                <td class="text-center"><input type="hidden" name="m2" value="0">
+                                                                    <div class="form-check"><input class="form-check-input gm" name="m2" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"><input type="hidden" name="m6" value="0">
+                                                                    <div class="form-check"><input class="form-check-input rq" name="m6" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Archive</td>
+                                                                <td class="text-center"><input type="hidden" name="m3" value="0">
+                                                                    <div class="form-check"><input class="form-check-input gm" name="m3" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-center"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Send</td>
+                                                                <td class="text-md-center"><input type="hidden" name="m4" value="0">
+                                                                    <div class="form-check"><input class="form-check-input gm" name="m4" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                                <td class="text-md-center"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Complete</td>
+                                                                <td class="text-md-center"></td>
+                                                                <td class="text-md-center"><input type="hidden" name="m7" value="0">
+                                                                    <div class="form-check"><input class="form-check-input rq" name="m7" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" role="tabpanel" id="tab-5" style="font-size:14px; padding-top:15px;padding-bottom:20px;">
+                                                <div class="form-check d-flex d-xl-flex align-content-center flex-wrap mx-auto" style="margin-top: 20px;width: 203px;"><input type="hidden" name="v1" value="0"><input class="form-check-input" name="v1" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View Visitor Logs</label></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
-                <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;border: none;color: #11334f;">Save</button></div>
+                <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;border: none;color: #11334f;">Save</button></div>
+                </form>
             </div>
         </div>
     </div>
@@ -201,7 +395,8 @@
     </div>
     </div>
     
-    <script src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     
 </body>
 
