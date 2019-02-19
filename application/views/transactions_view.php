@@ -7,6 +7,14 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
+    $a="";
+    if($abill[1] == 1) { //add
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
+
 
 ?>
 
@@ -57,7 +65,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <td style="text-align:center;">
                                                 
                                                     <button title="Edit Billing Statement" id="edit-room" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                    <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
+                                                    <i class="icon ion-edit" style="<?php echo $a; ?>font-size: 19px;color:#0645AD;"></i>
                                                     </button>&nbsp;&nbsp;&nbsp;&nbsp;                                                                                   
                                             </td>  
                                         </tr>

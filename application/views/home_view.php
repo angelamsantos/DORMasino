@@ -50,9 +50,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
         <?php
         $a="";
+    
         $b="";
         $c="";
         $d="";
+        $e="";
+
+        $f="";
         $e="";
         if($adir == 000000000000 ) { 
             $a = "disabled title='This feature is not available for your account.'";

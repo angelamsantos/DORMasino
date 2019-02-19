@@ -7,30 +7,30 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
-$abill = $this->session->userdata['login_success']['info']['adcontrol_bill'];
+$adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
     $a="";
     $b="";
     $c="";
     $d="";
-    if($abill[0] == 1) { //add
+    if($adir[4] == 1) { //add
         $a = "";
     } else {
         $a = "visibility:hidden;";
     } 
 
-    if($abill[1] == 1) { //edit
+    if($adir[5] == 1) { //edit
         $b = "";
     } else {
         $b = "visibility:hidden;";
     }
     
-    if($abill[2] == 1) { //delete
+    if($adir[6] == 1) { //delete
         $c = "";
     } else {
         $c = "visibility:hidden;";
     } 
 
-    if($abill[3] == 1) { //view
+    if($adir[7] == 1) { //view
         $d = "";
     } else {
         $d = "visibility:hidden;";
@@ -87,6 +87,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bill'];
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php if($adir[7] == 1) { ?>
                                     <?php foreach ($dir_count->result() as $row) {
                                        
                                     ?>
@@ -132,8 +133,11 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bill'];
                                             </td>  
                                         </tr>
                                     <?php } ?>
-                                    
-                                    
+                                <?php } else  { ?>
+                                    <tr>
+                                        <td style="text-align:center;" colspan="5"><i>Cannot view rooms.</i></td>
+                                    </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
                         </div>

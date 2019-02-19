@@ -10,6 +10,15 @@
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
 
+$aann = $this->session->userdata['login_success']['info']['adcontrol_ann'];
+    $a="";
+    if($aann[1] == 1) { //add
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
+
+
 ?>
 <html>
 <head>
@@ -69,7 +78,7 @@ button.link {
                                     </div>
                                     <div class="form-row" style="margin: 0px;">
                                         <div class="col-xl-12 d-xl-flex justify-content-xl-end" style="margin-top: 6px;">
-                                        <button class="btn btn-primary" type="submit" style="font-size: 14px;">Publish</button></div>
+                                        <button class="btn btn-primary" type="submit" style="<?php echo $a; ?>font-size: 14px;">Publish</button></div>
                                     </div>
                                     </form>
                                 <div style="margin-top: 15px;border-top: 1px solid #c7c7c7;">
