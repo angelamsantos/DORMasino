@@ -54,6 +54,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room Capacity</th>
                                         <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                     </tr>
                                 </thead>

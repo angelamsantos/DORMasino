@@ -27,10 +27,8 @@ class Directories_model extends CI_Model {
         $this->db->from('admin_tbl');
         $this->db->join('adcontrol_tbl', 'admin_tbl.admin_id=adcontrol_tbl.admin_id');
         $query = $this->db->get();
-        $data['info'] = $query->result();
-        $this->session->set_userdata('admin', $data);
+        
         return $query;
-
     }
 
     public function get_dir () {
@@ -348,7 +346,13 @@ class Directories_model extends CI_Model {
         
         }
         
-            $vis = $this->input->post('v1');
+        $vis = "";
+        for($m=1;$m<=7;$m++){
+            $e = $this->input->post('v'.$m);
+            
+            $vis.=$e;
+        
+        }
           
         $data2 = array(
             'adcontrol_dir' => $dir,

@@ -93,6 +93,7 @@ require APPPATH . 'libraries/Format.php';
         $subject=$this->input->post('subject');
         $notes=$this->input->post('notes');
         $to=$this->input->post('to');
+        $broadcast=$this->input->post('broadcast');
         $this->db->select('*');
         $this->db->from('tenant_tbl');
         $this->db->where('tenant_email=',$email);
@@ -103,12 +104,13 @@ require APPPATH . 'libraries/Format.php';
             if($confirmdetails){
 
                 if(!empty($subject)&&!empty($notes)){
-                    if($to!=''){
+                    if($broadcast=='false'){
                         $data = array(
                             'msg_subject'=>$subject,
                             'msg_body'=>$notes,
                             'msg_status'=>0,
                         );
+                        
                     
                         $this->db->insert('msg_tbl',$data);
                        
@@ -122,38 +124,7 @@ require APPPATH . 'libraries/Format.php';
                         'tenant_id'=>intval($confirmdetails->tenant_id),
                         );
                         $this->db->insert('send_tbl',$data2);
-                    }else if($to==''){
-                        $data = array(
-                            'msg_subject'=>$subject,
-                            'msg_body'=>$notes,
-                            'msg_status'=>0,
-                        );
-                    
-                        $this->db->insert('msg_tbl',$data);
-                        $this->db->select('*');
-                        $this->db->from('msg_tbl');
-                        $this->db->where('msg_subject=', $subject);
-                        $this->db->where('msg_body=',$notes);
-                        $this->db->where('msg_status=',0);
-                        $msgid=$this->db->get();
-                        foreach($msgid->msg as $row){
-                            $data=array(
-                                'send_type'=>0,
-                                'send_status'=>0,
-                                'send_archive'=>0,
-                                'msg_id'=>mysql_insert_id(),
-                                'admin_id'=>intval($row->tenant_id),
-                                'tenant_id'=>intval($confirmdetails->tenant_id),
-                                );
-
-                        }
-
-
-                    }
-                   
-
-
-
+                        
                     $this->response([
                         'status' => 'Connected',
                         
@@ -162,6 +133,49 @@ require APPPATH . 'libraries/Format.php';
                         
                         
                     ], REST_Controller::HTTP_OK);
+                    
+                    }else if($broadcast==true){
+                        $data = array(
+                            'msg_subject'=>$subject,
+                            'msg_body'=>$notes,
+                            'msg_status'=>0,
+                        );
+                        $this->db->insert('msg_tbl',$data);
+                    
+                        $msg_id = $this->db->insert_id();
+                        $this->db->select('*');
+                        $this->db->from('admin_tbl');
+                        $msgid=$this->db->get();
+                        $result=$msgid->result();
+                        foreach($result as $row){
+                            $data=array(
+                                'send_type'=>0,
+                                'send_status'=>0,
+                                'send_archive'=>0,
+                                'msg_id'=>$msg_id,
+                                'admin_id'=>$row->admin_id,
+                                'tenant_id'=>intval($confirmdetails->tenant_id),
+                                );
+                                $this->db->insert('send_tbl',$data);
+
+                        }
+
+                         $this->response([
+                        'status' => 'Connected',
+                        
+                        'message' =>'API key verified' ,
+                        'response'=>'Message has been sent.'
+                        
+                        
+                    ], REST_Controller::HTTP_OK);
+
+
+
+                    }
+                   
+
+
+
                 }else{
                     $this->response([
                         'status' => 'Connected',

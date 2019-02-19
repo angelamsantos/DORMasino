@@ -69,13 +69,18 @@
                             <tr style="text-align:center">
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Employee No</th>
                                 <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Full Name</th>
+                                <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Email</th>
+                                <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Contact No</th>
                                 <th style="padding-right: 0px;padding-left: 0px;width: 18%;">Action</th>
                             </tr>
                         </thead>
                         <tbody style="text-align:center">
+                        <?php foreach($admin->result() as $a) { ?>
                             <tr>
-                                <td>10001</td>
-                                <td>Thomasian Residences</td>
+                                <td><?php echo $a->admin_empno; ?></td>
+                                <td><?php echo $a->admin_fname.' '.$a->admin_lname; ?></td>
+                                <td><?php echo $a->admin_email; ?></td>
+                                <td><?php echo $a->admin_cno; ?></td>
                                 <td style="text-align:center;"> 
                                 <button title="Edit user" data-target="#EditUser<?php //echo //$tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                     <i class="fa fa-edit" style="font-size: 14px"></i>
@@ -85,18 +90,7 @@
                                                 </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>10002</td>
-                                <td>Ms. Katrina G. Lim</td>
-                                <td style="text-align:center;"> 
-                                <button title="Edit user" data-target="#EditUser<?php //echo //$tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
-                                                    <i class="fa fa-edit" style="font-size: 14px"></i>
-                                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php //echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
-                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
-                                                </button>
-                                </td>    
-                            </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 
@@ -373,8 +367,9 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" role="tabpanel" id="tab-5" style="font-size:14px; padding-top:15px;padding-bottom:20px;">
-                                                <div class="form-check d-flex d-xl-flex align-content-center flex-wrap mx-auto" style="margin-top: 20px;width: 203px;"><input type="hidden" name="v1" value="0"><input class="form-check-input" name="v1" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View Visitor Logs</label></div>
+                                            <div class="tab-pane" role="tabpanel" id="tab-5" style="font-size:14px; padding-top:15px;padding-bottom:20px;"><input type="hidden" name="v1" value="0"><input type="hidden" name="v2" value="0">
+                                                <div class="form-check d-flex d-xl-flex align-content-center flex-wrap mx-auto" style="margin-top: 20px;width: 203px;"><input class="form-check-input" name="v1" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">View Visitor Logs</label></div>
+                                                <div class="form-check d-flex d-xl-flex align-content-center flex-wrap mx-auto" style="margin-top: 20px;width: 203px;"><input class="form-check-input" name="v2" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Log Visitor</label></div>
                                             </div>
                                         </div>
                                     </div>
