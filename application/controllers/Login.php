@@ -17,7 +17,7 @@ class Login extends CI_Controller{
             redirect('Home');
 
         } 
-
+ 
     }
     
     public function index(){

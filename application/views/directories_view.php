@@ -7,6 +7,7 @@
         }
 
     $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+    $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
 
 ?>
 <style>

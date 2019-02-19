@@ -120,7 +120,6 @@ class Directories extends CI_Controller{
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_diruv($r_id);
-        
        
         $this->load->view('sidebar_view');
         $this->load->view('directoriesusers_view', $data);
@@ -139,13 +138,13 @@ class Directories extends CI_Controller{
 
     public function admin() {
         $data['admin']=$this->Directories_model->get_admin();
-        $adir = $this->session->userdata['admin']['info']['adcontrol_dir'];
-        $abill = $this->session->userdata['admin']['info']['adcontrol_bills'];
-        $aann = $this->session->userdata['admin']['info']['adcontrol_ann'];
-        $amsg = $this->session->userdata['admin']['info']['adcontrol_msg'];
-        $alog = $this->session->userdata['admin']['info']['adcontrol_logs'];
+        // $adir = $this->session->userdata['admin']['info']['adcontrol_dir'];
+        // $abill = $this->session->userdata['admin']['info']['adcontrol_bills'];
+        // $aann = $this->session->userdata['admin']['info']['adcontrol_ann'];
+        // $amsg = $this->session->userdata['admin']['info']['adcontrol_msg'];
+        // $alog = $this->session->userdata['admin']['info']['adcontrol_logs'];
         $this->load->view('sidebar_view');
-        $this->load->view('directoriesadmin_view');
+        $this->load->view('directoriesadmin_view', $data);
     }
 
     public function fetch_room() {

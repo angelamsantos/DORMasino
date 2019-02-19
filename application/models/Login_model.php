@@ -11,11 +11,13 @@ class login_model extends CI_Model {
 
 		 $username = $this->security->xss_clean($this->input->post('username'));
 		 $password = md5($this->security->xss_clean($this->input->post('password')));
+		 $this->db->from('admin_tbl');
+		 $this->db->join('adcontrol_tbl', 'admin_tbl.admin_id=adcontrol_tbl.admin_id');
+		 $this->db->where('admin_tbl.admin_email', $username);
+		 $this->db->where('admin_tbl.admin_password', $password);
 
-		 $this->db->where('admin_email', $username);
-		 $this->db->where('admin_password', $password);
-
-		 $query = $this->db->get('admin_tbl');
+		 $query = $this->db->get();
+		 //print_r($query);
 		 if($query->num_rows() == 1) {
 		 	$row = $query->row();
 			
@@ -34,24 +36,35 @@ class login_model extends CI_Model {
 							'admin_empno' => $row->admin_empno,
 							'admin_cno' => $row->admin_cno,
 							'admin_attempts' => $row->admin_attempts,
-		 					);
-			$this->db->where('admin_id', $data['info']['admin_id']);
-			 
+							'adcontrol_dir' => $row->adcontrol_dir,
+							'adcontrol_bills' => $row->adcontrol_bills,
+							'adcontrol_ann' => $row->adcontrol_ann,
+							'adcontrol_msg' => $row->adcontrol_msg,
+							'adcontrol_logs' => $row->adcontrol_logs,
+							 );
+			//print_r($data['info']);
 			$this->session->set_userdata('login_success', $data);
-			$this->session->set_userdata('email', $username);
+			$this->session->set_userdata('email', $username);				 
+			    //$this->db->where('admin_id', $data['info']['admin_id']);
+			
+			    //$this->db->where('admin_id', $utype);
+			    // $query1 = $this->db->get('adcontrol_tbl');
 
-		// 	$query1 = $this->db->get('admin_tbl');
+				// //if($query1->num_rows() == 1) {
+				// 	$row1 = $query1->row();
+				// 	$a['ac'] = array(
+				// 				'adcontrol_dir' => $row1->adcontrol_dir,
+				// 				'adcontrol_bills' => $row1->adcontrol_bills,
+				// 				'adcontrol_ann' => $row1->adcontrol_ann,
+				// 				'adcontrol_msg' => $row1->adcontrol_msg, 
+				// 				'adcontrol_logs' => $row1->adcontrol_logs,
+				// 					);
 
-		// 	 if($query1->num_rows() == 1) {
-		// 	 		$row1 = $query1->row();
-		// 			$data['utype'] = array(
-		// 					'ut_id' => $row1->ut_id,
-		// 					'dept_id' => $row1->dept_id,
-		// 					'bc_id' => $row1->bc_id,
-							
-		// 					);
-		// 		$this->session->set_userdata('login_success', $data);
-					
+				// 	$this->session->set_userdata('login_success', $a);
+				// 	//return true;
+				//}
+			
+
 				return true;
 					
 		// 		// If the previous process did not validate
@@ -64,6 +77,7 @@ class login_model extends CI_Model {
 		 	 }
 			 
 		}
+
 
 		public function login_checkstatus($admin_id) {
 			

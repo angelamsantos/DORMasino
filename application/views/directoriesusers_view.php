@@ -7,6 +7,7 @@
     }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+
 ?>
     <style>
         .form-control {
@@ -69,6 +70,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 
             </div>
             <div class="row" style="margin-top: 20px;margin-left:0px;">
+            
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     
                     <div id="table_view" class="table-responsive" style="width:100%; ">
