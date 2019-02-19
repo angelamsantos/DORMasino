@@ -398,6 +398,9 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                 
             </div>
         </div>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
     </div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>

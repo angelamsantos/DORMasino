@@ -38,8 +38,8 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                             <table class="table" id="example" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
-                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">No of Tenants</th>
                                         <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                     </tr>
                                 </thead>
@@ -49,16 +49,11 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                     ?>
                                          
                                         <tr>
-                                            <td style="text-align:center;"><?php echo $row->floor_number; ?></td>
-                                            <td style="text-align:center;">
-                                                <form action="<?php echo site_url('Transactions/getRoom');?>" method="POST">
-                                                    <input type="hidden" value="<?php echo $row->room_id; ?>" name="show_rid">
-                                                    <input type="hidden" value="<?php echo $row->room_number; ?>" name="show_rno">
-                                                <button value="<?php echo $row->room_id; ?>"  type="submit" style="background:transparent; border:0px"> 
-                                                    <?php echo $row->room_number; ?>
-                                                </button>
-                                                </form>
-                                            </td>
+                                            <td style="text-align:center;"><?php echo $row->room_number; ?></td>
+                                            <?php foreach($dir_count->result() as $d) {
+                                                if ($d->room_number == $row->room_number) { ?>
+                                                    <td style="text-align:center;"><?php echo $d->num_tenants; ?></td>
+                                            <?php } } ?>
                                             
                                             
                                            
@@ -466,6 +461,9 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
             </div>
 
             </div>
+            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
         </div>
     </div>
     
