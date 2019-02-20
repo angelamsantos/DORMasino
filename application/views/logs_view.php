@@ -11,9 +11,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
     $a="";
     if($alog[1] == 1) { //add
-        $a = "";
+       $a = "title='Log visitor'";
     } else {
-        $a = "visibility:hidden;";
+        $a = "disabled title='This feature is not available on your device.'";
     } 
 ?>
 <html>
@@ -51,7 +51,7 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 
                 <div class="row" style="margin: 0px;margin-top: 0px;">
-                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalIn" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
+                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
