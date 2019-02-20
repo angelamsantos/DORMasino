@@ -20,6 +20,17 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
 
 <html>
 
+    <script>
+
+        $(document).ready(function () {
+            $('#trans').dataTable( {
+                "aLengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "pageLength": 7,
+            });
+        }); 
+
+</script>
+
     <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
@@ -35,7 +46,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
                         
                         <div id="table_view" class="table-responsive" style="width:80%;">
-                            <table class="table" id="example" style="font-size:14px;">
+                            <table class="table" id="trans" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>

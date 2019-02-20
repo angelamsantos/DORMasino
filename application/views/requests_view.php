@@ -19,18 +19,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 "ordering": false
             });
         });
-        
-        $(document).ready(function () {
-            $('#table_id2').dataTable( {
-                "ordering": false
-            });
-        });
-
-        $(document).ready(function () {
-            $('#table_id3').dataTable( {
-                "ordering": false
-            });
-        });
 
     </script>
 
@@ -50,11 +38,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <table class="table" id="table_id" style="font-size:14px;text-align:center;">
                                     <thead class="logs">
                                         <tr>
-                                            <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Date and Time</th>
-                                            <th style="width: 8%;padding-right: 0px;padding-left: 0px;">Room No.</th>
-                                            <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Tenant</th>
-                                            <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Service</th>
-                                            <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Notes</th>
+                                            <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Date and Time</th>
+                                            <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No.</th>
+                                            <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Tenant</th>
+                                            <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Service</th>
+                                            <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Notes</th>
                                             <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Status</th>
                                         </tr>
                                     </thead>
