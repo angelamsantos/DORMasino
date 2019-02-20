@@ -372,5 +372,88 @@ class Directories_model extends CI_Model {
         $this->db->insert('adcontrol_tbl', $data2);
     }
 
+    public function edit_admin() {
+        $aid = $this->input->post('aid');
+        $data = array (
+            'admin_email' => $this->input->post('eemail'),
+            'admin_fname' => $this->input->post('efname'),
+            'admin_lname' => $this->input->post('elname'),
+            'admin_empno' => $this->input->post('eempno'),
+            'admin_cno' => $this->input->post('ecno'),
+
+        );
+        $this->db->where('admin_id', $aid);
+        $this->db->update('admin_tbl', $data);
+
+        $dir = "";
+        
+        for($i=1;$i<=12;$i++){
+            $a = $this->input->post('ed'.$i);
+            
+            $dir.=$a;
+        
+        }
+
+        $bill = "";
+        
+        for($j=1;$j<=5;$j++){
+            $b = $this->input->post('ep'.$j);
+            
+            $bill.=$b;
+        
+        }
+        $ann = "";
+        
+        for($k=1;$k<=2;$k++){
+            $c = $this->input->post('ea'.$k);
+            
+            $ann.=$c;
+        
+        }
+        $msg = "";
+        
+        for($l=1;$l<=7;$l++){
+            $d = $this->input->post('em'.$l);
+            
+            $msg.=$d;
+        
+        }
+        
+        $vis = "";
+        for($m=1;$m<=7;$m++){
+            $e = $this->input->post('ev'.$m);
+            
+            $vis.=$e;
+        
+        }
+          
+        $data2 = array(
+            'adcontrol_dir' => $dir,
+            'adcontrol_bills' => $bill,
+            'adcontrol_ann' => $ann,
+            'adcontrol_msg' => $msg,
+            'adcontrol_logs' => $vis,
+        );
+
+        $this->db->where('admin_id', $aid);
+        $this->db->update('adcontrol_tbl', $data2);
+    }
+
+    public function deac_admin() {
+        
+       $id = $this->input->post('deac_id');
+            $this->db->set('admin_status', 0);
+            $this->db->where('admin_id', $id);
+            $this->db->update('admin_tbl');
+    
+        echo $id;
+    }
+
+    public function act_admin() {
+        $id = $this->input->post('act_id');
+        $this->db->set('admin_status', 1);
+        $this->db->where('admin_id', $id);
+        $this->db->update('admin_tbl');
+    }
 }
 ?>
