@@ -8,12 +8,12 @@
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
-    $a="";
-    if($abill[2] == 1) { //add
-        $a = "";
-    } else {
-        $a = "visibility:hidden;";
-    } 
+    // $a="";
+    // if($abill[2] == 1) { //add
+    //     $a = "";
+    // } else {
+    //     $a = "visibility:hidden;";
+    // } 
 
 
 ?>
@@ -110,11 +110,11 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <?php } ?>
                                        
                                         <td style="text-align:center;">
-                                            <button title="Open Rent" type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                <i class="fas fa-key" style="<?php echo $a; ?>font-size:17px;color:#0645AD;"></i>
+                                            <button <?php if($abill[3] == 1) { echo 'title="Open Rent"'; } else { echo "disabled title='This feature is not available on your account.'" ;} ?> type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <i class="fas fa-key" style="font-size:17px;color:#0645AD;"></i>
                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button title="Change contract" type="button" id="edit-tenant" data-target="#Water<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                <i class="icon ion-waterdrop" style="<?php echo $a; ?>font-size:19px;color:#0645AD;"></i>
+                                            <button <?php if($abill[3] == 1) { echo 'title="Open Water"'; } else { echo "disabled title='This feature is not available on your account.'" ;} ?> type="button" id="edit-tenant" data-target="#Water<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <i class="icon ion-waterdrop" style="font-size:19px;color:#0645AD;"></i>
                                             </button>
                                         </td>  
                                     </tr>

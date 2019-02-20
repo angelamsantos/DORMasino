@@ -11,15 +11,15 @@
     $a="";
     $b="";
     if($adir[0] == 1) { 
-        $a = "";
+        $a = "title='Add Tenant'";
     } else {
-        $a = "visibility:hidden;";
+        $a = "disabled title='This feature is not available on your account'";
     } 
 
     if($adir[3] == 1) { 
-        $b = "";
+        $b = "title='View Tenants'";
     } else {
-        $b = "visibility:hidden;";
+        $b = "disabled title='This feature is not available on your account'";
     } 
 
 ?>
@@ -115,13 +115,13 @@
                                                     <form action="<?php echo site_url('Directories/getRoom');?>" method="POST">
                                                     <input type="hidden" value="<?php echo $row1->room_id; ?>" name="show_rid">
                                                     <input type="hidden" value="<?php echo $row1->room_number; ?>" name="show_rno">
-                                                    <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="<?php echo $b; ?>padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
-                                                            title="View Tenants" ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
+                                                    <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
+                                                    <?php echo $b; ?> ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
                                                     </form>
                                                     </div>
                                                     <div class="col-xl-1 col-lg-2"
-                                                        style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="<?php echo $a; ?>padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
-                                                            title="Add Tenant" data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
+                                                        style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
+                                                        <?php echo $a; ?> data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
                                                 </div>
                                                     
                                                 <p class="card-text" style="font-weight: bold;font-size: 14px;">Room Information:</p>

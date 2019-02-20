@@ -13,28 +13,28 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
     $c="";
     $d="";
     if($adir[0] == 1) { //add
-        $a = "";
+        $a = "title='Add Tenant'";
     } else {
-        $a = "visibility:hidden;";
+        $a = "disabled title='This feature is not available on your account'";
     } 
 
-    if($adir[1] == 1) { //edit
-        $b = "";
-    } else {
-        $b = "visibility:hidden;";
-    }
+    // if($adir[1] == 1) { //edit
+    //     $b = "";
+    // } else {
+    //     $b = "visibility:hidden;";
+    // }
     
     if($adir[2] == 1) { //delete
-        $c = "";
+        $c = "title='Deactivate Tenant/s'";
     } else {
-        $c = "visibility:hidden;";
+        $c = "disabled title='This feature is not available on your account'";
     } 
 
     if($adir[3] == 1) { //view
-        $d = "";
+        $b = "title='View Tenants'";
     } else {
-        $d = "visibility:hidden;";
-    }
+        $b = "disabled title='This feature is not available on your account'";
+    } 
 ?>
     <style>
         .form-control {
@@ -82,9 +82,11 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-arrow-swap" style="font-size:19px;"></i> - Move Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-ios-calendar-outline" style="font-size:19px;"></i> - Change Contract &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="icon ion-ios-redo" style="font-size:19px;"></i> - Reset Password
+                            <i class="icon ion-ios-redo" style="font-size:19px;"></i> - Reset Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-user-times" style="font-size:19px;"></i> - Deactivate Tenant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Tenant
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Add User</button>
+                    <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -110,7 +112,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                     <div class="form-check-inline" style="margin-right:0px">
                                         <label class="form-check-label">
                                             <input type="checkbox" class="chk_boxes my-auto" value="" style="margin-right:0px">
-                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="<?php echo $c; ?>color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Deactivate Tenant/s"></button>
+                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" <?php echo $c; ?>></button>
                                         </label>
                                     </div>
                                     
@@ -155,18 +157,18 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                     
                                         <td style="text-align:center;">
                                         <?php if($tenant->tenant_status == 1) {?>
-                                                <button title="Move room" type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button <?php if($adir[1] == 1) { echo "title='Move Room'"; } else { echo "disabled title='This feature is not available on your account'"; } ?> type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-arrow-swap" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Change contract" type="button" id="edit-tenant" data-target="#ChangeContract<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button <?php if($adir[1] == 1) { echo "title='Change Contract'"; } else { echo "disabled title='This feature is not available on your account'"; } ?> type="button" id="edit-tenant" data-target="#ChangeContract<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-calendar-outline" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Reset password" type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button <?php if($adir[1] == 1) { echo "title='Reset Password'"; } else { echo "disabled title='This feature is not available on your account'"; } ?> type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <?php } else { ?>
-                                            <button title="Activate Tenant"  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                <i class="ion-android-checkmark-circle" style="<?php echo $b; ?>font-size: 19px; color:#0645AD;"></i>
+                                            <button <?php echo $b; ?>  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <i class="ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
                                             </button>
                                         <?php } ?>
                                         </td>  

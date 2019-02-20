@@ -17,28 +17,22 @@
     $c="";
     $d="";
     if($adir[8] == 1) { //add
-        $a = "";
+        $a = "title='Add Admin'";
     } else {
-        $a = "visibility:hidden;";
+        $a = "disabled title='This feature is not available on your account'";
     } 
-
-    if($adir[9] == 1) { //edit
-        $b = "";
+    
+    if($adir[8] == 1) { //edit
+        $b = "title='Edit Admin'";
     } else {
-        $b = "visibility:hidden;";
+        $b = "disabled title='This feature is not available on your account'";
     }
     
     if($adir[10] == 1) { //delete
-        $c = "";
+        $c = "title='Deactivate/Activate Admin'";
     } else {
-        $c = "visibility:hidden;";
+        $c = "disabled title='This feature is not available on your account'";
     } 
-
-    if($adir[11] == 1) { //view
-        $d = "";
-    } else {
-        $d = "visibility:hidden;";
-    }
 
 ?>
 <style>
@@ -89,10 +83,11 @@
                 <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room 
+                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Admin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Admin
                            
                         </p>
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddAdmin" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Add Admin</button>
+                        <button <?php echo $a; ?> class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddAdmin" style="background-color: #28a745;color: #ffffff;border: none;">Add Admin</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -127,15 +122,15 @@
                                     <td><?php echo $at->admin_cno; ?></td>
                                     <td style="text-align:center;"> 
                                     <?php if($at->admin_status == 1) {?>
-                                        <button title="Edit Admin Details" type="button" id="edit-room" data-target="#Edit<?php echo $at->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                            <i class="icon ion-edit" style="<?php echo $b; ?>font-size: 19px;color:#0645AD;"></i>
+                                        <button <?php echo $b; ?> type="button" id="edit-room" data-target="#Edit<?php echo $at->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                         </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button title="Deactivate Admin"  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $at->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                            <i class="icon ion-minus-circled" style="<?php echo $c; ?>font-size: 19px; color:#0645AD;"></i>
+                                        <button <?php echo $c; ?>  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $at->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <i class="icon ion-minus-circled" style="font-size: 19px; color:#0645AD;"></i>
                                         </button>
                                     <?php } else { ?>
-                                        <button title="Activate Admin"  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $at->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                            <i class="ion-android-checkmark-circle" style="<?php echo $c; ?>font-size: 19px; color:#0645AD;"></i>
+                                        <button <?php echo $c; ?> type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $at->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <i class="ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
                                         </button>
                                     <?php } ?>
                                     </td>
@@ -288,7 +283,7 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Delete</td>
+                                                                        <td>Activate/Deactivate</td>
                                                                         <td class="text-md-center"> <input type="hidden" name="d3" value="0">
                                                                             <div class="form-check"><input class="form-check-input dt" type="checkbox"   name="d3" id="formCheck-1" value="1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                         </td>
@@ -529,7 +524,7 @@
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>Delete</td>
+                                                                            <td>Activate/Deactivate</td>
                                                                             <td class="text-md-center"> <input type="hidden" name="ed3" value="0">
                                                                                 <div class="form-check"><input class="form-check-input dt" type="checkbox"   name="ed3" id="formCheck-1" value="1" <?php if($admin->adcontrol_dir[2]==1) { echo "checked"; }?>><label class="form-check-label" for="formCheck-1"></label></div>
                                                                             </td>

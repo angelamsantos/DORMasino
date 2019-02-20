@@ -8,33 +8,30 @@ if (!isset ($login)) {
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
-    $a="";
-    $b="";
-    $c="";
-    $d="";
-    if($adir[4] == 1) { //add
-        $a = "";
-    } else {
-        $a = "visibility:hidden;";
-    } 
+$a="";
+$b="";
+$c="";
+$d="";
+if($adir[4] == 1) { //add
+    $a = "title='Add Tenant'";
+} else {
+    $a = "disabled title='This feature is not available on your account'";
+} 
 
-    if($adir[5] == 1) { //edit
-        $b = "";
-    } else {
-        $b = "visibility:hidden;";
-    }
-    
-    if($adir[6] == 1) { //delete
-        $c = "";
-    } else {
-        $c = "visibility:hidden;";
-    } 
+if($adir[5] == 1) { //edit
+    $b = "title='Edit Room'";
+} else {
+    $b = "disabled title='This feature is not available on your account'";
+}
 
-    if($adir[7] == 1) { //view
-        $d = "";
-    } else {
-        $d = "visibility:hidden;";
-    }
+if($adir[6] == 1) { //delete
+    $c = "title='Deactivate/Activate Room'";
+} else {
+    $c = "disabled title='This feature is not available on your account'";
+} 
+
+
+
 ?>
 <html>
 
@@ -63,10 +60,11 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room 
+                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
                            
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
+                    <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -107,26 +105,26 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
 
                                                     if ( $status == 1) { ?>
 
-                                                            <button title="Edit Room Details" type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                                <i class="icon ion-edit" style="<?php echo $b; ?>font-size: 19px;color:#0645AD;"></i>
+                                                            <button <?php echo $b; ?> type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                             <?php if ($capacity == 0) { ?>
 
-                                                                <button title="Deactivate room"  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                                    <i class="icon ion-minus-circled" style="<?php echo $b; ?>font-size: 19px; color:#0645AD;"></i>
+                                                                <button <?php echo $c; ?>  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                    <i class="icon ion-minus-circled" style="font-size: 19px; color:#0645AD;"></i>
                                                                 </button>
  
                                                             <?php } else { ?>
 
-                                                                <button title="Deactivating is disabled. The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
-                                                                <i class="icon ion-minus-circled" style="<?php echo $b; ?>font-size: 19px;"></i>
+                                                                <button <?php echo $c; ?> The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
+                                                                <i class="icon ion-minus-circled" style="font-size: 19px;"></i>
                                                                 </button>
 
                                                             <?php } ?>
 
                                                 <?php } else { ?>
-                                                    <button title="Activate user" data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
+                                                    <button <?php echo $c; ?> data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
                                                     <i class="fa fa-check" style="font-size: 14px"></i>
                                                     </button>
                                                 <?php } ?>                                                                                 
