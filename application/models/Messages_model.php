@@ -152,5 +152,21 @@ class Messages_model extends CI_Model {
 
     }
 
+    public function delete_msg($value) {
+
+        $this->db->set('send_archive', 2);
+        $this->db->where('send_id', $value);
+        $this->db->update('send_tbl');
+
+    }
+
+    public function deleteall_msg() {
+
+        $this->db->set('send_archive', 2);
+        $this->db->where('send_archive', 1);
+        $this->db->update('send_tbl');
+
+    }
+
 }
 ?>

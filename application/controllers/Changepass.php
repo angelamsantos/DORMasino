@@ -21,20 +21,18 @@ class Changepass extends CI_Controller {
 
     public function process() {
         
-        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
-
-        $result = $this->Changepass_model->change_password($admin_id);
+        $result = $this->Changepass_model->change_password();
 
         if(! $result) {
 
-            $msg = '<div class="alert alert-danger" role="alert"> The passwords do not match! </div>';
+            $msg = '<div class="alert alert-danger" role="alert"><center>The passwords do not match!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
-            redirect('Settings/index');
+            redirect('Changepass/index');
     
         } else {
     
-            $msg = '<div class="alert alert-success" role="alert"> You have changed your password successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"><center>You have changed your password successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             redirect('Login/index');
@@ -49,14 +47,14 @@ class Changepass extends CI_Controller {
 
         if(! $result) {
 
-            $msg = '<div class="alert alert-danger" role="alert"> The passwords do not match! </div>';
+            $msg = '<div class="alert alert-danger" role="alert"><center>The passwords do not match!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             
-            redirect('Settings/index');
+            redirect('Changepass/index2');
     
         } else {
     
-            $msg = '<div class="alert alert-success" role="alert"> You have changed your password successfully! </div>';
+            $msg = '<div class="alert alert-success" role="alert"><center>You have changed your password successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Login/index');
     

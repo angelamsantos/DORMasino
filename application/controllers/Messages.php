@@ -196,5 +196,33 @@ class Messages extends CI_Controller{
 
     }
 
+    public function delete() {
+
+        $send_id = $this->input->post('send_id');
+
+        foreach ($send_id as $value) {
+
+                echo $this->Messages_model->delete_msg($value);
+
+        }
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The message/s have been deleted!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Messages/archive');
+
+    }
+
+    public function deleteall() {
+
+        $this->Messages_model->deleteall_msg();
+
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>The message/s have been deleted!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+
+        redirect('Messages/archive');
+
+    }
+
 }
 ?>

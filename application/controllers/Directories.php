@@ -21,6 +21,7 @@ class Directories extends CI_Controller{
 
     public function index() {
         $this->validate_login();
+        
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_dir();

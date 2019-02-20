@@ -16,6 +16,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     li p {
         font-size: 14px !important;
     }
+
+    .messageoption {
+        color: #c7c7c7;
+    }
+
+    .messageoption:hover {
+        color: #000000;
+    }
     </style>
     <script>
 
@@ -50,9 +58,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 </div>
                             </div>
                             <ul class="list-group">
-                                <a id="btnInbox" class="list-group-item" style="background-color: #bdedc1;"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-envelope" style="font-size: 13px;"></i>&nbsp; &nbsp;Inbox</span></a>
-                                <a id="btnSent" class="list-group-item" href="<?php echo site_url('Messages/sent') ?>"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-send" style="font-size: 13px;"></i>&nbsp; &nbsp;Sent</span></a>
-                                <a id="btnArchive" class="list-group-item" href="<?php echo site_url('Messages/archive') ?>"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-archive" style="font-size: 13px;"></i>&nbsp; &nbsp;Archive</span></a>
+                                <a id="btnInbox" class="list-group-item messageoption" style="background-color: #bdedc1;"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-envelope" style="font-size: 13px;"></i>&nbsp; &nbsp;Inbox</span></a>
+                                <a id="btnSent" class="list-group-item messageoption" href="<?php echo site_url('Messages/sent') ?>"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-send" style="font-size: 13px;"></i>&nbsp; &nbsp;Sent</span></a>
+                                <a id="btnArchive" class="list-group-item messageoption" href="<?php echo site_url('Messages/archive') ?>"><span style="font-size: 15px;font-weight: bold;"><i class="fa fa-archive" style="font-size: 13px;"></i>&nbsp; &nbsp;Archive</span></a>
                             </ul>
                         </div>
                         <div class="col-10 col-sm-10 col-md-10 col-lg-9 col-xl-9" style="padding: 0px;">
@@ -73,7 +81,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <label class="form-check-label">
                                                 <div class="row ml-1">
                                                     <input type="checkbox" class="chk_boxes mt-2  my-auto" value="">
-                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive message/s">
+                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive selected message/s">
                                                     <i class="icon ion-android-archive" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                 </div>
@@ -103,16 +111,20 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                         $msg_date=date("M d, Y g:ia", strtotime($date_posted));
 
                                                         echo    '<div style="border:1px solid #c7c7c7;">
-                                                                <div class="form-check-inline" style="border:none; width:100%;">
-                                                                    <label class="form-check-label">
-                                                                        <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$inbox->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
-                                                                        <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;margin-top: 10px;">From: '.$inbox->tenant_fname.' '.$inbox->tenant_lname.'</h6>
-                                                                        <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
-                                                                    </label>
-                                                                </div>
-                                                                <button type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
-                                                                    <p class="d-flex"style="font-size: 14px;"><center>'.$inbox->msg_subject.'<br>(click here to view and reply)</center></p>
-                                                                </button>
+                                                                    <div class="row" >
+                                                                        <div class="col-xl-3">
+                                                                            <label class="form-check-label">
+                                                                                <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$inbox->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
+                                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;margin-top: 10px;">From: '.$inbox->tenant_fname.' '.$inbox->tenant_lname.'</h6>
+                                                                                <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-xl-9" >
+                                                                            <button type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
+                                                                                <p style="font-size: 14px;">'.$inbox->msg_subject.' (click here to view and reply)</p>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>';
 
                                                                 if(isset($_POST['archive'])) {//to run PHP script on submit
@@ -284,35 +296,35 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
 <script>
 
-$(document).ready(function(){
-    $(document).ready(function() {
-        $('#sel_room').selectize({
-            maxItems: null,
-            create: false,
-        });        
-    });
-    $('#sel_room').change(function(){
-        var room_id = $('#sel_room').val();
-    
-        if(room_id != '') {
-            $.ajax({
-                url:"<?php echo base_url(); ?>index.php/Messages/fetch_tenant",
-                method:"POST",
-                data:{room_id:room_id},
-                success:function(data) {  
+    $(document).ready(function(){
+        $(document).ready(function() {
+            $('#sel_room').selectize({
+                maxItems: null,
+                create: false,
+            });        
+        });
+        $('#sel_room').change(function(){
+            var room_id = $('#sel_room').val();
+        
+            if(room_id != '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Messages/fetch_tenant",
+                    method:"POST",
+                    data:{room_id:room_id},
+                    success:function(data) {  
 
-                $('#sel_tenant').html(data);
-                    $('#sel_tenant').selectize({
-                        maxItems: null,
-                        create: false,
-                    }); 
-                }
-            });
-        } else {
-            $('#sel_tenant').html('<option value="">Select Tenant</option>');
-        }
+                    $('#sel_tenant').html(data);
+                        $('#sel_tenant').selectize({
+                            maxItems: null,
+                            create: false,
+                        }); 
+                    }
+                });
+            } else {
+                $('#sel_tenant').html('<option value="">Select Tenant</option>');
+            }
+        });
     });
-});
 
 </script>
 
