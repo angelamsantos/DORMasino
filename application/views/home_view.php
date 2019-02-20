@@ -16,7 +16,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>DORMasino</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/line-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/fonts/material-icons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abhaya+Libre">
@@ -25,6 +30,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Tabbed-Panel.css">
 </head>
 <style>
     h3 {
@@ -38,7 +45,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user-circle-o" style="font-size: 21px;"></i>&nbsp;<?php echo $admin_fname; ?></a>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname; ?></a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">Logout</a></div>
                     </li>
                 </ul>
@@ -50,9 +57,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
         <?php
         $a="";
+    
         $b="";
         $c="";
         $d="";
+        $e="";
+
+        $f="";
         $e="";
         if($adir == 000000000000 ) { 
             $a = "disabled title='This feature is not available for your account.'";

@@ -7,6 +7,34 @@
         }
 
     $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+    $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
+    $a="";
+    $b="";
+    $c="";
+    $d="";
+    if($adir[8] == 1) { //add
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
+
+    if($adir[9] == 1) { //edit
+        $b = "";
+    } else {
+        $b = "visibility:hidden;";
+    }
+    
+    if($adir[10] == 1) { //delete
+        $c = "";
+    } else {
+        $c = "visibility:hidden;";
+    } 
+
+    if($adir[11] == 1) { //view
+        $d = "";
+    } else {
+        $d = "visibility:hidden;";
+    }
 
 ?>
 <style>
@@ -17,6 +45,10 @@
 </style>
 <script>
     $(document).ready(function(){
+        $(document).ready(function () {
+            $('#admin').dataTable();
+        });
+
         $('.tenant').click(function() {
             $('.dt').prop('checked', this.checked);
         });
@@ -50,7 +82,7 @@
                     <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddAdmin" style="background-color: #28a745;color: #ffffff;border: none;">Add Admin</button></div>
+                <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AddAdmin" style="<?php echo $a; ?>background-color: #28a745;color: #ffffff;border: none;">Add Admin</button></div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
@@ -62,9 +94,9 @@
             <div class="row" style="margin-top: 20px;margin-left:0px;">
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     
-                    <div id="table_view" class="table-responsive" style="width:100%; ">
+                <div id="table_view" class="table-responsive" style="width:100%; ">
                   
-                    <table class="table" id="example">
+                    <table class="table" id="admin" style="font-size:14px;" style="text-align:center">
                         <thead class="logs">
                             <tr style="text-align:center">
                                 <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Employee No</th>
@@ -75,22 +107,29 @@
                             </tr>
                         </thead>
                         <tbody style="text-align:center">
-                        <?php foreach($admin->result() as $a) { ?>
-                            <tr>
-                                <td><?php echo $a->admin_empno; ?></td>
-                                <td><?php echo $a->admin_fname.' '.$a->admin_lname; ?></td>
-                                <td><?php echo $a->admin_email; ?></td>
-                                <td><?php echo $a->admin_cno; ?></td>
-                                <td style="text-align:center;"> 
-                                <button title="Edit user" data-target="#EditUser<?php //echo //$tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
-                                                    <i class="fa fa-edit" style="font-size: 14px"></i>
-                                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php //echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
-                                                    <i class="fa fa-ban" style="font-size: 14px"></i>
-                                                </button>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                        <?php if($adir[11] == 1) { ?>
+                            <?php foreach($admin->result() as $a) { ?>
+                                <tr>
+                                    <td><?php echo $a->admin_empno; ?></td>
+                                    <td><?php echo $a->admin_fname.' '.$a->admin_lname; ?></td>
+                                    <td><?php echo $a->admin_email; ?></td>
+                                    <td><?php echo $a->admin_cno; ?></td>
+                                    <td style="text-align:center;"> 
+                                    
+                                    <button title="Edit Admin Details" type="button" id="edit-room" data-target="#EditAdmin<?php echo $a->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                        <i class="icon ion-edit" style="<?php echo $b; ?>font-size: 19px;color:#0645AD;"></i>
+                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button title="Deactivate Admin"  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $a->admin_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                        <i class="icon ion-minus-circled" style="<?php echo $c; ?>font-size: 19px; color:#0645AD;"></i>
+                                    </button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        <?php } else  { ?>
+                                <tr>
+                                    <td style="text-align:center;" colspan="5"><i>Cannot view admins.</i></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 
@@ -387,6 +426,9 @@
             
           
         </div>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
     </div>
     </div>
     

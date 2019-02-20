@@ -7,6 +7,13 @@
     }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
+    $a="";
+    if($abill[2] == 1) { //add
+        $a = "";
+    } else {
+        $a = "visibility:hidden;";
+    } 
 
 
 ?>
@@ -104,10 +111,10 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                        
                                         <td style="text-align:center;">
                                             <button title="Open Rent" type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                <i class="fas fa-key" style="font-size:17px;color:#0645AD;"></i>
+                                                <i class="fas fa-key" style="<?php echo $a; ?>font-size:17px;color:#0645AD;"></i>
                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <button title="Change contract" type="button" id="edit-tenant" data-target="#Water<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                <i class="icon ion-waterdrop" style="font-size:19px;color:#0645AD;"></i>
+                                                <i class="icon ion-waterdrop" style="<?php echo $a; ?>font-size:19px;color:#0645AD;"></i>
                                             </button>
                                         </td>  
                                     </tr>
@@ -391,6 +398,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 
             </div>
         </div>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
     </div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>

@@ -84,7 +84,8 @@ date_default_timezone_set("Asia/Manila");
     
 
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>" ><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
-        <?php if($adir[3] == 1 || $adir[7] == 1 || $adir[11] == 1 ) { ?>    
+        <?php if($adir[0] == 1 || $adir[1] == 1 || $adir[2] == 1 || $adir[3] == 1 || $adir[4] == 1 || $adir[5] == 1
+                || $adir[6] == 1 || $adir[7] == 1 || $adir[8] == 1 || $adir[9] == 1 || $adir[10] == 1 || $adir[11] == 1 ) { ?>    
             <?php if(current_url() == site_url('Directories/index') || 
                      current_url() == site_url('Directories/show_tenants') || 
                      current_url() == site_url('Directories/rooms') || 
@@ -93,19 +94,19 @@ date_default_timezone_set("Asia/Manila");
                 <div id="manage-collapse" class="collapse show" >
                     <ul class="list-group">
                     
-                    <?php if($adir[3] == 1) { ?>
+                    <?php if($adir[0] == 1 || $adir[1] == 1 || $adir[2] == 1 || $adir[3] == 1) { ?>
                         <?php if(current_url() == site_url('Directories/show_tenants') || current_url() == site_url('Directories/index')) { ?>
                             <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" style="color: #b3e5fc;"><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
                         <?php } else { ?>
                             <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
                         <?php } ?>
-                    <?php } if($adir[7] == 1) {  ?>
+                    <?php } if($adir[4] == 1 || $adir[5] == 1 || $adir[6] == 1 || $adir[7] == 1 ) {  ?>
                         <?php if(current_url() == site_url('Directories/rooms')) { ?>
                             <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
                         <?php } else { ?>
                             <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms</a></span></li>
                         <?php } ?>
-                    <?php } if($adir[11] == 1) {  ?>    
+                    <?php } if($adir[8] == 1 || $adir[9] == 1 || $adir[10] == 1 || $adir[11] == 1) {  ?>    
                         <?php if(current_url() == site_url('Directories/admin')) { ?>
                             <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" style="color: #b3e5fc;" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin</a></span></li>
                         <?php } else { ?>
@@ -118,11 +119,11 @@ date_default_timezone_set("Asia/Manila");
                 <p style="margin-top: 15px;margin-bottom: 0px;padding-left: 20px;"><a data-toggle="collapse" href="#manage-collapse2" class="collapsed sidebar"><i class="fas fa-database"></i>&nbsp; &nbsp; &nbsp;Manage Directories</a></p>
                 <div id="manage-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
-                    <?php if($adir[3] == 1) { ?>
+                    <?php if($adir[0] == 1 || $adir[1] == 1 || $adir[2] == 1 || $adir[3] == 1) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/index'); ?>" ><i class="fa fa-user"></i>&nbsp; &nbsp; &nbsp; Tenants</a></span></li>
-                    <?php } if($adir[7] == 1) {  ?>
+                    <?php } if($adir[4] == 1 || $adir[5] == 1 || $adir[6] == 1 || $adir[7] == 1) {  ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/rooms'); ?>" ><i class="fas fa-door-open"></i>&nbsp; &nbsp; Rooms </a></span></li>
-                    <?php } if($adir[11] == 1) {  ?>    
+                    <?php } if($adir[8] == 1 || $adir[9] == 1 || $adir[10] == 1 || $adir[11] == 1) {  ?>    
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Directories/admin'); ?>" ><i class="fas fa-lock"></i>&nbsp; &nbsp; &nbsp; Admin </a></span></li>
                     <?php } ?>
                     </ul>
@@ -130,7 +131,7 @@ date_default_timezone_set("Asia/Manila");
             <?php } ?>
         <?php } ?>
             
-        <?php if($abill[0] == 1 || $abill[2] == 1 || $abill[4] == 1 ) { ?>  
+        <?php if($abill[0] == 1 || $abill[2] == 1  || $abill[4] == 1  ) { ?>  
             <?php if(current_url() == site_url('Transactions/index') ||
                      current_url() == site_url('Transactions/show_tenants') || 
                      current_url() == site_url('Transactions/records_room') || 
@@ -165,9 +166,9 @@ date_default_timezone_set("Asia/Manila");
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a class="collapsed sidebar" href="#bills-collapse2" data-toggle="collapse" ><i class="fa fa-calculator"></i>&nbsp; &nbsp; &nbsp;Bills</a></p>
                 <div id="bills-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
-                    <?php if($abill[0] == 1) { ?>
+                    <?php if($abill[0] == 1 || $abill[1] == 1) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/index'); ?>" ><i class="fa fa-pencil"></i>&nbsp; &nbsp; &nbsp;Update Bills</a></span></li>
-                    <?php } if($abill[2] == 1) { ?>
+                    <?php } if($abill[2] == 1 || $abill[3] == 1) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/payments'); ?>" ><i class="icon ion-cash"></i>&nbsp; &nbsp;&nbsp;Payments</a></span></li>
                     <?php } if($abill[4] == 1) { ?> 
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/records_room'); ?>" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp; Transaction Records</a></span></li>
@@ -185,19 +186,19 @@ date_default_timezone_set("Asia/Manila");
         <?php } 
         }?>   
 
-        <?php if($amsg[0] == 1 || $amsg[4] == 1  ) { ?> 
+        <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1 || $amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1 ) { ?> 
             <?php if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/sent') || current_url() == site_url('Messages/archive') || current_url() == site_url('Requests/index')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" class="sidebar" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
                 <div id="message-collapse" class="collapse show">
                     <ul class="list-group">
-                    <?php if($amsg[0] == 1) { ?>
+                    <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1) { ?>
                      <?php if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/sent') || current_url() == site_url('Messages/archive')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php }
-                     } if($amsg[4] == 1) { ?>
+                     } if($amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1) { ?>
                      <?php if(current_url() == site_url('Requests/index')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Requests</a></span></li>
                      <?php } else { ?>
@@ -211,10 +212,10 @@ date_default_timezone_set("Asia/Manila");
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#message-collapse2" data-toggle="collapse" class="collapsed sidebar"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                 <div id="message-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
-                    <?php if($amsg[0] == 1) { ?>
+                    <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                     <?php }
-                    if($amsg[4] == 1) { ?>
+                    if($amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Requests</a></span></li>
                     <?php } ?>
                     </ul>
