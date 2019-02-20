@@ -110,7 +110,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                     <div class="form-check-inline" style="margin-right:0px">
                                         <label class="form-check-label">
                                             <input type="checkbox" class="chk_boxes my-auto" value="" style="margin-right:0px">
-                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="<?php echo $c; ?>color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Delete Tenant/s"></button>
+                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="<?php echo $c; ?>color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Deactivate Tenant/s"></button>
                                         </label>
                                     </div>
                                     
@@ -154,6 +154,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <?php } ?>
                                     
                                         <td style="text-align:center;">
+                                        <?php if($tenant->tenant_status == 1) {?>
                                                 <button title="Move room" type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-arrow-swap" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -163,8 +164,11 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                 <button title="Reset password" type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                        
+                                        <?php } else { ?>
+                                            <button title="Activate Tenant"  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <i class="ion-android-checkmark-circle" style="<?php echo $b; ?>font-size: 19px; color:#0645AD;"></i>
+                                            </button>
+                                        <?php } ?>
                                         </td>  
                                     </tr>
                                 <?php } ?>
@@ -488,7 +492,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Move Room</h4></div>
+                            <h4 class="modal-title" style="color: #11334f;">Move Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         
                         <form method="POST" action="<?php echo site_url('Directories/mr_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                         <div class="modal-body">
@@ -537,7 +541,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Edit Contract</h4></div>
+                            <h4 class="modal-title" style="color: #11334f;">Edit Contract</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         
                         <form method="POST" action="<?php echo site_url('Directories/cc_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                         <div class="modal-body">
@@ -573,7 +577,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                <h4 class="modal-title" style="color: #11334f;">Reset Password</h4></div>
+                                <h4 class="modal-title" style="color: #11334f;">Reset Password</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                             
                             <form method="POST" name="reset_password" action="<?php echo site_url('Directories/rp_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                             <div class="modal-body text-center">
