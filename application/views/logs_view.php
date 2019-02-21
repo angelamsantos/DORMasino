@@ -13,7 +13,7 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
     if($alog[1] == 1) { //add
        $a = "title='Log visitor'";
     } else {
-        $a = "disabled title='This feature is not available on your device.'";
+        $a = "disabled title='This feature is not available on your account.'";
     } 
 ?>
 <html>

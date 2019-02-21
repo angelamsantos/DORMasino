@@ -341,7 +341,7 @@ class Directories_model extends CI_Model {
         }
         $msg = "";
         
-        for($l=1;$l<=7;$l++){
+        for($l=1;$l<=9;$l++){
             $d = $this->input->post('m'.$l);
             
             $msg.=$d;
@@ -412,7 +412,7 @@ class Directories_model extends CI_Model {
         }
         $msg = "";
         
-        for($l=1;$l<=7;$l++){
+        for($l=1;$l<=9;$l++){
             $d = $this->input->post('em'.$l);
             
             $msg.=$d;

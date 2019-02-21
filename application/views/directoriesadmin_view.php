@@ -379,8 +379,8 @@
                                                                         <td class="text-center"><input type="hidden" name="m1" value="0">
                                                                             <div class="form-check"><input class="form-check-input gm" name="m1" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                         </td>
-                                                                        <td class="text-center"><input type="hidden" name="m5" value="0">
-                                                                            <div class="form-check"><input class="form-check-input rq" name="m5" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                        <td class="text-center"><input type="hidden" name="m7" value="0">
+                                                                            <div class="form-check"><input class="form-check-input rq" name="m7" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -388,8 +388,8 @@
                                                                         <td class="text-center"><input type="hidden" name="m2" value="0">
                                                                             <div class="form-check"><input class="form-check-input gm" name="m2" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                         </td>
-                                                                        <td class="text-center"><input type="hidden" name="m6" value="0">
-                                                                            <div class="form-check"><input class="form-check-input rq" name="m6" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                        <td class="text-center"><input type="hidden" name="m8" value="0">
+                                                                            <div class="form-check"><input class="form-check-input rq" name="m8" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -407,10 +407,24 @@
                                                                         <td class="text-md-center"></td>
                                                                     </tr>
                                                                     <tr>
+                                                                        <td>Restore</td>
+                                                                        <td class="text-md-center"><input type="hidden" name="m5" value="0">
+                                                                            <div class="form-check"><input class="form-check-input gm" name="m5" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                        </td>
+                                                                        <td class="text-md-center"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Delete</td>
+                                                                        <td class="text-md-center"><input type="hidden" name="m6" value="0">
+                                                                            <div class="form-check"><input class="form-check-input gm" name="m6" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                        </td>
+                                                                        <td class="text-md-center"></td>
+                                                                    </tr>
+                                                                    <tr>
                                                                         <td>Complete</td>
                                                                         <td class="text-md-center"></td>
-                                                                        <td class="text-md-center"><input type="hidden" name="m7" value="0">
-                                                                            <div class="form-check"><input class="form-check-input rq" name="m7" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                        <td class="text-md-center"><input type="hidden" name="m9" value="0">
+                                                                            <div class="form-check"><input class="form-check-input rq" name="m9" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -620,8 +634,8 @@
                                                                             <td class="text-center"><input type="hidden" name="em1" value="0">
                                                                                 <div class="form-check"><input class="form-check-input gm" name="em1" value="1" <?php if($admin->adcontrol_msg[0]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                             </td>
-                                                                            <td class="text-center"><input type="hidden" name="em5" value="0">
-                                                                                <div class="form-check"><input class="form-check-input rq" name="em5" value="1" <?php if($admin->adcontrol_msg[4]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                            <td class="text-center"><input type="hidden" name="em7" value="0">
+                                                                                <div class="form-check"><input class="form-check-input rq" name="em7" value="1" <?php if($admin->adcontrol_msg[6]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -629,8 +643,8 @@
                                                                             <td class="text-center"><input type="hidden" name="em2" value="0">
                                                                                 <div class="form-check"><input class="form-check-input gm" name="em2" value="1" <?php if($admin->adcontrol_msg[1]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                             </td>
-                                                                            <td class="text-center"><input type="hidden" name="em6" value="0">
-                                                                                <div class="form-check"><input class="form-check-input rq" name="em6" value="1" <?php if($admin->adcontrol_msg[5]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                            <td class="text-center"><input type="hidden" name="em8" value="0">
+                                                                                <div class="form-check"><input class="form-check-input rq" name="em8" value="1" <?php if($admin->adcontrol_msg[7]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -648,10 +662,24 @@
                                                                             <td class="text-md-center"></td>
                                                                         </tr>
                                                                         <tr>
+                                                                        <td>Restore</td>
+                                                                            <td class="text-md-center"><input type="hidden" name="em5" value="0">
+                                                                                <div class="form-check"><input class="form-check-input gm" name="em5" value="1" <?php if($admin->adcontrol_msg[4]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                            </td>
+                                                                            <td class="text-md-center"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Delete</td>
+                                                                            <td class="text-md-center"><input type="hidden" name="em6" value="0">
+                                                                                <div class="form-check"><input class="form-check-input gm" name="em6" value="1" <?php if($admin->adcontrol_msg[5]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                            </td>
+                                                                            <td class="text-md-center"></td>
+                                                                        </tr>
+                                                                        <tr>
                                                                             <td>Complete</td>
                                                                             <td class="text-md-center"></td>
-                                                                            <td class="text-md-center"><input type="hidden" name="em7" value="0">
-                                                                                <div class="form-check"><input class="form-check-input rq" name="em7" value="1" <?php if($admin->adcontrol_msg[6]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
+                                                                            <td class="text-md-center"><input type="hidden" name="em9" value="0">
+                                                                                <div class="form-check"><input class="form-check-input rq" name="em9" value="1" <?php if($admin->adcontrol_msg[8]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

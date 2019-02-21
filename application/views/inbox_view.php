@@ -7,6 +7,22 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+$amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
+    $a="";
+    $b="";
+    if($amsg[2] == 1) { //archive
+        $a = "title='Archive selected message/s'";
+    } else {
+        $a = "disabled title='This feature is not available on your account.'";
+    } 
+
+    if($amsg[3] == 1) { //send
+        $b = "title='Send message'";
+    } else {
+        $b = "disabled title='This feature is not available on your account.'";
+    } 
 
 ?>
 <html>
@@ -52,7 +68,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         <div class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-3" style="background-color: #ffffff;padding: 0px;">
                             <div class="row" style="margin: 0px;border-bottom: none;height: 46.5px;">
                                 <div class="col d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="border: none;">
-                                <button data-toggle="modal" data-target="#New" class="btn btn-primary my-auto" type="button" style="border-radius: 90px 90px 90px 90px;background-color: #bdedc1;color: #11334f;width: 100%;border-color: transparent;">
+                                <button <?php echo $b; ?> data-toggle="modal" data-target="#New" class="btn btn-primary my-auto" type="button" style="border-radius: 90px 90px 90px 90px;background-color: #bdedc1;color: #11334f;width: 100%;border-color: transparent;">
                                 <i class="icon ion-ios-compose" style="font-size: 16px;"></i>&nbsp;New Message
                                 </button>
                                 </div>
@@ -81,7 +97,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <label class="form-check-label">
                                                 <div class="row ml-1">
                                                     <input type="checkbox" class="chk_boxes mt-2  my-auto" value="">
-                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" title="Archive selected message/s">
+                                                    <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $a; ?> >
                                                     <i class="icon ion-android-archive" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                 </div>
@@ -120,7 +136,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-xl-9" >
-                                                                            <button type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
+                                                                            <button '.$b.' type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
                                                                                 <p style="font-size: 14px;">'.$inbox->msg_subject.' (click here to view and reply)</p>
                                                                             </button>
                                                                         </div>

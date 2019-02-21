@@ -186,19 +186,19 @@ date_default_timezone_set("Asia/Manila");
         <?php } 
         }?>   
 
-        <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1 || $amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1 ) { ?> 
+        <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1 || $amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1 || $amsg[7] == 1 || $amsg[8] == 1 ) { ?> 
             <?php if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/sent') || current_url() == site_url('Messages/archive') || current_url() == site_url('Requests/index')) { ?>
                 <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a data-toggle="collapse" class="sidebar" id="menu-active" href="#message-collapse"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                
                 <div id="message-collapse" class="collapse show">
                     <ul class="list-group">
-                    <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1) { ?>
+                    <?php if($amsg[0] == 1 ) { ?>
                      <?php if(current_url() == site_url('Messages/index') || current_url() == site_url('Messages/sent') || current_url() == site_url('Messages/archive')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" style="color: #b3e5fc;"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>" ><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                      <?php }
-                     } if($amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1) { ?>
+                     } if($amsg[6] == 1 ) { ?>
                      <?php if(current_url() == site_url('Requests/index')) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>" style="color: #b3e5fc;" ><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Requests</a></span></li>
                      <?php } else { ?>
@@ -212,10 +212,10 @@ date_default_timezone_set("Asia/Manila");
                 <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="#message-collapse2" data-toggle="collapse" class="collapsed sidebar"><i class="fa fa-envelope"></i>&nbsp; &nbsp; &nbsp;Messages</a></p>
                 <div id="message-collapse2" class="collapse" data-parent="#sidebar-wrapper">
                     <ul class="list-group">
-                    <?php if($amsg[0] == 1 || $amsg[1] == 1 || $amsg[2] == 1 || $amsg[3] == 1) { ?>
+                    <?php if($amsg[0] == 1 ) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Messages/index'); ?>"><i class="la la-comments"></i>&nbsp; &nbsp; &nbsp;Messages</a></span></li>
                     <?php }
-                    if($amsg[4] == 1 || $amsg[5] == 1 || $amsg[6] == 1) { ?>
+                    if($amsg[6] == 1 ) { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Requests/index'); ?>"><i class="la la-list-alt"></i>&nbsp; &nbsp; &nbsp;Requests</a></span></li>
                     <?php } ?>
                     </ul>

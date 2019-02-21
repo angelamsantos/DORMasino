@@ -7,6 +7,13 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
+    $a="";
+    if($amsg[9] == 1) { //archive
+        $a = "title='Complete request'";
+    } else {
+        $a = "disabled title='This feature is not available on your account.'";
+    }
 
 ?>
 <html>
@@ -78,7 +85,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                                         if ($row->req_status == 0) {
 
-                                                            $out = '<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #28a745;color: #ffffff;border: none;">Pending</button>';
+                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #28a745;color: #ffffff;border: none;">Pending</button>';
                                                             
                                                         } else if ($row->req_status == 1) {
                                                             

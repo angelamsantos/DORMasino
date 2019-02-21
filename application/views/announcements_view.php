@@ -15,7 +15,7 @@ $aann = $this->session->userdata['login_success']['info']['adcontrol_ann'];
     if($aann[1] == 1) { //add
         $a = "title='Publish announcement'";
     } else {
-        $a = "disabled title='This feature is not available on your device.'";
+        $a = "disabled title='This feature is not available on your account.'";
     } 
 
 
