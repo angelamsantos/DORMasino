@@ -70,14 +70,23 @@
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
                     <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a title="Click here to collapse" class="btn btn-link d-xl-flex justify-content-xl-start"  role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
-                <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    
+                <div class="row"
+                    style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
+                    <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
+                        <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-eye" style="font-size:24px;"></i> - View Tenants &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-user-plus" style="font-size:16px;"></i> - Add Tenant
+                           
+                        </p>
+                   
+                    </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
                 
-                
+                 
             </div>
+            
             <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     <div id="room_view" style="width: 100%;display:block;">
