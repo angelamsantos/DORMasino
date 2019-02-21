@@ -9,7 +9,7 @@ if (!isset ($login)) {
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $a="";
-    if($amsg[9] == 1) { //archive
+    if($amsg[8] == 1) { //archive
         $a = "title='Complete request'";
     } else {
         $a = "disabled title='This feature is not available on your account.'";

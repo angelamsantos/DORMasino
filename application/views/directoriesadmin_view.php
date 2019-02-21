@@ -486,14 +486,14 @@
                                             <div class="col">
                                                 <div class="panel panel-default" style="font-size:14px;">
                                                     <ul class="nav nav-tabs panel-heading">
-                                                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Directories</a></li>
+                                                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab1<?php echo $admin->admin_id;?>">Directories</a></li>
                                                         <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2<?php echo $admin->admin_id;?>">Bills</a></li>
                                                         <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-3<?php echo $admin->admin_id;?>">Announcements</a></li>
                                                         <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-4<?php echo $admin->admin_id;?>">Messages</a></li>
                                                         <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-5<?php echo $admin->admin_id;?>">Visitor Logs</a></li>
                                                     </ul>
                                                     <div class="tab-content panel-body">
-                                                        <div class="tab-pane active align-content-center" role="tabpanel" id="tab-1<?php echo $admin->admin_id;?>" style="font-size: 14px;">
+                                                        <div class="tab-pane active align-content-center" role="tabpanel" id="tab1<?php echo $admin->admin_id;?>" style="font-size: 14px;">
                                                             <div class="table-responsive">
                                                                 <table class="table table-striped">
                                                                     <thead style="background-color: #ffffff;">
