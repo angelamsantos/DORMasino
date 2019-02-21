@@ -34,6 +34,25 @@ button.link {
     text-decoration:underline;
     cursor:pointer;
 }
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;   
+        cursor: inherit;
+        display: block;
+    }
+
 </style>
 </head>
         <div class="page-content-wrapper">
@@ -61,13 +80,13 @@ button.link {
 
                                             <input type="text" id="bleh" class="form-control" style="font-size: 14px; background-color:#fff; border: none;" readonly />
 
-                                            <button class="btn btn-primary d-xl-flex" type="button" id="attach" style="padding-bottom: 0px;padding-top: 0px;padding-right: 4px;padding-left: 4px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
-                                            <input type="file" name="img" size="20" value="img" style="position:relative; opacity:0s" onchange="readURL(this); changeEventHandler(event);" />
+                                            <button class="btn btn-primary d-xl-flex btn-file" type="button" id="attach" style="padding-bottom: 0px;padding-top: 5px;padding-right: 8px;padding-left: 10px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach Image">
+                                            <input type="file" name="img" size="20" value="img"  onchange="readURL(this); changeEventHandler(event);" />
                                             <i class="material-icons" style="font-size: 17px;color: #555555;">image</i>&nbsp;
                                             </button>
 
-                                            <button class="btn btn-primary d-xl-flex justify-content-xl-end" type="button" id="attach" style="padding-bottom: 0px;padding-top: 7px;padding-right: 3px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 0px;" title="Attach File">
-                                            <input type="file" name="file" size="20" value="file" style="position:relative; opacity:0" onchange="changeEventHandler(event);"/>
+                                            <button class="btn btn-primary d-xl-flex justify-content-xl-end btn-file" type="button" id="attach" style="padding-bottom: 0px;padding-top: 7px;padding-right: 7px;padding-left: 12px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;margin-left: 10px;" title="Attach File">
+                                            <input type="file" name="file" size="20" value="file"  onchange="changeEventHandler(event);"/>
                                             <i class="material-icons" style="font-size: 17px;color: #555555;">attach_file</i>&nbsp;
                                             </button>
                                         </div>
@@ -442,17 +461,23 @@ button.link {
                                 
                                 </div>
                                 <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
+                            
                             </div>
+                            
                         </div>
-                        <!-- <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                            <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
-                        </footer> -->
+                        
                     </div>
+                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                            <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                        </footer>
                 </div>
             </div>
         </div>
+        
     </div>
+    
 </div>
+
     <script src="<?php echo base_url(); ?>/assets/js/Sidebar-Menu.js"></script>
     <script type="text/javascript">
         function readURL(input) {

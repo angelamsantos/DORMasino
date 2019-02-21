@@ -81,8 +81,8 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                 <tr style="text-align:center">
                                     <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Name of Tenant</th>
-                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Contract Period</th>
-                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">No of months to pay</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Rent Bill</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Water Bill</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                 </tr>
                             </thead>
@@ -100,15 +100,27 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         
                                         <td><?php echo $tenant->room_number; ?></td>
                                         <td><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></td>
-                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
-                                        <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
-                                             <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
-                                        <?php } else if ($datediff->days <= 10) { ?>
-                                            <td style="color: red;text-align:center"><?php echo $datediff->days ." days"; ?></td>
-                                        <?php } else { ?>
-                                            <td style="text-align:center"><?php echo $datediff->days ." days"; ?></td>
-                                        <?php } ?>
-                                       
+
+                                        <?php 
+                                        $rentdue=0;
+                                        foreach ($rent->result() as $r) {
+                                            if ($r->tenant_id == $tenant->tenant_id) {
+                                                if($r->rent_status == 0) {
+                                                    $rentdue += $r->rent_total;
+                                                }}}
+                                                ?>
+                                        <td style="text-align:center"><?php echo number_format($rentdue,2) ; ?></td>
+                                            
+
+                                        <?php 
+                                        $wdue=0;
+                                        foreach ($water->result() as $wd) {
+                                            if ($wd->tenant_id == $tenant->tenant_id) {
+                                                if($wd->water_status == 0) {
+                                                    $wdue += $wd->water_total;
+                                                }}}
+                                                ?>
+                                        <td style="text-align:center"><?php echo number_format($wdue,2) ; ?></td>
                                         <td style="text-align:center;">
                                             <button <?php if($abill[3] == 1) { echo 'title="Open Rent"'; } else { echo "disabled title='This feature is not available on your account.'" ;} ?> type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="fas fa-key" style="font-size:17px;color:#0645AD;"></i>
@@ -212,12 +224,6 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
                                                 <div class="col"><input class="form-control" name="rcheck_date" style="text-align:right"  type="date"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="ra" style="text-align:right"  type="number"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -376,12 +382,6 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
                                                 <div class="col"><input class="form-control" name="wcheck_date" style="text-align:right"  type="date"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="wa" style="text-align:right"  type="amount"></div>
                                             </div>
                                         </div>
                                     </div>
