@@ -7,6 +7,7 @@
         }
 
     $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+    $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
     $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
     $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
     $aann = $this->session->userdata['login_success']['info']['adcontrol_ann'];
@@ -114,7 +115,9 @@
                         </thead>
                         <tbody style="text-align:center">
                         <?php if($adir[11] == 1) { ?>
-                            <?php foreach($admin->result() as $at) { ?>
+                            <?php foreach($admin->result() as $at) { 
+                                if($at->admin_id != $admin_id) {?>
+                                
                                 <tr>
                                     <td><?php echo $at->admin_empno; ?></td>
                                     <td><?php echo $at->admin_fname.' '.$at->admin_lname; ?></td>
@@ -135,7 +138,7 @@
                                     <?php } ?>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php } } ?>
                         <?php } else  { ?>
                                 <tr>
                                     <td style="text-align:center;" colspan="5"><i>Cannot view admins.</i></td>
