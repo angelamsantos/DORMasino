@@ -61,7 +61,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <tr>
                                                     <td style="text-align:center;"><?php echo $r->rtrans_rno ;?></td>
                                                     <td style="text-align:center;"><?php echo $r->room_number ;?></td>
-                                                    <td style="text-align:center;"><?php echo $r->tenant_fname.' '.$w->tenant_lname;?></td>
+                                                    <td style="text-align:center;"><?php echo $r->tenant_fname.' '.$r->tenant_lname;?></td>
                                                     <td style="text-align:center;"><?php echo $r->rtrans_date ;?></td>
                                                 </tr>
 
