@@ -2,12 +2,13 @@
 
 class Login extends CI_Controller{
     
-    // function __construct(){
-    //     parent::__construct();
-	// 	$this->load->helper(array('form', 'url'));
-	// 	$this->load->library('form_validation');
-    //     $this->load->library('session');
-    // }
+    function __construct(){
+
+        parent::__construct();
+        $this->load->model('Login_model');
+        $this->load->model('Syslogs_model');
+
+    }
 
     public function validate_login() {
 
@@ -17,66 +18,51 @@ class Login extends CI_Controller{
             redirect('Home');
 
         } 
- 
+
     }
     
     public function index(){
+        
         $this->validate_login();            // Validates if a user has already logged in
         $this->load->view('login_view');    // Load our view to be displayed to the user
+
     }
     
     public function process(){
-        // Load the model
-        $this->load->model('Login_model');
+
         // Validate the user can login
         $result = $this->Login_model->login_validate();
         // Now we verify the result
         if(! $result) {
             
-            $admin = $this->input->post('username');
-            $attempt = $this->session->userdata('attempt');
-            $attempt++;
-            $this->session->set_userdata('attempt', $attempt);
+            $admin_email = $this->input->post('username');
 
-            $email = $this->input->post('username');
+            $attempts = $this->session->userdata('attempts');
+            $attempts++;
+            $this->session->set_userdata('attempts', $attempts);
 
-            // date_default_timezone_set('Asia/Manila');
-            // $log = date("F j, Y, g:ia").": ". $email . " failed to log in to the system.".PHP_EOL;
-            // file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND); 
+                if ($attempts >= 5) {
 
-                if ($attempt == 3) {
-                $msg = "Due to too many login attempts, your account is locked for 5 minutes";
-                $this->index($msg);
+                    // gives UPDATE mytable SET field = field+1 WHERE id = 2
+                    $this->db->set('admin_attempts', 1);
+                    $this->db->where('admin_email', $admin_email);
+                    $this->db->update('admin_tbl');
+                    $attempts = 0;
 
-                // gives UPDATE mytable SET field = field+1 WHERE id = 2
-                $this->db->set('admin_attempts', 'admin_attempts+1', FALSE);
-                $this->db->where('admin_email', $admin);
-                $this->db->update('admin_tbl');
+                    $msg = '<div class="alert alert-danger" role="alert"><center>Due to too many attempts, the account has been locked for 5 minutes.</center></div>';
+                    $this->session->set_flashdata('msg', $msg);
 
-                $this->session->set_tempdata('penalty', true, 300);
-
-                    // if($this->session->userdata['admin_attempts']['admin_attempts']) {
-
-                    //     $this->session->set_tempdata('penalty', true, 300);
-
-                    // } else {
-
-                    //     $this->session->set_tempdata('penalty', false, 0);
-
-                    // }
-   
+                    redirect('Login/index');
 
                 } else {
 
                     $msg = '<div class="alert alert-danger" role="alert"><center>Incorrect email or password.</center></div>';
                     $this->session->set_flashdata('msg', $msg);
 
-                    redirect('Login');
+                    redirect('Login/index');
 
                 }
-           
-            // If user did not validate, then show them login page again
-           
+
         } else {
 
             $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
@@ -84,32 +70,42 @@ class Login extends CI_Controller{
 
             if(! $result) {
 
-                $msg = '<div class="alert alert-danger" role="alert">The account you entered is deactivated. </div>';
+                $msg = '<div class="alert alert-danger" role="alert"><center>The account you entered is deactivated.</center></div>';
                 $this->session->set_flashdata('msg', $msg);
+
+                redirect('Login/index');
 
             } else {
 
-                 $admin_new = $this->session->userdata['login_success']['info']['admin_new'];
+                $admin_new = $this->session->userdata['login_success']['info']['admin_new'];
+                $admin_attempts = $this->session->userdata['login_success']['info']['admin_attempts'];
             
                 if($admin_new == 1) {
 
-                    $msg = '<div class="alert alert-warning" role="alert">Set up your password first! </div>';
+                    $msg = '<div class="alert alert-warning" role="alert"><center>Set up your password first!</center> </div>';
                     $this->session->set_flashdata('msg', $msg);
+
                     redirect('Changepass/index');
 
                 } else {
 
-                    $login_success = true;
-				    $this->session->set_userdata('login_validated', $login_success); 
+                    if ($admin_attempts == 1) {
 
-                    $email = $this->session->userdata['login_success']['info']['admin_email'];
+                        $msg = '<div class="alert alert-danger" role="alert"><center>Due to too many attempts, the account has been locked for 5 minutes.</center></div>';
+                        $this->session->set_flashdata('msg', $msg);
+            
+                        redirect('Login/index');
 
-                    // date_default_timezone_set('Asia/Manila');
-                    // $log = date("F j, Y, g:ia").": ". $email . " successfully logged in to the system.".PHP_EOL;
-                    // file_put_contents('syslogs/syslogs_login.txt', $log, FILE_APPEND);  
-                    
-                    redirect('Home');
+                    } else {
 
+                        $login_success = true;
+                        $this->session->set_userdata('login_validated', $login_success); 
+
+                        $this->Syslogs_model->login(); 
+                        
+                        redirect('Home');
+
+                    }
                 }
             }
         }        

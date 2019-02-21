@@ -245,7 +245,7 @@
                                                 <input name="floor_id" class="form-control" type="hidden" value="<?php echo $row6->floor_id; ?>" >
                                                 <input name="room_id" class="form-control" type="hidden" value="<?php echo $row6->room_id; ?>" >
                                                 <input name="room_number" class="form-control" type="hidden" value="<?php echo $row6->room_number; ?>">
-                                                       
+                                                    
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -359,7 +359,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="contract_start" class="form-control" type="date"></div>
+                                                <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('d/m/Y'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
                                             </div>
                                         </div>
                                     </div>

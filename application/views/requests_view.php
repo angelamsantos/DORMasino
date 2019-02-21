@@ -85,7 +85,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                                         if ($row->req_status == 0) {
 
-                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #28a745;color: #ffffff;border: none;">Pending</button>';
+                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #FFFF00;color: #ffffff;border: none;">Pending</button>';
                                                             
                                                         } else if ($row->req_status == 1) {
                                                             

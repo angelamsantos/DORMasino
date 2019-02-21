@@ -19,6 +19,8 @@ class Logs extends CI_Controller {
 
     public function index() {
         
+        $this->session->sess_expiration = '0';
+
         $this->validate_login();
         $data['vlogs']=$this->Logs_model->get_vlogs();
         $data['floor']=$this->Logs_model->get_floor();

@@ -5,6 +5,8 @@ class Logout extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('Logout_model');
+        $this->load->model('Syslogs_model');
+
     }
 
     public function validate_login() {
@@ -24,6 +26,8 @@ class Logout extends CI_Controller {
 
             $msg = '<div class="alert alert-success" role="alert"><center>You have logged out successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
+
+            $this->Syslogs_model->logout(); 
 
             $this->load->view('login_view');
 
@@ -55,6 +59,8 @@ class Logout extends CI_Controller {
 
             $msg = '<div class="alert alert-success" role="alert"><center>You have logged out successfully!</center></div>';
             $this->session->set_flashdata('msg', $msg);
+
+            $this->Syslogs_model->logout(); 
 
             $this->load->view('login_view');
 

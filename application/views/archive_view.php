@@ -111,13 +111,13 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                 </div>
                                             </label>
                                         
-                                            <select class="align-self-stretch ml-auto ml-lg-auto ml-xl-auto" style="font-size: 14px;">
+                                            <!-- <select class="align-self-stretch ml-auto ml-lg-auto ml-xl-auto" style="font-size: 14px;">
                                                 <optgroup label="This is a group">
                                                     <option value="12" selected="">This is item 1</option>
                                                     <option value="13">This is item 2</option>
                                                     <option value="14">This is item 3</option>
                                                 </optgroup>
-                                            </select>
+                                            </select> -->
                                         </div>
                                     </li>
                                     <?php 
@@ -144,7 +144,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                             </div>
                                                                             <div class="col-xl-9" >
                                                                                 <button type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$archive->send_id.'">
-                                                                                    <p style="font-size: 14px;">'.$archive->msg_subject.' (click here to view and reply)</p>
+                                                                                    <p style="font-size: 14px;">'. htmlspecialchars($archive->msg_subject) .' (click here to view and reply)</p>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -218,7 +218,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                                 </div>
                                                                                 <div class="col-xl-9" >
                                                                                     <button type="button" style="border:none; width:100%;" title="click here view message" class="list-group-item" data-toggle="modal" data-target="#Sent'.$archive->send_id.'">
-                                                                                        <p style="font-size: 14px;">'.$archive->msg_subject.' (click here to view message)</p>
+                                                                                        <p style="font-size: 14px;">'. htmlspecialchars($archive->msg_subject) .' (click here to view message)</p>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -372,8 +372,8 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                                 <h4 class="modal-title" style="color: #11334f;">Reply to: <?php echo $reply->tenant_fname.' '.$reply->tenant_lname ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                             <div class="modal-body">
-                                                    <p style="font-size: 17px;"><b><?php echo $reply->msg_subject ?></b></p><hr style="border-bottom: 1px;">
-                                                    <p style="font-size: 14px;"><?php echo $reply->msg_body ?></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 17px;"><b><?php echo htmlspecialchars($reply->msg_subject) ?></b></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 14px;"><?php echo htmlspecialchars($reply->msg_body) ?></p><hr style="border-bottom: 1px;">
                                             </div>
                                                 <div class="col-xl-12">
                                                     <input type="text" class="form-control" name="subject" placeholder="Subject" style="font-size: 14px; margin-bottom:10px;" required>
@@ -400,8 +400,8 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                                 <h4 class="modal-title" style="color: #11334f;">Sent message to: <?php echo $sview->tenant_fname.' '.$sview->tenant_lname ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                                 <div class="modal-body">
-                                                    <p style="font-size: 17px;"><b><?php echo $sview->msg_subject ?></b></p><hr style="border-bottom: 1px;">
-                                                    <p style="font-size: 14px;"><?php echo $sview->msg_body ?></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 17px;"><b><?php echo htmlspecialchars($sview->msg_subject) ?></b></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 14px;"><?php echo htmlspecialchars($sview->msg_body) ?></p><hr style="border-bottom: 1px;">
                                             </div>
                                                 <div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Close</button></div>
                                             </form>

@@ -9,42 +9,45 @@ class login_model extends CI_Model {
 
 	public function login_validate(){
 
-		 $username = $this->security->xss_clean($this->input->post('username'));
-		 $password = md5($this->security->xss_clean($this->input->post('password')));
-		 $this->db->from('admin_tbl');
-		 $this->db->join('adcontrol_tbl', 'admin_tbl.admin_id=adcontrol_tbl.admin_id');
-		 $this->db->where('admin_tbl.admin_email', $username);
-		 $this->db->where('admin_tbl.admin_password', $password);
+		$username = $this->security->xss_clean($this->input->post('username'));
+		$password = md5($this->security->xss_clean($this->input->post('password')));
+		$this->db->from('admin_tbl');
+		$this->db->join('adcontrol_tbl', 'admin_tbl.admin_id=adcontrol_tbl.admin_id');
+		$this->db->where('admin_tbl.admin_email', $username);
+		$this->db->where('admin_tbl.admin_password', $password);
 
-		 $query = $this->db->get();
-		 //print_r($query);
-		 if($query->num_rows() == 1) {
-		 	$row = $query->row();
+		$query = $this->db->get();
+
+		if($query->num_rows() == 1) {
 			
-		 	$utype= $row->admin_id;
+			$row = $query->row();
+			$utype= $row->admin_id;
 
-		 	$data['info'] = array(
-							'admin_id' => $row->admin_id,
-							'admin_email' => $row->admin_email,
-							'admin_password' => $row->admin_password,
-							'admin_type' => $row->admin_type, 
-		 					'admin_fname' => $row->admin_fname,
-							'admin_lname' => $row->admin_lname,
-		 					'admin_new' => $row->admin_new,
-							'admin_status' => $row->admin_status,
-							'date_created' => $row->date_created,
-							'admin_empno' => $row->admin_empno,
-							'admin_cno' => $row->admin_cno,
-							'admin_attempts' => $row->admin_attempts,
-							'adcontrol_dir' => $row->adcontrol_dir,
-							'adcontrol_bills' => $row->adcontrol_bills,
-							'adcontrol_ann' => $row->adcontrol_ann,
-							'adcontrol_msg' => $row->adcontrol_msg,
-							'adcontrol_logs' => $row->adcontrol_logs,
-							 );
-			//print_r($data['info']);
+			$data['info'] = array(
+
+				'admin_id' => $row->admin_id,
+				'admin_email' => $row->admin_email,
+				'admin_password' => $row->admin_password,
+				'admin_type' => $row->admin_type, 
+				'admin_fname' => $row->admin_fname,
+				'admin_lname' => $row->admin_lname,
+				'admin_new' => $row->admin_new,
+				'admin_status' => $row->admin_status,
+				'date_created' => $row->date_created,
+				'admin_empno' => $row->admin_empno,	
+				'admin_cno' => $row->admin_cno,
+				'admin_attempts' => $row->admin_attempts,
+				'adcontrol_dir' => $row->adcontrol_dir,
+				'adcontrol_bills' => $row->adcontrol_bills,
+				'adcontrol_ann' => $row->adcontrol_ann,
+				'adcontrol_msg' => $row->adcontrol_msg,
+				'adcontrol_logs' => $row->adcontrol_logs,
+
+			);
+
 			$this->session->set_userdata('login_success', $data);
-			$this->session->set_userdata('email', $username);				 
+			$this->session->set_userdata('email', $username);	
+
 			    //$this->db->where('admin_id', $data['info']['admin_id']);
 			
 			    //$this->db->where('admin_id', $utype);
@@ -64,44 +67,43 @@ class login_model extends CI_Model {
 				// 	//return true;
 				//}
 			
-
-				return true;
-					
+			return true;
+				
 		// 		// If the previous process did not validate
 		// 		// then return false.
-		 			
-		 	 } else {
 
-				return false;
+		} else {
 
-		 	 }
-			 
+			return false;
+
 		}
 
+	}
 
-		public function login_checkstatus($admin_id) {
+	public function login_checkstatus($admin_id) {
 			
-			$this->db->where('admin_id', $admin_id);
-			$query = $this->db->get('admin_tbl');
+		$this->db->where('admin_id', $admin_id);
+		$query = $this->db->get('admin_tbl');
 
-			if ($query->num_rows() == 1) {
+		if ($query->num_rows() == 1) {
 				
-				$row = $query->row();
+			$row = $query->row();
 
-				if ($row->admin_status == 1) {
+			if ($row->admin_status == 1) {
 
-					return true;
+				return true;
 
-				} else {
+			} else {
 
-					return false;
-
-				}
+				return false;
 
 			}
 
 		}
+
 	}
+
+}
 
 
 ?>
