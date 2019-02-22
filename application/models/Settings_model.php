@@ -11,6 +11,7 @@ class Settings_model extends CI_Model {
 
 	public function change_email() {
 
+        $id = $this->session->userdata['login_success']['info']['admin_id'];
         $email = $this->session->userdata['login_success']['info']['admin_email'];
         $new_email = $this->security->xss_clean($this->input->post('new_email'));
 
@@ -26,7 +27,7 @@ class Settings_model extends CI_Model {
 
                 // gives UPDATE mytable SET field = field+1 WHERE id = 2
                 $this->db->set('admin_email', $new_email);
-                $this->db->where('admin_email', $email);
+                $this->db->where('admin_id', $id);
                 $this->db->update('admin_tbl');
 
                 // date_default_timezone_set('Asia/Manila');
@@ -45,6 +46,7 @@ class Settings_model extends CI_Model {
         $old_password = md5($this->security->xss_clean($this->input->post('old_password')));
         $new_password = md5($this->security->xss_clean($this->input->post('new_password')));
         $confirm_password = md5($this->security->xss_clean($this->input->post('confirm_password')));
+        $id = $this->session->userdata['login_success']['info']['admin_id'];
         $email = $this->session->userdata['login_success']['info']['admin_email'];
 
         if ($db_password == $old_password) {
@@ -52,7 +54,7 @@ class Settings_model extends CI_Model {
             if ($new_password == $confirm_password) {
 
                 $this->db->set('admin_password', $confirm_password);
-                $this->db->where('admin_email', $email);
+                $this->db->where('admin_id', $id);
                 $this->db->update('admin_tbl');
 
                 // date_default_timezone_set('Asia/Manila');

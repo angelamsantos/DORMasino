@@ -13,7 +13,7 @@ class Announcements_model extends CI_Model {
 
         $this->db->limit($limit, $start);
 
-        $this->db->select('ann_tbl.ann_id AS id, date_posted, annfile_type, annfile_path, ann_title, ann_content, admin_fname, admin_lname, ann_status');
+        $this->db->select('ann_tbl.ann_id AS id, date_posted, annfile_type, annfile_path, ann_title, ann_content, admin_fname, admin_lname, ann_status, admin_tbl.admin_id');
         $this->db->from('ann_tbl');
         $this->db->order_by('id', 'desc');
         $this->db->join('admin_tbl','admin_tbl.admin_id=ann_tbl.admin_id', 'LEFT');

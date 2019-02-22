@@ -23,6 +23,14 @@ class Directories_model extends CI_Model {
         return $query;
     }
 
+    public function get_admin() {
+        $this->db->from('admin_tbl');
+        $this->db->join('adcontrol_tbl', 'admin_tbl.admin_id=adcontrol_tbl.admin_id');
+        $query = $this->db->get();
+        
+        return $query;
+    }
+
     public function get_dir () {
 		$this->db->from('dir_tbl');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
@@ -62,11 +70,16 @@ class Directories_model extends CI_Model {
         $this->db->select("room_tbl.room_id");
         $this->db->select("room_tbl.room_number");
         $this->db->select("room_tbl.room_status");
+        $this->db->select("room_tbl.room_tcount");
+        $this->db->select("room_tbl.room_price");
         $this->db->select("floor_tbl.floor_number");
+        $this->db->select('tenant_tbl.tenant_status');
         $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
         $this->db->from("room_tbl");
         $this->db->join("floor_tbl", "floor_tbl.floor_id=room_tbl.floor_id", "LEFT");
         $this->db->join("dir_tbl", "room_tbl.room_id=dir_tbl.room_id", "LEFT"); 
+        $this->db->join("tenant_tbl", "tenant_tbl.tenant_id=dir_tbl.tenant_id", "LEFT"); 
+        $this->db->where('tenant_tbl.tenant_status', 1);
         $this->db->group_by("room_tbl.room_id");
         $query = $this->db->get();
         return $query;
@@ -287,5 +300,162 @@ class Directories_model extends CI_Model {
         $this->db->update('room_tbl');
     }
 
+    public function add_admin() {
+        
+        $data = array (
+            'admin_email' => $this->input->post('email'),
+            'admin_password' => md5("123456"),
+            'admin_fname' => $this->input->post('fname'),
+            'admin_lname' => $this->input->post('lname'),
+            'admin_new' => "1",
+            'admin_status' => "1",
+            'admin_cno' => $this->input->post('cno'),
+            'admin_attempts' => "0",
+
+        );
+        $this->db->insert('admin_tbl', $data);
+        $admin = $this->db->insert_id();
+
+        $dir = "";
+        
+        for($i=1;$i<=12;$i++){
+            $a = $this->input->post('d'.$i);
+            
+            $dir.=$a;
+        
+        }
+
+        $bill = "";
+        
+        for($j=1;$j<=5;$j++){
+            $b = $this->input->post('p'.$j);
+            
+            $bill.=$b;
+        
+        }
+        $ann = "";
+        
+        for($k=1;$k<=2;$k++){
+            $c = $this->input->post('a'.$k);
+            
+            $ann.=$c;
+        
+        }
+        $msg = "";
+        
+        for($l=1;$l<=9;$l++){
+            $d = $this->input->post('m'.$l);
+            
+            $msg.=$d;
+        
+        }
+        
+        $vis = "";
+        for($m=1;$m<=7;$m++){
+            $e = $this->input->post('v'.$m);
+            
+            $vis.=$e;
+        
+        }
+          
+        $data2 = array(
+            'adcontrol_dir' => $dir,
+            'adcontrol_bills' => $bill,
+            'adcontrol_ann' => $ann,
+            'adcontrol_msg' => $msg,
+            'adcontrol_logs' => $vis,
+            'admin_id' => $admin,
+        );
+        // echo $dir.'<br />';
+        // echo $bill.'<br />';
+        // echo $ann.'<br />';
+        // echo $msg.'<br />';
+        // echo $vis.'<br />';
+        $this->db->insert('adcontrol_tbl', $data2);
+    }
+
+    public function edit_admin() {
+        $aid = $this->input->post('aid');
+        $data = array (
+            'admin_email' => $this->input->post('eemail'),
+            'admin_fname' => $this->input->post('efname'),
+            'admin_lname' => $this->input->post('elname'),
+            'admin_empno' => $this->input->post('eempno'),
+            'admin_cno' => $this->input->post('ecno'),
+
+        );
+        $this->db->where('admin_id', $aid);
+        $this->db->update('admin_tbl', $data);
+
+        $dir = "";
+        
+        for($i=1;$i<=12;$i++){
+            $a = $this->input->post('ed'.$i);
+            
+            $dir.=$a;
+        
+        }
+
+        $bill = "";
+        
+        for($j=1;$j<=5;$j++){
+            $b = $this->input->post('ep'.$j);
+            
+            $bill.=$b;
+        
+        }
+        $ann = "";
+        
+        for($k=1;$k<=2;$k++){
+            $c = $this->input->post('ea'.$k);
+            
+            $ann.=$c;
+        
+        }
+        $msg = "";
+        
+        for($l=1;$l<=9;$l++){
+            $d = $this->input->post('em'.$l);
+            
+            $msg.=$d;
+        
+        }
+        
+        $vis = "";
+        for($m=1;$m<=7;$m++){
+            $e = $this->input->post('ev'.$m);
+            
+            $vis.=$e;
+        
+        }
+          
+        $data2 = array(
+            'adcontrol_dir' => $dir,
+            'adcontrol_bills' => $bill,
+            'adcontrol_ann' => $ann,
+            'adcontrol_msg' => $msg,
+            'adcontrol_logs' => $vis,
+        );
+
+        $this->db->where('admin_id', $aid);
+        $this->db->update('adcontrol_tbl', $data2);
+    }
+
+    public function deac_admin() {
+        
+       $id = $this->input->post('deac_id');
+            $this->db->set('admin_status', 0);
+            $this->db->where('admin_id', $id);
+            $this->db->update('admin_tbl');
+    
+        echo $id;
+    }
+
+    public function act_admin() {
+        $id = $this->input->post('act_id');
+        $this->db->set('admin_status', 1);
+        $this->db->where('admin_id', $id);
+        $this->db->update('admin_tbl');
+    }
 }
 ?>

@@ -3,8 +3,21 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <html>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 
-<head>
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>
+
+<head profile="<?php echo base_url(); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/dormasino-favicon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>DORMasino</title>

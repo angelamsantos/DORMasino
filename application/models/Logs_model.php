@@ -5,9 +5,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Logs_model extends CI_Model { 
 
     public function get_floor() {
-       
+    
         $query = $this->db->get('floor_tbl');
-       // print_r($query);
         return $query;
     }
 
@@ -76,6 +75,35 @@ class Logs_model extends CI_Model {
         $this->db->update('vlogs_tbl', $value);
         
         // print($id);
+
+    }
+
+    public function send_msg($tenant_id, $vlogs_name, $vlogs_relation, $vlogs_purpose) {
+
+        $msg_subject = "New Visitor!";
+        $msg_body = "This is to inform you that you have a visitor named <b>$vlogs_name</b>, your <b>$vlogs_relation</b>. <br><br> Purpose: <b>$vlogs_purpose</b>";
+
+        $data = array(
+            'msg_subject' => $msg_subject,
+            'msg_body' => $msg_body,
+            'msg_status' => 0
+        );
+
+        $this->db->insert('msg_tbl', $data);
+
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+        $msg_id = $this->db->insert_id();
+
+        $data1 = array(
+            'send_type' => 1,
+            'send_status' => 0,
+            'send_archive' => 0,
+            'msg_id' => $msg_id,
+            'admin_id' => $admin_id,
+            'tenant_id' => $tenant_id
+        );
+
+        $this->db->insert('send_tbl', $data1);
 
     }
 
