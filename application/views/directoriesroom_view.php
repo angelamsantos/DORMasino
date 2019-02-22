@@ -71,7 +71,7 @@ input[type=number] {
                             <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
-                           
+                        
                         </p>
                     <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
                     </div>
@@ -95,7 +95,7 @@ input[type=number] {
                                 </thead>
                                 <tbody>
                                 <?php if($adir[7] == 1) { ?>
-                                    <?php foreach ($dir_count->result() as $row) {
+                                    <?php foreach ($dir_count1->result() as $row) {
                                        
                                     ?>
                                          
