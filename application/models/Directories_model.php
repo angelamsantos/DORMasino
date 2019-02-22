@@ -443,12 +443,11 @@ class Directories_model extends CI_Model {
 
     public function deac_admin() {
         
-       $id = $this->input->post('deac_id');
+        $id = $this->input->post('deac_id');
             $this->db->set('admin_status', 0);
             $this->db->where('admin_id', $id);
             $this->db->update('admin_tbl');
     
-        echo $id;
     }
 
     public function act_admin() {
