@@ -19,6 +19,18 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
 ?>
 
 <html>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>
 
     <script>
 
@@ -51,14 +63,14 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">No of Tenants</th>
-                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
+                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Edit Billing Statement</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($room->result() as $row) {
-                                       
+                                    
                                     ?>
-                                         
+                                    
                                         <tr>
                                             <td style="text-align:center;"><?php echo $row->room_number; ?></td>
                                             <?php foreach($dir_count->result() as $d) {
@@ -67,7 +79,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                             <?php } } ?>
                                             
                                             
-                                           
+                                        
                                             <td style="text-align:center;">
                                                 
                                                     <button <?php echo $a; ?> id="edit-room" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
@@ -88,8 +100,8 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                 </div>
             <!--Modal Billing statement -->
             <?php foreach ($room->result() as $row2) { ?>
-               
-           
+            
+        
             <div class="modal fade" role="dialog" tabindex="-1" id="ModalBill<?php echo $row2->room_id; ?>">
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
@@ -115,7 +127,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                                     }
                                                     
                                                     foreach($roomTenants as $rt) {
-                                                       echo '<input class="form-control" type="hidden" name="tenant_id[]" value="'.$rt.'" >';
+                                                        echo '<input class="form-control" type="hidden" name="tenant_id[]" value="'.$rt.'" >';
                                                     }
                                                 ?>
                                                 
@@ -333,8 +345,8 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                 
                     
                     //echo "<script>
-                           // $(document).ready(function(){
-                             //   $('#BillConfirm').modal('show');
+                        // $(document).ready(function(){
+                            //   $('#BillConfirm').modal('show');
                             //});
                         //</script>";
                     //}
@@ -364,10 +376,10 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                             
+                                            
                                                     <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Number of Tenants</label></div>
                                                     <div class="col"><input class="form-control" name="rnt" type="text" value="<?php //echo //$rnt; ?>" readonly></div>
-                                                                                               
+                                                                                        
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -375,12 +387,12 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Exceeded Capacity</label></div>
                                                             <div class="col"><input class="form-control" type="text"  value="<?php //echo// $rex; ?>" readonly ></div>
                                                     
-                                              
+                                            
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                               
+                                            
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Additional Tenants</label></div>
                                                 <div class="col"><input class="form-control" type="text"  value="<?php //echo //$rat ?>" readonly></div>
                                             
@@ -472,9 +484,6 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
             </div>
 
             </div>
-            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
-            </footer>
         </div>
     </div>
     

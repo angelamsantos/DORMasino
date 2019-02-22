@@ -66,7 +66,7 @@ class Transactions extends CI_Controller{
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_diruv($r_id);
         
-       
+    
         $this->load->view('sidebar_view');
         $this->load->view('transactionsuser_view', $data);
         //$this->load->show_tenants($r_id, $r_no);
@@ -86,61 +86,11 @@ class Transactions extends CI_Controller{
     }
 
     public function insert_bill() {
-             
-         $this->Transactions_model->insert_bill();
+        
+        $this->Transactions_model->insert_bill();
             $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Bill successfully updated!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Transactions/index');
-    }
-
-     public function send_mail($email) {
-
-        $number = random_string('numeric', 6);
-
-        //Load email library
-        $this->load->library('email');
-    
-        //SMTP & mail configuration
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'dormasino20182019@gmail.com';
-        $config['smtp_pass']    = 'dormasino123';
-        $config['charset']    = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
-
-        $this->email->initialize($config);
-        $this->email->set_mailtype("html");
-        $this->email->set_newline("\r\n");
-    
-        //Email content
-    
-        $to_email = $email; 
-    
-        $htmlContent = '<h1>DORMasino Forgot Password</h1>';
-        $htmlContent .= '<p>Verification code: </p>';
-        $htmlContent .= '<p>'. $number .'</p>';
-    
-        $this->email->to($to_email);
-        $this->email->from('dormasino20182019@gmail.com','DORMasino');
-        $this->email->subject('DORMasino Forgot Password');
-        $this->email->message($htmlContent);
-    
-        //Send email
-        if ($this->email->send()) {
-
-            $this->session->set_userdata('email', $email);
-            $this->session->set_userdata('session_vcode', $number);
-            return true;
-            
-		} else {
-
-            return false;
-            
-		}
     }
 
     public function amount_due() {
@@ -185,21 +135,51 @@ class Transactions extends CI_Controller{
     }
 
     public function rent_payment() {
-             
-          $this->Transactions_model->rent_payment();
-          //$this->Transactions_model->send_mail();
-           $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Payment successfully recorded!</center></div>';
-           $this->session->set_flashdata('msg', $msg);
-           redirect('Transactions/payments');
         
-   }
+        $to_email = $this->input->post('to_email');
+        $to_guardianemail = $this->input->post('to_guardianemail');
+        
+        $result = $this->Transactions_model->send_mail_rent($to_email, $to_guardianemail);
 
-   public function water_payment() {
-             
-    $this->Transactions_model->water_payment();
-       $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Payment successfully recorded!</center></div>';
-       $this->session->set_flashdata('msg', $msg);
-       redirect('Transactions/payments');
+        if (! $result) {
+
+            $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment was not recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
+
+        } else {
+
+            $this->Transactions_model->rent_payment();
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
+
+        }
+
+    }
+
+    public function water_payment() {
+            
+        $to_email = $this->input->post('to_email');
+        $to_guardianemail = $this->input->post('to_guardianemail');
+        
+        $result = $this->Transactions_model->send_mail_water($to_email, $to_guardianemail);
+
+        if (! $result) {
+
+            $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water payment was not recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
+
+        } else {
+
+            $this->Transactions_model->water_payment();
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water payment successfully recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
+
+        }
+
 }
 
     

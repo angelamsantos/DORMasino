@@ -81,7 +81,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                         echo "<td>". $row->room_number ."</td>";
                                                         echo "<td>". $row->tenant_fname ." ". $row->tenant_lname ."</td>";
                                                         echo "<td>". $service ."</td>";
-                                                        echo "<td>". $row->req_notes ."</td>";
+                                                        echo "<td>". htmlspecialchars($row->req_notes) ."</td>";
 
                                                         if ($row->req_status == 0) {
 

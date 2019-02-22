@@ -88,7 +88,7 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
                                     echo "<td>". $row2->tenant_fname ." ". $row2->tenant_lname ."</td>";
                                     echo "<td>". $row2->vlogs_name ."</td>";
                                     echo "<td>". $row2->vlogs_relation ."</td>";
-                                    echo "<td>". $row2->vlogs_purpose ."</td>";
+                                    echo "<td>". htmlspecialchars($row2->vlogs_purpose) ."</td>";
                                     echo "<td>". $row2->vlogs_id_presented ."</td>";
                                     echo "<td>". $intime ."</td>";
                                     

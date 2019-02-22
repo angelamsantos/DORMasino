@@ -301,7 +301,7 @@ class Directories_model extends CI_Model {
         
         $data = array (
             'admin_email' => $this->input->post('email'),
-            'admin_password' => md5("thores123"),
+            'admin_password' => md5("123456"),
             'admin_fname' => $this->input->post('fname'),
             'admin_lname' => $this->input->post('lname'),
             'admin_new' => "1",

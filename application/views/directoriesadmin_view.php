@@ -206,15 +206,15 @@
                             <form method="POST" action="<?php echo site_url('Directories/add_admin');?>">
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-group"><label style="font-weight: normal;">First Name</label><input class="form-control" type="text" name="fname" placeholder="Enter first name"></div>
+                                        <div class="form-group"><label style="font-weight: normal;">First Name</label><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The first name must contain only letters." name="fname" placeholder="Enter first name"></div>
                                     </div>
                                     <div class="col">
-                                        <div class="form-group"><label style="font-weight: normal;">Last Name</label><input class="form-control" type="text" name="lname" placeholder="Enter last name"></div>
+                                        <div class="form-group"><label style="font-weight: normal;">Last Name</label><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The last name must contain only letters." name="lname" placeholder="Enter last name"></div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <div class="form-group"><label style="font-weight: normal;">Contact No</label><input class="form-control" type="text" name="cno" placeholder="Enter contact number"></div>
+                                        <div class="form-group"><label style="font-weight: normal;">Contact No</label><input class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" name="cno" placeholder="Enter contact number"></div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group"><label style="font-weight: normal;">Email</label><input class="form-control" type="email" name="email" placeholder="Enter email address"></div>
@@ -461,15 +461,15 @@
                                 <form method="POST" action="<?php echo site_url('Directories/edit_admin');?>">
                                     <div class="form-row">
                                         <div class="col"><input class="form-control" type="hidden" name="aid" value="<?php echo $admin->admin_id;?>">
-                                            <div class="form-group"><label style="font-weight: normal;">First Name</label><input class="form-control" type="text" name="efname" value="<?php echo $admin->admin_fname;?>"></div>
+                                            <div class="form-group"><label style="font-weight: normal;">First Name</label><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The first name must contain only letters." name="efname" value="<?php echo $admin->admin_fname;?>"></div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label style="font-weight: normal;">Last Name</label><input class="form-control" type="text" name="elname" value="<?php echo $admin->admin_lname;?>" ></div>
+                                            <div class="form-group"><label style="font-weight: normal;">Last Name</label><input class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="The last name must contain only letters." name="elname" value="<?php echo $admin->admin_lname;?>" ></div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label style="font-weight: normal;">Contact No</label><input class="form-control" type="text" name="ecno" value="<?php echo $admin->admin_cno;?>"></div>
+                                            <div class="form-group"><label style="font-weight: normal;">Contact No</label><input class="form-control" type="text" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" name="ecno" value="<?php echo $admin->admin_cno;?>"></div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label style="font-weight: normal;">Email</label><input class="form-control" type="email" name="eemail" value="<?php echo $admin->admin_email;?>"></div>

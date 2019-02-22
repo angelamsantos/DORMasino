@@ -250,7 +250,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your first name must contain only letters." placeholder="Enter first name" required></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="First name must contain only letters." placeholder="Enter first name" required></div>
                                                 <input name="floor_id" class="form-control" type="hidden" value="<?php echo $row6->floor_id; ?>" >
                                                 <input name="room_id" class="form-control" type="hidden" value="<?php echo $row6->room_id; ?>" >
                                                 <input name="room_number" class="form-control" type="hidden" value="<?php echo $row6->room_number; ?>">
@@ -260,7 +260,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your last name must contain only letters." placeholder="Enter last name" required></div>
+                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Last name must contain only letters." placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -290,13 +290,13 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your school or company must contain only letters." placeholder="Enter school or company" required></div>
+                                                <div class="col"><input name="tenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="School or company must contain only letters." placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your course must contain only letters. N/A if not applicable." placeholder="Enter course" required></div>
+                                                <div class="col"><input name="tenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Course must contain only letters. N/A if not applicable." placeholder="Enter course" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -311,7 +311,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="mother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your mother's name must contain only letters." placeholder="Enter mother's full name" ></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Mother's name must contain only letters." placeholder="Enter mother's full name" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -324,7 +324,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="father_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your father's name must contain only letters." placeholder="Enter father's full name"></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Father's name must contain only letters." placeholder="Enter father's full name"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -337,13 +337,13 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your guardian's name must contain only letters." placeholder="Enter guardian's full name" required></div>
+                                                <div class="col"><input name="guardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Guardian's name must contain only letters." placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relationship with the guardian must contain only letters." placeholder="Enter relationship to the guardian" required></div>
+                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Relationship with the guardian must contain only letters." placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -368,7 +368,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('d/m/Y'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
+                                                <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
                                             </div>
                                         </div>
                                     </div>
@@ -435,7 +435,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
-                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text" placeholder="<?php echo $editTenant->tenant_address; ?>" required></textarea></div>
+                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text" placeholder="<?php echo htmlspecialchars($editTenant->tenant_address); ?>" required></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -448,12 +448,6 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
                                                 <div class="col"><input name="etenant_email" class="form-control" type="email" value="<?php echo $editTenant->tenant_email; ?>" required></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
-                                                <div class="col"><input name="etenant_fb" class="form-control" type="text" value="<?php echo $editTenant->tenant_fb; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -472,6 +466,12 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
                                                 <div class="col"><input name="etenant_course" class="form-control" type="text" value="<?php echo $editTenant->tenant_course; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions</label></div>
+                                                <div class="col"><input name="etenant_medical" class="form-control" type="text" value="<?php echo htmlspecialchars($editTenant->tenant_medical); ?>" required></div>
                                             </div>
                                         </div>
                                     </div>

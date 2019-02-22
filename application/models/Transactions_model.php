@@ -11,9 +11,9 @@ class Transactions_model extends CI_Model {
     }
 
     public function get_floor() {
-       
+    
         $query = $this->db->get('floor_tbl');
-       // print_r($query);
+    // print_r($query);
         return $query;
     }
 
@@ -28,6 +28,7 @@ class Transactions_model extends CI_Model {
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
         $this->db->join('contract_tbl','contract_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+        $this->db->join('guardian_tbl','guardian_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
     
 		$query = $this->db->get();
 		return $query;
@@ -146,15 +147,15 @@ class Transactions_model extends CI_Model {
 
         $total = 'Amount due';
         
-               
+        
 
             foreach ($query->result() as $row1) {
-                      $total = $row1->water_total;
-                      $id = $row1->water_id;
+                    $total = $row1->water_total;
+                    $id = $row1->water_id;
             } 
 
-           // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
-           return array(
+        // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
+        return array(
             'wt' => $total,
             'wi' => $id,
             );
@@ -175,13 +176,13 @@ class Transactions_model extends CI_Model {
     
 
             foreach ($q->result() as $r) {
-                      $rent = $r->rent_total ;
-                      $rid = $r->rent_id;
+                    $rent = $r->rent_total ;
+                    $rid = $r->rent_id;
             }   
 
-           // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
-           //header('Content-Type: application/json');
-           return array(
+        // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
+        //header('Content-Type: application/json');
+        return array(
             'rt' => $rent,
             'ri' => $rid,
             );
@@ -310,17 +311,15 @@ class Transactions_model extends CI_Model {
 
     }
 
-    public function send_mail() {
+    public function send_mail_rent($to_email, $to_guardianemail) {
 
-        //$number = random_string('numeric', 6);
-        //$data = $this->rent_payment();
         //Load email library
         $this->load->library('email');
     
         //SMTP & mail configuration
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
+        $config['smtp_port']    = 465;
         $config['smtp_timeout'] = '7';
         $config['smtp_user']    = 'dormasino20182019@gmail.com';
         $config['smtp_pass']    = 'dormasino123';
@@ -328,6 +327,7 @@ class Transactions_model extends CI_Model {
         $config['wordwrap'] = TRUE;
         $config['mailtype'] = 'html';
         $config['validation'] = TRUE;
+
 
         $this->email->initialize($config);
         $this->email->set_mailtype("html");
@@ -337,25 +337,71 @@ class Transactions_model extends CI_Model {
     
         //$to_email = $data['f']; 
     
-       // $htmlContent = $this->load->view('rent_receipt', $data);
-       $htmlContent = '<h1>DORMasino Forgot Password</h1>';
-       $htmlContent .= '<p>Verification code: </p>';
+        $htmlContent = $this->load->view('rent_receipt', $data);
+        //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
 
-        $this->email->to('maesantos29@gmail.com');
+        $this->email->to($to_email);
+        $this->email->to($to_guardianemail);
+        $list = array($to_email, $to_guardianemail);
+        $this->email->to($list);
         $this->email->from('dormasino20182019@gmail.com','DORMasino');
-        $this->email->subject('DORMasino Rent e-Receipt');
+        $this->email->subject('DORMasino E-Receipt (Rent)');
         $this->email->message($htmlContent);
-        $this->email->send();
-        //Send email
+
         if ($this->email->send()) {
         //Success email Sent
-        echo $this->email->print_debugger();
-        }else{
+            return true;
+        } else {
         //Email Failed To Send
-        echo $this->email->print_debugger();
+            return false;
         }
     }
 
-   
+    public function send_mail_water($to_email, $to_guardianemail) {
+
+        //Load email library
+        $this->load->library('email');
+    
+        //SMTP & mail configuration
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = 465;
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'dormasino20182019@gmail.com';
+        $config['smtp_pass']    = 'dormasino123';
+        $config['charset']    = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+        $config['validation'] = TRUE;
+
+
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+    
+        //Email content
+    
+        //$to_email = $data['f']; 
+    
+        $htmlContent = $this->load->view('rent_receipt', $data);
+        //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
+
+        $this->email->to($to_email);
+        $this->email->to($to_guardianemail);
+        $list = array($to_email, $to_guardianemail);
+        $this->email->to($list);
+        $this->email->from('dormasino20182019@gmail.com','DORMasino');
+        $this->email->subject('DORMasino E-Receipt (Water)');
+        $this->email->message($htmlContent);
+
+        if ($this->email->send()) {
+        //Success email Sent
+            return true;
+        } else {
+        //Email Failed To Send
+            return false;
+        }
+    }
+
 }
 ?>

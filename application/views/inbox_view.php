@@ -103,13 +103,13 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                 </div>
                                             </label>
                                         
-                                            <select class="align-self-stretch ml-auto ml-lg-auto ml-xl-auto" style="font-size: 14px;">
+                                            <!-- <select class="align-self-stretch ml-auto ml-lg-auto ml-xl-auto" style="font-size: 14px;">
                                                 <optgroup label="This is a group">
                                                     <option value="12" selected="">This is item 1</option>
                                                     <option value="13">This is item 2</option>
                                                     <option value="14">This is item 3</option>
                                                 </optgroup>
-                                            </select>
+                                            </select> -->
                                         </div>
                                     </li>
 
@@ -137,7 +137,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                         </div>
                                                                         <div class="col-xl-9" >
                                                                             <button '.$b.' type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
-                                                                                <p style="font-size: 14px;">'.$inbox->msg_subject.' (click here to view and reply)</p>
+                                                                                <p style="font-size: 14px;">'. htmlspecialchars($inbox->msg_subject) .' (click here to view and reply)</p>
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -261,8 +261,8 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                                                 <h4 class="modal-title" style="color: #11334f;">Reply to: <?php echo $reply->tenant_fname.' '.$reply->tenant_lname ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                             <div class="modal-body">
-                                                    <p style="font-size: 17px;"><b><?php echo $reply->msg_subject ?></b></p><hr style="border-bottom: 1px;">
-                                                    <p style="font-size: 14px;"><?php echo $reply->msg_body ?></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 17px;"><b><?php echo htmlspecialchars($reply->msg_subject) ?></b></p><hr style="border-bottom: 1px;">
+                                                    <p style="font-size: 14px;"><?php echo htmlspecialchars($reply->msg_body) ?></p><hr style="border-bottom: 1px;">
                                             </div>
                                                 <div class="col-xl-12">
                                                     <input type="text" class="form-control" name="subject" placeholder="Subject" style="font-size: 14px; margin-bottom:10px;" required>

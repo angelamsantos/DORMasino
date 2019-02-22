@@ -30,11 +30,20 @@ if($adir[6] == 1) { //delete
     $c = "disabled title='This feature is not available on your account'";
 } 
 
-
-
 ?>
 <html>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>
 
     <script>
 
@@ -186,13 +195,13 @@ if($adir[6] == 1) { //delete
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="arRoomPrice"  class="form-control" type="text" placeholder="Enter price of room" required></div>
+                                            <div class="col"><input name="arRoomPrice"  class="form-control" type="number" placeholder="Enter price of room" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="text" placeholder="Enter number of people" min="3" required></div>
+                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="number" placeholder="Enter number of people" min="3" required></div>
                                         </div>
                                     </div>
                             </div>
