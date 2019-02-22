@@ -132,7 +132,7 @@ class Directories extends CI_Controller{
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_dir();
-        $data['dir_count']=$this->Directories_model->get_dircount();
+        $data['dir_count1']=$this->Directories_model->get_dircount1();
         $this->load->view('sidebar_view');
         $this->load->view('directoriesroom_view', $data);
     }
