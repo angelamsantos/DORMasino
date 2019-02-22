@@ -73,10 +73,13 @@ class Directories_model extends CI_Model {
         $this->db->select("room_tbl.room_tcount");
         $this->db->select("room_tbl.room_price");
         $this->db->select("floor_tbl.floor_number");
+        $this->db->select('tenant_tbl.tenant_status');
         $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
         $this->db->from("room_tbl");
         $this->db->join("floor_tbl", "floor_tbl.floor_id=room_tbl.floor_id", "LEFT");
         $this->db->join("dir_tbl", "room_tbl.room_id=dir_tbl.room_id", "LEFT"); 
+        $this->db->join("tenant_tbl", "tenant_tbl.tenant_id=dir_tbl.tenant_id", "LEFT"); 
+        $this->db->where('tenant_tbl.tenant_status', 1);
         $this->db->group_by("room_tbl.room_id");
         $query = $this->db->get();
         return $query;
@@ -306,7 +309,6 @@ class Directories_model extends CI_Model {
             'admin_lname' => $this->input->post('lname'),
             'admin_new' => "1",
             'admin_status' => "1",
-            'admin_empno' => $this->input->post('empno'),
             'admin_cno' => $this->input->post('cno'),
             'admin_attempts' => "0",
 

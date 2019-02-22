@@ -253,7 +253,29 @@ class Transactions_model extends CI_Model {
     }
     
     public function water_payment() {
-       
+        $tenant_id = $this->input->post('wtenant_id');
+
+        $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
+            FROM tenant_tbl
+            LEFT JOIN dir_tbl
+            ON tenant_tbl.tenant_id = dir_tbl.tenant_id
+            LEFT JOIN room_tbl
+            ON dir_tbl.room_id = room_tbl.room_id
+            WHERE tenant_tbl.tenant_id = ".$tenant_id." ";
+            $query = $this->db->query($SELECT);
+
+            $row = $query->row();
+
+        $data4 = array(
+            'a' => $row->tenant_fname,
+            'b' => $row->tenant_lname,
+            'c' => $row->room_number,
+            'd' => date("m/d/Y"),
+            'e' => $this->input->post('payment'),
+            'f' => $row->tenant_email,
+        );
+
+
         $data = array(
             'wtrans_mode' => $this->input->post('wtrans_mode'),
             'wtrans_rno' => $this->input->post('wtrans_rno'),
@@ -263,6 +285,15 @@ class Transactions_model extends CI_Model {
             'tenant_id' => $this->input->post('wtenant_id'),
         );
         $this->db->insert('wtrans_tbl', $data);
+
+        $water=$this->input->post('water_id');
+            $data2 = array(
+                'water_status' => 1,
+            );
+            $this->db->set('water_status', 1);
+            $this->db->where('water_id', $water);
+            $this->db->update('water_tbl');
+
 
         $check = $this->db->insert_id();
         if ($this->input->post('wtrans_mode') == 1) {
@@ -274,15 +305,14 @@ class Transactions_model extends CI_Model {
                 'wtrans_id' => $check,
             );
             $this->db->insert('wcheck_tbl', $data3);
-            //print_r($data3);
+            return $arr = array_merge($data, $data2, $data4, $data3);
         }
+
+        
+        return $arr = array_merge($data, $data2, $data4);
        
-        $water=$this->input->post('water_id');
-            $data2 = array(
-                'water_status' => 1,
-            );
-                $this->db->where('water_id', $water);
-                $this->db->update('water_tbl', $data2);
+        
+        
     }
     public function get_rtrans () {
 		$this->db->from('rtrans_tbl');
@@ -315,7 +345,7 @@ class Transactions_model extends CI_Model {
 
         //Load email library
         $this->load->library('email');
-    
+        $data = $this->rent_payment();
         //SMTP & mail configuration
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -337,7 +367,7 @@ class Transactions_model extends CI_Model {
     
         //$to_email = $data['f']; 
     
-        $htmlContent = $this->load->view('rent_receipt', $data);
+        $htmlContent = $this->load->view('rent_receipt', $data, TRUE);
         //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
 
         $this->email->to($to_email);
@@ -361,7 +391,7 @@ class Transactions_model extends CI_Model {
 
         //Load email library
         $this->load->library('email');
-    
+        $data = $this->water_payment();
         //SMTP & mail configuration
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -378,12 +408,11 @@ class Transactions_model extends CI_Model {
         $this->email->initialize($config);
         $this->email->set_mailtype("html");
         $this->email->set_newline("\r\n");
-    
         //Email content
     
         //$to_email = $data['f']; 
     
-        $htmlContent = $this->load->view('rent_receipt', $data);
+        $htmlContent = $this->load->view('water_receipt', $data, TRUE);
         //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
 
         $this->email->to($to_email);

@@ -163,9 +163,8 @@ class Transactions extends CI_Controller{
         $to_email = $this->input->post('to_email');
         $to_guardianemail = $this->input->post('to_guardianemail');
         
-        $result = $this->Transactions_model->send_mail_water($to_email, $to_guardianemail);
-
-        if (! $result) {
+        $result1 = $this->Transactions_model->send_mail_water($to_email, $to_guardianemail);
+        if (! $result1) {
 
             $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water payment was not recorded!</center></div>';
             $this->session->set_flashdata('msg', $msg);

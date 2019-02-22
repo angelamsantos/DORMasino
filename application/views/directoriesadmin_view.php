@@ -45,7 +45,9 @@
 <script>
     $(document).ready(function(){
         $(document).ready(function () {
-            $('#admin').dataTable();
+            $('#admin').dataTable( {
+            "ordering": false
+        });
         });
 
         $('.tenant').click(function() {
@@ -106,7 +108,6 @@
                     <table class="table" id="admin" style="font-size:14px;" style="text-align:center">
                         <thead class="logs">
                             <tr style="text-align:center">
-                                <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Employee No</th>
                                 <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Full Name</th>
                                 <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Email</th>
                                 <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Contact No</th>
@@ -119,7 +120,6 @@
                                 if($at->admin_id != $admin_id) {?>
                                 
                                 <tr>
-                                    <td><?php echo $at->admin_empno; ?></td>
                                     <td><?php echo $at->admin_fname.' '.$at->admin_lname; ?></td>
                                     <td><?php echo $at->admin_email; ?></td>
                                     <td><?php echo $at->admin_cno; ?></td>
@@ -219,12 +219,6 @@
                                     <div class="col">
                                         <div class="form-group"><label style="font-weight: normal;">Email</label><input class="form-control" type="email" name="email" placeholder="Enter email address"></div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <div class="form-group"><label style="font-weight: normal;">Employee No</label><input class="form-control" type="text" name="empno" placeholder="Enter employee number"></div>
-                                    </div>
-                                    <div class="col"></div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-row" style="margin: 0px;">
@@ -424,7 +418,7 @@
                                                                         <td class="text-md-center"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Complete</td>
+                                                                        <td>Approve</td>
                                                                         <td class="text-md-center"></td>
                                                                         <td class="text-md-center"><input type="hidden" name="m9" value="0">
                                                                             <div class="form-check"><input class="form-check-input rq" name="m9" value="1" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
@@ -679,7 +673,7 @@
                                                                             <td class="text-md-center"></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>Complete</td>
+                                                                            <td>Approve</td>
                                                                             <td class="text-md-center"></td>
                                                                             <td class="text-md-center"><input type="hidden" name="em9" value="0">
                                                                                 <div class="form-check"><input class="form-check-input rq" name="em9" value="1" <?php if($admin->adcontrol_msg[8]==1) { echo "checked"; }?> type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>

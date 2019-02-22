@@ -135,7 +135,11 @@
                                                     
                                                 <p class="card-text" style="font-weight: bold;font-size: 14px;">Room Information:</p>
                                                 <?php foreach ($dir_count->result() as $nt) {
-                                                    if ($nt->room_id == $row1->room_id) { ?>
+                                                    if ($nt->room_id == $row1->room_id) { 
+                                                        if($nt->num_tenants > 0){
+                                                        ?>
+
+
                                                         <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
 
                                                         
@@ -146,11 +150,15 @@
                                                                 <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
                                                             <?php } else if ((4 - $acc) < 0) { ?>
                                                                 <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p>
-                                                            <?php }  ?>
-                                                        
-                                                        
+                                                            <?php } 
+                                                        } else { ?>
+                                                        <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
+
+                                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                                <span style="color:green"> <?php echo $row1->room_tcount; ?> </span></p>
+                                                          
                                                     
-                                                <?php }
+                                                <?php } } 
                                                 } ?>
                                                 
                                                
