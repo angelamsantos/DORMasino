@@ -469,12 +469,6 @@
                                             <div class="form-group"><label style="font-weight: normal;">Email</label><input class="form-control" type="email" name="eemail" value="<?php echo $admin->admin_email;?>"></div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <div class="form-group"><label style="font-weight: normal;">Employee No</label><input class="form-control" type="text" name="eempno" value="<?php echo $admin->admin_empno;?>"></div>
-                                        </div>
-                                        <div class="col"></div>
-                                    </div>
                                     <div class="form-group">
                                         <div class="form-row" style="margin: 0px;">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Privileges</label></div>
