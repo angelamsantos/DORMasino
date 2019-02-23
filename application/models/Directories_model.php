@@ -84,7 +84,7 @@ class Directories_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
-
+ 
     public function get_dircount1() {
         $this->db->select("room_tbl.room_id");
         $this->db->select("room_tbl.room_number");
@@ -169,6 +169,7 @@ class Directories_model extends CI_Model {
             'tenant_birthday' => $this->input->post('etenant_bday'),
             'tenant_school' => $this->input->post('etenant_school'),
             'tenant_course' => $this->input->post('etenant_course'),
+            'tenant_medical' => $this->input->post('etenant_medical'),
             'tenant_cno' => $this->input->post('etenant_cno'),
         );
 

@@ -381,7 +381,8 @@
 							
 							<tr >
 							  <td style="width:50%;text-indent:25px; text-align:justify;padding: 20px 15px;" colspan="2">
-								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($rtrans_amount, 2); ?></b> as <b>rent payment</b> for the month of 
+								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($rtrans_amount, 2); ?></b> as <b>
+                <?php if ($rent_payment == 1) {echo "partial";} else { echo "full";} ?> rent payment</b> for the month of 
                 <b><?php echo date('F', strtotime($e)); ?></b>.
 							  <td>
                             </tr>

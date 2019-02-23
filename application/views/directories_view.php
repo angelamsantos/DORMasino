@@ -135,47 +135,46 @@
                                                     
                                                 <p class="card-text" style="font-weight: bold;font-size: 14px;">Room Information:</p>
                                               
-                                                <?php $a = array_column($dir_count->result(), 'room_id');
-                                                print_r($a);
-                                                $b = $row2->room_id;
-                                               // echo $b; 
-                                                // if (in_array($b, $a, true)) {
+                                                <?php $aa = array_column($dir_count->result(), 'room_id');
+                                               // print_r($a);
+                                                $bb = $row1->room_id;
+                                                //echo $b; 
+                                                if (in_array($bb, $aa, true)) {
                                                 //   //  echo "yes";
                                                 //     foreach ($water->result() as $w) {
                                                 //         if($w->room_id == $row2->room_id) {
                                                 //             $wc = $w->water_current;
                                                 //         }
                                                 //     }
-                                                
-                                                
-                                                foreach ($dir_count->result() as $nt) {
-                                                    if ($nt->room_id == $row1->room_id) { 
-                                                       
-                                                        ?> 
-
-
-                                                        <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
-
+                                                    foreach ($dir_count->result() as $nt) {
+                                                        if ($nt->room_id == $row1->room_id) { 
                                                         
-                                                            <?php $acc = $nt->num_tenants; if ((4 - $acc) > 0) { ?>
-                                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
-                                                                <span style="color:green"> <?php echo (4 - $acc); ?> </span></p>
-                                                            <?php } else if ((4 - $acc) == 0) { ?>
-                                                                <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
-                                                            <?php } else if ((4 - $acc) < 0) { ?>
-                                                                <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p>
-                                                            <?php } ?>
-                                                       
-                                                        <!-- <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
+                                                            ?> 
 
-                                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
-                                                                <span style="color:green"> 0 </span></p> -->
-                                                          
-                                                    
-                                                <?php  } 
-                                                } ?>
-                                                
-                                               
+
+                                                            <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
+
+                                                            
+                                                                <?php $acc = $nt->num_tenants; if ((4 - $acc) > 0) { ?>
+                                                                    <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                                    <span style="color:green"> <?php echo (4 - $acc); ?> </span></p>
+                                                                <?php } else if ((4 - $acc) == 0) { ?>
+                                                                    <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
+                                                                <?php } else if ((4 - $acc) < 0) { ?>
+                                                                    <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p>
+                                                                <?php } ?>
+                                                        
+                                                        
+                                                            
+                                                        
+                                                    <?php  } 
+                                                    } 
+                                                } else { ?>
+                                                <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
+
+                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                <span style="color:green"> 0 </span></p>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                             <?php } 

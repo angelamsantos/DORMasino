@@ -106,7 +106,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         foreach ($rent->result() as $r) {
                                             if ($r->tenant_id == $tenant->tenant_id) {
                                                 if($r->rent_status == 0) {
-                                                    $rentdue += $r->rent_total;
+                                                    $rentdue += $r->rent_balance;
                                                 }}}
                                                 ?>
                                         <td style="text-align:center"><?php echo number_format($rentdue,2) ; ?></td>
@@ -117,7 +117,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         foreach ($water->result() as $wd) {
                                             if ($wd->tenant_id == $tenant->tenant_id) {
                                                 if($wd->water_status == 0) {
-                                                    $wdue += $wd->water_total;
+                                                    $wdue += $wd->water_balance;
                                                 }}}
                                                 ?>
                                         <td style="text-align:center"><?php echo number_format($wdue,2) ; ?></td>
@@ -187,7 +187,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="rtrans_amount" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <div class="col"><input class="form-control" type="text" name="rtrans_due" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 
                                                 </div>
                                             </div>
@@ -224,6 +224,12 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
                                                 <div class="col"><input class="form-control" name="rcheck_date" style="text-align:right"  type="date"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
+                                                <div class="col"><input class="form-control" name="rtrans_amount" style="text-align:right" type="number"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +295,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_amount" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_adue" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
                                             
                                                 </div>
                                             </div>
@@ -326,6 +332,12 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                                 <div class="col"><input class="form-control" name="wcheck_date" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
+                                                <div class="col"><input class="form-control" name="wtrans_amount" style="text-align:right" type="number"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                     </div>
                                     </div>
@@ -352,6 +364,18 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     <script>
+   
+    <?php foreach($dir->result() as $paid) { ?>
+    $("#amount_paid<?php echo $paid->dir_id; ?>").keyup(function() {
+        if ($("#amount_paid<?php echo $paid->dir_id; ?>").val() < $("#rent_amount<?php echo $paid->dir_id; ?>").val()) {
+            $("#paid<?php echo $paid->dir_id; ?>").text("Payment is partial.");
+        } 
+        if ($("#amount_paid<?php echo $paid->dir_id; ?>").val() == $("#rent_amount<?php echo $paid->dir_id; ?>").val()) {
+            $("#paid<?php echo $paid->dir_id; ?>").val("Payment is full.");
+        }
+    });
+    <?php } ?>
+
         $(document).ready(function(){
             <?php foreach($dir->result() as $d) { ?>
             $('#sel_payment<?php echo $d->dir_id; ?>').change(function(){

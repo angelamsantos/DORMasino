@@ -149,7 +149,7 @@ class Transactions extends CI_Controller{
 
         } else {
 
-            $this->Transactions_model->rent_payment();
+           // $this->Transactions_model->rent_payment();
             $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Transactions/payments');
