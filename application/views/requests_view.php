@@ -87,10 +87,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                                             $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #FFFF00;color: #ffffff;border: none;">Pending</button>';
                                                             
-                                                        } else if ($row->req_status == 1) {
-                                                            
-                                                            $out ='<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Complete'.$row->req_id.'" style="background-color: #28a745;color: #ffffff;border: none;">Complete</button>';
-                                                            
                                                         } else if ($row->req_status == 2) {
                                                             
                                                             $out ='<button class="btn btn-primary" type="submit" style="background-color: #c7c7c7;color: #ffffff;border: none;" disabled>Rejected</button>';
@@ -126,29 +122,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                         <div class="modal-footer">
                                         <button class="btn btn-primary" name="requestBtn" value="reject" type="submit" style="background-color: #c7c7c7;color: #11334f;border: none;">Reject</button>
                                         <button class="btn btn-primary" name="requestBtn" value="approve" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Approve</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <?php } ?>
-                        <!--END APPROVE MODAL -->
-
-                        <!--START APPROVE MODAL -->
-                        <?php foreach ($reqs->result() as $row2) { ?>
-                        <div id="Complete<?php echo $row2->req_id ?>" class="modal fade" role="dialog" tabindex="-1">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                        <h4 class="modal-title" style="color: #11334f;">Complete Request</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                                    
-                                    <form method="POST" name="archive_inbox" action="<?php echo site_url('Requests/complete');?>" class="justify" style="width: 100%;margin: 0 auto;">
-                                    <div class="modal-body text-center">
-                                            <p style="font-size: 17px;">Are you sure you want to complete the request?</p>
-                                            <input type="hidden" name="req_id" value="<?php echo $row2->req_id ?>" />
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button>
                                         </div>
                                     </form>
                                 </div>
