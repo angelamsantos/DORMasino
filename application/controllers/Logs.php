@@ -18,10 +18,15 @@ class Logs extends CI_Controller {
     }
 
     public function index() {
-        
-        $this->session->sess_expiration = '0';
 
         $this->validate_login();
+
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+        
+        if ($admin_id == 7) {
+            $this->session->sess_expiration = '0';
+        }
+
         $data['vlogs']=$this->Logs_model->get_vlogs();
         $data['floor']=$this->Logs_model->get_floor();
         $data['room']=$this->Logs_model->get_room();
