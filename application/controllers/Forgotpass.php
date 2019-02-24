@@ -25,7 +25,7 @@ class Forgotpass extends CI_Controller {
 
     public function process() {
 
-        $msg = '<div class="alert alert-success" role="alert"> Verification code sent. Check your email! </div>';
+        $msg = '<div class="alert alert-success" role="alert"><center>Verification code sent. Check your email!</center></div>';
         $this->session->set_flashdata('msg', $msg);
 
         $email = $this->input->post('email');
@@ -35,7 +35,7 @@ class Forgotpass extends CI_Controller {
 
         if(! $isValid) {
 
-            $msg = '<div class="alert alert-danger" role="alert">The email is either not existing or is deactivated!</div>';
+            $msg = '<div class="alert alert-danger" role="alert"><center>The email is either not existing or is deactivated!</center></div>';
             $this->session->set_flashdata('msg', $msg);
 
             redirect('Forgotpass/index');
@@ -50,7 +50,7 @@ class Forgotpass extends CI_Controller {
 
             } else {
 
-                $msg = '<div class="alert alert-danger" role="alert"> The verification code was not sent. </div>';
+                $msg = '<div class="alert alert-danger" role="alert"><center>The verification code was not sent.</center></div>';
                 $this->session->set_flashdata('msg', $msg);
                 redirect('Forgotpass/index');
 
@@ -68,7 +68,7 @@ class Forgotpass extends CI_Controller {
 
         if(! $isValid) {
 
-            $msg = '<div class="alert alert-danger" role="alert"> You entered the wrong verification code! </div>';
+            $msg = '<div class="alert alert-danger" role="alert"><center>You entered the wrong verification code!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Forgotpass/index2');
 

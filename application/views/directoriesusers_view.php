@@ -7,6 +7,34 @@
     }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
+    $a="";
+    $b="";
+    $c="";
+    $d="";
+    if($adir[0] == 1) { //add
+        $a = "title='Add Tenant'";
+    } else {
+        $a = "disabled title='This feature is not available on your account'";
+    } 
+
+    // if($adir[1] == 1) { //edit
+    //     $b = "";
+    // } else {
+    //     $b = "visibility:hidden;";
+    // }
+    
+    if($adir[2] == 1) { //delete
+        $c = "title='Deactivate Tenant/s'";
+    } else {
+        $c = "disabled title='This feature is not available on your account'";
+    } 
+
+    if($adir[3] == 1) { //view
+        $b = "title='View Tenants'";
+    } else {
+        $b = "disabled title='This feature is not available on your account'";
+    } 
 ?>
     <style>
         .form-control {
@@ -47,16 +75,18 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
-                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-arrow-swap" style="font-size:19px;"></i> - Move Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-ios-calendar-outline" style="font-size:19px;"></i> - Change Contract &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="icon ion-ios-redo" style="font-size:19px;"></i> - Reset Password
+                            <i class="icon ion-ios-redo" style="font-size:19px;"></i> - Reset Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-user-times" style="font-size:19px;"></i> - Deactivate Tenant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Tenant
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add User</button>
+                    <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add Tenant</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -69,6 +99,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 
             </div>
             <div class="row" style="margin-top: 20px;margin-left:0px;">
+            
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     
                     <div id="table_view" class="table-responsive" style="width:100%; ">
@@ -81,7 +112,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-check-inline" style="margin-right:0px">
                                         <label class="form-check-label">
                                             <input type="checkbox" class="chk_boxes my-auto" value="" style="margin-right:0px">
-                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" title="Delete Tenant/s"></button>
+                                            <button class="btn btn-primary fas fa-user-times" name="delete" type="submit" id="delete" style="color:#D50000;border-radius:100px;padding:5px 2px 5px 4px;margin-right:0px;font-size:14px" <?php echo $c; ?>></button>
                                         </label>
                                     </div>
                                     
@@ -125,17 +156,21 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <?php } ?>
                                     
                                         <td style="text-align:center;">
-                                                <button title="Move room" type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                        <?php if($tenant->tenant_status == 1) {?>
+                                                <button <?php if($adir[1] == 1) { echo "title='Move Room'"; } else { echo "disabled title='This feature is not available on your account'"; } ?> type="button" id="edit-tenant" data-toggle="modal" data-target="#MoveRoom<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-arrow-swap" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Change contract" type="button" id="edit-tenant" data-target="#ChangeContract<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button <?php if($adir[1] == 1) { echo "title='Change Contract'"; } else { echo "disabled title='This feature is not available on your account'"; } ?> type="button" id="edit-tenant" data-target="#ChangeContract<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-calendar-outline" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button title="Reset password" type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <button <?php if($adir[1] == 1) { echo "title='Reset Password'"; } else { echo "disabled title='This feature is not available on your account'"; } ?> type="button" id="edit-tenant" data-target="#ResetPW<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="<?php echo $b; ?>border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                        
+                                        <?php } else { ?>
+                                            <button <?php echo $b; ?>  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <i class="ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
+                                            </button>
+                                        <?php } ?>
                                         </td>  
                                     </tr>
                                 <?php } ?>
@@ -176,7 +211,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <div class="modal-content" id="tenantInfo<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenantInfo->tenant_lname; ?>: Tenant Information</h4>
-                            <button title="Edit Information"  id="toggleEdit<?php echo $tenantInfo->dir_id; ?>" class="modal-tenant btn btn-primary ml-auto" style="border-radius:100px;padding:0px 8px;margin-right:0px">
+                            <button title="Edit Information"  id="toggleEdit<?php echo $tenantInfo->dir_id; ?>" class="modal-tenant btn btn-primary ml-auto" style="<?php echo $b; ?>border-radius:100px;padding:0px 8px;margin-right:0px">
                             <i class="fa fa-edit" style="font-size:16px;font-color:blue"></i>
                             </button> 
                         </div>
@@ -211,7 +246,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Address</label></div>
-                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_address; ?></label></textarea></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo htmlspecialchars($tenantInfo->tenant_address); ?></label></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -320,7 +355,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     </div>
                     <div class="modal-content" id="editTenant<?php echo $tenantInfo->dir_id; ?>">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenant->tenant_lname; ?>: Edit Tenant Information</h4>
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $tenantInfo->tenant_fname." ". $tenantInfo->tenant_lname; ?>: Edit Tenant Information</h4>
                             <button onclick="edit()" id="cancelEdit<?php echo $tenantInfo->dir_id; ?>" class="ml-auto" style="border:none;background-color:transparent;font-size:14px;color:red">
                                 Cancel Edit
                             </button>
@@ -336,20 +371,20 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                                <div class="col"><input name="etenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your first name must contain only letters." value="<?php echo $tenantInfo->tenant_fname; ?>" required></div>
+                                                <div class="col"><input name="etenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="First name must contain only letters." value="<?php echo $tenantInfo->tenant_fname; ?>" required></div>
                                                 <input name="etenant_id" class="form-control" type="hidden" value="<?php echo $tenantInfo->tenant_id; ?>" >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
-                                                <div class="col"><input name="etenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your last name must contain only letters." value="<?php echo $tenantInfo->tenant_lname; ?>" required></div>
+                                                <div class="col"><input name="etenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Last name must contain only letters." value="<?php echo $tenantInfo->tenant_lname; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
-                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text"  required><?php echo $tenantInfo->tenant_address; ?></textarea></div>
+                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text"  required><?php echo htmlspecialchars($tenantInfo->tenant_address); ?></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -373,13 +408,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company</label></div>
-                                                <div class="col"><input name="etenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your school or company must contain only letters." value="<?php echo $tenantInfo->tenant_school; ?>" required></div>
+                                                <div class="col"><input name="etenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="School or company must contain only letters." value="<?php echo $tenantInfo->tenant_school; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
-                                                <div class="col"><input name="etenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your course must contain only letters. N/A if not applicable." value="<?php echo $tenantInfo->tenant_course; ?>" required></div>
+                                                <div class="col"><input name="etenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Course must contain only letters. N/A if not applicable." value="<?php echo $tenantInfo->tenant_course; ?>" required></div>
                                             </div>
                                         </div>
                                     </div>
@@ -388,7 +423,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="emother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your mother's name must contain only letters." value="<?php echo $tenantInfo->mother_name; ?>"></div>
+                                                <div class="col"><input name="emother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Mother's name must contain only letters." value="<?php echo $tenantInfo->mother_name; ?>"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -401,7 +436,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="efather_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your father's name must contain only letters." value="<?php echo $tenantInfo->father_name; ?>"></div>
+                                                <div class="col"><input name="efather_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Father's name must contain only letters." value="<?php echo $tenantInfo->father_name; ?>"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -414,13 +449,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="eguardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your guardian's name must contain only letters." value="<?php echo $tenantInfo->guardian_name; ?>" required></div>
+                                                <div class="col"><input name="eguardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Guardian's name must contain only letters." value="<?php echo $tenantInfo->guardian_name; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship</label></div>
-                                                <div class="col"><input name="eguardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relationship with the guardian must contain only letters." value="<?php echo $tenantInfo->guardian_rel; ?>" required></div>
+                                                <div class="col"><input name="eguardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Relationship with the guardian must contain only letters." value="<?php echo $tenantInfo->guardian_rel; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -459,13 +494,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Move Room</h4></div>
+                            <h4 class="modal-title" style="color: #11334f;">Move Room</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         
                         <form method="POST" action="<?php echo site_url('Directories/mr_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                         <div class="modal-body">
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $moveRoom->tenant_fname." ". $tenant->tenant_lname; ?></label></div>
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $moveRoom->tenant_fname." ". $moveRoom->tenant_lname; ?></label></div>
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current Room</label></div>
                                         <div class="col-xl-12" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;font-size:16px"><?php echo $moveRoom->room_number;?></label> 
                                         </div>
@@ -508,13 +543,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Edit Contract</h4></div>
+                            <h4 class="modal-title" style="color: #11334f;">Edit Contract</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         
                         <form method="POST" action="<?php echo site_url('Directories/cc_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                         <div class="modal-body">
                                 <div class="form-group">
                                     <div class="form-row">
-                                    <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $changeCon->tenant_fname." ". $tenant->tenant_lname; ?></label></div>
+                                    <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $changeCon->tenant_fname." ". $changeCon->tenant_lname; ?></label></div>
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Start of Contract</label></div>
                                         <div class="col-xl-12" style="font-weight: normal;"><input name="cc_start" class="form-control" type="date" value="<?php echo $changeCon->contract_start; ?>" disabled>
                                         </div>
@@ -524,7 +559,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-row">
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">New Contract</label></div>
                                         <div class="col-xl-12">
-                                            <input name="cc_date" class="form-control" type="date">  
+                                            <input name="cc_date" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later">  
                                             <input name="cc_tenantid" class="form-control" type="hidden" value="<?php echo $changeCon->tenant_id; ?>">
                                         </div>
                                     </div>
@@ -544,13 +579,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                <h4 class="modal-title" style="color: #11334f;">Reset Password</h4></div>
+                                <h4 class="modal-title" style="color: #11334f;">Reset Password</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                             
                             <form method="POST" name="reset_password" action="<?php echo site_url('Directories/rp_tenant');?>" class="justify" style="width: 100%;margin: 0 auto;">
                             <div class="modal-body text-center">
                                     <p style="font-size: 17px;">Are you sure you want to reset password of <?php echo $reset->tenant_fname." ".$reset->tenant_lname; ?>?</p>
                                     <input type="hidden" name="rp_tenantid" value="<?php echo $reset->tenant_id; ?>" >
-                                    <input type="hidden" name="rp_pw" value="thores123" >
+                                    <input type="hidden" name="rp_pw" value="123456" >
                                 </div>
                                 <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                             </form>
@@ -630,13 +665,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" placeholder="Enter first name" required></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="First name must contain only letters." placeholder="Enter first name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" placeholder="Enter last name" required></div>
+                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Last name must contain only letters." placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -660,19 +695,19 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Contact No<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_cno" class="form-control" type="number" placeholder="Enter contact number" required></div>
+                                                <div class="col"><input name="tenant_cno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter contact number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_school" class="form-control" type="text" placeholder="Enter school or company" required></div>
+                                                <div class="col"><input name="tenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="School or company must contain only letters." placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_course" class="form-control" type="text" placeholder="Enter course" required></div>
+                                                <div class="col"><input name="tenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Course must contain only letters. N/A if not applicable." placeholder="Enter course" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -687,39 +722,39 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="mother_name" class="form-control" type="text" placeholder="Enter mother's full name" ></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Mother's name must contain only letters." placeholder="Enter mother's full name" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="mother_mno" class="form-control" type="number" placeholder="Enter mother's mobile number" ></div>
+                                                <div class="col"><input name="mother_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter mother's mobile number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name</label></div>
-                                                <div class="col"><input name="father_name" class="form-control" type="text" placeholder="Enter father's full name" ></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Father's name must contain only letters." placeholder="Enter father's full name" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No</label></div>
-                                                <div class="col"><input name="father_mno" class="form-control" type="number" placeholder="Enter fathers's mobile number" ></div>
+                                                <div class="col"><input name="father_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter fathers's mobile number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Person to contact in case of emergency</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_name" class="form-control" type="text" placeholder="Enter guardian's full name" required></div>
+                                                <div class="col"><input name="guardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Guardian's name must contain only letters." placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" placeholder="Enter relationship to the guardian" required></div>
+                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Relationship with the guardian must contain only letters." placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -731,20 +766,20 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Mobile No<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_mno" class="form-control" type="number" placeholder="Enter guardian's mobile number" required></div>
+                                                <div class="col"><input name="guardian_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter guardian's mobile number" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_lno" class="form-control" type="number" placeholder="Enter guardian's landline number" ></div>
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Landline No </label></div>
+                                                <div class="col"><input name="guardian_lno" class="form-control" type="tel" maxlength="7" pattern="[0-9]{7}" title="The telephone number should be 7 digits." placeholder="Enter guardian's landline number" ></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="contract_start" class="form-control" type="date" required></div>
+                                                <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
                                             </div>
                                         </div>
                                     </div>
@@ -758,6 +793,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             </div>
             <!--End modal Add User-->
         </div>
+        <footer class="footer" style="position:absolute; bottom:0;"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
     </div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>

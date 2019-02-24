@@ -11,9 +11,9 @@ class Transactions_model extends CI_Model {
     }
 
     public function get_floor() {
-       
+    
         $query = $this->db->get('floor_tbl');
-       // print_r($query);
+    // print_r($query);
         return $query;
     }
 
@@ -28,6 +28,7 @@ class Transactions_model extends CI_Model {
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
         $this->db->join('contract_tbl','contract_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+        $this->db->join('guardian_tbl','guardian_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
     
 		$query = $this->db->get();
 		return $query;
@@ -146,15 +147,15 @@ class Transactions_model extends CI_Model {
 
         $total = 'Amount due';
         
-               
+        
 
             foreach ($query->result() as $row1) {
-                      $total = $row1->water_total;
-                      $id = $row1->water_id;
+                    $total = $row1->water_total;
+                    $id = $row1->water_id;
             } 
 
-           // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
-           return array(
+        // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
+        return array(
             'wt' => $total,
             'wi' => $id,
             );
@@ -175,13 +176,13 @@ class Transactions_model extends CI_Model {
     
 
             foreach ($q->result() as $r) {
-                      $rent = $r->rent_total ;
-                      $rid = $r->rent_id;
+                    $rent = $r->rent_total ;
+                    $rid = $r->rent_id;
             }   
 
-           // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
-           //header('Content-Type: application/json');
-           return array(
+        // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
+        //header('Content-Type: application/json');
+        return array(
             'rt' => $rent,
             'ri' => $rid,
             );
@@ -189,7 +190,27 @@ class Transactions_model extends CI_Model {
     }
 
     public function rent_payment() {
-       
+            $tenant_id = $this->input->post('rtenant_id');
+
+            $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
+                FROM tenant_tbl
+                LEFT JOIN dir_tbl
+                ON tenant_tbl.tenant_id = dir_tbl.tenant_id
+                LEFT JOIN room_tbl
+                ON dir_tbl.room_id = room_tbl.room_id
+                WHERE tenant_tbl.tenant_id = ".$tenant_id." ";
+                $query = $this->db->query($SELECT);
+
+                $row = $query->row();
+            $data4 = array(
+                'a' => $row->tenant_fname,
+                'b' => $row->tenant_lname,
+                'c' => $row->room_number,
+                'd' => date("m/d/Y"),
+                'e' => $this->input->post('rm'),
+                'f' => $row->tenant_email,
+            );
+
             $data = array(
                 'rtrans_mode' => $this->input->post('rtrans_mode'),
                 'rtrans_rno' => $this->input->post('rtrans_rno'),
@@ -198,28 +219,63 @@ class Transactions_model extends CI_Model {
                 'rent_id' => $this->input->post('rent_id'),
                 'tenant_id' => $this->input->post('rtenant_id'),
             );
+
             $this->db->insert('rtrans_tbl', $data);
             $check = $this->db->insert_id();
-            if ($this->input->post('rtrans_mode') == 1) {
-                
-                $data3 = array(
-                    'rcheck_no' => $this->input->post('rcheck_no'),
-                    'rcheck_bank' => $this->input->post('rcheck_bank'),
-                    'rcheck_date' => $this->input->post('rcheck_date'),
-                    'rtrans_id' => $check,
-                );
-                $this->db->insert('rcheck_tbl', $data3);
-            }
+
+            
+
+
             $rent=$this->input->post('rent_id');
             $data2 = array(
                 'rent_status' => 1,
             );
-                $this->db->where('rent_id', $rent);
-                $this->db->update('rent_tbl', $data2);
+            $this->db->set('rent_status', 1);
+            $this->db->where('rent_id', $rent);
+            $this->db->update('rent_tbl');
+
+                if ($this->input->post('rtrans_mode') == 1) {
+                    $data3 = array(
+                        'rcheck_no' => $this->input->post('rcheck_no'),
+                        'rcheck_bank' => $this->input->post('rcheck_bank'),
+                        'rcheck_date' => $this->input->post('rcheck_date'),
+                        'rtrans_id' => $check,
+                    );
+                    $this->db->insert('rcheck_tbl', $data3);
+                    return $arr = array_merge($data, $data2, $data4, $data3);
+                }
+
+                
+        return $arr = array_merge($data, $data2, $data4);
+        //print_r($data4);
+
+        
     }
     
     public function water_payment() {
-       
+        $tenant_id = $this->input->post('wtenant_id');
+
+        $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
+            FROM tenant_tbl
+            LEFT JOIN dir_tbl
+            ON tenant_tbl.tenant_id = dir_tbl.tenant_id
+            LEFT JOIN room_tbl
+            ON dir_tbl.room_id = room_tbl.room_id
+            WHERE tenant_tbl.tenant_id = ".$tenant_id." ";
+            $query = $this->db->query($SELECT);
+
+            $row = $query->row();
+
+        $data4 = array(
+            'a' => $row->tenant_fname,
+            'b' => $row->tenant_lname,
+            'c' => $row->room_number,
+            'd' => date("m/d/Y"),
+            'e' => $this->input->post('payment'),
+            'f' => $row->tenant_email,
+        );
+
+
         $data = array(
             'wtrans_mode' => $this->input->post('wtrans_mode'),
             'wtrans_rno' => $this->input->post('wtrans_rno'),
@@ -229,6 +285,15 @@ class Transactions_model extends CI_Model {
             'tenant_id' => $this->input->post('wtenant_id'),
         );
         $this->db->insert('wtrans_tbl', $data);
+
+        $water=$this->input->post('water_id');
+            $data2 = array(
+                'water_status' => 1,
+            );
+            $this->db->set('water_status', 1);
+            $this->db->where('water_id', $water);
+            $this->db->update('water_tbl');
+
 
         $check = $this->db->insert_id();
         if ($this->input->post('wtrans_mode') == 1) {
@@ -240,15 +305,14 @@ class Transactions_model extends CI_Model {
                 'wtrans_id' => $check,
             );
             $this->db->insert('wcheck_tbl', $data3);
-            //print_r($data3);
+            return $arr = array_merge($data, $data2, $data4, $data3);
         }
+
+        
+        return $arr = array_merge($data, $data2, $data4);
        
-        $water=$this->input->post('water_id');
-            $data2 = array(
-                'water_status' => 1,
-            );
-                $this->db->where('water_id', $water);
-                $this->db->update('water_tbl', $data2);
+        
+        
     }
     public function get_rtrans () {
 		$this->db->from('rtrans_tbl');
@@ -277,6 +341,96 @@ class Transactions_model extends CI_Model {
 
     }
 
-   
+    public function send_mail_rent($to_email, $to_guardianemail) {
+
+        //Load email library
+        $this->load->library('email');
+        $data = $this->rent_payment();
+        //SMTP & mail configuration
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = 465;
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'dormasino20182019@gmail.com';
+        $config['smtp_pass']    = 'dormasino123';
+        $config['charset']    = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+        $config['validation'] = TRUE;
+
+
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+    
+        //Email content
+    
+        //$to_email = $data['f']; 
+    
+        $htmlContent = $this->load->view('rent_receipt', $data, TRUE);
+        //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
+
+        $this->email->to($to_email);
+        $this->email->to($to_guardianemail);
+        $list = array($to_email, $to_guardianemail);
+        $this->email->to($list);
+        $this->email->from('dormasino20182019@gmail.com','DORMasino');
+        $this->email->subject('DORMasino E-Receipt (Rent)');
+        $this->email->message($htmlContent);
+
+        if ($this->email->send()) {
+        //Success email Sent
+            return true;
+        } else {
+        //Email Failed To Send
+            return false;
+        }
+    }
+
+    public function send_mail_water($to_email, $to_guardianemail) {
+
+        //Load email library
+        $this->load->library('email');
+        $data = $this->water_payment();
+        //SMTP & mail configuration
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = 465;
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'dormasino20182019@gmail.com';
+        $config['smtp_pass']    = 'dormasino123';
+        $config['charset']    = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+        $config['validation'] = TRUE;
+
+
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        //Email content
+    
+        //$to_email = $data['f']; 
+    
+        $htmlContent = $this->load->view('water_receipt', $data, TRUE);
+        //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
+
+        $this->email->to($to_email);
+        $this->email->to($to_guardianemail);
+        $list = array($to_email, $to_guardianemail);
+        $this->email->to($list);
+        $this->email->from('dormasino20182019@gmail.com','DORMasino');
+        $this->email->subject('DORMasino E-Receipt (Water)');
+        $this->email->message($htmlContent);
+
+        if ($this->email->send()) {
+        //Success email Sent
+            return true;
+        } else {
+        //Email Failed To Send
+            return false;
+        }
+    }
+
 }
 ?>

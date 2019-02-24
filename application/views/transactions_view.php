@@ -7,17 +7,48 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
+    $a="";
+    if($abill[1] == 1) { //add
+        $a = "title='Edit Billing Statement'";
+    } else {
+        $a = "disabled title='This feature is not available on your account.' ;";
+    } 
+
 
 ?>
 
 <html>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#trans').dataTable( {
+                "aLengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "pageLength": 7,
+            });
+        }); 
+
+</script>
 
     <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Update Bills</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
-                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
@@ -27,36 +58,31 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
                         
                         <div id="table_view" class="table-responsive" style="width:80%;">
-                            <table class="table" id="example" style="font-size:14px;">
+                            <table class="table" id="trans" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
-                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">No of Tenants</th>
+                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Edit Billing Statement</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($room->result() as $row) {
-                                       
+                                    
                                     ?>
-                                         
+                                    
                                         <tr>
-                                            <td style="text-align:center;"><?php echo $row->floor_number; ?></td>
-                                            <td style="text-align:center;">
-                                                <form action="<?php echo site_url('Transactions/getRoom');?>" method="POST">
-                                                    <input type="hidden" value="<?php echo $row->room_id; ?>" name="show_rid">
-                                                    <input type="hidden" value="<?php echo $row->room_number; ?>" name="show_rno">
-                                                <button value="<?php echo $row->room_id; ?>"  type="submit" style="background:transparent; border:0px"> 
-                                                    <?php echo $row->room_number; ?>
-                                                </button>
-                                                </form>
-                                            </td>
+                                            <td style="text-align:center;"><?php echo $row->room_number; ?></td>
+                                            <?php foreach($dir_count->result() as $d) {
+                                                if ($d->room_number == $row->room_number) { ?>
+                                                    <td style="text-align:center;"><?php echo $d->num_tenants; ?></td>
+                                            <?php } } ?>
                                             
                                             
-                                           
+                                        
                                             <td style="text-align:center;">
                                                 
-                                                    <button title="Edit Billing Statement" id="edit-room" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                    <button <?php echo $a; ?> id="edit-room" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                     </button>&nbsp;&nbsp;&nbsp;&nbsp;                                                                                   
                                             </td>  
@@ -74,8 +100,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 </div>
             <!--Modal Billing statement -->
             <?php foreach ($room->result() as $row2) { ?>
-               
-           
+            
+        
             <div class="modal fade" role="dialog" tabindex="-1" id="ModalBill<?php echo $row2->room_id; ?>">
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
@@ -101,7 +127,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     }
                                                     
                                                     foreach($roomTenants as $rt) {
-                                                       echo '<input class="form-control" type="hidden" name="tenant_id[]" value="'.$rt.'" >';
+                                                        echo '<input class="form-control" type="hidden" name="tenant_id[]" value="'.$rt.'" >';
                                                     }
                                                 ?>
                                                 
@@ -319,8 +345,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 
                     
                     //echo "<script>
-                           // $(document).ready(function(){
-                             //   $('#BillConfirm').modal('show');
+                        // $(document).ready(function(){
+                            //   $('#BillConfirm').modal('show');
                             //});
                         //</script>";
                     //}
@@ -350,10 +376,10 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                             
+                                            
                                                     <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Number of Tenants</label></div>
                                                     <div class="col"><input class="form-control" name="rnt" type="text" value="<?php //echo //$rnt; ?>" readonly></div>
-                                                                                               
+                                                                                        
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -361,12 +387,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Exceeded Capacity</label></div>
                                                             <div class="col"><input class="form-control" type="text"  value="<?php //echo// $rex; ?>" readonly ></div>
                                                     
-                                              
+                                            
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
-                                               
+                                            
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Additional Tenants</label></div>
                                                 <div class="col"><input class="form-control" type="text"  value="<?php //echo //$rat ?>" readonly></div>
                                             

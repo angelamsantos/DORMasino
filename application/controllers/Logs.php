@@ -19,6 +19,8 @@ class Logs extends CI_Controller {
 
     public function index() {
         
+        $this->session->sess_expiration = '0';
+
         $this->validate_login();
         $data['vlogs']=$this->Logs_model->get_vlogs();
         $data['floor']=$this->Logs_model->get_floor();
@@ -43,15 +45,22 @@ class Logs extends CI_Controller {
 
     public function process() {
 
+        $vlogs_name = $this->input->post('vlogs_name');
+        $vlogs_relation = $this->input->post('vlogs_relation');
+        $vlogs_purpose = $this->input->post('vlogs_purpose');
+        $vlogs_id_presented = $this->input->post('vlogs_id_presented');
+        $tenant_id = $this->input->post('sel_tenant');
+
         $data = array(
-            'vlogs_name' => $this->input->post('vlogs_name'),
-            'vlogs_relation' => $this->input->post('vlogs_relation'),
-            'vlogs_purpose' => $this->input->post('vlogs_purpose'),
-            'vlogs_id_presented' => $this->input->post('vlogs_id_presented'),
-            'tenant_id' => $this->input->post('sel_tenant')
+            'vlogs_name' => $vlogs_name,
+            'vlogs_relation' => $vlogs_relation,
+            'vlogs_purpose' => $vlogs_purpose,
+            'vlogs_id_presented' => $vlogs_id_presented,
+            'tenant_id' => $tenant_id
         );
 
         $this->Logs_model->record_visitor($data);
+        $this->Logs_model->send_msg($tenant_id, $vlogs_name, $vlogs_relation, $vlogs_purpose);
 
         $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px;"><center>Visitor successfully recorded!</center></div>';
         $this->session->set_flashdata('msg', $msg);

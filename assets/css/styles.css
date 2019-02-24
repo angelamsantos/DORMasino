@@ -356,7 +356,15 @@ input {
   text-align: center;
 }
 
+html, body {
+  height: 100%;
+}
 
+@media (max-width: 576px) {
+  .name {
+    display:none;
+  }
+}
 
 
 

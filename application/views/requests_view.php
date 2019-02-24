@@ -7,6 +7,13 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
+    $a="";
+    if($amsg[8] == 1) { //archive
+        $a = "title='Complete request'";
+    } else {
+        $a = "disabled title='This feature is not available on your account.'";
+    }
 
 ?>
 <html>
@@ -19,18 +26,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 "ordering": false
             });
         });
-        
-        $(document).ready(function () {
-            $('#table_id2').dataTable( {
-                "ordering": false
-            });
-        });
-
-        $(document).ready(function () {
-            $('#table_id3').dataTable( {
-                "ordering": false
-            });
-        });
 
     </script>
 
@@ -40,8 +35,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Requests</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
-                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
                 <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -50,11 +45,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <table class="table" id="table_id" style="font-size:14px;text-align:center;">
                                     <thead class="logs">
                                         <tr>
-                                            <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Date and Time</th>
-                                            <th style="width: 8%;padding-right: 0px;padding-left: 0px;">Room No.</th>
-                                            <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Tenant</th>
-                                            <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Service</th>
-                                            <th style="width: 13%;padding-right: 0px;padding-left: 0px;">Notes</th>
+                                            <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Date and Time</th>
+                                            <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No.</th>
+                                            <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Tenant</th>
+                                            <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Service</th>
+                                            <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Notes</th>
                                             <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Status</th>
                                         </tr>
                                     </thead>
@@ -86,11 +81,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                         echo "<td>". $row->room_number ."</td>";
                                                         echo "<td>". $row->tenant_fname ." ". $row->tenant_lname ."</td>";
                                                         echo "<td>". $service ."</td>";
-                                                        echo "<td>". $row->req_notes ."</td>";
+                                                        echo "<td>". htmlspecialchars($row->req_notes) ."</td>";
 
                                                         if ($row->req_status == 0) {
 
-                                                            $out = '<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #28a745;color: #ffffff;border: none;">Pending</button>';
+                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #FFFF00;color: #ffffff;border: none;">Pending</button>';
                                                             
                                                         } else if ($row->req_status == 1) {
                                                             

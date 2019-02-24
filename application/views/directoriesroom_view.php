@@ -7,10 +7,43 @@ if (!isset ($login)) {
 }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
+$a="";
+$b="";
+$c="";
+$d="";
+if($adir[4] == 1) { //add
+    $a = "title='Add Tenant'";
+} else {
+    $a = "disabled title='This feature is not available on your account'";
+} 
+
+if($adir[5] == 1) { //edit
+    $b = "title='Edit Room'";
+} else {
+    $b = "disabled title='This feature is not available on your account'";
+}
+
+if($adir[6] == 1) { //delete
+    $c = "title='Deactivate/Activate Room'";
+} else {
+    $c = "disabled title='This feature is not available on your account'";
+} 
 
 ?>
 <html>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>
 
     <script>
 
@@ -29,17 +62,18 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Rooms</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
-                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room 
+                            <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
                            
                         </p>
-                    <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
+                    <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -48,16 +82,19 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="row" style="margin-top: 20px;margin-left:0px;">
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                         
-                        <div id="table_view" class="table-responsive" style="width:60%;">
+                        <div id="table_view" class="table-responsive" style="width:100%;">
                             <table class="table" id="room_datatable" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Floor No</th>
                                         <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Capacity</th>
+                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Price</th>
                                         <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php if($adir[7] == 1) { ?>
                                     <?php foreach ($dir_count->result() as $row) {
                                        
                                     ?>
@@ -65,7 +102,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                         <tr>
                                             <td style="text-align:center;"><?php echo $row->floor_number; ?></td>
                                             <td style="text-align:center;"><?php echo $row->room_number; ?></td>
-                                            
+                                            <td style="text-align:center;"><?php echo $row->room_tcount; ?></td>
+                                            <td style="text-align:center;"><?php echo "Php ".number_format($row->room_price, 2); ?></td>
                                             
                                            
                                             <td style="text-align:center;">
@@ -76,34 +114,37 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                                     if ( $status == 1) { ?>
 
-                                                            <button title="Edit Room Details" type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                            <button <?php echo $b; ?> type="button" id="edit-room" data-target="#EditRoom<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                                 <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                             <?php if ($capacity == 0) { ?>
 
-                                                                <button title="Deactivate room"  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                <button <?php echo $c; ?>  type="button" id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                                     <i class="icon ion-minus-circled" style="font-size: 19px; color:#0645AD;"></i>
                                                                 </button>
  
                                                             <?php } else { ?>
 
-                                                                <button title="Deactivating is disabled. The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
+                                                                <button <?php echo $c; ?> The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
                                                                 <i class="icon ion-minus-circled" style="font-size: 19px;"></i>
                                                                 </button>
 
                                                             <?php } ?>
 
                                                 <?php } else { ?>
-                                                    <button title="Activate user" data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
+                                                    <button <?php echo $c; ?> data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
                                                     <i class="fa fa-check" style="font-size: 14px"></i>
                                                     </button>
                                                 <?php } ?>                                                                                 
                                             </td>  
                                         </tr>
                                     <?php } ?>
-                                    
-                                    
+                                <?php } else  { ?>
+                                    <tr>
+                                        <td style="text-align:center;" colspan="5"><i>Cannot view rooms.</i></td>
+                                    </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -154,13 +195,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="arRoomPrice"  class="form-control" type="text" placeholder="Enter price of room" required></div>
+                                            <div class="col"><input name="arRoomPrice"  class="form-control" type="number" placeholder="Enter price of room" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="text" placeholder="Enter number of people" min="3" required></div>
+                                            <div class="col"><input name="arRoomTcount"  class="form-control" type="number" placeholder="Enter number of people" min="3" required></div>
                                         </div>
                                     </div>
                             </div>

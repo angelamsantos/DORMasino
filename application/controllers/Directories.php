@@ -21,6 +21,7 @@ class Directories extends CI_Controller{
 
     public function index() {
         $this->validate_login();
+        
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_dir();
@@ -98,7 +99,7 @@ class Directories extends CI_Controller{
     public function activate_tenant() {
         $tenant_id = $this->input->post('atenant_id');
         $this->Directories_model->activate_tenant($tenant_id);
-        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>><center>Tenant successfully activated!</center></div> ';
+        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Tenant successfully activated!</center></div> ';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/show_tenants');
     }
@@ -120,7 +121,6 @@ class Directories extends CI_Controller{
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_diruv($r_id);
-        
        
         $this->load->view('sidebar_view');
         $this->load->view('directoriesusers_view', $data);
@@ -139,13 +139,13 @@ class Directories extends CI_Controller{
 
     public function admin() {
         $data['admin']=$this->Directories_model->get_admin();
-        $adir = $this->session->userdata['admin']['info']['adcontrol_dir'];
-        $abill = $this->session->userdata['admin']['info']['adcontrol_bills'];
-        $aann = $this->session->userdata['admin']['info']['adcontrol_ann'];
-        $amsg = $this->session->userdata['admin']['info']['adcontrol_msg'];
-        $alog = $this->session->userdata['admin']['info']['adcontrol_logs'];
+        // $adir = $this->session->userdata['admin']['info']['adcontrol_dir'];
+        // $abill = $this->session->userdata['admin']['info']['adcontrol_bills'];
+        // $aann = $this->session->userdata['admin']['info']['adcontrol_ann'];
+        // $amsg = $this->session->userdata['admin']['info']['adcontrol_msg'];
+        // $alog = $this->session->userdata['admin']['info']['adcontrol_logs'];
         $this->load->view('sidebar_view');
-        $this->load->view('directoriesadmin_view');
+        $this->load->view('directoriesadmin_view', $data);
     }
 
     public function fetch_room() {
@@ -220,6 +220,30 @@ class Directories extends CI_Controller{
         //$a = $this->input->post('dir_arr');
         $this->Directories_model->add_admin();
         $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Admin successfully created!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+        redirect('Directories/admin');
+    }
+
+    public function edit_admin() {
+        //$a = $this->input->post('dir_arr');
+        $this->Directories_model->edit_admin();
+        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Admin successfully edited!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+        redirect('Directories/admin');
+    }
+
+    public function deactivate_admin() {
+        //$a = $this->input->post('dir_arr');
+        $this->Directories_model->deac_admin();
+        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Admin successfully deactivated!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+        redirect('Directories/admin');
+    }
+
+    public function activate_admin() {
+        //$a = $this->input->post('dir_arr');
+        $this->Directories_model->act_admin();
+        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Admin successfully activated!</center></div>';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/admin');
     }

@@ -7,6 +7,20 @@
         }
 
     $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+    $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
+    $a="";
+    $b="";
+    if($adir[0] == 1) { 
+        $a = "title='Add Tenant'";
+    } else {
+        $a = "disabled title='This feature is not available on your account'";
+    } 
+
+    if($adir[3] == 1) { 
+        $b = "title='View Tenants'";
+    } else {
+        $b = "disabled title='This feature is not available on your account'";
+    } 
 
 ?>
 <style>
@@ -54,16 +68,25 @@
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
-                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
-                <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
-                    
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                </div><a title="Click here to collapse" class="btn btn-link d-xl-flex justify-content-xl-start"  role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                <div class="row"
+                    style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
+                    <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
+                        <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-eye" style="font-size:24px;"></i> - View Tenants &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-user-plus" style="font-size:16px;"></i> - Add Tenant
+                           
+                        </p>
+                   
+                    </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
                 
-                
+                 
             </div>
+            
             <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     <div id="room_view" style="width: 100%;display:block;">
@@ -102,17 +125,21 @@
                                                     <input type="hidden" value="<?php echo $row1->room_id; ?>" name="show_rid">
                                                     <input type="hidden" value="<?php echo $row1->room_number; ?>" name="show_rno">
                                                     <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
-                                                            title="View Tenants" ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
+                                                    <?php echo $b; ?> ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
                                                     </form>
                                                     </div>
                                                     <div class="col-xl-1 col-lg-2"
                                                         style="padding: 0px;"><button class="btn btn-primary d-xl-flex ml-auto" type="button" id="user" style="padding-bottom: 0px;padding-top: 7px;padding-right: 0px;padding-left: 8px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;"
-                                                            title="Add Tenant" data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
+                                                        <?php echo $a; ?> data-toggle="modal" data-target="#AddUser<?php echo $row1->room_id;?>"><i class="fas fa-user-plus" style="font-size: 15px;color: #555555;"></i>&nbsp;</button></div>
                                                 </div>
                                                     
                                                 <p class="card-text" style="font-weight: bold;font-size: 14px;">Room Information:</p>
                                                 <?php foreach ($dir_count->result() as $nt) {
-                                                    if ($nt->room_id == $row1->room_id) { ?>
+                                                    if ($nt->room_id == $row1->room_id) { 
+                                                        if($nt->num_tenants > 0){
+                                                        ?>
+
+
                                                         <p class="card-text" style="font-size: 14px;">Current number of tenants: <?php echo $nt->num_tenants;?></p>
 
                                                         
@@ -123,11 +150,15 @@
                                                                 <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
                                                             <?php } else if ((4 - $acc) < 0) { ?>
                                                                 <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p>
-                                                            <?php }  ?>
-                                                        
-                                                        
+                                                            <?php } 
+                                                        } else { ?>
+                                                        <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
+
+                                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                                <span style="color:green"> <?php echo $row1->room_tcount; ?> </span></p>
+                                                          
                                                     
-                                                <?php }
+                                                <?php } } 
                                                 } ?>
                                                 
                                                
@@ -181,7 +212,7 @@
                                                 $status = $tenant->tenant_status;
                                                 if ( $status == 1) { ?>
 
-                                                <button title="Edit user" data-target="#EditUser<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
+                                                <button hidden title="Edit user" data-target="#EditUser<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="padding:0px 3px;">
                                                     <i class="fa fa-edit" style="font-size: 14px"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <button title="Deactivate user" name="delete" data-target="#ModalDeac<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-danger" style="padding:0px 3px;">
@@ -227,17 +258,17 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your first name must contain only letters." placeholder="Enter first name" required></div>
+                                                <div class="col"><input name="tenant_fname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="First name must contain only letters." placeholder="Enter first name" required></div>
                                                 <input name="floor_id" class="form-control" type="hidden" value="<?php echo $row6->floor_id; ?>" >
                                                 <input name="room_id" class="form-control" type="hidden" value="<?php echo $row6->room_id; ?>" >
                                                 <input name="room_number" class="form-control" type="hidden" value="<?php echo $row6->room_number; ?>">
-                                                       
+                                                    
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your last name must contain only letters." placeholder="Enter last name" required></div>
+                                                <div class="col"><input name="tenant_lname" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Last name must contain only letters." placeholder="Enter last name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -267,13 +298,13 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">School/Company<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your school or company must contain only letters." placeholder="Enter school or company" required></div>
+                                                <div class="col"><input name="tenant_school" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="School or company must contain only letters." placeholder="Enter school or company" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Your course must contain only letters. N/A if not applicable." placeholder="Enter course" required></div>
+                                                <div class="col"><input name="tenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Course must contain only letters. N/A if not applicable." placeholder="Enter course" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -288,7 +319,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="mother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your mother's name must contain only letters." placeholder="Enter mother's full name" ></div>
+                                                <div class="col"><input name="mother_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Mother's name must contain only letters." placeholder="Enter mother's full name" ></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -301,7 +332,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name </label></div>
-                                                <div class="col"><input name="father_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your father's name must contain only letters." placeholder="Enter father's full name"></div>
+                                                <div class="col"><input name="father_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Father's name must contain only letters." placeholder="Enter father's full name"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -314,13 +345,13 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Full Name <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your guardian's name must contain only letters." placeholder="Enter guardian's full name" required></div>
+                                                <div class="col"><input name="guardian_name" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Guardian's name must contain only letters." placeholder="Enter guardian's full name" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: normal;">Relationship <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Your relationship with the guardian must contain only letters." placeholder="Enter relationship to the guardian" required></div>
+                                                <div class="col"><input name="guardian_rel" class="form-control" type="text" pattern="[a-zA-Z- .ñ]{2,30}" title="Relationship with the guardian must contain only letters." placeholder="Enter relationship to the guardian" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -345,7 +376,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in <span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="contract_start" class="form-control" type="date"></div>
+                                                <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
                                             </div>
                                         </div>
                                     </div>
@@ -412,7 +443,7 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Address</label></div>
-                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text" placeholder="<?php echo $editTenant->tenant_address; ?>" required></textarea></div>
+                                                <div class="col"><textarea name="etenant_address" class="form-control" row="2" type="text" placeholder="<?php echo htmlspecialchars($editTenant->tenant_address); ?>" required></textarea></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -425,12 +456,6 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Email</label></div>
                                                 <div class="col"><input name="etenant_email" class="form-control" type="email" value="<?php echo $editTenant->tenant_email; ?>" required></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Facebook</label></div>
-                                                <div class="col"><input name="etenant_fb" class="form-control" type="text" value="<?php echo $editTenant->tenant_fb; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -449,6 +474,12 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
                                                 <div class="col"><input name="etenant_course" class="form-control" type="text" value="<?php echo $editTenant->tenant_course; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions</label></div>
+                                                <div class="col"><input name="etenant_medical" class="form-control" type="text" value="<?php echo htmlspecialchars($editTenant->tenant_medical); ?>" required></div>
                                             </div>
                                         </div>
                                     </div>
@@ -632,6 +663,9 @@
             </div>
             <?php } ?>
         </div>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
     </div>
     </div>
     

@@ -7,6 +7,13 @@
     }
 
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
+$abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
+    // $a="";
+    // if($abill[2] == 1) { //add
+    //     $a = "";
+    // } else {
+    //     $a = "visibility:hidden;";
+    // } 
 
 
 ?>
@@ -51,14 +58,14 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Payments</p>
-                    <p class="d-flex align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
-                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="fas fa-key" style="font-size:17px;"></i> - Rent &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-waterdrop" style="font-size:19px;"></i> - Water 
-                           
+                        
                         </p>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
@@ -69,13 +76,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding-left: 0px;">
                     
                     <div id="table_view" class="table-responsive" style="width:100%; ">
-                        <table class="table" id="example" style="font-size:14px;">
+                        <table class="table" id="example" style="font-size:14px; text-align:center;">
                             <thead class="logs">
                                 <tr style="text-align:center">
                                     <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Name of Tenant</th>
-                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Contract Period</th>
-                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">No of months to pay</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Rent Bill</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Water Bill</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                 </tr>
                             </thead>
@@ -88,25 +95,37 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                     $your_date = new DateTime($due);
                                     $datediff = $now->diff($your_date);
                                 ?>
-                                     
+                                
                                     <tr>
                                         
                                         <td><?php echo $tenant->room_number; ?></td>
                                         <td><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></td>
-                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
-                                        <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
-                                             <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
-                                        <?php } else if ($datediff->days <= 10) { ?>
-                                            <td style="color: red;text-align:center"><?php echo $datediff->days ." days"; ?></td>
-                                        <?php } else { ?>
-                                            <td style="text-align:center"><?php echo $datediff->days ." days"; ?></td>
-                                        <?php } ?>
-                                       
+
+                                        <?php 
+                                        $rentdue=0;
+                                        foreach ($rent->result() as $r) {
+                                            if ($r->tenant_id == $tenant->tenant_id) {
+                                                if($r->rent_status == 0) {
+                                                    $rentdue += $r->rent_total;
+                                                }}}
+                                                ?>
+                                        <td style="text-align:center"><?php echo number_format($rentdue,2) ; ?></td>
+                                            
+
+                                        <?php 
+                                        $wdue=0;
+                                        foreach ($water->result() as $wd) {
+                                            if ($wd->tenant_id == $tenant->tenant_id) {
+                                                if($wd->water_status == 0) {
+                                                    $wdue += $wd->water_total;
+                                                }}}
+                                                ?>
+                                        <td style="text-align:center"><?php echo number_format($wdue,2) ; ?></td>
                                         <td style="text-align:center;">
-                                            <button title="Open Rent" type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <button <?php if($abill[3] == 1) { echo 'title="Open Rent"'; } else { echo "disabled title='This feature is not available on your account.'" ;} ?> type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="fas fa-key" style="font-size:17px;color:#0645AD;"></i>
                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button title="Change contract" type="button" id="edit-tenant" data-target="#Water<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <button <?php if($abill[3] == 1) { echo 'title="Open Water"'; } else { echo "disabled title='This feature is not available on your account.'" ;} ?> type="button" id="edit-tenant" data-target="#Water<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="icon ion-waterdrop" style="font-size:19px;color:#0645AD;"></i>
                                             </button>
                                         </td>  
@@ -184,7 +203,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     
                                                         <option value="0">Cash</option>
                                                         <option value="1">Check</option>
-                                                   
+                                                
                                                     </select>
                                                 </div>
                                             </div>
@@ -207,81 +226,17 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col"><input class="form-control" name="rcheck_date" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="ra" style="text-align:right"  type="number"></div>
-                                            </div>
-                                        </div>
                                     </div>
                                     </div>
                                     </div>
-                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
+                                    <input type="hidden" name="to_email" value="<?php echo $tenant->tenant_email; ?>" />
+                                    <input type="hidden" name="to_guardianemail" value="<?php echo $tenant->guardian_email; ?>" />
+                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <?php } ?>
-                    <div class="modal fade" role="dialog" tabindex="-1" id="CBill">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                                    <h4 class="modal-title" style="color: #11334f;">Confirm Billing Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Reference Number</label></div>
-                                                <div class="col"><input class="form-control d-xl-flex" type="text" value="R20180001" disabled=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                                <div class="col"><input class="form-control d-xl-flex" type="text" value="301" disabled=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">First Name</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="Arvin" disabled=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Last Name</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="Dela Cruz" disabled=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Type of Transaction</label></div>
-                                                <div class="col">
-                                                    <select class="form-control" disabled>
-                                                        <option selcted>Rent Bill</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="text" style="text-align:right"  value="3, 500.00" disabled=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" type="text" style="text-align:right"  value="3, 500.00" disabled></div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer"><button class="btn btn-primary" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
-                            </div>
-                        </div>
-                    </div>
-
                     <?php foreach ($dir->result() as $tenant) { ?>
                     <div class="modal fade" role="dialog" tabindex="-1" id="Water<?php echo $tenant->dir_id; ?>">
                         <div class="modal-dialog modal-lg" role="document">
@@ -335,7 +290,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
                                                 <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_amount" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
-                                               
+                                            
                                                 </div>
                                             </div>
                                         </div>
@@ -348,7 +303,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     <select class="form-control" name="wtrans_mode" id="wt<?php echo $tenant->dir_id; ?>">
                                                         <option value="0">Cash</option>
                                                         <option value="1">Check</option>
-                                                   
+                                                
                                                     </select>
                                                 </div>
                                             </div>
@@ -371,17 +326,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <div class="col"><input class="form-control" name="wcheck_date" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="wa" style="text-align:right"  type="amount"></div>
-                                            </div>
-                                        </div>
                                     </div>
                                     </div>
                                     </div>
-                                    
-                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button></div>
+                                    <input type="hidden" name="to_email" value="<?php echo $tenant->tenant_email; ?>" />
+                                    <input type="hidden" name="to_guardianemail" value="<?php echo $tenant->guardian_email; ?>" />
+                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
                                 </form>
                             </div>
                         </div>
@@ -391,6 +341,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 
             </div>
         </div>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            </footer>
     </div>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
