@@ -87,6 +87,10 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                                             $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #FFFF00;color: #ffffff;border: none;">Pending</button>';
                                                             
+                                                        } else if ($row->req_status == 1) {
+                                                            
+                                                            $out ='Approved' ;
+                                                            
                                                         } else if ($row->req_status == 2) {
                                                             
                                                             $out ='<button class="btn btn-primary" type="submit" style="background-color: #c7c7c7;color: #ffffff;border: none;" disabled>Rejected</button>';
