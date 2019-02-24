@@ -13,15 +13,26 @@ require APPPATH . 'libraries/Format.php';
             $this->load->library('email');
         
             //SMTP & mail configuration
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
-                'smtp_port' => 465,
-                'smtp_user' => 'dormasino20182019@gmail.com',
-                'smtp_pass' => 'dormasino123',
-                'mailtype'  => 'html',
-                'charset'   => 'utf-8'
-            );
+           $config = array(
+            /*'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'dormasino20182019@gmail.com',
+            'smtp_pass' => 'dormasino123',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8'*/
+            
+            $config['protocol']    = 'smtp',
+            $config['smtp_host']    = 'ssl://smtp.gmail.com',
+            $config['smtp_port']    = '465',
+            $config['smtp_timeout'] = '7',
+            $config['smtp_user']    = 'dormasino20182019@gmail.com',
+            $config['smtp_pass']    = 'dormasino123',
+            $config['charset']    = 'utf-8',
+            $config['wordwrap'] = TRUE,
+            $config['mailtype'] = 'html',
+            $config['validation'] = TRUE, // bool whether to validate email or not    
+        );
             $this->email->initialize($config);
             $this->email->set_mailtype("html");
             $this->email->set_newline("\r\n");

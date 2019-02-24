@@ -127,5 +127,50 @@ require APPPATH . 'libraries/Format.php';
                 $this->response("Some problems occurred, please try again.", REST_Controller::HTTP_BAD_REQUEST);
             }
     }
+     function completeRequest_post(){
+        
+         $email=$this->input->post('key');
+            $complete=$this->input->post('complete');
+            // Check if any user exists with the given credentials
+            $this->db->select('*');
+            $this->db->from('tenant_tbl');
+            $this->db->join('guardian_tbl','tenant_tbl.tenant_id=guardian_tbl.tenant_id', 'LEFT');
+            $this->db->where('tenant_email=', $email);
+            $user=$this->db->get();
+            $details=$user->row();
+
+            $id=$details->tenant_id;
+            
+             if($details){
+                  $data=array(
+                            'req_status'=> 3,
+                        );
+                        $this->db->where('req_id=', $complete);
+                        $this->db->update('req_tbl', $data);
+                        
+                        
+                        
+                        $this->response([
+                        'status' => 'Connected',
+                        
+                        'message' =>'API key verified' ,
+                        'prompt'  => 'Task is completed!',
+                        
+                        
+                        
+                         ], REST_Controller::HTTP_OK);
+                        
+             }else if($details==null){
+                $this->response([
+                    'status' => 'Connected',
+                    'message' => 'Error: API key does not match'
+                    
+                ], REST_Controller::HTTP_OK);
+
+            }
+            
+            
+        
+    }
 }
    

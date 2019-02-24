@@ -5,7 +5,7 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-    class  newpw_api extends REST_Controller {
+    class  Newpw_api extends REST_Controller {
        
         function newpw_post()
         {

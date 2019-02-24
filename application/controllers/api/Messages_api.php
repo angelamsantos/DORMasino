@@ -45,6 +45,14 @@ require APPPATH . 'libraries/Format.php';
                 $user=$this->db->get();
                 
                 $details=$user->result();
+                 $this->response([
+                    'status' => 'Connected',
+                    
+                    'message' =>'API key verified' ,
+                    'data'=>$details
+                    
+                    
+                ], REST_Controller::HTTP_OK);
                 }else if($sort=="sent"){
                     $this->db->select('send_tbl.*,tenant_tbl.tenant_email,tenant_tbl.tenant_fname,tenant_tbl.tenant_lname, admin_tbl.admin_email,admin_tbl.admin_id, admin_tbl.admin_fname,admin_tbl.admin_lname,msg_tbl.*');
                     $this->db->from('send_tbl ');   
@@ -55,16 +63,8 @@ require APPPATH . 'libraries/Format.php';
                     $this->db->where('send_tbl.send_type=',0); 
                     $this->db->order_by('msg_date','DESC'); 
                     $user=$this->db->get();
-                
                     $details=$user->result();
-                }
-                
-              
-               
-
-               
-                // Set the response and exit
-                $this->response([
+                     $this->response([
                     'status' => 'Connected',
                     
                     'message' =>'API key verified' ,
@@ -72,6 +72,21 @@ require APPPATH . 'libraries/Format.php';
                     
                     
                 ], REST_Controller::HTTP_OK);
+                }else{
+                    
+                    $this->response([
+                    'status' => 'Connected',
+                    'message' => 'API key match but no message'
+                    
+                ], REST_Controller::HTTP_OK);
+                }
+                
+              
+               
+
+               
+                // Set the response and exit
+               
 
             }else if($confirmdetails==null){
                 $this->response([
@@ -143,8 +158,11 @@ require APPPATH . 'libraries/Format.php';
                         $this->db->insert('msg_tbl',$data);
                     
                         $msg_id = $this->db->insert_id();
-                        $this->db->select('*');
+                        $this->db->select('*.admin_tbl');
+                        
                         $this->db->from('admin_tbl');
+                        $this->db->join('adcontrol_tbl','admin_tbl.admin_id=adcontrol_tbl.admin_id','left');
+                        $this->db->where('substring(adcontrol_tbl.adcontrol_msg,1,1)=',1);
                         $msgid=$this->db->get();
                         $result=$msgid->result();
                         foreach($result as $row){
