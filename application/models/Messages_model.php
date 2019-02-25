@@ -3,9 +3,36 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Messages_model extends CI_Model { 
 
-    public function record_count() {
+    public function record_count_inbox() {
 
-        $query = $this->db->count_all('send_tbl');
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+        $this->db->where('send_type', 0);
+        $this->db->where('admin_id', $admin_id);
+        $this->db->from('send_tbl');
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    public function record_count_sent() {
+
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+        $this->db->where('send_type', 1);
+        $this->db->where('admin_id', $admin_id);
+        $this->db->from('send_tbl');
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    public function record_count_archive() {
+        
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+        $this->db->where('send_archive', 1);
+        $this->db->where('admin_id', $admin_id);
+        $this->db->from('send_tbl');
+        $query = $this->db->count_all_results();
         return $query;
     }
 
