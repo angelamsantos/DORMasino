@@ -382,8 +382,8 @@
 							<tr >
 							  <td style="width:50%;text-indent:25px; text-align:justify;padding: 20px 15px;" colspan="2">
 								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($wtrans_amount, 2); ?></b> as <b>
-                <?php if ($water_payment == 1) {echo "partial";} else { echo "full";} ?> water payment</b> for the month of 
-                <b><?php print_r(date('F', strtotime($e))); ?></b>.
+                <?php if ($water_payment == 0) {echo "partial";} else { echo "full";} ?> water payment</b> for the month of 
+                <b><?php foreach($e as $month){ echo " ".date('F', strtotime($month));} ?></b>.
 							  <td>
                             </tr>
 							

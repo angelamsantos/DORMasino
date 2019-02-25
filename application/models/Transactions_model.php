@@ -233,13 +233,14 @@ class Transactions_model extends CI_Model {
                 'f' => $row->tenant_email,
             );
             $rent=$this->input->post('rent_id');
-            $full = 0;
+           
             $rStr = $rent[0];
             $rArr = explode(',', $rStr);
             
             if(count($rArr) == 1) {
                 $paid = $this->input->post('rtrans_amount');
                 $due = $this->input->post('rtrans_due');
+                
                 $full;
 
                 if ($paid < $due) {
@@ -247,38 +248,40 @@ class Transactions_model extends CI_Model {
                 } else if ($paid == $due) {
                     $full = 1;
                 }
-                $data = array(
-                    'rtrans_mode' => $this->input->post('rtrans_mode'),
-                    'rtrans_rno' => $this->input->post('rtrans_rno'),
-                    'rtrans_amount' => $this->input->post('rtrans_amount'),
-                    
-                    'rtrans_isfull' => $full,
-                    'rent_id' => $this->input->post('rent_id'),
-                    'tenant_id' => $this->input->post('rtenant_id'),
-                );
-
-                $this->db->insert('rtrans_tbl', $data);
-                $check = $this->db->insert_id();
-                $rent=$this->input->post('rent_id');
                 
-                $data2 = array(
-                    'rent_paid' => 1,
-                );
+                foreach($rArr as $rs) {
+                    $data = array(
+                        'rtrans_mode' => $this->input->post('rtrans_mode'),
+                        'rtrans_rno' => $this->input->post('rtrans_rno'),
+                        'rtrans_amount' => $this->input->post('rtrans_amount'),
+                        
+                        'rtrans_isfull' => $full,
+                        'rent_id' => $rs,
+                        'tenant_id' => $this->input->post('rtenant_id'),
+                    );
 
-                $bal;
-                if ($paid < $due) {
-                    $bal = $due - $paid;
-                    $this->db->set('rent_balance', $bal);
-                    $this->db->where('rent_id', $rent);
-                    $this->db->update('rent_tbl');
-                } else if ($paid == $due) {
-                    $bal = $due - $paid;
-                    $this->db->set('rent_balance', $bal);
-                    $this->db->set('rent_status', 1);
-                    $this->db->where('rent_id', $rent);
-                    $this->db->update('rent_tbl');
+                    $this->db->insert('rtrans_tbl', $data);
+                    $check = $this->db->insert_id();
+                    $rent=$this->input->post('rent_id');
+                    
+                    $data2 = array(
+                        'rent_paid' => 1,
+                    );
+
+                    $bal;
+                    if ($paid < $due) {
+                        $bal = $due - $paid;
+                        $this->db->set('rent_balance', $bal);
+                        $this->db->where('rent_id', $rs);
+                        $this->db->update('rent_tbl');
+                    } else if ($paid == $due) {
+                        $bal = $due - $paid;
+                        $this->db->set('rent_balance', $bal);
+                        $this->db->set('rent_status', 1);
+                        $this->db->where('rent_id', $rs);
+                        $this->db->update('rent_tbl');
+                    }
                 }
-
                 $data2 = array(
                     'rent_paid' => $paid,
                     'rent_payment' => $full,
@@ -297,7 +300,8 @@ class Transactions_model extends CI_Model {
 
                     
                 return $arr = array_merge($data, $data2, $data4);
-            } else if(count($rent) > 1) {
+            } else if(count($rArr) > 1) {
+                
                 $paid = $this->input->post('rtrans_amount');
                 // $due = $this->input->post('rtrans_due');
                 // $full;
@@ -322,7 +326,7 @@ class Transactions_model extends CI_Model {
                     $due = $this->input->post('rtrans_due');
                     $bal;
                     $bal = $due - $due;
-                    $this->db->set('rent_balance', $due);
+                    $this->db->set('rent_balance', $bal);
                     $this->db->set('rent_status', 1);
                     $this->db->where('rent_id', $re);
                     $this->db->update('rent_tbl');
@@ -376,47 +380,48 @@ class Transactions_model extends CI_Model {
             'f' => $row->tenant_email,
         );
         $water=$this->input->post('water_id');
-        $paid = $this->input->post('wtrans_amount');
-        $due = $this->input->post('wtrans_due');
-        $full = 0;
         $wStr = $water[0];
         $wArr = explode(',', $wStr);
         
         
         if(count($wArr) == 1) {
+            $paid = $this->input->post('wtrans_amount');
+            $due = $this->input->post('wtrans_due');
+            $full;
             
 
             if ($paid < $due) {
                 $full = 0;
-            } else if ($paid == $due) {
+            }
+            if ($paid == $due) {
                 $full = 1;
             }
-
-
-            $data = array(
-                'wtrans_mode' => $this->input->post('wtrans_mode'),
-                'wtrans_rno' => $this->input->post('wtrans_rno'),
-                'wtrans_amount' => $this->input->post('wtrans_amount'),
-                'wtrans_isfull' => $full,
-                'water_id' => $water,
-                'tenant_id' => $this->input->post('wtenant_id'),
-            );
-            $this->db->insert('wtrans_tbl', $data);
+            foreach($wArr as $ws) {
+                $data = array(
+                    'wtrans_mode' => $this->input->post('wtrans_mode'),
+                    'wtrans_rno' => $this->input->post('wtrans_rno'),
+                    'wtrans_amount' => $this->input->post('wtrans_amount'),
+                    'wtrans_isfull' => $full,
+                    'water_id' => $ws, 
+                    'tenant_id' => $this->input->post('wtenant_id'),
+                );
+                $this->db->insert('wtrans_tbl', $data);
 
         
 
-            $bal;
-            if ($paid < $due) {
-                $bal = $due - $paid;
-                $this->db->set('water_balance', $bal);
-                $this->db->where('water_id', $water);
-                $this->db->update('water_tbl');
-            } else if ($paid == $due) {
-                $bal = $due - $paid;
-                $this->db->set('water_balance', $bal);
-                $this->db->set('water_status', 1);
-                $this->db->where('water_id', $water);
-                $this->db->update('water_tbl');
+                $bal;
+                if ($paid < $due) {
+                    $bal = $due - $paid;
+                    $this->db->set('water_balance', $bal);
+                    $this->db->where('water_id', $ws);
+                    $this->db->update('water_tbl');
+                } else if ($paid == $due) {
+                    $bal = $due - $paid;
+                    $this->db->set('water_balance', $bal);
+                    $this->db->set('water_status', 1);
+                    $this->db->where('water_id', $ws);
+                    $this->db->update('water_tbl');
+                }
             }
 
             $data2 = array(
@@ -444,52 +449,52 @@ class Transactions_model extends CI_Model {
             
             return $arr = array_merge($data, $data2, $data4);
         } else if(count($wArr) > 1) {
-            // $paid = $this->input->post('wtrans_amount');
-            // $due = $this->input->post('wtrans_due');
+            $paid = $this->input->post('wtrans_amount');
+            $due = $this->input->post('wtrans_due');
             
             foreach($wArr as $wa) {
 
-            $data = array(
-                'wtrans_mode' => $this->input->post('wtrans_mode'),
-                'wtrans_rno' => $this->input->post('wtrans_rno'),
-                'wtrans_amount' => $this->input->post('wtrans_amount'),
-                'wtrans_isfull' => 1,
-                'water_id' => $wa,
-                'tenant_id' => $this->input->post('wtenant_id'),
-            );
-            $this->db->insert('wtrans_tbl', $data);
+                $data = array(
+                    'wtrans_mode' => $this->input->post('wtrans_mode'),
+                    'wtrans_rno' => $this->input->post('wtrans_rno'),
+                    'wtrans_amount' => $this->input->post('wtrans_amount'),
+                    'wtrans_isfull' => 1,
+                    'water_id' => $wa,
+                    'tenant_id' => $this->input->post('wtenant_id'),
+                );
+                $this->db->insert('wtrans_tbl', $data);
 
-        
+            
 
-            $bal;
-                $bal = $due - $due;
-                $this->db->set('water_balance', $due);
-                $this->db->set('water_status', 1);
-                $this->db->where('water_id', $wa);
-                $this->db->update('water_tbl');
+                $bal;
+                    $bal = $due - $due;
+                    $this->db->set('water_balance', $bal);
+                    $this->db->set('water_status', 1);
+                    $this->db->where('water_id', $wa);
+                    $this->db->update('water_tbl');
             }
 
-            $data2 = array(
-                'water_paid' => $paid,
-                'water_payment' => 1,
-            );
+                $data2 = array(
+                    'water_paid' => $paid,
+                    'water_payment' => 1,
+                );
                 // $this->db->set('water_status', 1);
                 // $this->db->where('water_id', $water);
                 // $this->db->update('water_tbl');
 
 
-            $check = $this->db->insert_id();
-            if ($this->input->post('wtrans_mode') == 1) {
-                
-                $data3 = array(
-                    'wcheck_no' => $this->input->post('wcheck_no'),
-                    'wcheck_bank' => $this->input->post('wcheck_bank'),
-                    'wcheck_date' => $this->input->post('wcheck_date'),
-                    'wtrans_id' => $check,
-                );
-                $this->db->insert('wcheck_tbl', $data3);
-                return $arr = array_merge($data, $data2, $data4, $data3);
-            }
+                $check = $this->db->insert_id();
+                if ($this->input->post('wtrans_mode') == 1) {
+                    
+                    $data3 = array(
+                        'wcheck_no' => $this->input->post('wcheck_no'),
+                        'wcheck_bank' => $this->input->post('wcheck_bank'),
+                        'wcheck_date' => $this->input->post('wcheck_date'),
+                        'wtrans_id' => $check,
+                    );
+                    $this->db->insert('wcheck_tbl', $data3);
+                    return $arr = array_merge($data, $data2, $data4, $data3);
+                }
 
             
             return $arr = array_merge($data, $data2, $data4);

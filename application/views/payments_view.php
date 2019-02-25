@@ -230,7 +230,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
                                                 <div class="col"><input class="form-control" name="rtrans_amount" style="text-align:right" type="number"></div>
-                                                <input class="form-control" name="rtarns_arr[]" id="rArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="number">
+                                                <input class="form-control" name="rtarns_arr[]" id="rArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_adue" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_due" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
                                             
                                                 </div>
                                             </div>
