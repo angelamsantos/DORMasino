@@ -99,14 +99,18 @@ class Transactions extends CI_Controller{
         $tenant = $this->input->post('tenant');
         $room = $this->input->post('room');
 
+            
         if($month && $tenant && $room) {
-
+            
             $res = $this->Transactions_model->amount_due($month, $tenant, $room);
             $data['a'] = $res['wt'];
             $data['b'] = $res['wi'];
+            $data['c'] = $res['wa'];
+
             $push= array(
                 'wt' => $data['a'],
                 'wi' => $data['b'],
+                'wa' => $data['c'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -124,9 +128,11 @@ class Transactions extends CI_Controller{
             $res =  $this->Transactions_model->rent_due($month, $tenant, $room);
             $data['a'] = $res['rt'];
             $data['b'] = $res['ri'];
+            $data['c'] = $res['ra'];
             $push= array(
                 'rt' => $data['a'],
                 'ri' => $data['b'],
+                'ra' => $data['c'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -149,7 +155,8 @@ class Transactions extends CI_Controller{
 
         } else {
 
-            $this->Transactions_model->rent_payment();
+            $data = $this->Transactions_model->rent_payment();
+            //$this->load->view('rent_receipt', $data);
             $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Transactions/payments');
@@ -159,7 +166,6 @@ class Transactions extends CI_Controller{
     }
 
     public function water_payment() {
-            
         $to_email = $this->input->post('to_email');
         $to_guardianemail = $this->input->post('to_guardianemail');
         
@@ -178,7 +184,8 @@ class Transactions extends CI_Controller{
             redirect('Transactions/payments');
 
         }
-
+        //$this->Transactions_model->water_payment();
+        //$this->load->view('water_receipt', $data);
 }
 
     

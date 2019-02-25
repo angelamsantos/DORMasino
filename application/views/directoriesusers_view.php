@@ -279,6 +279,12 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                 <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_course; ?></label></div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Special Medical Instructions </label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_medical; ?></label></div>
+                                            </div>
+                                        </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
@@ -415,6 +421,12 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Course</label></div>
                                                 <div class="col"><input name="etenant_course" class="form-control" type="text" pattern="[a-zA-Z- .'/]{2,30}" title="Course must contain only letters. N/A if not applicable." value="<?php echo $tenantInfo->tenant_course; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions </label></div>
+                                                <div class="col"><textarea name="etenant_medical" class="form-control" row="2" type="text"><?php echo htmlspecialchars($tenantInfo->tenant_medical); ?></textarea></div>
                                             </div>
                                         </div>
                                     </div>
