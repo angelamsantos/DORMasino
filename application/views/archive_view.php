@@ -89,7 +89,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                 <div class="row" style="margin: 0px;border-bottom: none;height: 46.5px;">
                                     <div class="col d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"
                                         style="border: none;">
-                                        <h4 class="d-xl-flex justify-content-xl-center" style="font-size: 20px">Messages (Archive)</h4>
+                                        <h4 class="d-xl-flex justify-content-xl-center" style="font-size: 20px">Archive</h4>
                                     </div>
                                 </div>
                                 <form action="" method="POST" >
@@ -101,13 +101,13 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                 <div class="row ml-1">
                                                     <input type="checkbox" class="chk_boxes mt-2  my-auto" value="">
                                                     <button class="btn btn-primary d-xl-flex ml-1" name="archive" type="submit" id="archive" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $a; ?>>
-                                                    <i class="fa fa-envelope" style="font-size: 20px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
+                                                    <i class="fas fa-trash-restore-alt" style="font-size: 20px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                     <button class="btn btn-primary d-xl-flex ml-1" name="delete" type="submit" id="delete" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $c; ?>>
-                                                    <i class="icon ion-android-delete" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
+                                                    <i class="fas fa-trash" style="font-size: 20px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                     <button class="btn btn-primary d-xl-flex ml-1" name="delete_all" type="submit" id="delete_all" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $d; ?> >
-                                                    <i class="icon ion-android-delete" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
+                                                    <i class="fas fa-dumpster" style="font-size: 20px;color: #555555;padding-left: 0px;margin-left: 4px;"></i>
                                                     </button>
                                                 </div>
                                             </label>
@@ -127,7 +127,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                             foreach($msg as $archive) {
 
-                                                if ($archive->send_archive == 1) {
+                                                if ($archive->send_archive == 1 && $archive->send_archive != NULL) {
 
                                                         if ($archive->send_type == 0) {
 
@@ -139,13 +139,13 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                             <div class="col-xl-3">
                                                                                 <label class="form-check-label">
                                                                                     <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$archive->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
-                                                                                    <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;margin-top: 10px;">From: '.$archive->tenant_fname.' '.$archive->tenant_lname.'</h6>
+                                                                                    <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">From: '.$archive->tenant_fname.' '.$archive->tenant_lname.'</h6>
                                                                                     <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-xl-9" >
                                                                                 <button type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$archive->send_id.'">
-                                                                                    <p style="font-size: 14px;">'. htmlspecialchars($archive->msg_subject) .' (click here to view and reply)</p>
+                                                                                    <br><p style="font-size: 14px;">'. htmlspecialchars($archive->msg_subject) .' (click here to view and reply)</p>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -201,7 +201,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                                 </script>";
                                                                     }
     
-                                                            }
+                                                        }
                                                             
                                                             if ($archive->send_type == 1) {
 
@@ -213,13 +213,13 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                                 <div class="col-xl-3">
                                                                                     <label class="form-check-label">
                                                                                         <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$archive->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
-                                                                                        <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;margin-top: 10px;">To: '.$archive->tenant_fname.' '.$archive->tenant_lname.'</h6>
+                                                                                        <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">To: '.$archive->tenant_fname.' '.$archive->tenant_lname.'</h6>
                                                                                         <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
                                                                                     </label>
                                                                                 </div>
                                                                                 <div class="col-xl-9" >
                                                                                     <button type="button" style="border:none; width:100%;" title="click here view message" class="list-group-item" data-toggle="modal" data-target="#Sent'.$archive->send_id.'">
-                                                                                        <p style="font-size: 14px;">'. htmlspecialchars($archive->msg_subject) .' (click here to view message)</p>
+                                                                                        <br><p style="font-size: 14px;">'. htmlspecialchars($archive->msg_subject) .' (click here to view message)</p>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -275,17 +275,18 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                         }
         
                                                                 }
-                                                } 
-                                                // else {
+                                                } else {
 
-                                                //     echo    '<li class="list-group-item">
-                                                //                 <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                //                 <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
-                                                //                 <p style="font-size: 14px;"><center>No messages</center></p>
-                                                //                 <p style="font-size: 14px;"></p>
-                                                //             </li>';
+                                                    echo    '<li class="list-group-item">
+                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
+                                                                <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
+                                                                <p style="font-size: 14px;"><center>No messages</center></p>
+                                                                <p style="font-size: 14px;"></p>
+                                                            </li>';
 
-                                                // }
+                                                    break;
+
+                                                }
                                             }
 
                                         } else {

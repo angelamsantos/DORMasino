@@ -14,10 +14,42 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 <script>
         $(document).ready(function () {
             $('#rent').dataTable( {
-                "ordering": false
+                "ordering": false,
+                responsive: true,
+                dom: "<'row'<'col-md-6'B>>" +
+                "<'row'<'col-md-6'l><'col-md-6'f>>" +
+                "<'row'<'col-md-12't><'col-md-12'ip>>",
+                buttons: [{
+                    extend: 'excel',
+                    text: 'Export to Excel',
+                    className: 'btn btn-success',
+                    filename: "Rent Transactions (<?php echo date('m-d-Y'); ?>)",
+                    exportOptions: {
+                        modifier: {
+                            page: 'all'
+                        },
+                        columns: [0,1,2,3]
+                    }
+                }]
             });
             $('#water').dataTable( {
-                "ordering": false
+                "ordering": false,
+                responsive: true,
+                dom: "<'row'<'col-md-6'B>>" +
+                "<'row'<'col-md-6'l><'col-md-6'f>>" +
+                "<'row'<'col-md-12't><'col-md-12'ip>>",
+                buttons: [{
+                    extend: 'excel',
+                    text: 'Export to Excel',
+                    className: 'btn btn-success',
+                    filename: "Water Transactions (<?php echo date('m-d-Y'); ?>)",
+                    exportOptions: {
+                        modifier: {
+                            page: 'all'
+                        },
+                        columns: [0,1,2,3]
+                    }
+                }]
             });
         });
 
@@ -117,6 +149,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+        <script src='<?php echo base_url(); ?>assets/js/dataTables.buttons.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/buttons.flash.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/buttons.html5.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/buttons.print.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/jszip.min.js'></script>
 </body>
 
 </html>
