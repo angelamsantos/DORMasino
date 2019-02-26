@@ -69,6 +69,10 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                     
                 
             });
+        //     $('#NDA').on('hidden.bs.modal', function () {
+        //  location.reload();
+        // })
+        
     </script>
 
         <div class="page-content-wrapper">
@@ -86,7 +90,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                             <i class="fas fa-user-times" style="font-size:19px;"></i> - Deactivate Tenant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Tenant
                         </p>
-                    <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddUser" style="background-color: #28a745;color: #ffffff;border: none;">Add Tenant</button>
+                    <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#NDA" style="background-color: #28a745;color: #ffffff;border: none;">Add Tenant</button>
                     </div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
@@ -650,7 +654,57 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                 </div>
             </div>
             <!----END MODAL DEACTIVATE-->
+            <!----MODAL NDA -->
+            <div class="modal fade" role="dialog" tabindex="-1" id="NDA">
+                <div class="modal-dialog modal-lg modal-big" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                            <h4 class="modal-title" style="color: #11334f;">Non-Disclosure Agreement (NDA)</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <div class="modal-body" style="height:500px;">   
+                            <form id="form_nda" action="" method="POST" style="font-size:14px;padding-left: 35px; padding-right:50px;height:100%;overflow-y:scroll;overflow-x:hidden;">
+                                <b>To create an account in DORMasino, you’ll need to agree to the Terms of Service below.<br/> 
+                                In addition, when you create an account, we process your information as described in our Privacy Policy, including these key points:</b><br/><br/>
+
+                                <b>Data we process when you use DORMasino</b><br/>
+
+                                - We store information you give us like your name, address, birthday, email, contact number, school/company and course.<br/>
+                                - We process your transaction records, messages and information your visitors.<br/><br/><br/>
+
+
+                                <b>Why we process it</b><br/>
+                                - Improve the quality of our services regarding the documenting of your electricity, water, and transactions. <br/>
+                                - Improve security against data fraud.<br/><br/><br/>
+
+                                <b>You’re in control</b><br/>
+                                Depending on your account settings, some of this data may be associated with your DORMasino Account and we treat this data as personal information.<br/><br/><br/>
+
+                                <b>Privacy</b><br/>
+                                -The management is the only one to view process the information collected on this system. <br/>
+                                -The management have the access to/collect information that you voluntarily submit to us via signing up the website.<br/>
+                                -We will not make profit to this information to anyone.<br/>
+                                -We will make sure that the information you submit to us is encrypted and transmitted to us in a secure way. You can verify this by looking at the lock icon <br/>
+                                in the address bar and looking for "https" at the beginning of the address of the Web page. <br/><br/><br/>
+
+
+                                <b>By clicking "I agree and continue" means you are agreeing to DORMasino's Terms of Service.</b>
+                            
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-primary" type="submit" name="agree" style="background-color: #bdedc1;color: #11334f;border: none;">I Agree and Continue</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>                      
+            <?php 
+                if(isset($_POST["agree"])) {//to run PHP script on submit
+                        echo "<script>
+                            $(document).ready(function(){
+                                $('#AddUser').modal('show');
+                            });
+                        </script>";
+                }
             
+            ?>
+            <!----END MODAL NDA-->
             <!-- Modal Add User -->
             <div class="modal fade" role="dialog" tabindex="-1" id="AddUser">
                 <div class="modal-dialog modal-lg modal-big" role="document">
@@ -728,8 +782,6 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                 <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" required></textarea></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
                                         <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
                                         <div class="form-group">
                                             <div class="form-row">
@@ -743,6 +795,9 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                 <div class="col"><input name="mother_mno" class="form-control" type="tel" maxlength="11" pattern="[0]{1}[9]{1}[0-9]{9}" title="The contact number should be 11 digits. e.g. 09xxxxxxxxx" placeholder="Enter mother's mobile number" ></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
+                                       
                                         <h6 style="font-weight: bold;font-size:14px;">Father</h6>
                                         <div class="form-group">
                                             <div class="form-row">
@@ -790,22 +845,43 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in<span style="color:red">*</span></label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Start of contract<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in<span style="color:red">*</span></label></div>
+                                                <div class="col"><input name="contract_movein" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Type of tenant <span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="type_id" >
+                                                        <option selected disabled>Select tenant type</option>
+                                                        <?php foreach($type->result() as $t) { 
+                                                        echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             
                         </div>
-                        <div class="modal-footer"><button class="btn btn-primary" type="submit"  style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                        <div class="modal-footer"><button class="btn btn-primary" type="submit" name="submit"  style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
                         </form>
                     </div>
                 </div>
             </div>
             <!--End modal Add User-->
+            
         </div>
-        <footer class="footer" style="position:absolute; bottom:0;"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+        <footer class="footer" ><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
                 <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
             </footer>
     </div>
@@ -823,6 +899,11 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
             
     
         });
+        $('#AddUser').on('hidden.bs.modal', function () {
+            window.location.href = "show_tenants";
+        })
+
+        
     </script>
 </body>
 

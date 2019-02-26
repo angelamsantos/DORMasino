@@ -31,6 +31,11 @@ class Directories_model extends CI_Model {
         return $query;
     }
 
+    public function get_type() {
+        $query = $this->db->get('type_tbl');
+        return $query;
+    }
+
     public function get_dir () {
 		$this->db->from('dir_tbl');
 		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
@@ -60,7 +65,8 @@ class Directories_model extends CI_Model {
     
 		$this->db->where('dir_tbl.room_id',$r_id);
 		$query = $this->db->get();
-		return $query;
+        return $query;
+        
 
 
     }
@@ -118,7 +124,8 @@ class Directories_model extends CI_Model {
 
     public function create_tenantcontacts() {
         $tenant_id = $this->db->insert_id();
-
+        $room_id = $this->input->post('room_id');
+        $type_id = $this->input->post('type_id');
         $data1 = array(
             'guardian_name' => $this->input->post('guardian_name'),
             'guardian_rel' => $this->input->post('guardian_rel'),
@@ -148,17 +155,112 @@ class Directories_model extends CI_Model {
 
         $data4 = array(
             'tenant_id' => $tenant_id,
-            'room_id' => $this->input->post('room_id'),
+            'room_id' => $room_id,
+            'type_id' => $type_id,
         );
         $this->db->insert('dir_tbl', $data4);
 
         $data5 = array(
             'tenant_id' => $tenant_id,
             'contract_start' => $this->input->post('contract_start'),
+            'contract_movein' => $this->input->post('contract_movein'),
             'contract_status' => 1,
         );
         $this->db->insert('contract_tbl', $data5);
+
+        $SELECT = "SELECT room_tbl.*
+                FROM room_tbl
+                WHERE room_tbl.room_id = ".$room_id." ";
+                $query = $this->db->query($SELECT);
+                $row = $query->row();
+                $rt = $row->room_tcount;
+                $rp = $row->room_price;
+
+                $d;
+        if($type_id == 1) {        
+            $this->db->select("room_tbl.room_id");
+            $this->db->select("room_tbl.room_number");
+            $this->db->select("room_tbl.room_tcount");
+            $this->db->select("room_tbl.room_price");
+            $this->db->select('tenant_tbl.tenant_status');
+            $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
+            $this->db->from("room_tbl");
+            $this->db->join("dir_tbl", "room_tbl.room_id=dir_tbl.room_id", "LEFT"); 
+            $this->db->join("tenant_tbl", "tenant_tbl.tenant_id=dir_tbl.tenant_id", "LEFT"); 
+            $this->db->where('tenant_tbl.tenant_status', 1);
+            $this->db->where('dir_tbl.room_id', $room_id);
+            $this->db->group_by("dir_tbl.room_id");
+            $query1 = $this->db->get();
+            $row1 = $query1->row();
+
+            $nt = $row1->num_tenants;
+            if ($nt >= $rt) {
+                $a = $nt - $rt;
+              
+                $c = $a * 1500;
+                $e = $c + $rp;
+                $d = $e / ($nt);
+                //echo "hi";
+            }
+            if ($nt < $rt ) {
+                $d = $rp / $rt;
+                //echo "hello";
+            } 
+
+            
+            
+        }  else if ($type_id == 2){
+            $d = $rp / $rt;
+        }      
+        
+        
+        // print $rp."\n";
+        // print $rt."\n";
+        // print $nt."\n";
+        // print $a."\n";
+        // print $c."\n";
+        // print $e."\n";
+        // print $d."\n";
+        
+        
+        $data6 = array(
+            'deposit_rate' => $d, 
+            'deposit_balance' => $d, 
+            'deposit_status' => 0,
+            'tenant_id' => $tenant_id,  
+        );
+
+        $this->db->insert('deposit_tbl', $data6);
+        $start = $this->input->post('contract_start');
+        $movein = $this->input->post('contract_movein');
+        $a;
+        $s;
+        $m;
+        $datediff;
+        if($start == $movein) {
+            $a = $d;
+        } else if($start < $movein) {
+            $a = $d;
+        } else if ($start > $movein) {
+            $s = new DateTime($start);
+            $m = new DateTime($movein);
+            $datediff = $m->diff($s);
+
+            $a = $d + (($d / 30) * $datediff->days);
+        }
+
+        $data7 = array(
+            'advance_rate' => $a, 
+            'advance_balance' => $a, 
+            'advance_status' => 0,
+            'tenant_id' => $tenant_id,  
+        );
+
+        $this->db->insert('advance_tbl', $data7);
     }
+
+    
+
 
     public function update_tenant($tenant_id) {
         $data1 = array(
