@@ -68,7 +68,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             <div class="row" style="margin: 0px;border-bottom: none;height: 46.5px;">
                                     <div class="col d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"
                                         style="border: none;">
-                                        <h4 class="d-xl-flex justify-content-xl-center" style="font-size: 20px">Messages (Sent)</h4>
+                                        <h4 class="d-xl-flex justify-content-xl-center" style="font-size: 20px">Sent</h4>
                                     </div>
                                 </div>
                                 <form action="" method="POST" >
@@ -100,9 +100,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                             foreach($msg as $sent) {
 
-                                                if($sent->send_archive == 0) {
+                                                if($sent->send_archive == 0 && $sent->send_archive != NULL) {
 
-                                                    if ($sent->send_type == 1) {
+                                                    if ($sent->send_type == 1 && $sent->send_type != NULL) {
 
                                                         $date_posted = $sent->msg_date;
                                                         $msg_date=date("M d, Y g:ia", strtotime($date_posted));
@@ -112,13 +112,13 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                                         <div class="col-xl-3">
                                                                             <label class="form-check-label">
                                                                                 <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$sent->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
-                                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;margin-top: 10px;">To: '.$sent->tenant_fname.' '.$sent->tenant_lname.'</h6>
+                                                                                <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">To: '.$sent->tenant_fname.' '.$sent->tenant_lname.'</h6>
                                                                                 <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-xl-9" >
                                                                             <button type="button" style="border:none; width:100%;" title="click here view message" class="list-group-item" data-toggle="modal" data-target="#Sent'.$sent->send_id.'">
-                                                                                <p style="font-size: 14px;">'. htmlspecialchars($sent->msg_subject) .' (click here to view message)</p>
+                                                                                <br><p style="font-size: 14px;">'. htmlspecialchars($sent->msg_subject) .' (click here to view message)</p>
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -144,18 +144,30 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                                     }
                                                                 }
 
-                                                        } 
+                                                        } else {
+
+                                                            echo    '<li class="list-group-item">
+                                                                        <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
+                                                                        <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
+                                                                        <p style="font-size: 14px;"><center>No messages</center></p>
+                                                                        <p style="font-size: 14px;"></p>
+                                                                    </li>';
+
+                                                            break;        
+
+                                                        }
+                                                } else {
+
+                                                    echo    '<li class="list-group-item">
+                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
+                                                                <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
+                                                                <p style="font-size: 14px;"><center>No messages</center></p>
+                                                                <p style="font-size: 14px;"></p>
+                                                            </li>';
+
+                                                    break;        
+
                                                 }
-                                                // else {
-
-                                                //     echo    '<li class="list-group-item">
-                                                //                 <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                //                 <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
-                                                //                 <p style="font-size: 14px;"><center>No messages</center></p>
-                                                //                 <p style="font-size: 14px;"></p>
-                                                //             </li>';
-
-                                                // }
                                             }
 
                                         } else {

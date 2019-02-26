@@ -11,7 +11,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
     $a="";
     if($alog[1] == 1) { //add
-       $a = "title='Log visitor'";
+        $a = "title='Log visitor'";
     } else {
         $a = "disabled title='This feature is not available on your account.'";
     } 
@@ -23,22 +23,45 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#table_id').dataTable( {
-                "ordering": false
-            });
-        });
-        
-        $(document).ready( function() {
-            $('.main_menu').click(function(){
-                $(this).next().toggleClass('display_block');
-            });
 
-            $('.light').click(function() {
-            $('.content').toggleClass('night');
-            return false;
-        });
-        });
+    $(document).ready(function () {
+        $('#visitor_table').dataTable( {
+            "ordering": false,
+            responsive: true,
+            dom: "<'row'<'col-md-6'B>>" +
+            "<'row'<'col-md-6'l><'col-md-6'f>>" +
+            "<'row'<'col-md-12't><'col-md-12'ip>>",
+            buttons: [{
+                extend: 'excel',
+                text: 'Export to Excel',
+                className: 'btn btn-success',
+                filename: "Visitor Logs (<?php echo date('m-d-Y'); ?>)",
+                exportOptions: {
+                    modifier: {
+                        page: 'all'
+                    },
+                    columns: [0,1,2,3, 4, 5, 6, 7, 8]
+                }
+            }]
+        } );
+    });
+        // $(document).ready(function () {
+        //     $('#table_id').dataTable( {
+        //         "ordering": false
+
+        //     });
+        // });
+        
+        // $(document).ready( function() {
+        //     $('.main_menu').click(function(){
+        //         $(this).next().toggleClass('display_block');
+        //     });
+
+        //     $('.light').click(function() {
+        //     $('.content').toggleClass('night');
+        //     return false;
+        // });
+        // });
     </script>
 
 </head>
@@ -49,17 +72,18 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Visitor Logs</p>
                     <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
-                
-                <div class="row" style="margin: 0px;margin-top: 0px;">
-                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;"><button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;">Log visitor</button></div>
-                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
+                <div class="col-xl-12" style="margin-top: 11px;padding:0px;margin-bottom: 11px">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
+                <div class="row" style="margin: 0px;margin-top: 0px;">
+                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;">
+                        <button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Log visitor</button>
+                    </div>
                 </div>
+                
             <div style="margin-top: 14px;">
                 <div class="table-responsive">
-                
-                    <table class="table" id="table_id" style="font-size:14px;text-align:center;">
+                    <table class="table no-wrap" id="visitor_table" style="font-size:14px;text-align:center;">
                         <thead class="logs">
                             <tr>
                                 <th style="width: 9%;padding-right: 0px;padding-left: 0px;">Date</th>
@@ -195,6 +219,11 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
     <script src="<?php echo base_url(); ?>assets/js/datatable.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
+        <script src='<?php echo base_url(); ?>assets/js/dataTables.buttons.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/buttons.flash.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/buttons.html5.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/buttons.print.min.js'></script>
+        <script src='<?php echo base_url(); ?>assets/js/jszip.min.js'></script>
     <script>
 
         $(document).ready(function(){
