@@ -125,7 +125,7 @@
                                                     <input type="hidden" value="<?php echo $row1->room_id; ?>" name="show_rid">
                                                     <input type="hidden" value="<?php echo $row1->room_number; ?>" name="show_rno">
                                                     <button class="btn btn-primary d-xl-flex ml-auto" type="submit" id="user" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: none;border: none;height: 29px;width: 30.2188px;"
-                                                    <?php echo $b; ?> ><i class="icon ion-eye" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
+                                                    <?php echo $b; ?> ><i class="fas fa-trash-restore" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 4.8px;"></i>&nbsp;</button>
                                                     </form>
                                                     </div>
                                                     <div class="col-xl-1 col-lg-2"
