@@ -24,7 +24,7 @@ class Messages extends CI_Controller{
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/index";
-        $config['total_rows'] = $this->Messages_model->record_count();
+        $config['total_rows'] = $this->Messages_model->record_count_inbox();
         $config['per_page'] = 10;
         $config['uri_segment'] = 3;
 
@@ -49,7 +49,7 @@ class Messages extends CI_Controller{
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/sent";
-        $config['total_rows'] = $this->Messages_model->record_count();
+        $config['total_rows'] = $this->Messages_model->record_count_sent();
         $config['per_page'] = 10;
         $config['uri_segment'] = 3;
 
@@ -74,7 +74,7 @@ class Messages extends CI_Controller{
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/archive";
-        $config['total_rows'] = $this->Messages_model->record_count();
+        $config['total_rows'] = $this->Messages_model->record_count_archive();
         $config['per_page'] = 10;
         $config['uri_segment'] = 3;
 

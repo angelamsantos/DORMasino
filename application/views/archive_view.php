@@ -17,6 +17,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     }
     
     if($amsg[5] == 1) { //delete
+        $d = "title='Delete all messages'";
         $c = "title='Delete selected message/s'";
     } else {
         $c = "disabled title='This feature is not available on your account.'";
@@ -105,7 +106,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                     <button class="btn btn-primary d-xl-flex ml-1" name="delete" type="submit" id="delete" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $c; ?>>
                                                     <i class="icon ion-android-delete" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
-                                                    <button class="btn btn-primary d-xl-flex ml-1" name="delete_all" type="submit" id="delete_all" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $a; ?> >
+                                                    <button class="btn btn-primary d-xl-flex ml-1" name="delete_all" type="submit" id="delete_all" style="padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;line-height: 22px;font-size: 14px;border-radius: 100px;margin-top: 0px;background-color: transparent;border: none;height: 29px;width: 30px;" <?php echo $d; ?> >
                                                     <i class="icon ion-android-delete" style="font-size: 24px;color: #555555;padding-left: 0px;margin-left: 6px;"></i>
                                                     </button>
                                                 </div>
