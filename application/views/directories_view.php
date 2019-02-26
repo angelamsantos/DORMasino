@@ -135,12 +135,18 @@
                                                     
                                                 <p class="card-text" style="font-weight: bold;font-size: 14px;">Room Information:</p>
                                               
-                                                <?php $aa = array_column($dir_count->result(), 'room_id');
-                                               // print_r($a);
+                                                <?php 
+                                                $riArr = array();
+                                                foreach($dir_count->result() as $dri) {
+                                                    array_push($riArr, $dri->room_id);
+                                                }
+                                                //print_r($riArr);
+                                                $aa = array_column($dir_count->result(), 'room_id');
+                                               
                                                 $bb = $row1->room_id;
                                                 //echo $b; 
-                                                if (in_array($bb, $aa, true)) {
-                                                //   //  echo "yes";
+                                                if (in_array($bb, $riArr, true)) {
+                                                  //echo "yes";
                                                 //     foreach ($water->result() as $w) {
                                                 //         if($w->room_id == $row2->room_id) {
                                                 //             $wc = $w->water_current;

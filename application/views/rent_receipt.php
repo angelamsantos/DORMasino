@@ -381,9 +381,37 @@
 							
 							<tr >
 							  <td style="width:50%;text-indent:25px; text-align:justify;padding: 20px 15px;" colspan="2">
-								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($rtrans_amount, 2); ?></b> as <b>
-                <?php if ($rent_payment == 0) {echo "partial";} else { echo "full";} ?> rent payment</b> for the month of 
-                <b><?php foreach($e as $month) { date('F', strtotime($month)) ;} ?></b>.
+								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($g, 2); ?></b> as <b>
+                <?php if(isset($pay)) {
+                    $pf = "" ;
+                    
+                    foreach($pay as $full) {
+                      if($full['full'] == 1) {
+                        $pf.= $full['month']." ";
+                      }
+                    }
+                    if ($pf != "") {
+                      echo " full rent payment for the month/s of ".$pf;
+                    }
+
+                      $pm = "";
+                      foreach($pay as $full) {
+                        if($full['full'] == 0) {
+                            $pm.= $full['month']." ";
+                        }
+                      }
+
+                      if ($pm != "" && $pf != "") {
+                      echo " and partial rent payment for the month/s of ".$pm;
+                    } else if ($pm != "" && $pf == "") {
+                      echo "  partial rent payment for the month/s of ".$pm;
+                    }
+                      
+                } else {?>
+               
+                 <?php if ($rent_payment == 0) {echo "partial";} else { echo "full";} ?> rent payment</b> for the month of 
+                <b><?php foreach($e as $month){ echo " ".date('F', strtotime($month));} 
+                }?></b>.
 							  <td>
                             </tr>
 							

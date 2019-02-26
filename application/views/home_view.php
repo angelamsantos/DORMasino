@@ -65,11 +65,11 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
         $f="";
 
-        if($amsg[0] == 1 ) {
-            $f =  "site_url('Messages/index')" ; 
-        } else  {
-            $f ="site_url('Requests/index')";
-        }
+        // if($amsg[0] == 1 ) {
+        //     $f =  "site_url('Messages/index')" ; 
+        // } else  {
+        //     $f = "site_url('Requests/index');";
+        // }
         if($adir == 000000000000 ) { 
             $a = "disabled title='This feature is not available for your account.'";
         } else  {
@@ -118,8 +118,9 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center mx-auto flex-sm-column align-items-sm-center flex-md-column align-items-md-center flex-lg-row justify-content-lg-center flex-xl-row justify-content-xl-center align-items-xl-center"
                 id="home-menu" style="margin-top: 9px;margin-right: 0px;margin-left: 0px;width: 95%;">
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-column align-items-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center service"
-                    style="background-color: #5dc2fe;padding: 0px;"><button <?php echo $d; ?> onclick="location.href='<?php echo $f; ?>'" class="btn btn-primary btn-home" type="button" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px;"><img src="<?php echo base_url(); ?>/assets/img/chat.png" width="120">
+                    style="background-color: #5dc2fe;padding: 0px;"><button <?php echo $d; ?> onclick="location.href='<?php if($amsg[0] == 1 ) {echo site_url('Messages/index');} else {echo site_url('Requests/index');} ?>'" class="btn btn-primary btn-home" type="button" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px;"><img src="<?php echo base_url(); ?>/assets/img/chat.png" width="120">
                     <h3>Messages</h3></button>
+                    
                 </div>
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 0px;">
                     <button <?php echo $e; ?> class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Logs/index'); ?>'" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px; "><img src="<?php echo base_url(); ?>/assets/img/login.png" width="120">

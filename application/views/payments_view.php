@@ -400,8 +400,8 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                         success:function(data) {
                             $.each(data, function (i, obj) {
                                 $('#sel_amount<?php echo $d->dir_id; ?>').val(data.wt);
-                                $('#wid<?php echo $d->dir_id; ?>').val(data.wi);
-                                $('#wArr<?php echo $d->dir_id; ?>').val(data.wa);
+                                $('#wid<?php echo $d->dir_id; ?>').val(data.wi); 
+                                //$('#wArr<?php echo $d->dir_id; ?>').val(data.wa);
                             });
                         
                         }
