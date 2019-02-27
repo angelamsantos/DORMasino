@@ -30,6 +30,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
       <?php foreach($dir->result() as $edit) { ?>
           $('.rcheck<?php echo $edit->dir_id; ?>').hide();
           $('.wcheck<?php echo $edit->dir_id; ?>').hide();
+          $('.fcheck<?php echo $edit->dir_id; ?>').hide();
             $('#rt<?php echo $edit->dir_id; ?>').change(function () {
                 if ($(this).val() == '1') {
                     $('.rcheck<?php echo $edit->dir_id; ?>').show();
@@ -42,6 +43,13 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                     $('.wcheck<?php echo $edit->dir_id; ?>').show();
                 } else {
                     $('.wcheck<?php echo $edit->dir_id; ?>').hide();
+                }
+            });
+            $('#ft<?php echo $edit->dir_id; ?>').change(function () {
+                if ($(this).val() == '1') {
+                    $('.fcheck<?php echo $edit->dir_id; ?>').show();
+                } else {
+                    $('.fcheck<?php echo $edit->dir_id; ?>').hide();
                 }
             });
          
@@ -64,7 +72,8 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="fas fa-key" style="font-size:17px;"></i> - Rent &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="icon ion-waterdrop" style="font-size:19px;"></i> - Water 
+                            <i class="icon ion-waterdrop" style="font-size:19px;"></i> - Water &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="icon ion-locked" style="font-size:19px;"></i> - Deposit and Advance Fees 
                         
                         </p>
                     </div>
@@ -83,18 +92,14 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Name of Tenant</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Rent Bill</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Water Bill</th>
+                                    <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Deposit and Advance</th>
                                     <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($dir->result() as $tenant) {
                                     
-                                    $a = strtotime($tenant->contract_start);
-                                    $due = date('Y-m-d', strtotime('+1 year' ,$a)); 
-                                    $now = new DateTime(date("y-m-d")); // or your date as well
-                                    $your_date = new DateTime($due);
-                                    $datediff = $now->diff($your_date);
-                                
+                                    
 
                                     $rentdue=0;
                                     foreach ($rent->result() as $r) {
@@ -108,8 +113,22 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                             if($wd->water_status == 0) {
                                                 $wdue += $wd->water_balance;
                                             }}}
+                                    
+                                    $ddue=0;
+                                    foreach ($deposit->result() as $dd) {
+                                        if ($dd->tenant_id == $tenant->tenant_id) {
+                                            if($dd->deposit_status == 0) {
+                                                $ddue += $dd->deposit_balance;
+                                            }}}
 
-                                    if($rentdue > 0 || $wdue > 0) {
+                                    $adue=0;
+                                    foreach ($advance->result() as $ad) {
+                                        if ($ad->tenant_id == $tenant->tenant_id) {
+                                            if($ad->advance_status == 0) {
+                                                $adue += $ad->advance_balance;
+                                            }}}
+                                    $fdue = $ddue + $adue;
+                                    if($rentdue > 0 || $wdue > 0 || $fdue > 0) {
                                 ?>
                                 
                                     <tr>
@@ -119,15 +138,17 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
 
                                         
                                         <td style="text-align:center"><?php echo number_format($rentdue,2) ; ?></td>
-                                            
-
                                         <td style="text-align:center"><?php echo number_format($wdue,2) ; ?></td>
+                                        <td style="text-align:center"><?php echo number_format($fdue,2) ; ?></td>
                                         <td style="text-align:center;">
                                             <button <?php if($abill[3] == 1) { echo 'title="Open Rent"'; }  else { echo "disabled title='This feature is not available on your account.'" ;} if($rentdue == 0) {echo "disabled";} ?> type="button" id="edit-tenant" data-toggle="modal" data-target="#Rent<?php echo $tenant->dir_id; ?>" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="fas fa-key" style="font-size:17px;color:#0645AD;"></i>
                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <button <?php if($abill[3] == 1) { echo 'title="Open Water"'; } else { echo "disabled title='This feature is not available on your account.'" ;} if($wdue == 0) {echo "disabled";} ?> type="button" id="edit-tenant" data-target="#Water<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="icon ion-waterdrop" style="font-size:19px;color:#0645AD;"></i>
+                                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button <?php if($abill[3] == 1) { echo 'title="Open Fees"'; } else { echo "disabled title='This feature is not available on your account.'" ;} if($fdue == 0) {echo "disabled";} ?> type="button" id="edit-tenant" data-target="#Fees<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                <i class="icon ion-locked" style="font-size:19px;color:#0645AD;"></i>
                                             </button>
                                         </td>  
                                     </tr>
@@ -353,6 +374,113 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                         </div>
                     </div>
                     <?php } ?>
+                    <?php foreach ($dir->result() as $tenant) { ?>
+                    <div class="modal fade" role="dialog" tabindex="-1" id="Fees<?php echo $tenant->dir_id; ?>">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                    <h4 class="modal-title" style="color: #11334f;">Deposit and Advance Fees</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                <div class="modal-body">
+                                <form method="POST" action="<?php echo site_url('Transactions/fees_payment');?>">
+                                    <div class="form-row">
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
+                                                <div class="col"><input class="form-control d-xl-flex" type="text" name="rr" value="<?php echo $tenant->room_number; ?>" disabled=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Tenant Name</label></div>
+                                                <div class="col"><input class="form-control" type="text" value="<?php echo $tenant->tenant_fname." ".$tenant->tenant_lname; ?>" disabled=""></div>
+                                                <input class="form-control" type="hidden" name="ff" value="<?php echo $tenant->tenant_fname;?>">
+                                                <input class="form-control" type="hidden" name="ftenant_id" id="f_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
+                                                <input class="form-control" type="hidden" name="fr" id="f_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
+                                                <input class="form-control" type="hidden" name="fee_id[]" id="fid<?php echo $tenant->dir_id; ?>" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
+                                                <div class="col"><input class="form-control" type="text" name="ftrans_rno" placeholder="Enter receipt no"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for</label></div>
+                                                <div class="col">
+                                                    <select class="form-control multiple-select" name="fee[]" id="fad<?php echo $tenant->dir_id; ?>">
+                                                        <option value="">Select fee</option>
+                                                        <?php foreach($fee->result() as $f) {
+                                                                    echo '<option value="'.$f->fee_id.'">'.$f->fee_name.'</option>';
+                                                            
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
+                                                <div class="col"><input class="form-control" type="number" name="ftrans_due" style="text-align:right" id="fee_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">To pay</label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="ftrans_mode" id="ft<?php echo $tenant->dir_id; ?>">
+                                                    
+                                                        <option value="0">Cash</option>
+                                                        <option value="1">Check</option>
+                                                
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group fcheck<?php echo $tenant->dir_id; ?>">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check No</label></div>
+                                                <div class="col"><input class="form-control" name="fcheck_no" style="text-align:right"  type="text"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group fcheck<?php echo $tenant->dir_id; ?>">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Bank</label></div>
+                                                <div class="col"><input class="form-control" name="fcheck_bank" style="text-align:right"  type="text"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group fcheck<?php echo $tenant->dir_id; ?>">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
+                                                <div class="col"><input class="form-control" name="fcheck_date" style="text-align:right"  type="date"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
+                                                <div class="col"><input class="form-control" name="ftrans_amount" style="text-align:right" type="number"></div>
+                                                <input class="form-control" name="ftarns_arr[]" id="fArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <input type="hidden" name="to_email" value="<?php echo $tenant->tenant_email; ?>" />
+                                    <input type="hidden" name="to_guardianemail" value="<?php echo $tenant->guardian_email; ?>" />
+                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
                 </div>
                 
             </div>
@@ -437,6 +565,35 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                     });
                 } else {
                     $('#rent_amount<?php echo $d->dir_id; ?>').val(0);
+                }
+            });
+
+            $('#fad<?php echo $d->dir_id; ?>').selectize({
+                maxItems: null,
+                create: false,
+            });
+            $('#fad<?php echo $d->dir_id; ?>').change(function(){
+                var fee = $('#fad<?php echo $d->dir_id; ?>').val();
+                var tenant = $('#f_tenantid<?php echo $d->dir_id; ?>').val();
+                var room = $('#f_roomid<?php echo $d->dir_id; ?>').val();
+                if(fee != '' && tenant != '' && room != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Transactions/fee_due",
+                        method:"POST",
+                        // contentType: "application/json; charset=utf-8",
+                        // dataType:'json',
+                        data:{fee:fee, tenant:tenant, room:room},
+                        success:function(data) {
+                            $.each(data, function (i, obj) {
+                                $('#fee_amount<?php echo $d->dir_id; ?>').val(data.ft);
+                                $('#fid<?php echo $d->dir_id; ?>').val(data.fi); 
+                                $('#fArr<?php echo $d->dir_id; ?>').val(data.fa);
+                            });
+                        
+                        }
+                    });
+                } else {
+                    $('#fee_amount<?php echo $d->dir_id; ?>').val(0);
                 }
             });
 

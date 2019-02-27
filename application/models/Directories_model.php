@@ -199,18 +199,18 @@ class Directories_model extends CI_Model {
               
                 $c = $a * 1500;
                 $e = $c + $rp;
-                $d = $e / ($nt);
+                $d = ($e / ($nt)) * 2;
                 //echo "hi";
             }
             if ($nt < $rt ) {
-                $d = $rp / $rt;
+                $d = ($rp / $rt) * 2;
                 //echo "hello";
             } 
 
             
             
         }  else if ($type_id == 2){
-            $d = $rp / $rt;
+            $d = ($rp) * 2;
         }      
         
         
@@ -238,14 +238,14 @@ class Directories_model extends CI_Model {
         $m;
         $datediff;
         if($start == $movein) {
-            $a = $d;
+            $a = $d / 2;
         } else if($start < $movein) {
-            $a = $d;
+            $a = $d / 2;
         } else if ($start > $movein) {
             $s = new DateTime($start);
             $m = new DateTime($movein);
             $datediff = $m->diff($s);
-
+            $d = $d / 2;
             $a = $d + (($d / 30) * $datediff->days);
         }
 

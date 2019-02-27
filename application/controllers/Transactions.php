@@ -40,7 +40,9 @@ class Transactions extends CI_Controller{
         $data['dir_count']=$this->Transactions_model->get_dircount();
         $data['water']=$this->Transactions_model->get_unpaidwater();
         $data['rent']=$this->Transactions_model->get_unpaidrent();
-        
+        $data['deposit']=$this->Transactions_model->get_unpaiddepo();
+        $data['advance']=$this->Transactions_model->get_unpaidadv();
+        $data['fee']=$this->Transactions_model->get_fee();
         $this->load->view('sidebar_view');
         $this->load->view('payments_view', $data);
         
@@ -140,6 +142,29 @@ class Transactions extends CI_Controller{
         }
     }
 
+    public function fee_due() {
+        //header("Content-type: application/json");
+        $fee = $this->input->post('fee');
+        $tenant = $this->input->post('tenant');
+        $room = $this->input->post('room');
+
+        if($fee && $tenant && $room) {
+
+            $res =  $this->Transactions_model->fee_due($fee, $tenant, $room);
+            $data['a'] = $res['ft'];
+            $data['b'] = $res['fi'];
+            $data['c'] = $res['fa'];
+            $push= array(
+                'ft' => $data['a'],
+                'fi' => $data['b'],
+                'fa' => $data['c'],
+            );
+            header('Content-Type: application/json');
+            echo json_encode($push);
+            //echo $data['a'];
+        }
+    }
+
     public function rent_payment() {
         
         $to_email = $this->input->post('to_email');
@@ -162,6 +187,8 @@ class Transactions extends CI_Controller{
             redirect('Transactions/payments');
 
         }
+        // $data = $this->Transactions_model->rent_payment();
+        // $this->load->view('rent_receipt', $data);
 
     }
 
@@ -186,7 +213,30 @@ class Transactions extends CI_Controller{
         }
         // $data = $this->Transactions_model->water_payment();
         // $this->load->view('water_receipt', $data);
-}
+    }
+
+    public function fees_payment() {
+        $to_email = $this->input->post('to_email');
+        $to_guardianemail = $this->input->post('to_guardianemail');
+        
+        $result2 = $this->Transactions_model->send_mail_fee($to_email, $to_guardianemail);
+        if (! $result2) {
+
+            $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Deposit/Advance payment was not recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
+
+        } else {
+
+            $this->Transactions_model->fee_payment();
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Deposit/Advance payment successfully recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
+
+        }
+        // $data = $this->Transactions_model->fee_payment();
+        // $this->load->view('fee_receipt', $data);
+    }
 
     
 
