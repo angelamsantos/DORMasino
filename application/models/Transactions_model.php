@@ -1180,5 +1180,50 @@ class Transactions_model extends CI_Model {
         }
     }
 
+    public function send_mail_fee($to_email, $to_guardianemail) {
+
+        //Load email library
+        $this->load->library('email');
+        $data = $this->fee_payment();
+        //SMTP & mail configuration
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = 465;
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'dormasino20182019@gmail.com';
+        $config['smtp_pass']    = 'dormasino123';
+        $config['charset']    = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+        $config['validation'] = TRUE;
+
+
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        //Email content
+    
+        //$to_email = $data['f']; 
+    
+        $htmlContent = $this->load->view('fee_receipt', $data, TRUE);
+        //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
+
+        $this->email->to($to_email);
+        $this->email->to($to_guardianemail);
+        $list = array($to_email, $to_guardianemail);
+        $this->email->to($list);
+        $this->email->from('dormasino20182019@gmail.com','DORMasino');
+        $this->email->subject('DORMasino E-Receipt (Advance and Deposit Fee)');
+        $this->email->message($htmlContent);
+
+        if ($this->email->send()) {
+        //Success email Sent
+            return true;
+        } else {
+        //Email Failed To Send
+            return false;
+        }
+    }
+
 }
 ?>
