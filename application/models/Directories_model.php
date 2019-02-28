@@ -107,6 +107,20 @@ class Directories_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+
+    public function get_roomtype() {
+        $SELECT2 = "SELECT tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name, room_tbl.room_id, room_tbl.room_number
+            from tenant_tbl
+            LEFT JOIN type_tbl
+            on tenant_tbl.type_id=type_tbl.type_id
+            LEFT JOIN dir_tbl
+            on dir_tbl.tenant_id = tenant_tbl.tenant_id
+            LEFT JOIN room_tbl
+            on room_tbl.room_id=dir_tbl.room_id
+            GROUP BY tenant_tbl.type_id";
+            $query2 = $this->db->query($SELECT2);
+            return $query2;
+    }
     
     // public function get_floor2() {
     //     $this->db->from('floor_tbl');
@@ -177,11 +191,13 @@ class Directories_model extends CI_Model {
                 $rp = $row->room_price;
 
                 $d;
+                $status;
         if($type_id == 1) {        
             $this->db->select("room_tbl.room_id");
             $this->db->select("room_tbl.room_number");
             $this->db->select("room_tbl.room_tcount");
             $this->db->select("room_tbl.room_price");
+            $this->db->select("room_tbl.room_extra");
             $this->db->select('tenant_tbl.tenant_status');
             $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
             $this->db->from("room_tbl");
@@ -194,39 +210,56 @@ class Directories_model extends CI_Model {
             $row1 = $query1->row();
 
             $nt = $row1->num_tenants;
+            $extra = $row1->room_extra;
             if ($nt >= $rt) {
                 $a = $nt - $rt;
               
-                $c = $a * 1500;
+                $c = $a * $extra;
                 $e = $c + $rp;
                 $d = ($e / ($nt)) * 2;
                 //echo "hi";
+                $status = 0;
             }
             if ($nt < $rt ) {
                 $d = ($rp / $rt) * 2;
                 //echo "hello";
+                $status = 0;
             } 
 
             
             
         }  else if ($type_id == 2){
-            $d = ($rp) * 2;
+            $SELECT2 = "SELECT tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name, room_tbl.room_id, room_tbl.room_number
+            from tenant_tbl
+            LEFT JOIN type_tbl
+            on tenant_tbl.type_id=type_tbl.type_id
+            LEFT JOIN dir_tbl
+            on dir_tbl.tenant_id = tenant_tbl.tenant_id
+            LEFT JOIN room_tbl
+            on room_tbl.room_id=dir_tbl.room_id
+            WHERE room_tbl.room_id = ".$room_id."
+            GROUP BY tenant_tbl.type_id";
+            $query2 = $this->db->query($SELECT2);
+            $row2 = $query2->row();
+
+            if($row2->room_id){
+                $d = 0;
+                $status = 1;
+            } else {
+                $d = ($rp) * 2;
+                $status = 0;
+            }
+            
         }      
         
         
-        // print $rp."\n";
-        // print $rt."\n";
-        // print $nt."\n";
-        // print $a."\n";
-        // print $c."\n";
-        // print $e."\n";
-        // print $d."\n";
+    
         
         
         $data6 = array(
             'deposit_rate' => $d, 
             'deposit_balance' => $d, 
-            'deposit_status' => 0,
+            'deposit_status' => $status,
             'tenant_id' => $tenant_id,  
         );
 
@@ -252,7 +285,7 @@ class Directories_model extends CI_Model {
         $data7 = array(
             'advance_rate' => $a, 
             'advance_balance' => $a, 
-            'advance_status' => 0,
+            'advance_status' => $status,
             'tenant_id' => $tenant_id,  
         );
 
@@ -397,6 +430,7 @@ class Directories_model extends CI_Model {
         $data = array(
 
             'room_price' => $this->input->post('update_roomprice'),
+            'room_extra' => $this->input->post('update_roomextra'),
             'room_tcount' => $this->input->post('update_roomtcount')
             
         );

@@ -27,6 +27,7 @@ class Directories extends CI_Controller{
         $data['dir']=$this->Directories_model->get_dir();
         $data['dir_count']=$this->Directories_model->get_dircount();
         $data['type']=$this->Directories_model->get_type();
+        $data['rtype']=$this->Directories_model->get_roomtype();
         $this->load->view('sidebar_view');
         $this->load->view('directories_view', $data);
         
@@ -46,7 +47,8 @@ class Directories extends CI_Controller{
             'tenant_cno' => $this->input->post('tenant_cno'),
             'tenant_medical' => $this->input->post('tenant_medical'),
             'tenant_new' => "1",
-            'tenant_status' => "1"
+            'tenant_status' => "1",
+            'type_id' => $this->input->post('type_id'),
         );
 
         $this->Directories_model->create_tenant($data);
@@ -168,6 +170,7 @@ class Directories extends CI_Controller{
             'room_number' => $this->input->post('arRoomNo'),
             'room_tcount' => $this->input->post('arRoomTcount'),
             'room_price' => $this->input->post('arRoomPrice'),
+            'room_extra' => $this->input->post('arRoomExtra'),
             'room_status' => 1,
             'floor_id' => $floor_id
         );

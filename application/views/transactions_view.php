@@ -53,8 +53,18 @@ input[type=number] {
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
                 </div>
-                
+                <div class="row mx-auto" style="margin-top: 10px;width:78%;">
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
+                        <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                    </div>
+                </div>    
+                <div class="row mx-auto" style="margin-top: 10px;width:78%;">
+                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;">
+                        <button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#WaterSetting" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Edit water setting</button>
+                    </div>
+                </div>
                 <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
+                
                     <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
                         
                         <div id="table_view" class="table-responsive" style="width:80%;">
@@ -185,7 +195,7 @@ input[type=number] {
                                                 <?php foreach ($dir_count->result() as $dc) { 
                                                     if ($dc->room_id == $row2->room_id) {
                                                         if($dc->num_tenants > $row2->room_tcount) {
-                                                            $extra = ($dc->num_tenants -  $row2->room_tcount) * 1500 ; ?>
+                                                            $extra = ($dc->num_tenants -  $row2->room_tcount) * $row2->room_extra ; ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
                                                             <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($extra, 2) ?>" readonly  ></div>
                                                             <input class="form-control" type="hidden" name="rent_extra" value="<?php echo $extra; ?>" >
@@ -202,7 +212,7 @@ input[type=number] {
                                             <?php foreach ($dir_count->result() as $dc) { 
                                                     if ($dc->room_id == $row2->room_id) {
                                                         if($dc->num_tenants > $row2->room_tcount) {
-                                                            $ex = ($dc->num_tenants -  $row2->room_tcount) * 1500; 
+                                                            $ex = ($dc->num_tenants -  $row2->room_tcount) * $row2->room_extra; 
                                                             $tr = $row2->room_price + $ex ;
                                                             $final = $tr / $dc->num_tenants ; ?>
                                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
@@ -282,7 +292,7 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" id="cm<?php echo $row2->room_id; ?>" name="water_cm" type="number" style="text-align:right" value="65" readonly></div>
+                                                <div class="col"><input class="form-control" id="cm<?php echo $row2->room_id; ?>" name="water_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -451,7 +461,7 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" value="<?php //echo// $cm; ?>" name="water_cm" type="number" style="text-align:right" value="65" readonly></div>
+                                                <div class="col"><input class="form-control" value="<?php $cm->wsetting_value; ?>" name="water_cm" type="number" style="text-align:right" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -478,6 +488,37 @@ input[type=number] {
                             
                         </div>
                         <div class="modal-footer"><button class="btn btn-primary" name="submitBill" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="WaterSetting" class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                            <h4 class="modal-title" style="color: #11334f;">Water Setting</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        
+                        <form method="POST" action="<?php echo site_url('Transactions/edit_water');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current rate per m<sup>3</sup></label></div>
+                                        <div class="col-xl-12" style="font-weight: normal;"><input name="" class="form-control" type="number" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value, 2); } ?>" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">New rate</label></div>
+                                        <div class="col-xl-12">
+                                            <input name="wsetting_value" class="form-control" type="number" min="0">  
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
                         </form>
                     </div>
                 </div>

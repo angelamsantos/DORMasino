@@ -50,6 +50,13 @@ class Transactions_model extends CI_Model {
         return $query;
     }
 
+    public function edit_water() {
+        $val = $this->input->post('wsetting_value');
+        $this->db->set('wsetting_value', $val);
+        $this->db->where('wsetting_name', 'cm');
+        $this->db->update('wsetting_tbl');
+    }
+
     public function get_diruv($r_id) {
 
 		$this->db->from('dir_tbl');
@@ -71,6 +78,7 @@ class Transactions_model extends CI_Model {
     public function get_dircount() {
         $this->db->select("room_tbl.room_id");
         $this->db->select("room_tbl.room_number");
+        $this->db->select("room_tbl.room_extra");
         $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
         $this->db->from("room_tbl");
         $this->db->join("dir_tbl", "room_tbl.room_id=dir_tbl.room_id", "LEFT"); 
@@ -137,6 +145,11 @@ class Transactions_model extends CI_Model {
 
     public function get_fee() {
         $query = $this->db->get('fee_tbl');
+        return $query;
+    }
+
+    public function get_cm() {
+        $query = $this->db->get('wsetting_tbl');
         return $query;
     }
 

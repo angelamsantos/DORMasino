@@ -26,10 +26,18 @@ class Transactions extends CI_Controller{
         $data['dir']=$this->Transactions_model->get_dir();
         $data['dir_count']=$this->Transactions_model->get_dircount();
         $data['water']=$this->Transactions_model->get_water();
+        $data['cm']=$this->Transactions_model->get_cm();
 
         $this->load->view('sidebar_view');
-        $this->load->view('transactions_view', $data);
+        $this->load->view('transactions_view', $data); 
         
+    }
+
+    public function edit_water(){
+        $this->Transactions_model->edit_water();
+        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water rate per m<sup>3</sup> successfully updated!</center></div>';
+        $this->session->set_flashdata('msg', $msg);
+        redirect('Transactions/index');
     }
 
     public function payments() {
