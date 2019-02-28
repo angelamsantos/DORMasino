@@ -27,7 +27,10 @@ class Transactions extends CI_Controller{
         $data['dir_count']=$this->Transactions_model->get_dircount();
         $data['water']=$this->Transactions_model->get_water();
         $data['cm']=$this->Transactions_model->get_cm();
+        $data['rtype']=$this->Transactions_model->get_roomtype();
+        $data['latest']=$this->Transactions_model->latest_rent();
 
+        //$data['uwater']=$this->Transactions_model->get_unpaidwater();
         $this->load->view('sidebar_view');
         $this->load->view('transactions_view', $data); 
         
@@ -98,7 +101,22 @@ class Transactions extends CI_Controller{
     public function insert_bill() {
         
         $this->Transactions_model->insert_bill();
-            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Bill successfully updated!</center></div>';
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water bill successfully sent!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/index');
+    }
+    public function insert_rent() {
+        
+        $this->Transactions_model->insert_rent();
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent bill successfully sent!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/index');
+    }
+
+    public function edit_bill() {
+        
+        $this->Transactions_model->edit_bill();
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water bill successfully edited!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Transactions/index');
     }

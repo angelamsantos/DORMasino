@@ -44,6 +44,7 @@ class Directories_model extends CI_Model {
         $this->db->join('mother_tbl','mother_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('father_tbl','father_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('contract_tbl','contract_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+        $this->db->join('type_tbl','tenant_tbl.type_id=type_tbl.type_id', 'LEFT');
     
 		//$this->db->where('taskassigned_tbl.u_id',$u_id);
 		$query = $this->db->get();
@@ -62,7 +63,7 @@ class Directories_model extends CI_Model {
         $this->db->join('mother_tbl','mother_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('father_tbl','father_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('contract_tbl','contract_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
-    
+        $this->db->join('type_tbl','tenant_tbl.type_id=type_tbl.type_id', 'LEFT');
 		$this->db->where('dir_tbl.room_id',$r_id);
 		$query = $this->db->get();
         return $query;
@@ -109,15 +110,16 @@ class Directories_model extends CI_Model {
     }
 
     public function get_roomtype() {
-        $SELECT2 = "SELECT tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name, room_tbl.room_id, room_tbl.room_number
-            from tenant_tbl
-            LEFT JOIN type_tbl
-            on tenant_tbl.type_id=type_tbl.type_id
-            LEFT JOIN dir_tbl
-            on dir_tbl.tenant_id = tenant_tbl.tenant_id
-            LEFT JOIN room_tbl
-            on room_tbl.room_id=dir_tbl.room_id
-            GROUP BY tenant_tbl.type_id";
+        $SELECT2 = "SELECT room_tbl.room_id, room_tbl.room_number, room_tbl.room_extra, dir_tbl.dir_id, count(dir_tbl.tenant_id) as num_tenants, tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name
+                    from room_tbl
+                    LEFT JOIN dir_tbl
+                    on room_tbl.room_id=dir_tbl.room_id
+                    LEFT JOIN tenant_tbl
+                    on dir_tbl.dir_id=tenant_tbl.tenant_id
+                    LEFT JOIN type_tbl
+                    on tenant_tbl.type_id=type_tbl.type_id
+                    GROUP BY room_tbl.room_id
+                    ";
             $query2 = $this->db->query($SELECT2);
             return $query2;
     }
@@ -306,6 +308,7 @@ class Directories_model extends CI_Model {
             'tenant_course' => $this->input->post('etenant_course'),
             'tenant_medical' => $this->input->post('etenant_medical'),
             'tenant_cno' => $this->input->post('etenant_cno'),
+            'type_id' => $this->input->post('etype_id'),
         );
 
         $this->db->where('tenant_id', $tenant_id);

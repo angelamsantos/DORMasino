@@ -125,6 +125,7 @@ class Directories extends CI_Controller{
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_diruv($r_id);
         $data['type']=$this->Directories_model->get_type();
+        $data['rtype']=$this->Directories_model->get_roomtype();
         $this->load->view('sidebar_view');
         $this->load->view('directoriesusers_view', $data);
         //$this->load->show_tenants($r_id, $r_no);

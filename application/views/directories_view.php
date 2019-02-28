@@ -403,31 +403,22 @@
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Type of tenant <span style="color:red">*</span></label></div>
                                                 <div class="col">
                                                     <?php 
-                                                        $rtArr = array();
-                                                        foreach($rtype->result() as $rtr) {
-                                                            array_push($rtArr, $rtr->room_id);
-                                                        }
-                                                        //print_r($riArr);
-                                                       
-                                                        $rr = $row6->room_id;
-                                                        //echo $b; 
-                                                        if (in_array($rr, $rtArr, true)) {
+                                                        
                                                             foreach($rtype->result() as $rt) {
                                                                 if($rt->room_id == $row6->room_id) {
                                                                     if($rt->type_name) {
                                                                     echo '<input name="type_id" class="form-control" type="hidden" value="'.$rt->type_id.'">';
                                                                     echo '<input name="type_name" class="form-control" type="text" value="'.$rt->type_name.'" disabled>';
-                                                                    } 
+                                                                    } else  {
+                                                                        echo'<select class="form-control" name="type_id" >
+                                                                                <option selected disabled>Select tenant type</option>';
+                                                                            foreach($type->result() as $t) { 
+                                                                            echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
+                                                                            }
+                                                                        echo '</select>';
+                                                                    }
                                                                 }
                                                             }
-                                                        } else  {
-                                                            echo'<select class="form-control" name="type_id" >
-                                                                    <option selected disabled>Select tenant type</option>';
-                                                                foreach($type->result() as $t) { 
-                                                                echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
-                                                                }
-                                                            echo '</select>';
-                                                        }
                                                     ?>
                                                     
                                                 </div>

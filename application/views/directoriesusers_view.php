@@ -355,6 +355,12 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                 <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->guardian_lno; ?></label></div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label d-xl-flex" style="font-weight: bold;">Tenant Type</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->type_name; ?></label></div>
+                                            </div>
+                                        </div>
                                         
                                     </div>
                                 </div>
@@ -492,6 +498,30 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                 <div class="col"><input name="eguardian_lno" class="form-control" type="tel" maxlength="7" pattern="[0-9]{7}" title="The telephone number should be 7 digits." value="<?php echo $tenantInfo->guardian_lno; ?>" ></div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Type of tenant <span style="color:red"></span></label></div>
+                                                <div class="col">
+                                                    <?php 
+                                                    $room_id = $this->session->userdata['data']['room_id'];
+                                                            foreach($rtype->result() as $rt) {
+                                                                if($rt->room_id == $room_id) {
+                                                                    if($rt->num_tenants > 1) {
+                                                                    echo '<input name="etype_id" class="form-control" type="hidden" value="'.$rt->type_id.'">';
+                                                                    echo '<input name="type_name" class="form-control" type="text" value="'.$rt->type_name.'" disabled>';
+                                                                    } else if($rt->num_tenants == 1)  {
+                                                                        echo'<select class="form-control" name="etype_id" >
+                                                                                <option selected disabled>Select tenant type</option>';
+                                                                            foreach($type->result() as $t) { 
+                                                                            echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
+                                                                            }
+                                                                        echo '</select>';
+                                                                    }
+                                                                }
+                                                            }
+                                                    ?>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             
@@ -859,13 +889,24 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Type of tenant <span style="color:red">*</span></label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="type_id" >
-                                                        <option selected disabled>Select tenant type</option>
-                                                        <?php foreach($type->result() as $t) { 
-                                                        echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                    <?php 
+                                                    $room_id = $this->session->userdata['data']['room_id'];
+                                                            foreach($rtype->result() as $rt) {
+                                                                if($rt->room_id == $room_id) {
+                                                                    if($rt->type_name) {
+                                                                    echo '<input name="type_id" class="form-control" type="hidden" value="'.$rt->type_id.'">';
+                                                                    echo '<input name="type_name" class="form-control" type="text" value="'.$rt->type_name.'" disabled>';
+                                                                    } else  {
+                                                                        echo'<select class="form-control" name="type_id" >
+                                                                                <option selected disabled>Select tenant type</option>';
+                                                                            foreach($type->result() as $t) { 
+                                                                            echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
+                                                                            }
+                                                                        echo '</select>';
+                                                                    }
+                                                                }
+                                                            }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>

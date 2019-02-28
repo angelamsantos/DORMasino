@@ -1,6 +1,6 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Manila");
 class Transactions_model extends CI_Model {
 
 	public function __construct()
@@ -38,14 +38,12 @@ class Transactions_model extends CI_Model {
 
 
     public function get_water () {
-        $SELECT = "SELECT water_id, water_current, water_tbl.tenant_id, dir_tbl.room_id
-                    FROM water_tbl 
-                    LEFT JOIN dir_tbl
-                    ON dir_tbl.tenant_id = water_tbl.tenant_id
-                    WHERE water_id 
-                    IN (SELECT MAX(water_id) 
-                    from water_tbl 
-                    GROUP by room_id)";
+        $SELECT = "SELECT water_id, water_current, water_due, room_id, isNew, water_previous, water_timestamp
+                FROM water_tbl 
+                WHERE water_id 
+                IN (SELECT MAX(water_id) 
+                from water_tbl 
+                GROUP by room_id ORDER by room_id ASC)";
         $query = $this->db->query($SELECT);
         return $query;
     }
@@ -87,6 +85,21 @@ class Transactions_model extends CI_Model {
         return $query;
     }
 
+    public function get_roomtype() {
+        $SELECT2 = "SELECT room_tbl.room_id, room_tbl.room_number, room_tbl.room_extra, dir_tbl.dir_id, count(dir_tbl.tenant_id) as num_tenants, tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name
+                    from room_tbl
+                    LEFT JOIN dir_tbl
+                    on room_tbl.room_id=dir_tbl.room_id
+                    LEFT JOIN tenant_tbl
+                    on dir_tbl.dir_id=tenant_tbl.tenant_id
+                    LEFT JOIN type_tbl
+                    on tenant_tbl.type_id=type_tbl.type_id
+                    GROUP BY room_tbl.room_id
+                    ";
+            $query2 = $this->db->query($SELECT2);
+            return $query2;
+    }
+
     public function get_unpaidwater() {
         $SELECT = "SELECT water_tbl.*, dir_tbl.*, room_tbl.*, tenant_tbl.*
                     FROM water_tbl
@@ -100,6 +113,7 @@ class Transactions_model extends CI_Model {
         $query = $this->db->query($SELECT);
         return $query;
     } 
+
     
     public function get_unpaidrent() {
         $SELECT = "SELECT rent_tbl.*, dir_tbl.*, room_tbl.*, tenant_tbl.*
@@ -178,9 +192,99 @@ class Transactions_model extends CI_Model {
                 'water_status' => 0,
                 'water_due' => $this->input->post('water_due'),
                 'tenant_id' => $value,
+                'room_id' => $this->input->post('room_id'),
+                'isNew' => $this->input->post('isNew'),
             );
             $this->db->insert('water_tbl', $data1);
         }
+    }
+
+    public function edit_bill() {
+        foreach ($this->input->post('etenant_id') as $value) {
+
+            $data1 = array(
+                'water_provider' => $this->input->post('ewater_provider'),
+                'water_previous' => $this->input->post('ewater_previous'),
+                'water_current' => $this->input->post('ewater_current'),
+                'water_cm' => $this->input->post('ewater_cm'),
+                'water_total' => $this->input->post('ewater_total'),
+                'water_balance' => $this->input->post('ewater_total'),
+                'water_due' => $this->input->post('ewater_due'),
+            );
+            $this->db->where('tenant_id', $value);
+            $this->db->update('water_tbl', $data1);
+        }
+    }
+
+    public function insert_rent() {
+        $SELECT2 = "SELECT room_tbl.*, dir_tbl.dir_id, count(dir_tbl.tenant_id) as num_tenants, tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name
+                    from room_tbl
+                    LEFT JOIN dir_tbl
+                    on room_tbl.room_id=dir_tbl.room_id
+                    LEFT JOIN tenant_tbl
+                    on dir_tbl.dir_id=tenant_tbl.tenant_id
+                    LEFT JOIN type_tbl
+                    on tenant_tbl.type_id=type_tbl.type_id
+                    GROUP BY room_tbl.room_id
+                    ";
+        $query2 = $this->db->query($SELECT2);
+        foreach($query2->result() as $room) {
+            if($room->room_status == 1 && $room->num_tenants != 0) {
+                $rid = $room->room_id;
+                $price=$room->room_price;
+                $extra=$room->room_extra;
+                $capacity=$room->room_tcount;
+                $actual = $room->num_tenants;
+                $total = 0;
+                $te;
+                $pt;
+                if($capacity >= $actual){
+                    $total = $price;
+                } else if ($actual > $capacity) {
+                    $te = $actual - $capacity;
+                    $ec = $te * $extra;
+                    $total = $price + $ec;
+                }
+
+                if($room->type_id == 1) {
+                    if($actual > $capacity) {
+                        $pt = $total / $actual;
+                    } else if ($capacity >= $actual) {
+                        $pt = $total / $capacity;
+                    }
+                    
+                } else if ($room->type_id == 2) {
+                    $pt = $total / $actual;
+                }
+                $rd = date('Y-m-d', strtotime('first day of next month'));
+                $SELECT = "SELECT dir_tbl.tenant_id
+                    from dir_tbl
+                    where room_id = ".$rid." ";
+                $query = $this->db->query($SELECT);
+                foreach($query->result() as $tenant) {
+                    $data = array(
+                        'rent_rate' => $price,
+                        'rent_extra' => $extra,
+                        'rent_total' => $pt,
+                        'rent_balance' => $pt,
+                        'rent_status' => 0, //0 for unpaid and 1 for paid
+                        'rent_due' => date('Y-m-d', strtotime('first day of next month')),
+                        'tenant_id' => $tenant->tenant_id,
+                    );
+                    //print_r($data);
+                    //echo '\n';
+                    $this->db->insert('rent_tbl', $data);
+                }
+            }
+        }
+    }
+
+    public function latest_rent() {
+        $SELECT = "SELECT max(rent_due) as rent_due
+                    from rent_tbl
+                    group by rent_due";
+                $query = $this->db->query($SELECT);
+                return $query;
     }
 
     public function amount_due($month, $tenant, $room) {

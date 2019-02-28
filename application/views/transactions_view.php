@@ -11,8 +11,12 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
     $a="";
     if($abill[1] == 1) { //add
         $a = "title='Edit Billing Statement'";
+        $b = "title='Create Billing Statement'";
+        $c = "";
     } else {
         $a = "disabled title='This feature is not available on your account.' ;";
+        $b = "disabled title='This feature is not available on your account.' ;";
+        $c = "disabled title='This feature is not available on your account.' ;";
     } 
 
 
@@ -53,27 +57,66 @@ input[type=number] {
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     
                 </div>
-                <div class="row mx-auto" style="margin-top: 10px;width:78%;">
+                <div class="row mx-auto" style="margin-top: 10px;width:100%;">
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
                         <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
                 </div>    
-                <div class="row mx-auto" style="margin-top: 10px;width:78%;">
-                    <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;">
-                        <button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#WaterSetting" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Edit water setting</button>
+                <div class="row mx-auto" style="margin-top: 10px;width:100;">
+                    <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
+                            <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
+                                <i class="icon ion-android-add-circle" style="font-size:19px;"></i> - Edit Bill &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="icon ion-edit" style="font-size:19px;"></i> - Create Bill
+                                
+                            </p>
+                        <?php 
+                            $btnSend="Send rent bill";
+                            foreach($latest->result() as $rl) {
+                                if(!empty($rl)){
+                                    $rcurdate = date('m-Y');
+                                    $rdate = date('m-Y', strtotime('-1 month', strtotime($rl->rent_due)));
+
+                                    if($rcurdate == $rdate) {
+                                        $btnSend = "disabled title='Rent bill for this month has been sent'";
+                                    } 
+                                }
+                            }
+
+                        ?>
+                        
+                        <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $c; echo $btnSend; ?> type="button" data-toggle="modal" data-target="#RentBill" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Send Rent Bill</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $a; ?> type="button" data-toggle="modal" data-target="#WaterSetting" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Edit water setting</button>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;">
                 
-                    <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;">
+                <div id="RentBill" class="modal fade" role="dialog" tabindex="-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                <h4 class="modal-title" style="color: #11334f;">Send Rent Bill</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            
+                            <form method="POST" action="<?php echo site_url('Transactions/insert_rent');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                            <div class="modal-body text-center">
+                                    <p style="font-size: 17px;">Are you sure you want to send rent bill for the month of <?php echo date('F'); ?>?</p>
+                                </div>
+                                <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px;padding:0px;">
+                
+                    <div class="col d-xl-flex justify-content-xl-center" style="margin-top: 11px;padding:0px;">
                         
-                        <div id="table_view" class="table-responsive" style="width:80%;">
+                        <div id="table_view" class="table-responsive" style="width:100%;">
                             <table class="table" id="trans" style="font-size:14px;">
                                 <thead class="logs">
                                     <tr style="text-align:center">
-                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">Room No</th>
-                                        <th style="width: 10%;padding-right: 0px;padding-left: 0px;">No of Tenants</th>
-                                        <th style="width: 18%;padding-right: 0px;padding-left: 0px;">Edit Billing Statement</th>
+                                        <th style="width: 15%;padding-right: 0px;padding-left: 0px;">Room No</th>
+                                        <th style="width: 20%;padding-right: 0px;padding-left: 0px;">No of Tenants</th>
+                                        <th style="width: 25%;padding-right: 0px;padding-left: 0px;">Type of Tenants</th>
+                                        <th style="width: 20%;padding-right: 0px;padding-left: 0px;">Water Bill</th>
+                                        <th style="width: 20%;padding-right: 0px;padding-left: 0px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,13 +131,73 @@ input[type=number] {
                                                     <td style="text-align:center;"><?php echo $d->num_tenants; ?></td>
                                             <?php } } ?>
                                             
-                                            
+                                            <?php 
+                                                foreach($rtype->result() as $rt) {
+                                                    if($rt->room_id == $row->room_id) {
+                                                        if($rt->type_name) {
+                                                        echo '<td style="text-align:center;">'.$rt->type_name.'</td>';
+                                                        } else  {
+                                                            echo '<td style="text-align:center;">No tenants yet</td>';
+                                                        }
+
+                                                    }
+                                                }
+                                            ?>
+
+                                            <?php 
+                                                $aa = array_column($water->result(), 'room_id');
+                                                
+                                                $bb = $row->room_id;
+                                                $wstatus;
+                                                if (in_array($bb, $aa, true)) {
+                                                    foreach ($water->result() as $set) {
+                                                        $curdate = date('m-Y');
+                                                        $wdue = $set->water_due;
+                                                        $wdate = date('m-Y', strtotime('-1 month', strtotime($wdue)));
+                                                        if($set->room_id == $row->room_id) {
+                                                            if($curdate == $wdate) {
+                                                                echo '<td style="text-align:center;">Sent</td>';
+                                                                
+                                                                
+                                                            } else {
+                                                                echo '<td style="text-align:center;">Not yet sent</td>';
+                                                            
+                                                            }
+                                                        } 
+                                                    }
+                                                } else {
+                                                    echo '<td style="text-align:center;">Not yet sent</td>';
+                                                }
+                                            ?>
                                         
                                             <td style="text-align:center;">
+                                            <?php 
+                                                $aa = array_column($water->result(), 'room_id');
                                                 
-                                                    <button <?php echo $a; ?> id="edit-room" data-target="#ModalBill<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
-                                                    <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
-                                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;                                                                                   
+                                                $bb = $row->room_id;
+                                                $wstatus;
+                                                if (in_array($bb, $aa, true)) {
+                                                    foreach ($water->result() as $set) {
+                                                        $curdate = date('m-Y');
+                                                        $wdate = date('m-Y', strtotime($set->water_timestamp));
+                                                        if($set->room_id == $row->room_id) {
+                                                            if($curdate == $wdate || $curdate > $wdate || $curdate < $wdate) {   
+                                                                echo '<button '.$a.' id="edit-room" data-target="#EditBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
+                                                                </button>';    
+                                                            } else {
+                                                                echo '<button '.$b.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                <i class="icon ion-android-add-circle" style="font-size: 19px;color:#0645AD;"></i>
+                                                                </button>'; 
+                                                            } 
+                                                        } 
+                                                    }
+                                                } else {
+                                                    echo '<button '.$b.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                    <i class="icon ion-android-add-circle" style="font-size: 19px;color:#0645AD;"></i>
+                                                    </button>'; 
+                                                } 
+                                                ?>                                                                               
                                             </td>  
                                         </tr>
                                     <?php } ?>
@@ -108,17 +211,125 @@ input[type=number] {
                         <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                     </footer>
                 </div>
-            <!--Modal Billing statement -->
+            <!-- Create Modal Billing statement -->
             <?php foreach ($room->result() as $row2) { ?>
             
         
             <div class="modal fade" role="dialog" tabindex="-1" id="ModalBill<?php echo $row2->room_id; ?>">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                            <h4 class="modal-title" style="color: #11334f;">Create Billing Statement: <?php echo $row2->room_number; ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <div class="modal-body" style="height: 450px;overflow-y: scroll;">
+                            <form method="POST" action="<?php echo site_url('Transactions/insert_bill');?>">
+                                <div class="form-row">
+                                    
+                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
+                                        <h6 style="font-weight: bold;">Utility Charges: Water</h6>
+                                        
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
+                                                <div class="col"><input class="form-control" type="text" value="Maynilad" name="water_provider" readonly></div>
+                                                <input class="form-control" type="hidden" name="room_id" value="<?php echo $row2->room_id; ?>" >
+                                            </div>
+                                        </div>
+                                            
+                                        
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                            <?php $a = array_column($water->result(), 'room_id');
+                                            //print_r($a);
+                                            $b = $row2->room_id;
+                                           // echo $b; 
+                                            if (in_array($b, $a, true)) {
+                                              //  echo "yes";
+                                                foreach ($water->result() as $w) {
+                                                    if($w->room_id == $row2->room_id) {
+                                                        $wc = $w->water_current;
+                                                    }
+                                                }
+
+                                                echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                                <div class="col">
+                                                    <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number" value="'.$wc.'" readonly>
+                                                    <input class="form-control" name="isNew" style="text-align:right" type="hidden" value="0">
+                                                </div>';
+                                            }
+                                            else {
+                                                echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                                <div class="col">
+                                                    <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number">
+                                                    <input class="form-control" name="isNew" style="text-align:right" type="hidden" value="1">
+                                                </div>';
+                                            }
+                                            ?>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
+                                                <div class="col"><input class="form-control" id="cur<?php echo $row2->room_id; ?>" name="water_current" style="text-align:right" type="number" style="text-align:right" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
+                                                <div class="col"><input class="form-control" id="cm<?php echo $row2->room_id; ?>" name="water_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
+                                                <div class="col"><input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
+                                            </div>
+                                        </div>
+                                        <?php foreach ($dir_count->result() as $nt) { 
+                                                
+                                                    if ($nt->room_id == $row2->room_id) {
+                                                        $c = (int)$nt->num_tenants; ;?>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <input class="form-control" id="aa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
+                                                <div class="col"><input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="number" style="text-align:right" readonly></div>
+                                            </div>
+                                        </div>
+                                        <?php } } ?>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
+                                                <div class="col"><input class="form-control" type="date" name="water_due" required></div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-primary"  type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <?php } ?>
+            <!--End Create Modal Billing statement--> 
+            <!-- Edit Modal Billing statement -->
+            <?php foreach ($room->result() as $row2) { ?>
+            
+        
+            <div class="modal fade" role="dialog" tabindex="-1" id="EditBill<?php echo $row2->room_id; ?>">
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
                             <h4 class="modal-title" style="color: #11334f;">Edit Billing Statement: <?php echo $row2->room_number; ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height: 450px;overflow-y: scroll;">
-                            <form method="POST" action="<?php echo site_url('Transactions/insert_bill');?>">
+                            <form method="POST" action="<?php echo site_url('Transactions/edit_bill');?>">
                                 <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
                                         <h6 style="font-weight: bold;">Basic Rent Charges</h6>
@@ -137,7 +348,7 @@ input[type=number] {
                                                     }
                                                     
                                                     foreach($roomTenants as $rt) {
-                                                        echo '<input class="form-control" type="hidden" name="tenant_id[]" value="'.$rt.'" >';
+                                                        echo '<input class="form-control" type="hidden" name="etenant_id[]" value="'.$rt.'" >';
                                                     }
                                                 ?>
                                                 
@@ -246,7 +457,7 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="Maynilad" name="water_provider" readonly></div>
+                                                <div class="col"><input class="form-control" type="text" value="Maynilad" name="ewater_provider" readonly></div>
                                             </div>
                                         </div>
                                             
@@ -257,25 +468,38 @@ input[type=number] {
                                             //print_r($a);
                                             $b = $row2->room_id;
                                            // echo $b; 
+                                           $previous="";
+                                           $due;
                                             if (in_array($b, $a, true)) {
                                               //  echo "yes";
                                                 foreach ($water->result() as $w) {
                                                     if($w->room_id == $row2->room_id) {
-                                                        $wc = $w->water_current;
+                                                        if($w->isNew == 1) {
+                                                            $wc = $w->water_previous;
+                                                            
+                                                            $previous = "value='".$wc."'";
+                                                        }
+                                                        else {  
+                                                            $wc = $w->water_previous;
+                                                            $previous = "value='".$wc."' readonly";
+                                                        }
+                                                        $curval = $w->water_current;
+                                                        $due = $w->water_due;
                                                     }
                                                 }
 
-                                                echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
-                                                <div class="col">
-                                                    <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number" value="'.$wc.'" readonly>
-                                                </div>';
+                                                //echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                                //<div class="col">
+                                                  //  <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number" value="'.$wc.'" readonly>
+                                                //</div>';
                                             }
-                                            else {
-                                                echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
+                                            // else {
+                                                
+                                            // }
+                                            echo'<div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
                                                 <div class="col">
-                                                    <input class="form-control" id="pre'.$row2->room_id.'" name="water_previous" style="text-align:right" type="number">
+                                                    <input class="form-control" id="epre'.$row2->room_id.'" name="ewater_previous" style="text-align:right" type="number" '.$previous.'>
                                                 </div>';
-                                            }
                                             ?>
                                                 
                                                 
@@ -286,19 +510,19 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
-                                                <div class="col"><input class="form-control" id="cur<?php echo $row2->room_id; ?>" name="water_current" style="text-align:right" type="number" style="text-align:right" required></div>
+                                                <div class="col"><input class="form-control" value="<?php echo $curval;?>" id="ecur<?php echo $row2->room_id; ?>" name="ewater_current" style="text-align:right" type="number" style="text-align:right" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" id="cm<?php echo $row2->room_id; ?>" name="water_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
+                                                <div class="col"><input class="form-control" id="ecm<?php echo $row2->room_id; ?>" name="ewater_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="ewb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
                                             </div>
                                         </div>
                                         <?php foreach ($dir_count->result() as $nt) { 
@@ -307,16 +531,16 @@ input[type=number] {
                                                         $c = (int)$nt->num_tenants; ;?>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <input class="form-control" id="aa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
+                                                <input class="form-control" id="eaa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="ept<?php echo $row2->room_id; ?>" name="ewater_total" value="" type="number" style="text-align:right" readonly></div>
                                             </div>
                                         </div>
                                         <?php } } ?>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                <div class="col"><input class="form-control" type="date" name="water_due" required></div>
+                                                <div class="col"><input class="form-control" type="date" name="ewater_due" value="<?php echo $due;?>" required></div>
                                             </div>
                                         </div>
                                         
@@ -331,7 +555,7 @@ input[type=number] {
             </div>
 
             <?php } ?>
-            <!--End Modal Billing statement-->  
+            <!--End Edit Modal Billing statement-->   
             <?php 
                 // if (isset($_POST['submitBill']) ) {
                 //     $rrt= $_POST['rrt'];
@@ -361,137 +585,7 @@ input[type=number] {
                         //</script>";
                     //}
             ?>                                                
-            <div class="modal fade" role="dialog" tabindex="-1" id="BillConfirm">
-                <div class="modal-dialog modal-lg modal-big" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Edit Billing Statement: <?php echo $rid; ?></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                        <div class="modal-body" style="height: 450px;overflow-y: scroll;">
-                            <form method="POST">
-                                <div class="form-row">
-                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
-                                        <h6 style="font-weight: bold;">Basic Rent Charges</h6>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Basic Rent Rate</label></div>
-                                                <div class="col"><input class="form-control" name="rent_rate" style="text-align:right" type="text" value="<?php //echo //$rrt; ?>" readonly></div>
-                                                <input class="form-control" type="hidden" name="room_id" value="<?php //echo //$rid; ?>" >
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                                <div class="col"><input class="form-control" name="rc" type="text" value="<?php //echo //$rc; ?>" readonly ></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                            
-                                                    <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Number of Tenants</label></div>
-                                                    <div class="col"><input class="form-control" name="rnt" type="text" value="<?php //echo //$rnt; ?>" readonly></div>
-                                                                                        
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Exceeded Capacity</label></div>
-                                                            <div class="col"><input class="form-control" type="text"  value="<?php //echo// $rex; ?>" readonly ></div>
-                                                    
-                                            
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                            
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Additional Tenants</label></div>
-                                                <div class="col"><input class="form-control" type="text"  value="<?php //echo //$rat ?>" readonly></div>
-                                            
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                                <div class="col"><input class="form-control" style="text-align:right" name="rent_extra" type="text" value="<?php //echo //$rec ?>" readonly ></div>
-                                            
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
-                                                <div class="col"><input class="form-control" style="text-align:right" name="rent_total" type="text" value="<?php //echo //$rtr ?>" readonly ></div>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                
-                                                <div class="col"><input class="form-control" type="text" name="rent_due" value="<?php //echo //date('m/d/Y', strtotime('first day of next month')); ?>"readonly></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
-                                        <h6 style="font-weight: bold;">Utility Charges: Water</h6>
-                                        
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="Maynilad" name="water_provider" readonly></div>
-                                            </div>
-                                        </div>
-                                            
-                                        
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Previous Reading</label></div>
-                                                <div class="col">
-                                                    <input class="form-control"  name="water_previous" style="text-align:right" type="number" value="<?php //echo //$pre; ?>" readonly>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
-
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
-                                                <div class="col"><input class="form-control"  name="water_current" value="<?php //echo //$cur; ?>" style="text-align:right" type="number" style="text-align:right" required readonly></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" value="<?php $cm->wsetting_value; ?>" name="water_cm" type="number" style="text-align:right" readonly></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" value="<?php //echo //$wb; ?>" name="water_bill" type="number" style="text-align:right" readonly></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" value="<?php //echo //$pt; ?>" name="water_ptenant" value="" type="number" style="text-align:right" readonly></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                <div class="col"><input class="form-control" type="date" value="<?php //echo //$wdt; ?>" name="water_due" required readonly></div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            
-                        </div>
-                        <div class="modal-footer"><button class="btn btn-primary" name="submitBill" type="button" style="background-color: #bdedc1;color: #11334f;border: none;">Save</button></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
 
             <div id="WaterSetting" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-sm" role="document">
@@ -539,6 +633,14 @@ input[type=number] {
     $("#cur<?php echo $row3->room_id; ?>").keyup(function() {
         $("#wb<?php echo $row3->room_id; ?>").val(($("#cur<?php echo $row3->room_id; ?>").val()-$("#pre<?php echo $row3->room_id; ?>").val())*$("#cm<?php echo $row3->room_id; ?>").val());
         $("#pt<?php echo $row3->room_id; ?>").val($("#wb<?php echo $row3->room_id; ?>").val() / $("#aa<?php echo $row3->room_id; ?>").val());
+    });
+   // $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
+        $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
+        $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
+    //});
+    $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
+        $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
+        $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
     });
     <?php } ?>
 // });
