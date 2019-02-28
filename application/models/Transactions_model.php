@@ -257,23 +257,29 @@ class Transactions_model extends CI_Model {
                     $pt = $total / $actual;
                 }
                 $rd = date('Y-m-d', strtotime('first day of next month'));
-                $SELECT = "SELECT dir_tbl.tenant_id
+                $SELECT = "SELECT dir_tbl.tenant_id, contract_tbl.contract_start
                     from dir_tbl
+                    left join contract_tbl
+                    on dir_tbl.tenant_id = contract_tbl.tenant_id
                     where room_id = ".$rid." ";
                 $query = $this->db->query($SELECT);
                 foreach($query->result() as $tenant) {
-                    $data = array(
-                        'rent_rate' => $price,
-                        'rent_extra' => $extra,
-                        'rent_total' => $pt,
-                        'rent_balance' => $pt,
-                        'rent_status' => 0, //0 for unpaid and 1 for paid
-                        'rent_due' => date('Y-m-d', strtotime('first day of next month')),
-                        'tenant_id' => $tenant->tenant_id,
-                    );
-                    //print_r($data);
-                    //echo '\n';
-                    $this->db->insert('rent_tbl', $data);
+                    $contract = date('m-Y', strtotime($tenant->contract_start));
+                    $curdate = date('m-Y');
+                    if($contract != $curdate) {
+                        $data = array(
+                            'rent_rate' => $price,
+                            'rent_extra' => $extra,
+                            'rent_total' => $pt,
+                            'rent_balance' => $pt,
+                            'rent_status' => 0, //0 for unpaid and 1 for paid
+                            'rent_due' => date('Y-m-d', strtotime('first day of next month')),
+                            'tenant_id' => $tenant->tenant_id,
+                        );
+                        //print_r($data);
+                        //echo '\n';
+                        $this->db->insert('rent_tbl', $data);
+                    }
                 }
             }
         }
