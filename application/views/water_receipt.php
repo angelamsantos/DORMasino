@@ -381,9 +381,37 @@
 							
 							<tr >
 							  <td style="width:50%;text-indent:25px; text-align:justify;padding: 20px 15px;" colspan="2">
-								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($wtrans_amount, 2); ?></b> as <b>
-                <?php if ($water_payment == 0) {echo "partial";} else { echo "full";} ?> water payment</b> for the month of 
-                <b><?php foreach($e as $month){ echo " ".date('F', strtotime($month));} ?></b>.
+								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($g, 2); ?></b> as <b>
+                <?php if(isset($pay)) {
+                    $pf = "";
+
+                    foreach($pay as $full) {
+                      if($full['full'] == 1) {
+                          $pf.= $full['month']." ";
+                      }
+                    }
+                    if ($pf != "") {
+                      echo " full water payment for the month/s of ".$pf;
+                    }
+
+                    $pm = "";
+                    foreach($pay as $full) {
+                      if($full['full'] == 0) {
+                          $pm.= $full['month']." ";
+                      }
+                    }
+
+                    if ($pm != "" && $pf != "") {
+                      echo " and partial water payment for the month/s of ".$pm;
+                    } else if ($pm != "" && $pf == "") {
+                      echo "  partial water payment for the month/s of ".$pm;
+                    }
+                      
+                } else {?>
+               
+                 <?php if ($water_payment == 0) {echo "partial";} else { echo "full";} ?> water payment</b> for the month of 
+                <b><?php foreach($e as $month){ echo " ".date('F', strtotime($month));} 
+                }?></b>. 
 							  <td>
                             </tr>
 							

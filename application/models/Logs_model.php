@@ -81,7 +81,7 @@ class Logs_model extends CI_Model {
     public function send_msg($tenant_id, $vlogs_name, $vlogs_relation, $vlogs_purpose) {
 
         $msg_subject = "New Visitor!";
-        $msg_body = "This is to inform you that you have a visitor named <b>$vlogs_name</b>, your <b>$vlogs_relation</b>. <br><br> Purpose: <b>$vlogs_purpose</b>";
+        $msg_body = "This is to inform you that you have a visitor named $vlogs_name, your $vlogs_relation. Purpose: $vlogs_purpose";
 
         $data = array(
             'msg_subject' => $msg_subject,

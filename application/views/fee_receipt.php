@@ -296,7 +296,7 @@
 					  <td style="width: 20%;">
 						  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
 							  <tbody>
-              <?php if($rtrans_mode == 1) { ?>
+              <?php if($i == 1) { ?>
                 <tr>
 								  <td style="font-size: 12px;">
 									Payment Method: 
@@ -315,7 +315,7 @@
 								</tr>
 								<tr>
 								  <td style="font-size: 12px;text-indent: 10px;">
-									<?php echo $rcheck_no ; ?>
+									<?php echo $fcheck_no ; ?>
 								  </td>
 								</tr>
 
@@ -326,7 +326,7 @@
 								</tr>
 								<tr>
 								  <td style="font-size: 12px;text-indent: 10px;">
-									<?php echo $rcheck_bank ; ?>
+									<?php echo $fcheck_bank ; ?>
 								  </td>
 								</tr>
 
@@ -337,7 +337,7 @@
 								</tr>
 								<tr>
 								  <td style="font-size: 12px;text-indent: 10px;">
-									<?php echo $rcheck_date ; ?>
+									<?php echo $fcheck_date ; ?>
 								  </td>
 								</tr>
 
@@ -368,7 +368,7 @@
                                 Official Receipt
                               </td>
 							  <td style="width:50%; text-align:right" >
-								Receipt No: <?php echo $rtrans_rno; ?>
+								Receipt No: <?php echo $j; ?>
 							  <td>
                             </tr>
 							<tr>
@@ -381,37 +381,53 @@
 							
 							<tr >
 							  <td style="width:50%;text-indent:25px; text-align:justify;padding: 20px 15px;" colspan="2">
-								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c; ?></b> the amount of <b>Php <?php echo number_format($g, 2); ?></b> as <b>
+								Received from <b><?php echo $a." ".$b; ?></b>, Unit <b><?php echo $c;  ?></b> the amount of <b>Php <?php echo number_format($g, 2); ?></b> as <b>
                 <?php if(isset($pay)) {
                     $pf = "" ;
                     
                     foreach($pay as $full) {
                       if($full['full'] == 1) {
-                        $pf.= $full['month']." ";
+                        $pf.= $full['type']." ";
                       }
                     }
                     if ($pf != "") {
-                      echo " full rent payment for the month/s of ".$pf;
+                      echo " full payment for ".$pf;
                     }
 
                       $pm = "";
                       foreach($pay as $full) {
                         if($full['full'] == 0) {
-                            $pm.= $full['month']." ";
+                            $pm.= $full['type']." ";
                         }
                       }
 
                       if ($pm != "" && $pf != "") {
-                      echo " and partial rent payment for the month/s of ".$pm;
+                      echo " and partial payment for ".$pm;
                     } else if ($pm != "" && $pf == "") {
-                      echo "  partial rent payment for the month/s of ".$pm;
+                      echo "  partial payment for ".$pm;
                     }
                       
-                } else {?>
-               
-                 <?php if ($rent_payment == 0) {echo "partial";} else { echo "full";} ?> rent payment</b> for the month of 
-                <b><?php foreach($e as $month){ echo " ".date('F', strtotime($month));} 
-                }?></b>.
+                } else {
+                    if ($h == "advance") {
+                        if ($advance_payment == 0) {
+                            echo " partial ";
+                        } else { 
+                            echo "full";
+                        } 
+                        echo "Advance payment.";
+                    } else if ($h == "deposit") {
+                        if ($deposit_payment == 0) {
+                            echo " partial ";
+                        } else { 
+                            echo "full ";
+                        } 
+                        echo "Deposit payment.";
+                    }
+
+                    
+                }?> 
+                         
+                </b>
 							  <td>
                             </tr>
 							

@@ -26,6 +26,7 @@ if($adir[5] == 1) { //edit
 
 if($adir[6] == 1) { //delete
     $c = "title='Deactivate/Activate Room'";
+    $d = "title='Deactivating is disabled. The room is still occupied.'";
 } else {
     $c = "disabled title='This feature is not available on your account'";
 } 
@@ -126,7 +127,7 @@ input[type=number] {
  
                                                             <?php } else { ?>
 
-                                                                <button <?php echo $c; ?> The room is still occupied." id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
+                                                                <button <?php echo $d; ?> id="edit-room" name="delete" data-target="#ModalDeac<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px" disabled>
                                                                 <i class="icon ion-minus-circled" style="font-size: 19px;"></i>
                                                                 </button>
 

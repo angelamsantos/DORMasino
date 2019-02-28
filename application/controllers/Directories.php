@@ -26,6 +26,7 @@ class Directories extends CI_Controller{
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_dir();
         $data['dir_count']=$this->Directories_model->get_dircount();
+        $data['type']=$this->Directories_model->get_type();
         $this->load->view('sidebar_view');
         $this->load->view('directories_view', $data);
         
@@ -51,7 +52,7 @@ class Directories extends CI_Controller{
         $this->Directories_model->create_tenant($data);
         $this->Directories_model->create_tenantcontacts($data);
 
-        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Tenant successfully created!</center></div>';
+        $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Tenant successfully created! Kindly settle the deposit and advance fees in the payments section.</center></div>';
         $this->session->set_flashdata('msg', $msg);
         redirect('Directories/index');
     }
@@ -121,7 +122,7 @@ class Directories extends CI_Controller{
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_diruv($r_id);
-       
+        $data['type']=$this->Directories_model->get_type();
         $this->load->view('sidebar_view');
         $this->load->view('directoriesusers_view', $data);
         //$this->load->show_tenants($r_id, $r_no);

@@ -107,6 +107,39 @@ class Transactions_model extends CI_Model {
         return $query;
     }
 
+    public function get_unpaiddepo() {
+        $SELECT = "SELECT deposit_tbl.*, dir_tbl.*, room_tbl.*, tenant_tbl.*
+                    FROM deposit_tbl
+                    LEFT JOIN tenant_tbl
+                    ON tenant_tbl.tenant_id = deposit_tbl.tenant_id
+                    LEFT JOIN dir_tbl
+                    ON dir_tbl.tenant_id = deposit_tbl.tenant_id
+                    LEFT JOIN room_tbl
+                    ON room_tbl.room_id = dir_tbl.room_id
+                    WHERE deposit_tbl.deposit_status = 0";
+        $query = $this->db->query($SELECT);
+        return $query;
+    }
+
+    public function get_unpaidadv() {
+        $SELECT = "SELECT advance_tbl.*, dir_tbl.*, room_tbl.*, tenant_tbl.*
+                    FROM advance_tbl
+                    LEFT JOIN tenant_tbl
+                    ON tenant_tbl.tenant_id = advance_tbl.tenant_id
+                    LEFT JOIN dir_tbl
+                    ON dir_tbl.tenant_id = advance_tbl.tenant_id
+                    LEFT JOIN room_tbl
+                    ON room_tbl.room_id = dir_tbl.room_id
+                    WHERE advance_tbl.advance_status = 0";
+        $query = $this->db->query($SELECT);
+        return $query;
+    }
+
+    public function get_fee() {
+        $query = $this->db->get('fee_tbl');
+        return $query;
+    }
+
 
     public function insert_bill() {
         foreach ($this->input->post('tenant_id') as $value) {
@@ -211,6 +244,61 @@ class Transactions_model extends CI_Model {
             //return json_encode($a);
     }
 
+    public function fee_due($fee, $tenant, $room) {
+        $a = 0;
+        $b = array() ;
+        $c = array() ;
+        $bal;
+        foreach($fee as $f) {
+            if($f == 1) {
+                $this->db->from('advance_tbl');
+                $this->db->join('dir_tbl','dir_tbl.tenant_id=advance_tbl.tenant_id', 'LEFT');
+                $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+                $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+               // $this->db->where('advance_tbl.advance_status', 0);
+                $this->db->where('advance_tbl.tenant_id', $tenant);
+                $q = $this->db->get();
+
+                foreach ($q->result() as $adv) { 
+                    $fad = $adv->advance_balance;
+                    $fid = $adv->advance_id;
+                    $farr = $adv->advance_balance;
+                }   
+
+                $a = $a + $fad;
+                array_push($b, $fid);
+                array_push($c, $farr);
+            }
+
+            else if($f == 2) {
+                $this->db->from('deposit_tbl');
+                $this->db->join('dir_tbl','dir_tbl.tenant_id=deposit_tbl.tenant_id', 'LEFT');
+                $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+                $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+               // $this->db->where('deposit_tbl.deposit_status', 0);
+                $this->db->where('deposit_tbl.tenant_id', $tenant);
+                $q = $this->db->get();
+
+                foreach ($q->result() as $d) { 
+                    $fad = $d->deposit_balance ;
+                    $fid = $d->deposit_id;
+                    $farr = $d->deposit_balance;
+                }   
+
+                $a = $a + $fad;
+                array_push($b, $fid);
+                array_push($c, $farr);
+            }
+        }
+
+        return array(
+            'ft' => $a,
+            'fi' => $b,
+            'fa' => $c,
+            );
+            //return json_encode($a);
+    }
+
     public function rent_payment() {
             $tenant_id = $this->input->post('rtenant_id');
 
@@ -231,6 +319,7 @@ class Transactions_model extends CI_Model {
                 'd' => date("m/d/Y"),
                 'e' => $this->input->post('rm'),
                 'f' => $row->tenant_email,
+                'g' => $this->input->post('rtrans_amount'),
             );
             $rent=$this->input->post('rent_id');
            
@@ -245,7 +334,7 @@ class Transactions_model extends CI_Model {
 
                 if ($paid < $due) {
                     $full = 0;
-                } else if ($paid == $due) {
+                } else if ($paid >= $due) {
                     $full = 1;
                 }
                 
@@ -262,11 +351,8 @@ class Transactions_model extends CI_Model {
 
                     $this->db->insert('rtrans_tbl', $data);
                     $check = $this->db->insert_id();
-                    $rent=$this->input->post('rent_id');
+                   // $rent=$this->input->post('rent_id');
                     
-                    $data2 = array(
-                        'rent_paid' => 1,
-                    );
 
                     $bal;
                     if ($paid < $due) {
@@ -274,7 +360,7 @@ class Transactions_model extends CI_Model {
                         $this->db->set('rent_balance', $bal);
                         $this->db->where('rent_id', $rs);
                         $this->db->update('rent_tbl');
-                    } else if ($paid == $due) {
+                    } else if ($paid >= $due) {
                         $bal = $due - $paid;
                         $this->db->set('rent_balance', $bal);
                         $this->db->set('rent_status', 1);
@@ -282,11 +368,11 @@ class Transactions_model extends CI_Model {
                         $this->db->update('rent_tbl');
                     }
                 }
-                $data2 = array(
-                    'rent_paid' => $paid,
-                    'rent_payment' => $full,
-                );
-
+                    $data2 = array(
+                        'rent_paid' => $paid,
+                        'rent_payment' => $full,
+                    );
+                
                     if ($this->input->post('rtrans_mode') == 1) {
                         $data3 = array(
                             'rcheck_no' => $this->input->post('rcheck_no'),
@@ -301,55 +387,113 @@ class Transactions_model extends CI_Model {
                     
                 return $arr = array_merge($data, $data2, $data4);
             } else if(count($rArr) > 1) {
-                
+                $month = $this->input->post('rm');
+                $mStr = $month[0];
+                $mArr = explode(',', $mStr);
                 $paid = $this->input->post('rtrans_amount');
-                // $due = $this->input->post('rtrans_due');
-                // $full;
-
-                // if ($paid < $due) {
-                //     $full = 0;
-                // } else if ($paid == $due) {
-                //     $full = 1;
-                // }
+                $due = $this->input->post('rtrans_due');
+                $wscheme = array();
+                $transArr = array();
+               
                 foreach($rArr as $re) {
-                    $data = array(
-                        'rtrans_mode' => $this->input->post('rtrans_mode'),
-                        'rtrans_rno' => $this->input->post('rtrans_rno'),
-                        'rtrans_amount' => $this->input->post('rtrans_amount'),
-                        'rtrans_isfull' => 1,
-                        'rent_id' => $re,
-                        'tenant_id' => $this->input->post('rtenant_id'),
-                    );
-
-                    $this->db->insert('rtrans_tbl', $data);
-                    $check = $this->db->insert_id();
-                    $due = $this->input->post('rtrans_due');
+                    $SELECT = "SELECT rent_tbl.*
+                    FROM rent_tbl
+                    WHERE rent_tbl.rent_id = ".$re." ";
+                    $query = $this->db->query($SELECT);
+                    $f;
+                    $row = $query->row();
+                    $rbal = $row->rent_balance;
+                    $mo = $row->rent_due;
+                    $wmo = date('F', strtotime($mo));
                     $bal;
-                    $bal = $due - $due;
-                    $this->db->set('rent_balance', $bal);
-                    $this->db->set('rent_status', 1);
-                    $this->db->where('rent_id', $re);
-                    $this->db->update('rent_tbl');
+                    $check;
+                    if($paid >= $rbal) {
+                        $data = array(
+                            'rtrans_mode' => $this->input->post('rtrans_mode'),
+                            'rtrans_rno' => $this->input->post('rtrans_rno'),
+                            'rtrans_amount' => $rbal,
+                            'rtrans_isfull' => 1,
+                            'rent_id' => $re,
+                            'tenant_id' => $this->input->post('rtenant_id'),
+                        );
+
+                        $this->db->insert('rtrans_tbl', $data);
+
+                        $check = $this->db->insert_id();
+                      
+                        
+                        $bal = $due - $due;
+                        $this->db->set('rent_balance', $bal);
+                        $this->db->set('rent_status', 1);
+                        $this->db->where('rent_id', $re);
+                        $this->db->update('rent_tbl');
+                        
+
+                        // $data2 = array(
+                        //     'rent_paid' => $paid,
+                        //     'rent_payment' => 1,
+                        // );
+                        $f = 1;
+                    } else  if ($paid < $rbal && $paid > 0){
+                        $data = array(
+                            'rtrans_mode' => $this->input->post('rtrans_mode'),
+                            'rtrans_rno' => $this->input->post('rtrans_rno'),
+                            'rtrans_amount' => $paid,
+                            'rtrans_isfull' => 0,
+                            'rent_id' => $re,
+                            'tenant_id' => $this->input->post('rtenant_id'),
+                        );
+
+                        $this->db->insert('rtrans_tbl', $data);
+                        $check = $this->db->insert_id();
+
+                        $bal = $rbal - $paid;
+                        $this->db->set('rent_balance', $bal);
+                        $this->db->set('rent_status', 0);
+                        $this->db->where('rent_id', $re);
+                        $this->db->update('rent_tbl');
+                        
+                        $f = 0;
+                    } else if ($paid < 0) {
+                        $data = array(
+                            'rtrans_mode' => $this->input->post('rtrans_mode'),
+                            'rtrans_rno' => $this->input->post('rtrans_rno'),
+                            'rtrans_amount' => 0,
+                            'rtrans_isfull' => 0,
+                            'rent_id' => $re,
+                            'tenant_id' => $this->input->post('rtenant_id'),
+                        );
+                        
+                        $this->db->insert('rtrans_tbl', $data);
+                        $check = $this->db->insert_id();
+                        $this->db->set('water_balance', $rbal);
+                        $this->db->set('water_status', 0);
+                        $this->db->where('water_id', $re);
+                        $this->db->update('water_tbl');
+
+                        $f = 0;
+                    }
+                    $paid = $paid - $rbal;
+                    array_push($transArr, $check);
+                    array_push($wscheme, array("full" => $f, "month" => $wmo));
                     
-
-                    $data2 = array(
-                        'rent_paid' => $paid,
-                        'rent_payment' => 1,
-                    );
-
-                    if ($this->input->post('rtrans_mode') == 1) {
+                }
+                $data['pay'] = $wscheme;
+                if ($this->input->post('rtrans_mode') == 1) {
+                    foreach($transArr as $ta) {
                         $data3 = array(
                             'rcheck_no' => $this->input->post('rcheck_no'),
                             'rcheck_bank' => $this->input->post('rcheck_bank'),
                             'rcheck_date' => $this->input->post('rcheck_date'),
-                            'rtrans_id' => $check,
+                            'rtrans_id' => $ta,
                         );
                         $this->db->insert('rcheck_tbl', $data3);
-                        return $arr = array_merge($data, $data2, $data4, $data3);
+                        
                     }
+                    return $arr = array_merge($data, $data4, $data3);
                 }
-                    
-                return $arr = array_merge($data, $data2, $data4);
+
+                return $arr = array_merge($data, $data4);
             }
         
         
@@ -378,10 +522,13 @@ class Transactions_model extends CI_Model {
             'd' => date("m/d/Y"),
             'e' => $this->input->post('payment'),
             'f' => $row->tenant_email,
+            'g' => $this->input->post('wtrans_amount'),
         );
         $water=$this->input->post('water_id');
         $wStr = $water[0];
         $wArr = explode(',', $wStr);
+        
+
         
         
         if(count($wArr) == 1) {
@@ -393,7 +540,7 @@ class Transactions_model extends CI_Model {
             if ($paid < $due) {
                 $full = 0;
             }
-            if ($paid == $due) {
+            if ($paid >= $due) {
                 $full = 1;
             }
             foreach($wArr as $ws) {
@@ -407,7 +554,7 @@ class Transactions_model extends CI_Model {
                 );
                 $this->db->insert('wtrans_tbl', $data);
 
-        
+                $check = $this->db->insert_id();
 
                 $bal;
                 if ($paid < $due) {
@@ -415,7 +562,7 @@ class Transactions_model extends CI_Model {
                     $this->db->set('water_balance', $bal);
                     $this->db->where('water_id', $ws);
                     $this->db->update('water_tbl');
-                } else if ($paid == $due) {
+                } else if ($paid >= $due) {
                     $bal = $due - $paid;
                     $this->db->set('water_balance', $bal);
                     $this->db->set('water_status', 1);
@@ -433,7 +580,7 @@ class Transactions_model extends CI_Model {
                 // $this->db->update('water_tbl');
 
 
-            $check = $this->db->insert_id();
+            
             if ($this->input->post('wtrans_mode') == 1) {
                 
                 $data3 = array(
@@ -449,43 +596,99 @@ class Transactions_model extends CI_Model {
             
             return $arr = array_merge($data, $data2, $data4);
         } else if(count($wArr) > 1) {
+            $month = $this->input->post('payment');
+            $mStr = $month[0];
+            $mArr = explode(',', $mStr);
             $paid = $this->input->post('wtrans_amount');
             $due = $this->input->post('wtrans_due');
-            
+            $wscheme = array();
+            $transArr = array();
             foreach($wArr as $wa) {
-
-                $data = array(
-                    'wtrans_mode' => $this->input->post('wtrans_mode'),
-                    'wtrans_rno' => $this->input->post('wtrans_rno'),
-                    'wtrans_amount' => $this->input->post('wtrans_amount'),
-                    'wtrans_isfull' => 1,
-                    'water_id' => $wa,
-                    'tenant_id' => $this->input->post('wtenant_id'),
-                );
-                $this->db->insert('wtrans_tbl', $data);
-
-            
-
+                $SELECT = "SELECT water_tbl.*
+                FROM water_tbl
+                WHERE water_tbl.water_id = ".$wa." ";
+                $query = $this->db->query($SELECT);
+                $f;
+                $row = $query->row();
+                $wbal = $row->water_balance;
+                $mo = $row->water_due;
+                $wmo = date('F', strtotime($mo));
                 $bal;
+                $check;
+                if($paid >= $wbal) {
+                    $data = array(
+                        'wtrans_mode' => $this->input->post('wtrans_mode'),
+                        'wtrans_rno' => $this->input->post('wtrans_rno'),
+                        'wtrans_amount' => $wbal,
+                        'wtrans_isfull' => 1,
+                        'water_id' => $wa,
+                        'tenant_id' => $this->input->post('wtenant_id'),
+                    );
+                    $this->db->insert('wtrans_tbl', $data);
+                    $check = $this->db->insert_id();
                     $bal = $due - $due;
                     $this->db->set('water_balance', $bal);
                     $this->db->set('water_status', 1);
                     $this->db->where('water_id', $wa);
                     $this->db->update('water_tbl');
-            }
 
-                $data2 = array(
-                    'water_paid' => $paid,
-                    'water_payment' => 1,
-                );
-                // $this->db->set('water_status', 1);
-                // $this->db->where('water_id', $water);
-                // $this->db->update('water_tbl');
+            
 
+                    $f = 1;
 
-                $check = $this->db->insert_id();
-                if ($this->input->post('wtrans_mode') == 1) {
+                } else if ($paid < $wbal && $paid > 0) {
+                    $data = array(
+                        'wtrans_mode' => $this->input->post('wtrans_mode'),
+                        'wtrans_rno' => $this->input->post('wtrans_rno'),
+                        'wtrans_amount' => $paid,
+                        'wtrans_isfull' => 0,
+                        'water_id' => $wa,
+                        'tenant_id' => $this->input->post('wtenant_id'),
+                    );
+                    $this->db->insert('wtrans_tbl', $data);
+                    $check = $this->db->insert_id();
+
+                    $bal = $wbal - $paid;
+                    $this->db->set('water_balance', $bal);
+                    $this->db->set('water_status', 0);
+                    $this->db->where('water_id', $wa);
+                    $this->db->update('water_tbl');
+
                     
+                    $f = 0;
+                    
+                } else if ($paid <= 0 ) {
+                    $data = array(
+                        'wtrans_mode' => $this->input->post('wtrans_mode'),
+                        'wtrans_rno' => $this->input->post('wtrans_rno'),
+                        'wtrans_amount' => 0,
+                        'wtrans_isfull' => 0,
+                        'water_id' => $wa,
+                        'tenant_id' => $this->input->post('wtenant_id'),
+                    );
+                    $this->db->insert('wtrans_tbl', $data);
+                    $check = $this->db->insert_id();
+                    
+                    $this->db->set('water_balance', $wbal);
+                    $this->db->set('water_status', 0);
+                    $this->db->where('water_id', $wa);
+                    $this->db->update('water_tbl');
+
+                    $f = 0;
+                }
+
+                
+                $paid = $paid - $wbal;
+                array_push($transArr, $check);
+                array_push($wscheme, array("full" => $f, "month" => $wmo));
+              
+                
+                
+            }
+            $data['pay'] = $wscheme;
+             
+                if ($this->input->post('wtrans_mode') == 1) {
+                    foreach($transArr as $ta) {
                     $data3 = array(
                         'wcheck_no' => $this->input->post('wcheck_no'),
                         'wcheck_bank' => $this->input->post('wcheck_bank'),
@@ -493,16 +696,372 @@ class Transactions_model extends CI_Model {
                         'wtrans_id' => $check,
                     );
                     $this->db->insert('wcheck_tbl', $data3);
-                    return $arr = array_merge($data, $data2, $data4, $data3);
+                    
+                    }
+                    return $arr = array_merge($data, $data4, $data3);
                 }
 
-            
-            return $arr = array_merge($data, $data2, $data4);
+            return $arr = array_merge($data, $data4);
         }
        
         
         
     }
+    public function fee_payment() {
+        $tenant_id = $this->input->post('ftenant_id');
+        $ftype = $this->input->post('fee'); //advance or deposit
+        $ftArr = array();
+        foreach($ftype as $aa){
+            array_push($ftArr, $aa);
+        }
+        $ad = "";
+        if($ftArr[0] == 1) {
+            $ad = "advance";
+        } else if($ftArr[0] == 2) {
+            $ad = "deposit";
+        }
+
+        $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
+            FROM tenant_tbl
+            LEFT JOIN dir_tbl
+            ON tenant_tbl.tenant_id = dir_tbl.tenant_id
+            LEFT JOIN room_tbl
+            ON dir_tbl.room_id = room_tbl.room_id
+            WHERE tenant_tbl.tenant_id = ".$tenant_id." ";
+            $query = $this->db->query($SELECT);
+
+            $row = $query->row();
+        $data4 = array(
+            'a' => $row->tenant_fname,
+            'b' => $row->tenant_lname,
+            'c' => $row->room_number,
+            'd' => date("m/d/Y"),
+            'e' => $this->input->post('fee'),
+            'f' => $row->tenant_email,
+            'g' => $this->input->post('ftrans_amount'),
+            'h' => $ad,
+            'i' => $this->input->post('ftrans_mode'),
+            'j' => $this->input->post('ftrans_rno'),
+        );
+        $fee=$this->input->post('fee_id');
+        $fStr = $fee[0];
+        $fArr = explode(',', $fStr); // fee id
+        
+
+        if(count($fArr) == 1) {
+            $paid = $this->input->post('ftrans_amount');
+            $due = $this->input->post('ftrans_due');
+            
+            $full;
+
+            if ($paid < $due) {
+                $full = 0;
+            } else if ($paid >= $due) {
+                $full = 1;
+            }
+
+            if($ftArr[0] == 1) {
+                foreach($fArr as $fs) {
+                    $data = array(
+                        'atrans_mode' => $this->input->post('ftrans_mode'),
+                        'atrans_rno' => $this->input->post('ftrans_rno'),
+                        'atrans_amount' => $this->input->post('ftrans_amount'),
+                        
+                        'atrans_isfull' => $full,
+                        'advance_id' => $fs,
+                        'tenant_id' => $this->input->post('ftenant_id'),
+                    );
+    
+                    $this->db->insert('atrans_tbl', $data);
+                    $check = $this->db->insert_id();
+                    
+    
+                    $bal;
+                    if ($paid < $due) {
+                        $bal = $due - $paid;
+                        $this->db->set('advance_balance', $bal);
+                        $this->db->where('advance_id', $fs);
+                        $this->db->update('advance_tbl');
+                    } else if ($paid >= $due) {
+                        $bal = 0;
+                        $this->db->set('advance_balance', $bal);
+                        $this->db->set('advance_status', 1);
+                        $this->db->where('advance_id', $fs);
+                        $this->db->update('advance_tbl');
+                    }
+                }
+                    $data2 = array(
+                        'advance_paid' => $paid,
+                        'advance_payment' => $full,
+                    );
+                
+                    if ($this->input->post('ftrans_mode') == 1) {
+                        $data3 = array(
+                            'acheck_no' => $this->input->post('fcheck_no'),
+                            'acheck_bank' => $this->input->post('fcheck_bank'),
+                            'acheck_date' => $this->input->post('fcheck_date'),
+                            'atrans_id' => $check,
+                        );
+                        $this->db->insert('fcheck_tbl', $data3);
+                        return $arr = array_merge($data, $data2, $data4, $data3);
+                    }
+            } else if ($ftArr[0] == 2) {
+                foreach($fArr as $fs) {
+                    $data = array(
+                        'dtrans_mode' => $this->input->post('ftrans_mode'),
+                        'dtrans_rno' => $this->input->post('ftrans_rno'),
+                        'dtrans_amount' => $this->input->post('ftrans_amount'),
+                        
+                        'dtrans_isfull' => $full,
+                        'deposit_id' => $fs,
+                        'tenant_id' => $this->input->post('ftenant_id'),
+                    );
+    
+                    $this->db->insert('dtrans_tbl', $data);
+                    $check = $this->db->insert_id();
+                    
+    
+                    $bal;
+                    if ($paid < $due) {
+                        $bal = $due - $paid;
+                        $this->db->set('deposit_balance', $bal);
+                        $this->db->where('deposit_id', $fs);
+                        $this->db->update('deposit_tbl');
+                    } else if ($paid >= $due) {
+                        $bal = 0;
+                        $this->db->set('deposit_balance', $bal);
+                        $this->db->set('deposit_status', 1);
+                        $this->db->where('deposit_id', $fs);
+                        $this->db->update('deposit_tbl');
+                    }
+                }
+                    $data2 = array(
+                        'deposit_paid' => $paid,
+                        'deposit_payment' => $full,
+                    );
+                
+                    if ($this->input->post('ftrans_mode') == 1) {
+                        $data3 = array(
+                            'dcheck_no' => $this->input->post('fcheck_no'),
+                            'dcheck_bank' => $this->input->post('fcheck_bank'),
+                            'dcheck_date' => $this->input->post('fcheck_date'),
+                            'dtrans_id' => $check,
+                        );
+                        $this->db->insert('dcheck_tbl', $data3);
+                        return $arr = array_merge($data, $data2, $data4, $data3);
+                    }
+            }
+            
+            return $arr = array_merge($data, $data2, $data4);
+        } else if(count($fArr) > 1) {
+            // $ftype = $this->input->post('fee'); //advance or deposit
+            // $ftStr = $ftype[0];
+            // $ftArr = explode(',', $ftStr);
+            $paid = $this->input->post('ftrans_amount');
+            $due = $this->input->post('ftrans_due');
+            $wscheme = array();
+            $transArr = array();
+            $fin = 0;
+
+            foreach($fArr as $fd) {
+                 
+                if($ftArr[$fin] == 1) {
+                    $SELECT = "SELECT advance_tbl.*
+                    FROM advance_tbl
+                    WHERE advance_tbl.advance_id = ".$fd." ";
+                    $query = $this->db->query($SELECT);
+                    $f;
+                    $row = $query->row();
+                    $fbal = $row->advance_balance;
+                    // $mo = $row->rent_due;
+                    $wmo = "Advance";
+                    $bal;
+                    $check;
+                    if($paid >= $fbal) {
+                        $data = array(
+                            'atrans_mode' => $this->input->post('ftrans_mode'),
+                            'atrans_rno' => $this->input->post('ftrans_rno'),
+                            'atrans_amount' => $fbal,
+                            'atrans_isfull' => 1,
+                            'advance_id' => $fd,
+                            'tenant_id' => $this->input->post('ftenant_id'),
+                        );
+
+                        $this->db->insert('atrans_tbl', $data);
+
+                        $check = $this->db->insert_id();
+                    
+                        
+                        $bal = 0;
+                        $this->db->set('advance_balance', $bal);
+                        $this->db->set('advance_status', 1);
+                        $this->db->where('advance_id', $fd);
+                        $this->db->update('advance_tbl');
+                        
+
+                        // $data2 = array(
+                        //     'rent_paid' => $paid,
+                        //     'rent_payment' => 1,
+                        // );
+                        $f = 1;
+                    } else  if ($paid < $fbal && $paid > 0){
+                        $data = array(
+                            'atrans_mode' => $this->input->post('ftrans_mode'),
+                            'atrans_rno' => $this->input->post('ftrans_rno'),
+                            'atrans_amount' => $paid,
+                            'atrans_isfull' => 0,
+                            'advance_id' => $fd,
+                            'tenant_id' => $this->input->post('ftenant_id'),
+                        );
+
+                        $this->db->insert('atrans_tbl', $data);
+                        $check = $this->db->insert_id();
+
+                        $bal = $fbal - $paid;
+                        $this->db->set('advance_balance', $bal);
+                        $this->db->set('advance_status', 0);
+                        $this->db->where('advance_id', $fd);
+                        $this->db->update('advance_tbl');
+                        
+                        $f = 0;
+                    } else if ($paid < 0) {
+                        $data = array(
+                            'atrans_mode' => $this->input->post('ftrans_mode'),
+                            'atrans_rno' => $this->input->post('ftrans_rno'),
+                            'atrans_amount' => 0,
+                            'atrans_isfull' => 0,
+                            'advance_id' => $fd,
+                            'tenant_id' => $this->input->post('ftenant_id'),
+                        );
+                        
+                        $this->db->insert('atrans_tbl', $data);
+                        $check = $this->db->insert_id();
+                        $this->db->set('advance_balance', $fbal);
+                        $this->db->set('advance_status', 0);
+                        $this->db->where('advance_id', $fd);
+                        $this->db->update('advance_tbl');
+
+                        $f = 0;
+                    }
+                    $paid = $paid - $fbal;
+                    array_push($wscheme, array("full" => $f, "type" => $wmo));
+                    $data['pay'] = $wscheme;
+                    if ($this->input->post('ftrans_mode') == 1) {
+                            $data3 = array(
+                                'acheck_no' => $this->input->post('fcheck_no'),
+                                'acheck_bank' => $this->input->post('fcheck_bank'),
+                                'acheck_date' => $this->input->post('fcheck_date'),
+                                'atrans_id' => $check,
+                            );
+                            $this->db->insert('rcheck_tbl', $data3);
+                            return $arr = array_merge($data, $data4, $data3);
+                    }
+                        
+                    
+                } else if($ftArr[$fin] == 2) {
+                    $SELECT = "SELECT deposit_tbl.*
+                    FROM deposit_tbl
+                    WHERE deposit_tbl.deposit_id = ".$fd." ";
+                    $query = $this->db->query($SELECT);
+                    $f;
+                    $row = $query->row();
+                    $fbal = $row->deposit_balance;
+                    // $mo = $row->rent_due;
+                    $wmo = "Deposit";
+                    $bal;
+                    $check;
+                    if($paid >= $fbal) {
+                        $data = array(
+                            'dtrans_mode' => $this->input->post('ftrans_mode'),
+                            'dtrans_rno' => $this->input->post('ftrans_rno'),
+                            'dtrans_amount' => $fbal,
+                            'dtrans_isfull' => 1,
+                            'deposit_id' => $fd,
+                            'tenant_id' => $this->input->post('ftenant_id'),
+                        );
+
+                        $this->db->insert('dtrans_tbl', $data);
+
+                        $check = $this->db->insert_id();
+                    
+                        
+                        $bal = 0;
+                        $this->db->set('deposit_balance', $bal);
+                        $this->db->set('deposit_status', 1);
+                        $this->db->where('deposit_id', $fd);
+                        $this->db->update('deposit_tbl');
+                        
+
+                        // $data2 = array(
+                        //     'rent_paid' => $paid,
+                        //     'rent_payment' => 1,
+                        // );
+                        $f = 1;
+                    } else  if ($paid < $fbal && $paid > 0){
+                        $data = array(
+                            'dtrans_mode' => $this->input->post('ftrans_mode'),
+                            'dtrans_rno' => $this->input->post('ftrans_rno'),
+                            'dtrans_amount' => $paid,
+                            'dtrans_isfull' => 0,
+                            'deposit_id' => $fd,
+                            'tenant_id' => $this->input->post('ftenant_id'),
+                        );
+
+                        $this->db->insert('dtrans_tbl', $data);
+                        $check = $this->db->insert_id();
+
+                        $bal = $fbal - $paid;
+                        $this->db->set('deposit_balance', $bal);
+                        $this->db->set('deposit_status', 0);
+                        $this->db->where('deposit_id', $fd);
+                        $this->db->update('deposit_tbl');
+                        
+                        $f = 0;
+                    } else if ($paid < 0) {
+                        $data = array(
+                            'dtrans_mode' => $this->input->post('ftrans_mode'),
+                            'dtrans_rno' => $this->input->post('ftrans_rno'),
+                            'dtrans_amount' => 0,
+                            'dtrans_isfull' => 0,
+                            'deposit_id' => $fd,
+                            'tenant_id' => $this->input->post('ftenant_id'),
+                        );
+                        
+                        $this->db->insert('dtrans_tbl', $data);
+                        $check = $this->db->insert_id();
+                        $this->db->set('deposit_balance', $fbal);
+                        $this->db->set('deposit_status', 0);
+                        $this->db->where('deposit_id', $fd);
+                        $this->db->update('deposit_tbl');
+
+                        $f = 0;
+                    }
+                    $paid = $paid - $fbal;
+                    array_push($wscheme, array("full" => $f, "type" => $wmo));
+                    $data['pay'] = $wscheme;
+                    if ($this->input->post('ftrans_mode') == 1) {
+                            $data3 = array(
+                                'acheck_no' => $this->input->post('fcheck_no'),
+                                'acheck_bank' => $this->input->post('fcheck_bank'),
+                                'acheck_date' => $this->input->post('fcheck_date'),
+                                'atrans_id' => $check,
+                            );
+                            $this->db->insert('rcheck_tbl', $data3);
+                            return $arr = array_merge($data, $data4, $data3);
+                    
+                    }
+                       
+                }
+                $fin++;
+            }
+                
+
+            return $arr = array_merge($data, $data4);
+        }
+    
+    }
+
+
     public function get_rtrans () {
 		$this->db->from('rtrans_tbl');
 		$this->db->join('rent_tbl','rent_tbl.rent_id=rtrans_tbl.rent_id', 'LEFT');
@@ -610,6 +1169,51 @@ class Transactions_model extends CI_Model {
         $this->email->to($list);
         $this->email->from('dormasino20182019@gmail.com','DORMasino');
         $this->email->subject('DORMasino E-Receipt (Water)');
+        $this->email->message($htmlContent);
+
+        if ($this->email->send()) {
+        //Success email Sent
+            return true;
+        } else {
+        //Email Failed To Send
+            return false;
+        }
+    }
+
+    public function send_mail_fee($to_email, $to_guardianemail) {
+
+        //Load email library
+        $this->load->library('email');
+        $data = $this->fee_payment();
+        //SMTP & mail configuration
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = 465;
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'dormasino20182019@gmail.com';
+        $config['smtp_pass']    = 'dormasino123';
+        $config['charset']    = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+        $config['validation'] = TRUE;
+
+
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        //Email content
+    
+        //$to_email = $data['f']; 
+    
+        $htmlContent = $this->load->view('fee_receipt', $data, TRUE);
+        //$htmlContent = '<h1>DORMasino E-Receipt (Rent)</h1>';
+
+        $this->email->to($to_email);
+        $this->email->to($to_guardianemail);
+        $list = array($to_email, $to_guardianemail);
+        $this->email->to($list);
+        $this->email->from('dormasino20182019@gmail.com','DORMasino');
+        $this->email->subject('DORMasino E-Receipt (Advance and Deposit Fee)');
         $this->email->message($htmlContent);
 
         if ($this->email->send()) {

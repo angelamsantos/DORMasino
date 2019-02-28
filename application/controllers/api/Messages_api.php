@@ -158,7 +158,7 @@ require APPPATH . 'libraries/Format.php';
                         $this->db->insert('msg_tbl',$data);
                     
                         $msg_id = $this->db->insert_id();
-                        $this->db->select('*.admin_tbl');
+                        $this->db->select('admin_tbl.*');
                         
                         $this->db->from('admin_tbl');
                         $this->db->join('adcontrol_tbl','admin_tbl.admin_id=adcontrol_tbl.admin_id','left');

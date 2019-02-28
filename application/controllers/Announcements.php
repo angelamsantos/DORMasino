@@ -80,7 +80,7 @@ class Announcements extends CI_Controller{
         } else {
 
             if (!empty($file) && 
-                $file_ext1 == "xls" || $file_ext1 == "pdf" ||
+                $file_ext1 == "xls" || $file_ext1 == "xlsx" || $file_ext1 == "pdf" ||
                 $file_ext1 == "doc" || $file_ext1 == "docx") {
 
                 date_default_timezone_set("Asia/Manila");
@@ -89,9 +89,9 @@ class Announcements extends CI_Controller{
         
                 $conf = array(
                     'upload_path' => "./assets/uploads/documents/".$date."/",
-                    'allowed_types' => "xls|docx|doc|pdf",
+                    'allowed_types' => "xls|xlsx|docx|doc|pdf",
                     'overwrite' => FALSE,
-                    'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+                    'max_size' => "10000", // Can be set to particular file size , here it is 10 MB
                     'max_height' => "768",
                     'max_width' => "1024"
                 );
@@ -141,7 +141,7 @@ class Announcements extends CI_Controller{
                         'upload_path' => "./assets/uploads/images/".$date."/",
                         'allowed_types' => "png|gif|jpg|jpeg|PNG|GIF|JPG|JPEG",
                         'overwrite' => FALSE,
-                        'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+                        'max_size' => "5000", // Can be set to particular file size , here it is 5 MB
                     );
     
                     $this->load->library('upload', $conf);
@@ -242,7 +242,7 @@ class Announcements extends CI_Controller{
         } else {
 
             if (!empty($file) && 
-                $file_ext1 == "xls" || $file_ext1 == "pdf" ||
+                $file_ext1 == "xls" || $file_ext1 == "xlsx" || $file_ext1 == "pdf" ||
                 $file_ext1 == "doc" || $file_ext1 == "docx") {
 
                 date_default_timezone_set("Asia/Manila");
@@ -251,9 +251,9 @@ class Announcements extends CI_Controller{
         
                 $conf = array(
                     'upload_path' => "./assets/uploads/documents/".$date."/",
-                    'allowed_types' => "xls|docx|doc|pdf",
+                    'allowed_types' => "xls|xlsx|docx|doc|pdf",
                     'overwrite' => FALSE,
-                    'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+                    'max_size' => "10000", // Can be set to particular file size , here it is 10 MB
                     'max_height' => "768",
                     'max_width' => "1024"
                 );
@@ -304,7 +304,7 @@ class Announcements extends CI_Controller{
                         'upload_path' => "./assets/uploads/images/".$date."/",
                         'allowed_types' => "png|gif|jpg|jpeg|PNG|GIF|JPG|JPEG",
                         'overwrite' => FALSE,
-                        'max_size' => "20971520", // Can be set to particular file size , here it is 20 MB
+                        'max_size' => "5000", // Can be set to particular file size , here it is 5 MB
                     );
     
                     $this->load->library('upload', $conf);

@@ -10,7 +10,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $a="";
     if($amsg[8] == 1) { //archive
-        $a = "title='Complete request'";
+        $a = "title='Approve/Reject request'";
     } else {
         $a = "disabled title='This feature is not available on your account.'";
     }
@@ -85,19 +85,19 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                                         if ($row->req_status == 0) {
 
-                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #FFFF00;color: #ffffff;border: none;">Pending</button>';
+                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #f4f142;color: #ffffff;border: none;">Pending</button>';
                                                             
                                                         } else if ($row->req_status == 1) {
                                                             
-                                                            $out ='Approved' ;
+                                                            $out ='<p style="color:#45ba3d">Approved</p>' ;
                                                             
                                                         } else if ($row->req_status == 2) {
                                                             
-                                                            $out ='<button class="btn btn-primary" type="submit" style="background-color: #c7c7c7;color: #ffffff;border: none;" disabled>Rejected</button>';
+                                                            $out ='<p style="color:#ef1f1f">Rejected</p>';
                                                             
                                                         } else {
 
-                                                            $out ='Completed' ;
+                                                            $out ='<p>Completed</p>' ;
                                                         }
 
                                                         echo "<td><form method='post' action='".site_url("Requests/complete")."'>". $out ."</form></td>";
