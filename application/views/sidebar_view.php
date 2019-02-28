@@ -154,7 +154,7 @@ date_default_timezone_set("Asia/Manila");
                     <?php }
                      } if($abill[4] == 1) { ?> 
                      <?php if(current_url() == site_url('Transactions/records_room')) { ?>
-                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/records_rooms'); ?>" style="color: #b3e5fc;" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp;&nbsp;Transaction Records</a></span></li>
+                        <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a id="menu-active" href="<?php echo site_url('Transactions/records_room'); ?>" style="color: #b3e5fc;" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp;&nbsp;Transaction Records</a></span></li>
                      <?php } else { ?>
                         <li class="list-group-item" style="padding-top: 3px;padding-bottom: 3px;padding-left: 53px;background-color: #11334f;border: none;"><span>&nbsp;<a href="<?php echo site_url('Transactions/records_room'); ?>" ><i class="fas fa-file"></i>&nbsp; &nbsp;&nbsp; Transaction Records</a></span></li>
                      <?php } 

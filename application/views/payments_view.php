@@ -22,6 +22,17 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
     font-size: 14px;
     height:35px;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
 </style>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script>
@@ -189,14 +200,14 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" placeholder="Enter receipt no"></div>
+                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" placeholder="Enter receipt no" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for the month of</label></div>
                                                 <div class="col">
-                                                    <select class="form-control multiple-select" name="rm[]" id="rent_month<?php echo $tenant->dir_id; ?>">
+                                                    <select class="form-control multiple-select" name="rm[]" id="rent_month<?php echo $tenant->dir_id; ?>" required>
                                                         <option value="">Select month</option>
                                                         <?php foreach($rent->result() as $unrent) {
                                                                 if($unrent->tenant_id == $tenant->tenant_id) {
@@ -252,7 +263,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="rtrans_amount" style="text-align:right" type="number"></div>
+                                                <div class="col"><input class="form-control" name="rtrans_amount" style="text-align:right" type="number" required></div>
                                                 <input class="form-control" name="rtarns_arr[]" id="rArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
                                             </div>
                                         </div>
@@ -298,14 +309,14 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="wtrans_rno" placeholder="Enter receipt no" ></div>
+                                                <div class="col"><input class="form-control" type="text" name="wtrans_rno" placeholder="Enter receipt no" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for the month of</label></div>
                                                 <div class="col">
-                                                    <select class="form-control multiple-select" name="payment[]" id="sel_payment<?php echo $tenant->dir_id; ?>">
+                                                    <select class="form-control multiple-select" name="payment[]" id="sel_payment<?php echo $tenant->dir_id; ?>" required>
                                                         <option value="">Select month</option>
                                                         <?php foreach($water->result() as $unpaid) {
                                                                 if($unpaid->tenant_id == $tenant->tenant_id) {
@@ -359,7 +370,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="wtrans_amount" style="text-align:right" type="number"></div>
+                                                <div class="col"><input class="form-control" name="wtrans_amount" style="text-align:right" type="number" required></div>
                                                 <input class="form-control" name="wtarns_arr[]" id="wArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
                                             </div>
                                         </div>
@@ -404,14 +415,14 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="ftrans_rno" placeholder="Enter receipt no"></div>
+                                                <div class="col"><input class="form-control" type="text" name="ftrans_rno" placeholder="Enter receipt no" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Payment for</label></div>
                                                 <div class="col">
-                                                    <select class="form-control multiple-select" name="fee[]" id="fad<?php echo $tenant->dir_id; ?>">
+                                                    <select class="form-control multiple-select" name="fee[]" id="fad<?php echo $tenant->dir_id; ?>" required>
                                                         <option value="">Select fee</option>
                                                         <?php foreach($fee->result() as $f) {
                                                                     echo '<option value="'.$f->fee_id.'">'.$f->fee_name.'</option>';
@@ -466,7 +477,7 @@ $abill = $this->session->userdata['login_success']['info']['adcontrol_bills'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="ftrans_amount" style="text-align:right" type="number"></div>
+                                                <div class="col"><input class="form-control" name="ftrans_amount" style="text-align:right" type="number" required></div>
                                                 <input class="form-control" name="ftarns_arr[]" id="fArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
                                             </div>
                                         </div>
