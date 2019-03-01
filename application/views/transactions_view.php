@@ -65,19 +65,19 @@ input[type=number] {
                 <div class="row mx-auto" style="margin-top: 10px;width:100;">
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
                             <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
-                                <i class="icon ion-android-add-circle" style="font-size:19px;"></i> - Edit Bill &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="icon ion-edit" style="font-size:19px;"></i> - Create Bill
+                                <i class="icon ion-android-add-circle" style="font-size:19px;"></i> - Create Bill &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Bill
                                 
                             </p>
                         <?php 
                             $btnSend="Send rent bill";
                             foreach($latest->result() as $rl) {
                                 if(!empty($rl)){
-                                    $rcurdate = date('m-Y');
-                                    $rdate = date('m-Y', strtotime('-1 month', strtotime($rl->rent_due)));
+                                    $rcurdate = date('m-Y', strtotime('first day of next month'));
+                                    $rdate = date('m-Y', strtotime($rl->rent_due));
 
                                     if($rcurdate == $rdate) {
-                                        $btnSend = "disabled title='Rent bill for this month has been sent'";
+                                        $btnSend = "disabled title='Rent bill for ".date('F', strtotime('first day of next month'))." has been sent'";
                                     } 
                                 }
                             }
@@ -97,7 +97,7 @@ input[type=number] {
                             
                             <form method="POST" action="<?php echo site_url('Transactions/insert_rent');?>" class="justify" style="width: 100%;margin: 0 auto;">
                             <div class="modal-body text-center">
-                                    <p style="font-size: 17px;">Are you sure you want to send rent bill for the month of <?php echo date('F'); ?>?</p>
+                                    <p style="font-size: 17px;">Are you sure you want to send rent bill for the month of <?php echo date('F', strtotime('first day of next month')) ?>?</p>
                                 </div>
                                 <div class="modal-footer"><button class="btn btn-primary" name="delete_user" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button></div>
                             </form>
@@ -232,6 +232,19 @@ input[type=number] {
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
                                                 <div class="col"><input class="form-control" type="text" value="Maynilad" name="water_provider" readonly></div>
                                                 <input class="form-control" type="hidden" name="room_id" value="<?php echo $row2->room_id; ?>" >
+                                                <?php 
+                                                    $roomTenants = array();
+
+                                                    foreach ($dir->result() as $t) {
+                                                        if($t->room_id == $row2->room_id) {
+                                                            array_push($roomTenants, $t->tenant_id);
+                                                        }
+                                                    }
+                                                    
+                                                    foreach($roomTenants as $rt) {
+                                                        echo '<input class="form-control" type="hidden" name="tenant_id[]" value="'.$rt.'" >';
+                                                    }
+                                                ?>
                                             </div>
                                         </div>
                                             
@@ -331,13 +344,13 @@ input[type=number] {
                         <div class="modal-body" style="height: 450px;overflow-y: scroll;">
                             <form method="POST" action="<?php echo site_url('Transactions/edit_bill');?>">
                                 <div class="form-row">
-                                    <div class="col" style="padding-right: 20px;padding-left: 20px;">
-                                        <h6 style="font-weight: bold;">Basic Rent Charges</h6>
+                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
+                                        <h6 style="font-weight: bold;">Utility Charges: Water</h6>
+                                        
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Basic Rent Rate</label></div>
-                                                <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format((int)$row2->room_price, 2); ?>" readonly></div>
-                                                <input class="form-control" type="hidden" name="rent_rate" value="<?php echo $row2->room_price; ?>" >
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
+                                                <div class="col"><input class="form-control" type="text" value="Maynilad" name="ewater_provider" readonly></div>
                                                 <?php 
                                                     $roomTenants = array();
 
@@ -351,113 +364,6 @@ input[type=number] {
                                                         echo '<input class="form-control" type="hidden" name="etenant_id[]" value="'.$rt.'" >';
                                                     }
                                                 ?>
-                                                
-                                                <input class="form-control" type="hidden" name="rrn" value="<?php echo $row2->room_number; ?>" >
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
-                                                <div class="col"><input class="form-control" name="rc" type="text" value="<?php echo $row2->room_tcount; ?>" readonly></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <?php foreach ($dir_count->result() as $dc) { 
-                                                    if ($dc->room_id == $row2->room_id) {?>
-                                                    <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Number of Tenants</label></div>
-                                                    <div class="col"><input class="form-control" name="rnt" type="text" value="<?php echo $dc->num_tenants; ?>" readonly ></div>
-                                                <?php }
-                                                } ?>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <?php foreach ($dir_count->result() as $dc) { 
-                                                    if ($dc->room_id == $row2->room_id) {
-                                                        if($dc->num_tenants > $row2->room_tcount) {?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Exceeded Capacity</label></div>
-                                                            <div class="col"><input class="form-control" name="rex" type="text" value="Yes" readonly></div>
-                                                        <?php } else { ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Exceeded Capacity</label></div>
-                                                        <div class="col"><input class="form-control" type="text" name="rex" value="No" readonly  ></div>
-                                                <?php } }
-                                                } ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <?php foreach ($dir_count->result() as $dc) { 
-                                                    if ($dc->room_id == $row2->room_id) {
-                                                        if($dc->num_tenants > $row2->room_tcount) {
-                                                            $excess = $dc->num_tenants -  $row2->room_tcount; ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Additional Tenants</label></div>
-                                                            <div class="col"><input class="form-control" type="text" name="rat" value="<?php echo $excess ?>" readonly  ></div>
-                                                        <?php } else { ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Additional Tenants</label></div>
-                                                        <div class="col"><input class="form-control" type="text" name="rat" value="0" readonly ></div>
-                                                <?php } }
-                                                } ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <?php foreach ($dir_count->result() as $dc) { 
-                                                    if ($dc->room_id == $row2->room_id) {
-                                                        if($dc->num_tenants > $row2->room_tcount) {
-                                                            $extra = ($dc->num_tenants -  $row2->room_tcount) * $row2->room_extra ; ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                                            <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($extra, 2) ?>" readonly  ></div>
-                                                            <input class="form-control" type="hidden" name="rent_extra" value="<?php echo $extra; ?>" >
-                                                        <?php } else { ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                                            <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format(0, 2) ?>" readonly ></div>
-                                                        <input class="form-control" type="hidden" name="rent_extra" value="<?php echo 0; ?>" >
-                                                <?php } }
-                                                } ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                            <?php foreach ($dir_count->result() as $dc) { 
-                                                    if ($dc->room_id == $row2->room_id) {
-                                                        if($dc->num_tenants > $row2->room_tcount) {
-                                                            $ex = ($dc->num_tenants -  $row2->room_tcount) * $row2->room_extra; 
-                                                            $tr = $row2->room_price + $ex ;
-                                                            $final = $tr / $dc->num_tenants ; ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
-                                                            <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format($tr, 2) ?>" readonly  ></div>
-                                                            <input class="form-control" type="hidden" name="rent_total" value="<?php echo $final; ?>" >
-                                                        <?php } else if($dc->num_tenants > 0) { ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
-                                                        <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format((int)$row2->room_price, 2); ?>" readonly  ></div>
-                                                        <input class="form-control" type="hidden" name="rent_total" value="<?php echo $row2->room_price / $dc->num_tenants; ?>" >
-                                                        <?php } else if($dc->num_tenants = 0) { ?>
-                                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Total Rent</label></div>
-                                                        <div class="col"><input class="form-control" style="text-align:right" type="text" value="<?php echo number_format((int)$row2->room_price, 2); ?>" readonly  ></div>
-                                                        <input class="form-control" type="hidden" name="rent_total" value="<?php echo $row2->room_price; ?>" >
-                                                <?php } }
-                                            } ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Due Date</label></div>
-                                                <?php 
-                                                $rd = date('Y-m-d', strtotime('first day of next month'));
-                                                ?>
-                                                <div class="col"><input class="form-control" type="text" name="rent_due" value="<?php echo $rd ; ?>" readonly></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="padding-left: 20px;padding-right: 20px;">
-                                        <h6 style="font-weight: bold;">Utility Charges: Water</h6>
-                                        
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Provider</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="Maynilad" name="ewater_provider" readonly></div>
                                             </div>
                                         </div>
                                             

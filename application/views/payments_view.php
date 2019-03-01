@@ -302,7 +302,7 @@ input[type=number] {
                                                 <input class="form-control" type="hidden" name="wf"  value="<?php echo $tenant->tenant_fname;?>">
                                                 <input class="form-control" type="hidden" name="wl" value="<?php echo $tenant->tenant_lname;?>">
                                                 <input class="form-control" type="hidden" name="wtenant_id" id="w_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
-                                                <input class="form-control" type="hidden" name="wi" id="w_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
+                                                <input class="form-control" type="hidden" name="ww" id="w_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
                                                 <input class="form-control" type="hidden" name="water_id[]" id="wid<?php echo $tenant->dir_id; ?>" value="">
                                             </div>
                                         </div>
@@ -407,7 +407,7 @@ input[type=number] {
                                                 <div class="col"><input class="form-control" type="text" value="<?php echo $tenant->tenant_fname." ".$tenant->tenant_lname; ?>" disabled=""></div>
                                                 <input class="form-control" type="hidden" name="ff" value="<?php echo $tenant->tenant_fname;?>">
                                                 <input class="form-control" type="hidden" name="ftenant_id" id="f_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
-                                                <input class="form-control" type="hidden" name="fr" id="f_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
+                                                <input class="form-control" type="hidden" name="ff" id="f_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
                                                 <input class="form-control" type="hidden" name="fee_id[]" id="fid<?php echo $tenant->dir_id; ?>" value="">
                                             </div>
                                         </div>
@@ -425,7 +425,21 @@ input[type=number] {
                                                     <select class="form-control multiple-select" name="fee[]" id="fad<?php echo $tenant->dir_id; ?>" required>
                                                         <option value="">Select fee</option>
                                                         <?php foreach($fee->result() as $f) {
-                                                                    echo '<option value="'.$f->fee_id.'">'.$f->fee_name.'</option>';
+                                                            if ($f->fee_id == 1) {
+                                                                foreach ($advance->result() as $ad) {
+                                                                    if ($ad->tenant_id == $tenant->tenant_id) {
+                                                                        if($ad->advance_status == 0) {
+                                                                            echo '<option value="'.$f->fee_id.'">'.$f->fee_name.'</option>';
+                                                                        }}}
+                                                            } else if ($f->fee_id == 2) {
+                                                            foreach ($deposit->result() as $dd) {
+                                                                if ($dd->tenant_id == $tenant->tenant_id) {
+                                                                    if($dd->deposit_status == 0) {
+                                                                        echo '<option value="'.$f->fee_id.'">'.$f->fee_name.'</option>';
+                                                                    }}}
+                        
+                                                            }
+                                                                    
                                                             
                                                         } ?>
                                                     </select>

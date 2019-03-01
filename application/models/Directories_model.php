@@ -239,19 +239,19 @@ class Directories_model extends CI_Model {
             on dir_tbl.tenant_id = tenant_tbl.tenant_id
             LEFT JOIN room_tbl
             on room_tbl.room_id=dir_tbl.room_id
-            WHERE room_tbl.room_id = ".$room_id."
-            GROUP BY tenant_tbl.type_id";
+            WHERE room_tbl.room_id = ".$room_id." ";
             $query2 = $this->db->query($SELECT2);
             $row2 = $query2->row();
 
-            if($row2->room_id){
-                $d = 0;
-                $status = 1;
-            } else {
+            if($query2->num_rows() == 1){
                 $d = ($rp) * 2;
                 $status = 0;
+                
+            } else if($query2->num_rows() > 1){
+                $d = 0;
+                $status = 1;
             }
-            
+            //print_r($row2);
         }      
         
         

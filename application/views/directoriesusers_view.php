@@ -522,6 +522,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                     ?>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             

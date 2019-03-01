@@ -170,17 +170,7 @@ class Transactions_model extends CI_Model {
 
     public function insert_bill() {
         foreach ($this->input->post('tenant_id') as $value) {
-            $data = array(
-                'rent_rate' => $this->input->post('rent_rate'),
-                'rent_extra' => $this->input->post('rent_extra'),
-                'rent_total' => $this->input->post('rent_total'),
-                'rent_balance' => $this->input->post('rent_total'),
-                'rent_status' => 0, //0 for unpaid and 1 for paid
-                'rent_due' => $this->input->post('rent_due'),
-                'tenant_id' => $value,
-            );
-            print_r($data);
-            $this->db->insert('rent_tbl', $data);
+            
 
             $data1 = array(
                 'water_provider' => $this->input->post('water_provider'),
@@ -264,9 +254,7 @@ class Transactions_model extends CI_Model {
                     where room_id = ".$rid." ";
                 $query = $this->db->query($SELECT);
                 foreach($query->result() as $tenant) {
-                    $contract = date('m-Y', strtotime($tenant->contract_start));
-                    $curdate = date('m-Y');
-                    if($contract != $curdate) {
+                    
                         $data = array(
                             'rent_rate' => $price,
                             'rent_extra' => $extra,
@@ -279,7 +267,7 @@ class Transactions_model extends CI_Model {
                         //print_r($data);
                         //echo '\n';
                         $this->db->insert('rent_tbl', $data);
-                    }
+                    
                 }
             }
         }
@@ -424,7 +412,8 @@ class Transactions_model extends CI_Model {
 
     public function rent_payment() {
             $tenant_id = $this->input->post('rtenant_id');
-
+            $paid = $this->input->post('rtrans_amount');
+            $due = $this->input->post('rtrans_due');
             $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
                 FROM tenant_tbl
                 LEFT JOIN dir_tbl
@@ -435,6 +424,13 @@ class Transactions_model extends CI_Model {
                 $query = $this->db->query($SELECT);
 
                 $row = $query->row();
+            $g;
+            if ($paid < $due) {
+                $g = $paid;
+            } else if ($paid >= $due) {
+                $g = $due;
+            }
+
             $data4 = array(
                 'a' => $row->tenant_fname,
                 'b' => $row->tenant_lname,
@@ -442,7 +438,7 @@ class Transactions_model extends CI_Model {
                 'd' => date("m/d/Y"),
                 'e' => $this->input->post('rm'),
                 'f' => $row->tenant_email,
-                'g' => $this->input->post('rtrans_amount'),
+                'g' => $g,
             );
             $rent=$this->input->post('rent_id');
            
@@ -450,8 +446,7 @@ class Transactions_model extends CI_Model {
             $rArr = explode(',', $rStr);
             
             if(count($rArr) == 1) {
-                $paid = $this->input->post('rtrans_amount');
-                $due = $this->input->post('rtrans_due');
+               
                 
                 $full;
 
@@ -465,11 +460,12 @@ class Transactions_model extends CI_Model {
                     $data = array(
                         'rtrans_mode' => $this->input->post('rtrans_mode'),
                         'rtrans_rno' => $this->input->post('rtrans_rno'),
-                        'rtrans_amount' => $this->input->post('rtrans_amount'),
+                        'rtrans_amount' => $g,
                         
                         'rtrans_isfull' => $full,
                         'rent_id' => $rs,
                         'tenant_id' => $this->input->post('rtenant_id'),
+                        'room_id' => $this->input->post('rr'),
                     );
 
                     $this->db->insert('rtrans_tbl', $data);
@@ -491,10 +487,12 @@ class Transactions_model extends CI_Model {
                         $this->db->update('rent_tbl');
                     }
                 }
-                    $data2 = array(
-                        'rent_paid' => $paid,
-                        'rent_payment' => $full,
-                    );
+                    
+                        $data2 = array(
+                            'rent_paid' => $due,
+                            'rent_payment' => $full,
+                        );
+                    
                 
                     if ($this->input->post('rtrans_mode') == 1) {
                         $data3 = array(
@@ -538,6 +536,7 @@ class Transactions_model extends CI_Model {
                             'rtrans_isfull' => 1,
                             'rent_id' => $re,
                             'tenant_id' => $this->input->post('rtenant_id'),
+                            'room_id' => $this->input->post('rr'),
                         );
 
                         $this->db->insert('rtrans_tbl', $data);
@@ -565,6 +564,7 @@ class Transactions_model extends CI_Model {
                             'rtrans_isfull' => 0,
                             'rent_id' => $re,
                             'tenant_id' => $this->input->post('rtenant_id'),
+                            'room_id' => $this->input->post('rr'),
                         );
 
                         $this->db->insert('rtrans_tbl', $data);
@@ -585,6 +585,7 @@ class Transactions_model extends CI_Model {
                             'rtrans_isfull' => 0,
                             'rent_id' => $re,
                             'tenant_id' => $this->input->post('rtenant_id'),
+                            'room_id' => $this->input->post('rr'),
                         );
                         
                         $this->db->insert('rtrans_tbl', $data);
@@ -626,7 +627,14 @@ class Transactions_model extends CI_Model {
     
     public function water_payment() {
         $tenant_id = $this->input->post('wtenant_id');
-
+        $paid = $this->input->post('wtrans_amount');
+        $due = $this->input->post('wtrans_due');
+        $g;
+            if ($paid < $due) {
+                $g = $paid;
+            } else if ($paid >= $due) {
+                $g = $due;
+            }
         $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
             FROM tenant_tbl
             LEFT JOIN dir_tbl
@@ -645,7 +653,7 @@ class Transactions_model extends CI_Model {
             'd' => date("m/d/Y"),
             'e' => $this->input->post('payment'),
             'f' => $row->tenant_email,
-            'g' => $this->input->post('wtrans_amount'),
+            'g' => $g,
         );
         $water=$this->input->post('water_id');
         $wStr = $water[0];
@@ -655,8 +663,7 @@ class Transactions_model extends CI_Model {
         
         
         if(count($wArr) == 1) {
-            $paid = $this->input->post('wtrans_amount');
-            $due = $this->input->post('wtrans_due');
+            
             $full;
             
 
@@ -670,10 +677,11 @@ class Transactions_model extends CI_Model {
                 $data = array(
                     'wtrans_mode' => $this->input->post('wtrans_mode'),
                     'wtrans_rno' => $this->input->post('wtrans_rno'),
-                    'wtrans_amount' => $this->input->post('wtrans_amount'),
+                    'wtrans_amount' => $g,
                     'wtrans_isfull' => $full,
                     'water_id' => $ws, 
                     'tenant_id' => $this->input->post('wtenant_id'),
+                    'room_id' => $this->input->post('ww'),
                 );
                 $this->db->insert('wtrans_tbl', $data);
 
@@ -722,8 +730,8 @@ class Transactions_model extends CI_Model {
             $month = $this->input->post('payment');
             $mStr = $month[0];
             $mArr = explode(',', $mStr);
-            $paid = $this->input->post('wtrans_amount');
-            $due = $this->input->post('wtrans_due');
+            // $paid = $this->input->post('wtrans_amount');
+            // $due = $this->input->post('wtrans_due');
             $wscheme = array();
             $transArr = array();
             foreach($wArr as $wa) {
@@ -746,6 +754,7 @@ class Transactions_model extends CI_Model {
                         'wtrans_isfull' => 1,
                         'water_id' => $wa,
                         'tenant_id' => $this->input->post('wtenant_id'),
+                        'room_id' => $this->input->post('ww'),
                     );
                     $this->db->insert('wtrans_tbl', $data);
                     $check = $this->db->insert_id();
@@ -767,6 +776,7 @@ class Transactions_model extends CI_Model {
                         'wtrans_isfull' => 0,
                         'water_id' => $wa,
                         'tenant_id' => $this->input->post('wtenant_id'),
+                        'room_id' => $this->input->post('ww'),
                     );
                     $this->db->insert('wtrans_tbl', $data);
                     $check = $this->db->insert_id();
@@ -788,6 +798,7 @@ class Transactions_model extends CI_Model {
                         'wtrans_isfull' => 0,
                         'water_id' => $wa,
                         'tenant_id' => $this->input->post('wtenant_id'),
+                        'room_id' => $this->input->post('ww'),
                     );
                     $this->db->insert('wtrans_tbl', $data);
                     $check = $this->db->insert_id();
@@ -833,6 +844,8 @@ class Transactions_model extends CI_Model {
     public function fee_payment() {
         $tenant_id = $this->input->post('ftenant_id');
         $ftype = $this->input->post('fee'); //advance or deposit
+        $paid = $this->input->post('ftrans_amount');
+        $due = $this->input->post('ftrans_due');
         $ftArr = array();
         foreach($ftype as $aa){
             array_push($ftArr, $aa);
@@ -842,6 +855,13 @@ class Transactions_model extends CI_Model {
             $ad = "advance";
         } else if($ftArr[0] == 2) {
             $ad = "deposit";
+        }
+
+        $g;
+        if ($paid < $due) {
+            $g = $paid;
+        } else if ($paid >= $due) {
+            $g = $due;
         }
 
         $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
@@ -861,7 +881,7 @@ class Transactions_model extends CI_Model {
             'd' => date("m/d/Y"),
             'e' => $this->input->post('fee'),
             'f' => $row->tenant_email,
-            'g' => $this->input->post('ftrans_amount'),
+            'g' => $g,
             'h' => $ad,
             'i' => $this->input->post('ftrans_mode'),
             'j' => $this->input->post('ftrans_rno'),
@@ -872,8 +892,7 @@ class Transactions_model extends CI_Model {
         
 
         if(count($fArr) == 1) {
-            $paid = $this->input->post('ftrans_amount');
-            $due = $this->input->post('ftrans_due');
+            
             
             $full;
 
@@ -888,11 +907,12 @@ class Transactions_model extends CI_Model {
                     $data = array(
                         'atrans_mode' => $this->input->post('ftrans_mode'),
                         'atrans_rno' => $this->input->post('ftrans_rno'),
-                        'atrans_amount' => $this->input->post('ftrans_amount'),
+                        'atrans_amount' => $g,
                         
                         'atrans_isfull' => $full,
                         'advance_id' => $fs,
                         'tenant_id' => $this->input->post('ftenant_id'),
+                        'room_id' => $this->input->post('ff'),
                     );
     
                     $this->db->insert('atrans_tbl', $data);
@@ -933,11 +953,11 @@ class Transactions_model extends CI_Model {
                     $data = array(
                         'dtrans_mode' => $this->input->post('ftrans_mode'),
                         'dtrans_rno' => $this->input->post('ftrans_rno'),
-                        'dtrans_amount' => $this->input->post('ftrans_amount'),
-                        
+                        'dtrans_amount' => $g,
                         'dtrans_isfull' => $full,
                         'deposit_id' => $fs,
                         'tenant_id' => $this->input->post('ftenant_id'),
+                        'room_id' => $this->input->post('ff'),
                     );
     
                     $this->db->insert('dtrans_tbl', $data);
@@ -982,6 +1002,7 @@ class Transactions_model extends CI_Model {
             // $ftArr = explode(',', $ftStr);
             $paid = $this->input->post('ftrans_amount');
             $due = $this->input->post('ftrans_due');
+            
             $wscheme = array();
             $transArr = array();
             $fin = 0;
@@ -1008,6 +1029,7 @@ class Transactions_model extends CI_Model {
                             'atrans_isfull' => 1,
                             'advance_id' => $fd,
                             'tenant_id' => $this->input->post('ftenant_id'),
+                            'room_id' => $this->input->post('ff'),
                         );
 
                         $this->db->insert('atrans_tbl', $data);
@@ -1035,6 +1057,7 @@ class Transactions_model extends CI_Model {
                             'atrans_isfull' => 0,
                             'advance_id' => $fd,
                             'tenant_id' => $this->input->post('ftenant_id'),
+                            'room_id' => $this->input->post('ff'),
                         );
 
                         $this->db->insert('atrans_tbl', $data);
@@ -1055,6 +1078,7 @@ class Transactions_model extends CI_Model {
                             'atrans_isfull' => 0,
                             'advance_id' => $fd,
                             'tenant_id' => $this->input->post('ftenant_id'),
+                            'room_id' => $this->input->post('ff'),
                         );
                         
                         $this->db->insert('atrans_tbl', $data);
@@ -1101,6 +1125,7 @@ class Transactions_model extends CI_Model {
                             'dtrans_isfull' => 1,
                             'deposit_id' => $fd,
                             'tenant_id' => $this->input->post('ftenant_id'),
+                            'room_id' => $this->input->post('ff'),
                         );
 
                         $this->db->insert('dtrans_tbl', $data);
@@ -1128,6 +1153,7 @@ class Transactions_model extends CI_Model {
                             'dtrans_isfull' => 0,
                             'deposit_id' => $fd,
                             'tenant_id' => $this->input->post('ftenant_id'),
+                            'room_id' => $this->input->post('ff'),
                         );
 
                         $this->db->insert('dtrans_tbl', $data);
@@ -1148,6 +1174,7 @@ class Transactions_model extends CI_Model {
                             'dtrans_isfull' => 0,
                             'deposit_id' => $fd,
                             'tenant_id' => $this->input->post('ftenant_id'),
+                            'room_id' => $this->input->post('ff'),
                         );
                         
                         $this->db->insert('dtrans_tbl', $data);
@@ -1191,7 +1218,7 @@ class Transactions_model extends CI_Model {
         $this->db->join('rcheck_tbl','rcheck_tbl.rtrans_id=rtrans_tbl.rtrans_id', 'LEFT');
         $this->db->join('tenant_tbl','tenant_tbl.tenant_id=rtrans_tbl.tenant_id', 'LEFT');
         $this->db->join('dir_tbl','dir_tbl.tenant_id=rtrans_tbl.tenant_id', 'LEFT');
-        $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=rtrans_tbl.room_id', 'LEFT');
     
 		$query = $this->db->get();
 		return $query;
@@ -1204,7 +1231,7 @@ class Transactions_model extends CI_Model {
         $this->db->join('wcheck_tbl','wcheck_tbl.wtrans_id=wtrans_tbl.wtrans_id', 'LEFT');
         $this->db->join('tenant_tbl','tenant_tbl.tenant_id=wtrans_tbl.tenant_id', 'LEFT');
         $this->db->join('dir_tbl','dir_tbl.tenant_id=wtrans_tbl.tenant_id', 'LEFT');
-        $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=wtrans_tbl.room_id', 'LEFT');
     
 		$query = $this->db->get();
 		return $query;
@@ -1212,6 +1239,33 @@ class Transactions_model extends CI_Model {
 
     }
 
+    public function get_atrans () {
+		$this->db->from('atrans_tbl');
+		$this->db->join('advance_tbl','advance_tbl.advance_id=atrans_tbl.advance_id', 'LEFT');
+        $this->db->join('acheck_tbl','acheck_tbl.atrans_id=atrans_tbl.atrans_id', 'LEFT');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=atrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('dir_tbl','dir_tbl.tenant_id=atrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=atrans_tbl.room_id', 'LEFT');
+    
+		$query = $this->db->get();
+		return $query;
+
+
+    }
+
+    public function get_dtrans () {
+		$this->db->from('dtrans_tbl');
+		$this->db->join('deposit_tbl','deposit_tbl.deposit_id=dtrans_tbl.deposit_id', 'LEFT');
+        $this->db->join('dcheck_tbl','dcheck_tbl.dtrans_id=dtrans_tbl.dtrans_id', 'LEFT');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dtrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('dir_tbl','dir_tbl.tenant_id=dtrans_tbl.tenant_id', 'LEFT');
+        $this->db->join('room_tbl','room_tbl.room_id=dtrans_tbl.room_id', 'LEFT');
+    
+		$query = $this->db->get();
+		return $query;
+
+
+    }
     public function send_mail_rent($to_email, $to_guardianemail) {
 
         //Load email library
