@@ -388,7 +388,7 @@
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Date of move-in <span style="color:red">*</span></label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Start of contract <span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="contract_start" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required></div>
                                             </div>
                                         </div>
@@ -402,13 +402,25 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Type of tenant <span style="color:red">*</span></label></div>
                                                 <div class="col">
-                                                    <select class="form-control" name="type_id" >
-                                                        <option selected disabled>Select tenant type</option>
-                                                        <?php foreach($type->result() as $t) { 
-                                                        echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                    <?php 
+                                                        
+                                                            foreach($rtype->result() as $rt) {
+                                                                if($rt->room_id == $row6->room_id) {
+                                                                    if($rt->type_name) {
+                                                                    echo '<input name="type_id" class="form-control" type="hidden" value="'.$rt->type_id.'">';
+                                                                    echo '<input name="type_name" class="form-control" type="text" value="'.$rt->type_name.'" disabled>';
+                                                                    } else  {
+                                                                        echo'<select class="form-control" name="type_id" >
+                                                                                <option selected disabled>Select tenant type</option>';
+                                                                            foreach($type->result() as $t) { 
+                                                                            echo '<option value="'.$t->type_id.'">'.$t->type_name.'</option>';
+                                                                            }
+                                                                        echo '</select>';
+                                                                    }
+                                                                }
+                                                            }
+                                                    ?>
+                                                    
                                                 </div>
                                             </div>
                                         </div>

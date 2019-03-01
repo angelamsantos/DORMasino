@@ -201,6 +201,12 @@ input[type=number] {
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
+                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
+                                            <div class="col"><input name="arRoomExtra"  class="form-control" type="number" placeholder="Enter price of extra charge" required></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Capacity</label></div>
                                             <div class="col"><input name="arRoomTcount"  class="form-control" type="number" placeholder="Enter number of people" min="3" required></div>
                                         </div>
@@ -238,6 +244,12 @@ input[type=number] {
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
                                             <div class="col"><input name="update_roomprice"  class="form-control" type="number" value="<?php echo $rmedit->room_price; ?>" required></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
+                                            <div class="col"><input name="update_roomextra"  class="form-control" type="number" value="<?php echo $rmedit->room_extra; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
