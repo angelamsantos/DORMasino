@@ -44,6 +44,9 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     .messageoption:hover {
         color: #000000;
     }
+    .page-link > a {
+        color:black;
+    }
     </style>
 
     <script>
@@ -126,8 +129,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                         if ($msg != NULL) {
 
                                             foreach($msg as $archive) {
-
-                                                if ($archive->send_archive == 1 && $archive->send_archive != NULL) {
 
                                                         if ($archive->send_type == 0) {
 
@@ -275,18 +276,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                         }
         
                                                                 }
-                                                } else {
-
-                                                    echo    '<li class="list-group-item">
-                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
-                                                                <p style="font-size: 14px;"><center>No messages</center></p>
-                                                                <p style="font-size: 14px;"></p>
-                                                            </li>';
-
-                                                    break;
-
-                                                }
                                             }
 
                                         } else {
@@ -306,8 +295,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                 </ul>
                             </div>
                             <!----END OF ARCHIVE---->
-                    <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
-                        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                            <div class="pull-right" style="margin-top: 15px;"><?php echo $links; ?></div>                        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
                             <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                         </footer>
                         </div>

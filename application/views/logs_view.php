@@ -21,6 +21,12 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
 <head>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <style>
+    .export {
+        margin-bottom: 20px;
+        border:none;
+    }
+</style>
 
     <script>
 
@@ -34,7 +40,7 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
             buttons: [{
                 extend: 'excel',
                 text: 'Export to Excel',
-                className: 'btn btn-success',
+                className: 'btn btn-success export',
                 filename: "Visitor Logs (<?php echo date('m-d-Y'); ?>)",
                 exportOptions: {
                     modifier: {
@@ -75,14 +81,15 @@ $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
                 <div class="col-xl-12" style="margin-top: 11px;padding:0px;margin-bottom: 11px">
 	                    <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
                     </div>
-                <div class="row" style="margin: 0px;margin-top: 0px;">
+                <!-- <div class="row ml-auto" style="margin: 0px;margin-top: 0px;border:1px solid black; width:80%;">
                     <div class="col d-flex d-sm-flex d-md-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end" style="margin-top: 0px;padding-right: 0px;">
-                        <button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Log visitor</button>
+                        <button class="btn btn-primary" <?php //echo $a; ?> type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Log visitor</button>
                     </div>
-                </div>
+                </div> -->
                 
-            <div style="margin-top: 14px;">
+            <div style="margin-top: 0px;">
                 <div class="table-responsive">
+                <button class="btn btn-primary" <?php echo $a; ?> type="button" data-toggle="modal" data-target="#ModalIn" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Log visitor</button>
                     <table class="table no-wrap" id="visitor_table" style="font-size:14px;text-align:center;">
                         <thead class="logs">
                             <tr>

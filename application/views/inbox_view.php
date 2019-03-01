@@ -40,6 +40,9 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     .messageoption:hover {
         color: #000000;
     }
+    .page-link > a {
+        color:black;
+    }
     </style>
     <script>
 
@@ -119,62 +122,48 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                             foreach($msg as $inbox) {
 
-                                                if($inbox->send_archive == 0 && $inbox->send_archive != NULL) {
+                                                if($inbox->send_archive == 0) {
 
-                                                    if ($inbox->send_type == 0 && $inbox->send_type != NULL) {
+                                                    $date_posted = $inbox->msg_date;
+                                                    $msg_date=date("M d, Y g:ia", strtotime($date_posted));
 
-                                                        $date_posted = $inbox->msg_date;
-                                                        $msg_date=date("M d, Y g:ia", strtotime($date_posted));
-
-                                                        echo    '<div style="border:1px solid #c7c7c7;">
-                                                                    <div class="row" >
-                                                                        <div class="col-xl-3">
-                                                                            <label class="form-check-label">
-                                                                                <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$inbox->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
-                                                                                <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">From: '.$inbox->tenant_fname.' '.$inbox->tenant_lname.'</h6>
-                                                                                <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="col-xl-9" >
-                                                                            <button '.$b.' type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
-                                                                                <br><p style="font-size: 14px;">'. htmlspecialchars($inbox->msg_subject) .' (click here to view and reply)</p>
-                                                                            </button>
-                                                                        </div>
+                                                    echo    '<div style="border:1px solid #c7c7c7;">
+                                                                <div class="row" >
+                                                                    <div class="col-xl-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$inbox->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
+                                                                            <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">From: '.$inbox->tenant_fname.' '.$inbox->tenant_lname.'</h6>
+                                                                            <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
+                                                                        </label>
                                                                     </div>
-                                                                </div>';
+                                                                    <div class="col-xl-9" >
+                                                                        <button '.$b.' type="button" style="border:none; width:100%;" title="click here view and reply" class="list-group-item" data-toggle="modal" data-target="#Reply'.$inbox->send_id.'">
+                                                                            <br><p style="font-size: 14px;">'. htmlspecialchars($inbox->msg_subject) .' (click here to view and reply)</p>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
 
-                                                                if(isset($_POST['archive'])) {//to run PHP script on submit
+                                                            if(isset($_POST['archive'])) {//to run PHP script on submit
 
-                                                                    if(!empty($_POST['archive_arr'])){
-                                                                            
-                                                                        $archive_count = count($_POST['archive_arr']);
-                                                                        
-                                                                        foreach($_POST['archive_arr'] as $selected) {
+                                                                if(!empty($_POST['archive_arr'])){
                                                                                 
-                                                                            $archiveArr[] = $selected;
+                                                                    $archive_count = count($_POST['archive_arr']);
                                                                             
-                                                                        }
-                    
-                                                                        echo "  <script>
-                                                                                    $(document).ready(function(){
-                                                                                        $('#archivemsg').modal('show');
-                                                                                    });
-                                                                                </script>";
+                                                                    foreach($_POST['archive_arr'] as $selected) {
+                                                                                
+                                                                        $archiveArr[] = $selected;
+                                                                            
                                                                     }
+                    
+                                                                    echo "  <script>
+                                                                                $(document).ready(function(){
+                                                                                    $('#archivemsg').modal('show');
+                                                                                });
+                                                                            </script>";
                                                                 }
+                                                            }
 
-                                                    } else {
-
-                                                                echo    '<li class="list-group-item">
-                                                                            <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                            <p style="color: #868e96;font-size: 10px;margin-bottom: 7px;"></p>
-                                                                            <p style="font-size: 10px;"><center>No messages</center></p>
-                                                                            <p style="font-size: 10px;"></p>
-                                                                        </li>';
-        
-                                                                break;
-
-                                                    }
                                                 } else {
 
                                                     echo    '<li class="list-group-item">
@@ -187,7 +176,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                     break;
 
                                                 }
-                                            }
+                                            } 
 
                                         } else {
 
@@ -205,7 +194,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                 </ul>
                             </div>
                             <!----END OF INBOX---->
-                            <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
+                            <div class="pull-right" style="margin-top: 15px;"><?php echo $links; ?></div>     
                         <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
                             <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                         </footer>
