@@ -53,6 +53,26 @@ button.link {
         display: block;
     }
 
+    /* .pagination > li {
+        color: black;
+    }
+    
+    .page-item  {
+        color:black;
+    }
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover {
+        color:black;
+    } */
+
+    .page-link > a {
+        color:black;
+    }
+
+
+
 </style>
 </head>
         <div class="page-content-wrapper">
@@ -458,17 +478,18 @@ button.link {
                                 <!----END MODAL edit-->
                                 
                                 </div>
-                                <p class="card-text" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 20px;margin-bottom: 0px; text-align: right"><?php echo $links; ?></p>
+                                <div class="pull-right" style="margin-top: 15px;"><?php echo $links; ?></div>
                             
                             </div>
                             
                         </div>
                         
                     </div>
-                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                            <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
-                        </footer>
+                    
                 </div>
+                <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                            <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                </footer>
             </div>
         </div>
         
