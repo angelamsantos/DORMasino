@@ -47,7 +47,7 @@ class Messages_model extends CI_Model {
         return $query;
     }
 
-    public function get_msg($limit, $start) {
+    public function get_msg_inbox($limit, $start) {
 
         $this->db->limit($limit, $start);
 
@@ -58,6 +58,61 @@ class Messages_model extends CI_Model {
         $this->db->join('msg_tbl','msg_tbl.msg_id=send_tbl.msg_id', 'LEFT');
         $this->db->join('tenant_tbl','tenant_tbl.tenant_id=send_tbl.tenant_id', 'LEFT');
         $this->db->where('admin_id', $admin_id);
+        $this->db->where('send_type', 0);
+    
+		$query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+
+            foreach ($query->result() as $row) {
+
+                $data[] = $row;
+
+            } return $data;
+
+        } return false;
+        
+    }
+
+    public function get_msg_sent($limit, $start) {
+
+        $this->db->limit($limit, $start);
+
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+        $this->db->from('send_tbl');
+        $this->db->order_by('send_id', 'desc');
+        $this->db->join('msg_tbl','msg_tbl.msg_id=send_tbl.msg_id', 'LEFT');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=send_tbl.tenant_id', 'LEFT');
+        $this->db->where('admin_id', $admin_id);
+        $this->db->where('send_type', 1);
+    
+		$query = $this->db->get();
+        
+        if ($query->num_rows() > 0) {
+
+            foreach ($query->result() as $row) {
+
+                $data[] = $row;
+
+            } return $data;
+
+        } return false;
+        
+    }
+
+    public function get_msg_archive($limit, $start) {
+
+        $this->db->limit($limit, $start);
+
+        $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
+
+        $this->db->from('send_tbl');
+        $this->db->order_by('send_id', 'desc');
+        $this->db->join('msg_tbl','msg_tbl.msg_id=send_tbl.msg_id', 'LEFT');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=send_tbl.tenant_id', 'LEFT');
+        $this->db->where('admin_id', $admin_id);
+        $this->db->where('send_archive', 1);
     
 		$query = $this->db->get();
         
