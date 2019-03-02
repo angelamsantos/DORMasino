@@ -48,7 +48,7 @@ class Messages extends CI_Controller{
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $data['msg']=$this->Messages_model->get_msg($config['per_page'], $page);
+        $data['msg']=$this->Messages_model->get_msg_inbox($config['per_page'], $page);
         $data['floor']=$this->Messages_model->get_floor();
         $data['room']=$this->Messages_model->get_room();
         $data['dir']=$this->Messages_model->get_dir();
@@ -73,7 +73,7 @@ class Messages extends CI_Controller{
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $data['msg']=$this->Messages_model->get_msg($config['per_page'], $page);
+        $data['msg']=$this->Messages_model->get_msg_sent($config['per_page'], $page);
         $data['floor']=$this->Messages_model->get_floor();
         $data['room']=$this->Messages_model->get_room();
         $data['dir']=$this->Messages_model->get_dir();
@@ -98,7 +98,7 @@ class Messages extends CI_Controller{
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $data['msg']=$this->Messages_model->get_msg($config['per_page'], $page);
+        $data['msg']=$this->Messages_model->get_msg_archive($config['per_page'], $page);
         $data['floor']=$this->Messages_model->get_floor();
         $data['room']=$this->Messages_model->get_room();
         $data['dir']=$this->Messages_model->get_dir();

@@ -130,8 +130,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                             foreach($msg as $archive) {
 
-                                                if ($archive->send_archive == 1 && $archive->send_archive != NULL) {
-
                                                         if ($archive->send_type == 0) {
 
                                                             $date_posted = $archive->msg_date;
@@ -278,18 +276,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                         }
         
                                                                 }
-                                                } else {
-
-                                                    echo    '<li class="list-group-item">
-                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
-                                                                <p style="font-size: 14px;"><center>No messages</center></p>
-                                                                <p style="font-size: 14px;"></p>
-                                                            </li>';
-
-                                                    break;
-
-                                                }
                                             }
 
                                         } else {
