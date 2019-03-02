@@ -32,7 +32,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         modifier: {
                             page: 'all'
                         },
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }]
             });
@@ -51,7 +51,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         modifier: {
                             page: 'all'
                         },
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }]
             });
@@ -65,12 +65,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     extend: 'excel',
                     text: 'Export to Excel',
                     className: 'btn btn-success export',
-                    filename: "Water Transactions (<?php echo date('m-d-Y'); ?>)",
+                    filename: "Advance Transactions (<?php echo date('m-d-Y'); ?>)",
                     exportOptions: {
                         modifier: {
                             page: 'all'
                         },
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }]
             });
@@ -84,12 +84,12 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     extend: 'excel',
                     text: 'Export to Excel',
                     className: 'btn btn-success export',
-                    filename: "Water Transactions (<?php echo date('m-d-Y'); ?>)",
+                    filename: "Deposit Transactions (<?php echo date('m-d-Y'); ?>)",
                     exportOptions: {
                         modifier: {
                             page: 'all'
                         },
-                        columns: [0,1,2,3]
+                        columns: [0,1,2,3,4,5,6]
                     }
                 }]
             });

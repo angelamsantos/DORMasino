@@ -198,6 +198,7 @@ class Transactions extends CI_Controller{
         $to_email = $this->input->post('to_email');
         $to_guardianemail = $this->input->post('to_guardianemail');
         
+        // $this->Transactions_model->rent_payment();
         $result = $this->Transactions_model->send_mail_rent($to_email, $to_guardianemail);
 
         if (! $result) {
@@ -208,7 +209,6 @@ class Transactions extends CI_Controller{
 
         } else {
 
-            $this->Transactions_model->rent_payment();
             //$this->load->view('rent_receipt', $data);
             $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
             $this->session->set_flashdata('msg', $msg);
@@ -224,7 +224,9 @@ class Transactions extends CI_Controller{
         $to_email = $this->input->post('to_email');
         $to_guardianemail = $this->input->post('to_guardianemail');
         
+        // $this->Transactions_model->water_payment();
         $result1 = $this->Transactions_model->send_mail_water($to_email, $to_guardianemail);
+
         if (! $result1) {
 
             $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water payment was not recorded!</center></div>';
@@ -233,7 +235,6 @@ class Transactions extends CI_Controller{
 
         } else {
 
-            $this->Transactions_model->water_payment();
             $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water payment successfully recorded!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Transactions/payments');
@@ -247,7 +248,9 @@ class Transactions extends CI_Controller{
         $to_email = $this->input->post('to_email');
         $to_guardianemail = $this->input->post('to_guardianemail');
         
+        // $this->Transactions_model->fee_payment();
         $result2 = $this->Transactions_model->send_mail_fee($to_email, $to_guardianemail);
+        
         if (! $result2) {
 
             $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Deposit/Advance payment was not recorded!</center></div>';
@@ -256,7 +259,6 @@ class Transactions extends CI_Controller{
 
         } else {
 
-            $this->Transactions_model->fee_payment();
             $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Deposit/Advance payment successfully recorded!</center></div>';
             $this->session->set_flashdata('msg', $msg);
             redirect('Transactions/payments');

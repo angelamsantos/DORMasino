@@ -510,9 +510,9 @@ input[type=number] {
                                 </div>
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">New rate</label></div>
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;" required>New rate</label></div>
                                         <div class="col-xl-12">
-                                            <input name="wsetting_value" class="form-control" type="number" min="0">  
+                                            <input name="wsetting_value" class="form-control" type="number" min="0" placeholder="Enter new rate of water">  
                                             
                                         </div>
                                     </div>

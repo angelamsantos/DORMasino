@@ -103,72 +103,58 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                             foreach($msg as $sent) {
 
-                                                if($sent->send_archive == 0 && $sent->send_archive != NULL) {
+                                                if($sent->send_archive == 0) {
 
-                                                    if ($sent->send_type == 1 && $sent->send_type != NULL) {
+                                                    $date_posted = $sent->msg_date;
+                                                    $msg_date=date("M d, Y g:ia", strtotime($date_posted));
 
-                                                        $date_posted = $sent->msg_date;
-                                                        $msg_date=date("M d, Y g:ia", strtotime($date_posted));
-
-                                                        echo    '<div style="border:1px solid #c7c7c7;">
-                                                                    <div class="row" >
-                                                                        <div class="col-xl-3">
-                                                                            <label class="form-check-label">
-                                                                                <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$sent->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
-                                                                                <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">To: '.$sent->tenant_fname.' '.$sent->tenant_lname.'</h6>
-                                                                                <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="col-xl-9" >
-                                                                            <button type="button" style="border:none; width:100%;" title="click here view message" class="list-group-item" data-toggle="modal" data-target="#Sent'.$sent->send_id.'">
-                                                                                <br><p style="font-size: 14px;">'. htmlspecialchars($sent->msg_subject) .' (click here to view message)</p>
-                                                                            </button>
-                                                                        </div>
+                                                    echo    '<div style="border:1px solid #c7c7c7;">
+                                                                <div class="row" >
+                                                                    <div class="col-xl-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$sent->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
+                                                                            <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">To: '.$sent->tenant_fname.' '.$sent->tenant_lname.'</h6>
+                                                                            <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
+                                                                        </label>
                                                                     </div>
-                                                                </div>';
+                                                                    <div class="col-xl-9" >
+                                                                        <button type="button" style="border:none; width:100%;" title="click here view message" class="list-group-item" data-toggle="modal" data-target="#Sent'.$sent->send_id.'">
+                                                                            <br><p style="font-size: 14px;">'. htmlspecialchars($sent->msg_subject) .' (click here to view message)</p>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
 
-                                                                if(isset($_POST['archive'])) {//to run PHP script on submit
+                                                            if(isset($_POST['archive'])) {//to run PHP script on submit
 
-                                                                    if(!empty($_POST['archive_arr'])){
-                                                                            
-                                                                        $archive_count = count($_POST['archive_arr']);
-                                                                        
-                                                                        foreach($_POST['archive_arr'] as $selected) {
+                                                                if(!empty($_POST['archive_arr'])){
                                                                                 
-                                                                            $archiveArr[] = $selected;
+                                                                    $archive_count = count($_POST['archive_arr']);
                                                                             
-                                                                        }
-                    
-                                                                        echo "  <script>
-                                                                                    $(document).ready(function(){
-                                                                                        $('#archivemsg').modal('show');
-                                                                                    });
-                                                                                </script>";
+                                                                    foreach($_POST['archive_arr'] as $selected) {
+                                                                                    
+                                                                        $archiveArr[] = $selected;
+                                                                                
                                                                     }
+                        
+                                                                    echo "  <script>
+                                                                                $(document).ready(function(){
+                                                                                    $('#archivemsg').modal('show');
+                                                                                });
+                                                                            </script>";
                                                                 }
+                                                            }
 
-                                                        } else {
-
-                                                            echo    '<li class="list-group-item">
-                                                                        <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                        <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
-                                                                        <p style="font-size: 14px;"><center>No messages</center></p>
-                                                                        <p style="font-size: 14px;"></p>
-                                                                    </li>';
-
-                                                            break;        
-
-                                                        }
                                                 } else {
 
                                                     echo    '<li class="list-group-item">
                                                                 <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                <p style="color: #868e96;font-size: 12px;margin-bottom: 7px;"></p>
-                                                                <p style="font-size: 14px;"><center>No messages</center></p>
-                                                                <p style="font-size: 14px;"></p>
+                                                                <p style="color: #868e96;font-size: 10px;margin-bottom: 7px;"></p>
+                                                                <p style="font-size: 10px;"><center>No messages</center></p>
+                                                                <p style="font-size: 10px;"></p>
                                                             </li>';
 
-                                                    break;        
+                                                    break;
 
                                                 }
                                             }
@@ -183,7 +169,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                         </li>';
 
                                         }
-                                        
 
                                     ?>
                                     </form>
