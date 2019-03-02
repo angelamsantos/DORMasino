@@ -597,17 +597,25 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                 <div class="form-group">
                                     <div class="form-row">
                                     <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Tenant: <?php echo $changeCon->tenant_fname." ". $changeCon->tenant_lname; ?></label></div>
-                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Start of Contract</label></div>
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current start of Contract</label></div>
                                         <div class="col-xl-12" style="font-weight: normal;"><input name="cc_start" class="form-control" type="date" value="<?php echo $changeCon->contract_start; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">New Contract</label></div>
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Start of Contract</label></div>
                                         <div class="col-xl-12">
-                                            <input name="cc_date" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later">  
-                                            <input name="cc_tenantid" class="form-control" type="hidden" value="<?php echo $changeCon->tenant_id; ?>">
+                                            <input name="cc_date" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required>  
+                                            <input name="cc_tenantid" class="form-control" type="hidden" value="<?php echo $changeCon->tenant_id; ?>" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">End of Contract</label></div>
+                                        <div class="col-xl-12">
+                                            <input name="cc_end" class="form-control" type="date" min=<?php echo date('yyyy-mm-dd'); ?> title="The date must be <?php echo date('d/m/Y'); ?> or later" required>  
                                         </div>
                                     </div>
                                 </div>

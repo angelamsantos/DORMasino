@@ -364,6 +364,7 @@ class Directories_model extends CI_Model {
     public function cc_tenant($tenant_id) {
         $data5 = array(
             'contract_start' => $this->input->post('cc_date'),
+            'contract_end' => $this->input->post('cc_end'),
         );
             $this->db->where('tenant_id', $tenant_id);
             $this->db->update('contract_tbl', $data5);
