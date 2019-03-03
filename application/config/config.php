@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 $config['base_url'] = 'https://thomasianresidences.net/';
 =======
 $config['base_url'] = 'http://localhost:80/Dormasino';
@@ -32,6 +33,10 @@ $config['base_url'] = 'http://localhost:80/Dormasino';
 =======
 $config['base_url'] = 'http://localhost:80/Dormasino';
 >>>>>>> master
+=======
+
+$config['base_url'] = 'https://thomasianresidences.net/';
+>>>>>>> 29b7c65145180a4de98cf13ed3202433b184b643
 
 /*
 |--------------------------------------------------------------------------
