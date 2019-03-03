@@ -179,7 +179,7 @@
                                                 <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
 
                                                 <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
-                                                <span style="color:green"> 0 </span></p>
+                                                <span style="color:green"> <?php echo $row1->room_tcount; ?></span></p>
                                                 <?php } ?>
                                             </div>
                                         </div>
