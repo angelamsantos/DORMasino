@@ -26,6 +26,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
 ?>
 <html>
+<meta http-equiv="refresh" content="300" />
 
 
     <style>
@@ -122,8 +123,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                             foreach($msg as $inbox) {
 
-                                                if($inbox->send_archive == 0) {
-
                                                     $date_posted = $inbox->msg_date;
                                                     $msg_date=date("M d, Y g:ia", strtotime($date_posted));
 
@@ -163,20 +162,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                             </script>";
                                                                 }
                                                             }
-
-                                                } else {
-
-                                                    echo    '<li class="list-group-item">
-                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                <p style="color: #868e96;font-size: 10px;margin-bottom: 7px;"></p>
-                                                                <p style="font-size: 10px;"><center>No messages</center></p>
-                                                                <p style="font-size: 10px;"></p>
-                                                            </li>';
-
-                                                    break;
-
-                                                }
-                                            } 
+                                            }
 
                                         } else {
 
@@ -266,9 +252,9 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                     <p style="font-size: 14px;"><?php echo htmlspecialchars($reply->msg_body) ?></p><hr style="border-bottom: 1px;">
                                             </div>
                                                 <div class="col-xl-12">
-                                                    <input type="text" class="form-control" name="subject" placeholder="Subject" style="font-size: 14px; margin-bottom:10px;" required>
                                                     <textarea name="body" class="form-control" row="2" type="text" placeholder="Write something..."  required></textarea>
                                                 </div>
+                                                <input type="hidden" class="form-control" name="subject" value="<?php echo $reply->msg_subject ?>">
                                                 <input type="hidden" name="send_id" value="<?php echo $reply->send_id ?>">
                                                 <input type="hidden" name="tenant_id" value="<?php echo $reply->tenant_id ?>">
                                                 <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Reply</button></div>

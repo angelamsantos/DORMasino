@@ -27,7 +27,7 @@ class Announcements extends CI_Controller{
         $config['total_rows'] = $this->Announcements_model->record_count();
         $config['per_page'] = 5;
         $config['uri_segment'] = 3;
-        $config['use_page_numbers'] = TRUE;
+        // $config['use_page_numbers'] = TRUE;
         $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination pull-right">';
         $config['full_tag_close']   = '</ul></nav></div>';
         $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
@@ -106,6 +106,7 @@ class Announcements extends CI_Controller{
                 $conf = array(
                     'upload_path' => "./assets/uploads/documents/".$date."/",
                     'allowed_types' => "xls|xlsx|docx|doc|pdf",
+                    'file_ext_tolower' => TRUE,
                     'overwrite' => FALSE,
                     'max_size' => "10000", // Can be set to particular file size , here it is 10 MB
                     'max_height' => "768",
@@ -122,7 +123,7 @@ class Announcements extends CI_Controller{
 
                     if (!$this->upload->do_upload('file')) {
 
-                        $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File size is invalid!</center></div>';
+                        $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File type/size is invalid!</center></div>';
                         $this->session->set_flashdata('msg', $msg);
 
                         redirect('Announcements/index');
@@ -155,7 +156,8 @@ class Announcements extends CI_Controller{
             
                     $conf = array(
                         'upload_path' => "./assets/uploads/images/".$date."/",
-                        'allowed_types' => "png|gif|jpg|jpeg|PNG|GIF|JPG|JPEG",
+                        'allowed_types' => "png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF",
+                        'file_ext_tolower' => TRUE,
                         'overwrite' => FALSE,
                         'max_size' => "5000", // Can be set to particular file size , here it is 5 MB
                     );
@@ -170,7 +172,7 @@ class Announcements extends CI_Controller{
     
                         if (!$this->upload->do_upload('img')) {
     
-                            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File size is invalid!</center></div>';
+                            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File type/size is invalid!</center></div>';
                             $this->session->set_flashdata('msg', $msg);
     
                             redirect('Announcements/index');
@@ -195,7 +197,7 @@ class Announcements extends CI_Controller{
 
             } else {
 
-                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File extension is invalid!</center></div>';
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not posted. File type is invalid!</center></div>';
                 $this->session->set_flashdata('msg', $msg);
 
                 redirect('Announcements/index');
@@ -268,6 +270,7 @@ class Announcements extends CI_Controller{
                 $conf = array(
                     'upload_path' => "./assets/uploads/documents/".$date."/",
                     'allowed_types' => "xls|xlsx|docx|doc|pdf",
+                    'file_ext_tolower' => TRUE,
                     'overwrite' => FALSE,
                     'max_size' => "10000", // Can be set to particular file size , here it is 10 MB
                     'max_height' => "768",
@@ -284,7 +287,7 @@ class Announcements extends CI_Controller{
 
                     if (!$this->upload->do_upload('file')) {
 
-                        $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File size is invalid!</center></div>';
+                        $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File type/size is invalid!</center></div>';
                         $this->session->set_flashdata('msg', $msg);
 
                         redirect('Announcements/index');
@@ -318,7 +321,8 @@ class Announcements extends CI_Controller{
             
                     $conf = array(
                         'upload_path' => "./assets/uploads/images/".$date."/",
-                        'allowed_types' => "png|gif|jpg|jpeg|PNG|GIF|JPG|JPEG",
+                        'allowed_types' => "png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF",
+                        'file_ext_tolower' => TRUE,
                         'overwrite' => FALSE,
                         'max_size' => "5000", // Can be set to particular file size , here it is 5 MB
                     );
@@ -333,7 +337,7 @@ class Announcements extends CI_Controller{
     
                         if (!$this->upload->do_upload('img')) {
     
-                            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File size is invalid!</center></div>';
+                            $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File type/size is invalid!</center></div>';
                             $this->session->set_flashdata('msg', $msg);
     
                             redirect('Announcements/index');
@@ -359,7 +363,7 @@ class Announcements extends CI_Controller{
 
             } else {
 
-                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File extension is invalid!</center></div>';
+                $msg = '<div class="alert alert-danger" style="font-size:15px;margin:0px"><center>Announcement not edited. File type is invalid!</center></div>';
                 $this->session->set_flashdata('msg', $msg);
 
                 redirect('Announcements/index');

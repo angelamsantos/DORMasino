@@ -7,6 +7,7 @@ class Messages_model extends CI_Model {
 
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
 
+        $this->db->where('send_archive', 0);
         $this->db->where('send_type', 0);
         $this->db->where('admin_id', $admin_id);
         $this->db->from('send_tbl');
@@ -18,6 +19,7 @@ class Messages_model extends CI_Model {
 
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
 
+        $this->db->where('send_archive', 0);
         $this->db->where('send_type', 1);
         $this->db->where('admin_id', $admin_id);
         $this->db->from('send_tbl');
@@ -58,6 +60,7 @@ class Messages_model extends CI_Model {
         $this->db->join('msg_tbl','msg_tbl.msg_id=send_tbl.msg_id', 'LEFT');
         $this->db->join('tenant_tbl','tenant_tbl.tenant_id=send_tbl.tenant_id', 'LEFT');
         $this->db->where('admin_id', $admin_id);
+        $this->db->where('send_archive', 0);
         $this->db->where('send_type', 0);
     
 		$query = $this->db->get();
@@ -85,6 +88,7 @@ class Messages_model extends CI_Model {
         $this->db->join('msg_tbl','msg_tbl.msg_id=send_tbl.msg_id', 'LEFT');
         $this->db->join('tenant_tbl','tenant_tbl.tenant_id=send_tbl.tenant_id', 'LEFT');
         $this->db->where('admin_id', $admin_id);
+        $this->db->where('send_archive', 0);
         $this->db->where('send_type', 1);
     
 		$query = $this->db->get();

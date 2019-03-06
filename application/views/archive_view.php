@@ -30,7 +30,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     } 
 ?>
 <html>
-
+<meta http-equiv="refresh" content="300" />
 
     <style>
     li p {

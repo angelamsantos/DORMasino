@@ -11,7 +11,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 ?>
 <html>
-
+<meta http-equiv="refresh" content="300" />
 
     <style>
     li p {
@@ -103,8 +103,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
                                             foreach($msg as $sent) {
 
-                                                if($sent->send_archive == 0) {
-
                                                     $date_posted = $sent->msg_date;
                                                     $msg_date=date("M d, Y g:ia", strtotime($date_posted));
 
@@ -145,18 +143,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                                 }
                                                             }
 
-                                                } else {
-
-                                                    echo    '<li class="list-group-item">
-                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                <p style="color: #868e96;font-size: 10px;margin-bottom: 7px;"></p>
-                                                                <p style="font-size: 10px;"><center>No messages</center></p>
-                                                                <p style="font-size: 10px;"></p>
-                                                            </li>';
-
-                                                    break;
-
-                                                }
                                             }
 
                                         } else {
