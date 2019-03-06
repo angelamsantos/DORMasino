@@ -204,7 +204,7 @@
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;"><?php echo $row7->room_number; ?>:Non-Disclosure Agreement (NDA)</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $row7->room_number; ?>:Terms and Conditions</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:500px;">   
                             <form id="form_nda" action="" method="POST" style="font-size:14px;padding-left: 35px; padding-right:50px;height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <b>To create an account in DORMasino, you’ll need to agree to the Terms of Service below.<br/> 

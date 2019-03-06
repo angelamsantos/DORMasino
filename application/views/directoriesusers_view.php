@@ -698,7 +698,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Non-Disclosure Agreement (NDA)</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <h4 class="modal-title" style="color: #11334f;">Terms and Conditions</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:500px;">   
                             <form id="form_nda" action="" method="POST" style="font-size:14px;padding-left: 35px; padding-right:50px;height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <b>To create an account in DORMasino, you’ll need to agree to the Terms of Service below.<br/> 
@@ -818,7 +818,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions </label></div>
-                                                <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" required></textarea></div>
+                                                <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" ></textarea></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Mother</h6>

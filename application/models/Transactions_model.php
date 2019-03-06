@@ -207,7 +207,7 @@ class Transactions_model extends CI_Model {
     }
 
     public function insert_rent() {
-        $SELECT2 = "SELECT room_tbl.*, dir_tbl.dir_id, count(dir_tbl.tenant_id) as num_tenants, tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name
+        $SELECT2 = "SELECT room_tbl.*, dir_tbl.dir_id, count(dir_tbl.tenant_id) as num_tenants, tenant_tbl.type_id, type_tbl.type_id, type_tbl.type_name, type_tbl.type_rate
                     from room_tbl
                     LEFT JOIN dir_tbl
                     on room_tbl.room_id=dir_tbl.room_id
@@ -215,60 +215,65 @@ class Transactions_model extends CI_Model {
                     on dir_tbl.dir_id=tenant_tbl.tenant_id
                     LEFT JOIN type_tbl
                     on tenant_tbl.type_id=type_tbl.type_id
+                    where tenant_tbl.tenant_status = 1
                     GROUP BY room_tbl.room_id
                     ";
         $query2 = $this->db->query($SELECT2);
         foreach($query2->result() as $room) {
             if($room->room_status == 1 && $room->num_tenants != 0) {
-                $rid = $room->room_id;
-                $price=$room->room_price;
-                $extra=$room->room_extra;
-                $capacity=$room->room_tcount;
-                $actual = $room->num_tenants;
-                $total = 0;
-                $te;
-                $pt;
-                if($capacity >= $actual){
-                    $total = $price;
-                } else if ($actual > $capacity) {
-                    $te = $actual - $capacity;
-                    $ec = $te * $extra;
-                    $total = $price + $ec;
-                }
-
-                if($room->type_id == 1) {
-                    if($actual > $capacity) {
-                        $pt = $total / $actual;
-                    } else if ($capacity >= $actual) {
-                        $pt = $total / $capacity;
+              
+                    $rid = $room->room_id;
+                    $price=$room->room_price;
+                    $extra=$room->room_extra;
+                    $capacity=$room->room_tcount;
+                    $actual = $room->num_tenants;
+                    $total = 0;
+                    $te;
+                    $pt;
+                    if($capacity >= $actual){
+                        $total = $price;
+                    } else if ($actual > $capacity) {
+                        $te = $actual - $capacity;
+                        $ec = $te * $extra;
+                        $total = $price + $ec;
                     }
-                    
-                } else if ($room->type_id == 2) {
-                    $pt = $total / $actual;
-                }
-                $rd = date('Y-m-d', strtotime('first day of next month'));
-                $SELECT = "SELECT dir_tbl.tenant_id, contract_tbl.contract_start
-                    from dir_tbl
-                    left join contract_tbl
-                    on dir_tbl.tenant_id = contract_tbl.tenant_id
-                    where room_id = ".$rid." ";
-                $query = $this->db->query($SELECT);
-                foreach($query->result() as $tenant) {
-                    
-                        $data = array(
-                            'rent_rate' => $price,
-                            'rent_extra' => $extra,
-                            'rent_total' => $pt,
-                            'rent_balance' => $pt,
-                            'rent_status' => 0, //0 for unpaid and 1 for paid
-                            'rent_due' => date('Y-m-d', strtotime('first day of next month')),
-                            'tenant_id' => $tenant->tenant_id,
-                        );
-                        //print_r($data);
-                        //echo '\n';
-                        $this->db->insert('rent_tbl', $data);
-                    
-                }
+
+                    if($room->type_id == 1) {
+                        if($actual > $capacity) {
+                            $pt = ($total + $room->type_rate)/ $actual;
+                        } else if ($capacity >= $actual) {
+                            $pt = ($total + $room->type_rate) / $capacity;
+                        }
+                        
+                    } else if ($room->type_id == 2) {
+                        $pt = $total / $actual;
+                    }
+                    $rd = date('Y-m-d', strtotime('first day of next month'));
+                    $SELECT = "SELECT dir_tbl.tenant_id, contract_tbl.contract_start, tenant_tbl.tenant_status
+                        from dir_tbl
+                        left join contract_tbl
+                        on dir_tbl.tenant_id = contract_tbl.tenant_id
+                        left join tenant_tbl 
+                        on dir_tbl.tenant_id =  tenant_tbl.tenant_id
+                        where room_id = ".$rid." && tenant_tbl.tenant_status = 1";
+                    $query = $this->db->query($SELECT);
+                    foreach($query->result() as $tenant) {
+                        
+                            $data = array(
+                                'rent_rate' => $price,
+                                'rent_extra' => $extra,
+                                'rent_total' => $pt,
+                                'rent_balance' => $pt,
+                                'rent_status' => 0, //0 for unpaid and 1 for paid
+                                'rent_due' => date('Y-m-d', strtotime('first day of next month')),
+                                'tenant_id' => $tenant->tenant_id,
+                            );
+                            //print_r($data);
+                            //echo '\n';
+                            $this->db->insert('rent_tbl', $data);
+                        
+                    }
+                
             }
         }
     }
