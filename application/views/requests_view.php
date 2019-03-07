@@ -6,6 +6,9 @@ if (!isset ($login)) {
     redirect('Login');
 }
 
+$page = $_SERVER['PHP_SELF'];
+$sec = "3";
+
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $a="";
@@ -18,9 +21,10 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 ?>
 <html>
 <head>
-    
+<meta http-equiv="refresh" content="300" />
 
     <script>
+
         $(document).ready(function () {
             $('#table_id').dataTable( {
                 "ordering": false
@@ -28,6 +32,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         });
 
     </script>
+    
 
 </head>
 
@@ -85,7 +90,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                                         if ($row->req_status == 0) {
 
-                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #f4f142;color: #ffffff;border: none;">Pending</button>';
+                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" id="norefresh" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #f4f142;color: #ffffff;border: none;">Pending</button>';
                                                             
                                                         } else if ($row->req_status == 1) {
                                                             
@@ -141,5 +146,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         </div>
     </div>
 </body>
+<script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+
 
 </html>

@@ -211,19 +211,28 @@ class Directories_model extends CI_Model {
             $query1 = $this->db->get();
             $row1 = $query1->row();
 
+            
+            $SELECT3 = "SELECT type_tbl.*
+            FROM type_tbl
+            WHERE type_tbl.type_id = ".$type_id." ";
+            $query3 = $this->db->query($SELECT3);
+            $row3 = $query3->row();
+            $type_rate = $row3->type_rate;
+            
+
             $nt = $row1->num_tenants;
             $extra = $row1->room_extra;
             if ($nt >= $rt) {
                 $a = $nt - $rt;
               
                 $c = $a * $extra;
-                $e = $c + $rp;
+                $e = $c + ($rp + $type_rate);
                 $d = ($e / ($nt)) * 2;
                 //echo "hi";
                 $status = 0;
             }
             if ($nt < $rt ) {
-                $d = ($rp / $rt) * 2;
+                $d = ($rp / ($rp + $type_rate)) * 2;
                 //echo "hello";
                 $status = 0;
             } 

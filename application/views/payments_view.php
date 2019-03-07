@@ -180,16 +180,17 @@ input[type=number] {
                                 <form method="POST" action="<?php echo site_url('Transactions/rent_payment');?>">
                                     <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
+                                        <label class="col-form-label" style="font-weight: bold;" id="rent_label<?php echo $tenant->dir_id; ?>">Please confirm payment details. Submitted payments cannot be edited.</label>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
-                                                <div class="col"><input class="form-control d-xl-flex" type="text" name="rr" value="<?php echo $tenant->room_number; ?>" disabled=""></div>
+                                                <div class="col"><input class="form-control d-xl-flex" type="text" name="rrr" value="<?php echo $tenant->room_number; ?>" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Tenant Name</label></div>
-                                                <div class="col"><input class="form-control" type="text" value="<?php echo $tenant->tenant_fname." ".$tenant->tenant_lname; ?>" disabled=""></div>
+                                                <div class="col"><input class="form-control" type="text" value="<?php echo $tenant->tenant_fname." ".$tenant->tenant_lname; ?>" readonly></div>
                                                 <input class="form-control" type="hidden" name="rf" value="<?php echo $tenant->tenant_fname;?>">
                                                 <input class="form-control" type="hidden" name="rtenant_id" id="r_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
                                                 <input class="form-control" type="hidden" name="rr" id="r_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
@@ -200,7 +201,7 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" placeholder="Enter receipt no" required></div>
+                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" id="rtrans_rno<?php echo $tenant->dir_id; ?>" placeholder="Enter receipt no" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -221,8 +222,8 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="number" name="rtrans_due" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
-                                                
+                                                <div class="col"><input class="form-control" type="number" name="rtrans_due" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="0" readonly>
+                                                <input class="form-control" type="hidden"  style="text-align:right" id="rent_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,26 +246,27 @@ input[type=number] {
                                         <div class="form-group rcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check No</label></div>
-                                                <div class="col"><input class="form-control" name="rcheck_no" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="rcheck_no" id="rcheck_no<?php echo $tenant->dir_id; ?>" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group rcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Bank</label></div>
-                                                <div class="col"><input class="form-control" name="rcheck_bank" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="rcheck_bank"  id="rcheck_bank<?php echo $tenant->dir_id; ?>" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group rcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
-                                                <div class="col"><input class="form-control" name="rcheck_date" style="text-align:right"  type="date"></div>
+                                                <div class="col"><input class="form-control" name="rcheck_date"  id="rcheck_date<?php echo $tenant->dir_id; ?>" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="rtrans_amount" style="text-align:right" type="number" required></div>
+                                                <div class="col"><input class="form-control" id="rent_paid<?php echo $tenant->dir_id; ?>" style="text-align:right" type="text" required></div>
                                                 <input class="form-control" name="rtarns_arr[]" id="rArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
+                                                <input class="form-control" name="rtrans_amount" id="rent_paidd<?php echo $tenant->dir_id; ?>" type="hidden" >
                                             </div>
                                         </div>
                                     </div>
@@ -272,7 +274,10 @@ input[type=number] {
                                     </div>
                                     <input type="hidden" name="to_email" value="<?php echo $tenant->tenant_email; ?>" />
                                     <input type="hidden" name="to_guardianemail" value="<?php echo $tenant->guardian_email; ?>" />
-                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
+                                    <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="rentBtn<?php echo $tenant->dir_id; ?>" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button>
+                                    <button class="btn btn-primary" type="button" id="rentBack<?php echo $tenant->dir_id; ?>" style="background-color: #c7c7c7;color: #11334f;border: none;">Back</button>
+                                    <button class="btn btn-primary" type="submit" id="rentSend<?php echo $tenant->dir_id; ?>" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
                                 </form>
                             </div>
                         </div>
@@ -288,7 +293,7 @@ input[type=number] {
                                 <form method="POST" action="<?php echo site_url('Transactions/water_payment');?>">
                                     <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
-
+                                    <label class="col-form-label" style="font-weight: bold;" id="water_label<?php echo $tenant->dir_id; ?>">Please confirm payment details. Submitted payments cannot be edited.</label>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -352,26 +357,27 @@ input[type=number] {
                                         <div class="form-group wcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check No</label></div>
-                                                <div class="col"><input class="form-control" name="wcheck_no" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="wcheck_no" id="wcheck_no<?php echo $tenant->dir_id; ?> style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group wcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Bank</label></div>
-                                                <div class="col"><input class="form-control" name="wcheck_bank" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="wcheck_bank" id="wcheck_bank<?php echo $tenant->dir_id; ?> style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group wcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
-                                                <div class="col"><input class="form-control" name="wcheck_date" style="text-align:right"  type="date"></div>
+                                                <div class="col"><input class="form-control" name="wcheck_date" id="wcheck_date<?php echo $tenant->dir_id; ?> style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="wtrans_amount" style="text-align:right" type="number" required></div>
+                                                <div class="col"><input class="form-control" style="text-align:right" id="water_paid<?php echo $tenant->dir_id; ?>" type="text" required></div>
                                                 <input class="form-control" name="wtarns_arr[]" id="wArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
+                                                <input class="form-control" name="wtrans_amount" id="water_paidd<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden" required>
                                             </div>
                                         </div>
                                     </div>
@@ -379,7 +385,10 @@ input[type=number] {
                                     </div>
                                     <input type="hidden" name="to_email" value="<?php echo $tenant->tenant_email; ?>" />
                                     <input type="hidden" name="to_guardianemail" value="<?php echo $tenant->guardian_email; ?>" />
-                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
+                                    <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="waterBtn<?php echo $tenant->dir_id; ?>" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button>
+                                    <button class="btn btn-primary" type="button" id="waterBack<?php echo $tenant->dir_id; ?>" style="background-color: #c7c7c7;color: #11334f;border: none;">Back</button>
+                                    <button class="btn btn-primary" type="submit" id="waterSend<?php echo $tenant->dir_id; ?>" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
                                 </form>
                             </div>
                         </div>
@@ -395,6 +404,7 @@ input[type=number] {
                                 <form method="POST" action="<?php echo site_url('Transactions/fees_payment');?>">
                                     <div class="form-row">
                                     <div class="col" style="padding-right: 20px;padding-left: 20px;">
+                                    <label class="col-form-label" style="font-weight: bold;" id="fee_label<?php echo $tenant->dir_id; ?>">Please confirm payment details. Submitted payments cannot be edited.</label>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4" style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;">Room No</label></div>
@@ -473,26 +483,27 @@ input[type=number] {
                                         <div class="form-group fcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check No</label></div>
-                                                <div class="col"><input class="form-control" name="fcheck_no" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="fcheck_no" id="fcheck_no<?php echo $tenant->dir_id; ?>" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group fcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Bank</label></div>
-                                                <div class="col"><input class="form-control" name="fcheck_bank" style="text-align:right"  type="text"></div>
+                                                <div class="col"><input class="form-control" name="fcheck_bank" id="fcheck_bank<?php echo $tenant->dir_id; ?>" style="text-align:right"  type="text"></div>
                                             </div>
                                         </div>
                                         <div class="form-group fcheck<?php echo $tenant->dir_id; ?>">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Check Date</label></div>
-                                                <div class="col"><input class="form-control" name="fcheck_date" style="text-align:right"  type="date"></div>
+                                                <div class="col"><input class="form-control" name="fcheck_date" id="fcheck_date<?php echo $tenant->dir_id; ?>" style="text-align:right"  type="date"></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
-                                                <div class="col"><input class="form-control" name="ftrans_amount" style="text-align:right" type="number" required></div>
+                                                <div class="col"><input class="form-control" id="f_paid<?php echo $tenant->dir_id; ?>" style="text-align:right" type="text" required></div>
                                                 <input class="form-control" name="ftarns_arr[]" id="fArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
+                                                <input class="form-control" name="ftrans_amount" id="f_paidd<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden" required>
                                             </div>
                                         </div>
                                     </div>
@@ -500,7 +511,10 @@ input[type=number] {
                                     </div>
                                     <input type="hidden" name="to_email" value="<?php echo $tenant->tenant_email; ?>" />
                                     <input type="hidden" name="to_guardianemail" value="<?php echo $tenant->guardian_email; ?>" />
-                                    <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
+                                    <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="feeBtn<?php echo $tenant->dir_id; ?>" style="background-color: #bdedc1;color: #11334f;border: none;">Submit</button>
+                                    <button class="btn btn-primary" type="button" id="feeBack<?php echo $tenant->dir_id; ?>" style="background-color: #c7c7c7;color: #11334f;border: none;">Back</button>
+                                    <button class="btn btn-primary" type="submit" id="feeSend<?php echo $tenant->dir_id; ?>" style="background-color: #bdedc1;color: #11334f;border: none;">Save and send E-receipt</button></div>
                                 </form>
                             </div>
                         </div>
@@ -521,20 +535,20 @@ input[type=number] {
     <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
     <script>
-   
-    <?php foreach($dir->result() as $paid) { ?>
-    $("#amount_paid<?php echo $paid->dir_id; ?>").keyup(function() {
-        if ($("#amount_paid<?php echo $paid->dir_id; ?>").val() < $("#rent_amount<?php echo $paid->dir_id; ?>").val()) {
-            $("#paid<?php echo $paid->dir_id; ?>").text("Payment is partial.");
-        } 
-        if ($("#amount_paid<?php echo $paid->dir_id; ?>").val() == $("#rent_amount<?php echo $paid->dir_id; ?>").val()) {
-            $("#paid<?php echo $paid->dir_id; ?>").val("Payment is full.");
-        }
-    });
-    <?php } ?>
+
+         
 
         $(document).ready(function(){
             <?php foreach($dir->result() as $d) { ?>
+            $('#rentBack<?php echo $d->dir_id; ?>').hide();
+            $('#rentSend<?php echo $d->dir_id; ?>').hide();
+            $('#rent_label<?php echo $d->dir_id; ?>').hide();
+            $('#waterBack<?php echo $d->dir_id; ?>').hide();
+            $('#waterSend<?php echo $d->dir_id; ?>').hide();
+            $('#water_label<?php echo $d->dir_id; ?>').hide();
+            $('#feeBack<?php echo $d->dir_id; ?>').hide();
+            $('#feeSend<?php echo $d->dir_id; ?>').hide();
+            $('#fee_label<?php echo $d->dir_id; ?>').hide();
             $('#sel_payment<?php echo $d->dir_id; ?>').selectize({
                 maxItems: null,
                 create: false,
@@ -553,6 +567,7 @@ input[type=number] {
                         success:function(data) {
                             $.each(data, function (i, obj) {
                                 $('#sel_amount<?php echo $d->dir_id; ?>').val(data.wt);
+                                
                                 $('#wid<?php echo $d->dir_id; ?>').val(data.wi); 
                                 //$('#wArr<?php echo $d->dir_id; ?>').val(data.wa);
                             });
@@ -581,17 +596,115 @@ input[type=number] {
                         // dataType: "json",  
                         success:function(data) {
                             $.each(data, function (i, obj) {
+                               
                                 $('#rent_amount<?php echo $d->dir_id; ?>').val(data.rt);
                                 $('#rid<?php echo $d->dir_id; ?>').val(data.ri);
                                 $('#rArr<?php echo $d->dir_id; ?>').val(data.ra);
                             });
                         
                         }
+
+                        
                     });
                 } else {
                     $('#rent_amount<?php echo $d->dir_id; ?>').val(0);
                 }
+               // var x = $('#rent_amount<?php //echo $d->dir_id; ?>').val();
+                $('#rent_amountn<?php echo $d->dir_id; ?>').val(addCommas(3000));
+                
             });
+
+            // $('#rent_amount<?php //echo $d->dir_id; ?>').on('input', function() { 
+            //     alert('test');
+                    
+            //     });
+            $('#rent_paid<?php echo $d->dir_id; ?>').keyup(function(event) {
+                // 1.
+                if (event.which >= 37 && event.which <= 40) {
+                    event.preventDefault();
+                }
+
+                var currentVal = $(this).val();
+                var testDecimal = testDecimals(currentVal);
+                if (testDecimal.length > 1) {
+                    console.log("You cannot enter more than one decimal point");
+                    currentVal = currentVal.slice(0, -1);
+                }
+                $(this).val(replaceCommas(currentVal));
+
+                var myStr = $(this).val();
+                myStr = myStr.replace(/,/g, "");
+                $('#rent_paidd<?php echo $d->dir_id; ?>').val(myStr);
+            });
+            $('#water_paid<?php echo $d->dir_id; ?>').keyup(function(event) {
+                // 1.
+                if (event.which >= 37 && event.which <= 40) {
+                    event.preventDefault();
+                }
+
+                var currentVal = $(this).val();
+                var testDecimal = testDecimals(currentVal);
+                if (testDecimal.length > 1) {
+                    console.log("You cannot enter more than one decimal point");
+                    currentVal = currentVal.slice(0, -1);
+                }
+                $(this).val(replaceCommas(currentVal));
+
+                var myStr = $(this).val();
+                myStr = myStr.replace(/,/g, "");
+                $('#water_paidd<?php echo $d->dir_id; ?>').val(myStr);
+            });
+            $('#f_paid<?php echo $d->dir_id; ?>').keyup(function(event) {
+                // 1.
+                if (event.which >= 37 && event.which <= 40) {
+                    event.preventDefault();
+                }
+
+                var currentVal = $(this).val();
+                var testDecimal = testDecimals(currentVal);
+                if (testDecimal.length > 1) {
+                    console.log("You cannot enter more than one decimal point");
+                    currentVal = currentVal.slice(0, -1);
+                }
+                $(this).val(replaceCommas(currentVal));
+
+                var myStr = $(this).val();
+                myStr = myStr.replace(/,/g, "");
+                $('#f_paidd<?php echo $d->dir_id; ?>').val(myStr);
+            });
+
+            function testDecimals(currentVal) {
+                var count;
+                currentVal.match(/\./g) === null ? count = 0 : count = currentVal.match(/\./g);
+                return count;
+            }
+
+            function replaceCommas(yourNumber) {
+                var components = yourNumber.toString().split(".");
+                if (components.length === 1)
+                    components[0] = yourNumber;
+                components[0] = components[0].replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                if (components.length === 2)
+                    components[1] = components[1].replace(/\D/g, "");
+                return components.join(".");
+            }
+                
+            // function addCommas(nStr)
+            //         {
+            //             nStr += '';
+            //             x = nStr.split('.');
+            //             x1 = x[0];
+            //             x2 = x.length > 1 ? '.' + x[1] : '';
+            //             var rgx = /(\d+)(\d{3})/;
+            //             while (rgx.test(x1)) {
+            //                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            //             }
+            //             return x1 + x2;
+            //         }
+           
+            
+            
+            
 
             $('#fad<?php echo $d->dir_id; ?>').selectize({
                 maxItems: null,
@@ -622,9 +735,93 @@ input[type=number] {
                 }
             });
 
+            $("#rentBtn<?php echo $d->dir_id; ?>" ).click(function() {
+                $('#rtrans_rno<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#rent_month<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#rt<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#rcheck_no<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#rcheck_bank<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#rcheck_date<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#rent_paid<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $("#rentBtn<?php echo $d->dir_id; ?>" ).hide();
+                $("#rentBack<?php echo $d->dir_id; ?>" ).show();
+                $("#rentSend<?php echo $d->dir_id; ?>" ).show();
+                $("#rent_label<?php echo $d->dir_id; ?>" ).show();
+            });
+
+            $("#rentBack<?php echo $d->dir_id; ?>" ).click(function() {
+                $('#rtrans_rno<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#rent_month<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#rt<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#rcheck_no<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#rcheck_bank<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#rcheck_date<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#rent_paid<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $("#rentBtn<?php echo $d->dir_id; ?>" ).show();
+                $("#rentBack<?php echo $d->dir_id; ?>" ).hide();
+                $("#rentSend<?php echo $d->dir_id; ?>" ).hide();
+                $("#rent_label<?php echo $d->dir_id; ?>" ).hide();
+            });
+
+            $("#waterBtn<?php echo $d->dir_id; ?>" ).click(function() {
+                $('#wtrans_rno<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#sel_payment<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#wt<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#wcheck_no<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#wcheck_bank<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#wcheck_date<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#water_paid<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $("#waterBtn<?php echo $d->dir_id; ?>" ).hide();
+                $("#waterBack<?php echo $d->dir_id; ?>" ).show();
+                $("#waterSend<?php echo $d->dir_id; ?>" ).show();
+                $("#water_label<?php echo $d->dir_id; ?>" ).show();
+            });
+
+            $("#waterBack<?php echo $d->dir_id; ?>" ).click(function() {
+                $('#wtrans_rno<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#sel_payment<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#wt<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#wcheck_no<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#wcheck_bank<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#wcheck_date<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#water_paid<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $("#waterBtn<?php echo $d->dir_id; ?>" ).show();
+                $("#waterBack<?php echo $d->dir_id; ?>" ).hide();
+                $("#waterSend<?php echo $d->dir_id; ?>" ).hide();
+                $("#water_label<?php echo $d->dir_id; ?>" ).hide();
+            });
+
+            $("#feeBtn<?php echo $d->dir_id; ?>" ).click(function() {
+                $('#ftrans_rno<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#fad<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#ft<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#fcheck_no<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#fcheck_bank<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#fcheck_date<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $('#f_paid<?php echo $d->dir_id; ?>').prop('readonly', true);
+                $("#feeBtn<?php echo $d->dir_id; ?>" ).hide();
+                $("#feeBack<?php echo $d->dir_id; ?>" ).show();
+                $("#feeSend<?php echo $d->dir_id; ?>" ).show();
+                $("#fee_label<?php echo $d->dir_id; ?>" ).show();
+            });
+
+            $("#feeBack<?php echo $d->dir_id; ?>" ).click(function() {
+                $('#ftrans_rno<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#fad<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#ft<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#fcheck_no<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#fcheck_bank<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#fcheck_date<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $('#f_paid<?php echo $d->dir_id; ?>').prop('readonly', false);
+                $("#feeBtn<?php echo $d->dir_id; ?>" ).show();
+                $("#feeBack<?php echo $d->dir_id; ?>" ).hide();
+                $("#feeSend<?php echo $d->dir_id; ?>" ).hide();
+                $("#fee_label<?php echo $d->dir_id; ?>" ).hide();
+            });
            
             <?php } ?>
         });
+       
 
 </script>
 </body>

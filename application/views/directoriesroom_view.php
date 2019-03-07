@@ -71,7 +71,7 @@ input[type=number] {
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
+                            <i class="icon ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
                         
                         </p>
                     <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
@@ -134,8 +134,8 @@ input[type=number] {
                                                             <?php } ?>
 
                                                 <?php } else { ?>
-                                                    <button <?php echo $c; ?> data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
-                                                    <i class="fa fa-check" style="font-size: 14px"></i>
+                                                    <button <?php echo $c; ?>  type="button" id="edit-room" name="delete" data-target="#Act<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                        <i class="icon ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
                                                     </button>
                                                 <?php } ?>                                                                                 
                                             </td>  
@@ -290,10 +290,10 @@ input[type=number] {
                 </div>
             <?php }
                 
-                foreach ($dir->result() as $activate)  
+                foreach ($room->result() as $activate)  
                 {  
             ?>
-                <div id="ModalActivate<?php echo $activate->room_id; ?>" class="modal fade" role="dialog" tabindex="-1">
+                <div id="Act<?php echo $activate->room_id; ?>" class="modal fade" role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">

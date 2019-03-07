@@ -26,6 +26,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
 ?>
 <html>
+<meta http-equiv="refresh" content="300" />
 
 
     <style>
@@ -64,9 +65,9 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                     <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
-                <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
-	                <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
-                </div>
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
+                        <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                    </div>
                     <div class="row" style="margin: 0px;">
                         <div class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-3" style="background-color: #ffffff;padding: 0px;">
                             <div class="row" style="margin: 0px;border-bottom: none;height: 46.5px;">
@@ -122,8 +123,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                             foreach($msg as $inbox) {
 
-                                                if($inbox->send_archive == 0) {
-
                                                     $date_posted = $inbox->msg_date;
                                                     $msg_date=date("M d, Y g:ia", strtotime($date_posted));
 
@@ -163,20 +162,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                             </script>";
                                                                 }
                                                             }
-
-                                                } else {
-
-                                                    echo    '<li class="list-group-item">
-                                                                <h6 class="d-flex" style="font-weight: bold;margin-bottom: 2px;"></h6>
-                                                                <p style="color: #868e96;font-size: 10px;margin-bottom: 7px;"></p>
-                                                                <p style="font-size: 10px;"><center>No messages</center></p>
-                                                                <p style="font-size: 10px;"></p>
-                                                            </li>';
-
-                                                    break;
-
-                                                }
-                                            } 
+                                            }
 
                                         } else {
 
@@ -266,9 +252,9 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                     <p style="font-size: 14px;"><?php echo htmlspecialchars($reply->msg_body) ?></p><hr style="border-bottom: 1px;">
                                             </div>
                                                 <div class="col-xl-12">
-                                                    <input type="text" class="form-control" name="subject" placeholder="Subject" style="font-size: 14px; margin-bottom:10px;" required>
                                                     <textarea name="body" class="form-control" row="2" type="text" placeholder="Write something..."  required></textarea>
                                                 </div>
+                                                <input type="hidden" class="form-control" name="subject" value="<?php echo $reply->msg_subject ?>">
                                                 <input type="hidden" name="send_id" value="<?php echo $reply->send_id ?>">
                                                 <input type="hidden" name="tenant_id" value="<?php echo $reply->tenant_id ?>">
                                                 <div class="modal-footer"><button class="btn btn-primary" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Reply</button></div>
@@ -309,7 +295,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         </div>
     </div>
 </body>
-
+<script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
 <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
 <script>
 

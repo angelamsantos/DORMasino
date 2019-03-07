@@ -128,9 +128,10 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Amount Paid</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Month</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
-                                                <th style="padding-right: 0px;padding-left: 0px;">Date</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
                                                 
                                             </tr>
                                         </thead>
@@ -142,6 +143,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     <td style="text-align:center;"><?php echo $r->room_number ;?></td>
                                                     <td style="text-align:center;"><?php echo $r->tenant_fname.' '.$r->tenant_lname;?></td>
                                                     <td style="text-align:center;"><?php echo number_format($r->rtrans_amount,2);?></td>
+                                                    <td style="text-align:center;"><?php echo date('F', strtotime($r->rent_due)) ;?></td>
                                                     <td style="text-align:center;"><?php if($r->rtrans_isfull == 1){ echo "Full"; } else { echo "Partial"; }?></td>
                                                     <td style="text-align:center;"><?php if($r->rtrans_mode == 0){ echo "Cash"; } else { echo "Check"; }?></td>
                                                     <td style="text-align:center;"><?php echo $r->rtrans_date ;?></td>
@@ -165,6 +167,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Amount Paid</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Month</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Date</th>
@@ -179,6 +182,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     <td style="text-align:center;"><?php echo $w->room_number ;?></td>
                                                     <td style="text-align:center;"><?php echo $w->tenant_fname.' '.$w->tenant_lname;?></td>
                                                     <td style="text-align:center;"><?php echo number_format($w->wtrans_amount, 2);?></td>
+                                                    <td style="text-align:center;"><?php echo date('F', strtotime($w->water_due)) ;?></td>
                                                     <td style="text-align:center;"><?php if($w->wtrans_isfull == 1){ echo "Full"; } else { echo "Partial"; }?></td>
                                                     <td style="text-align:center;"><?php if($w->wtrans_mode == 0){ echo "Cash"; } else { echo "Check"; }?></td>
                                                     <td style="text-align:center;"><?php echo $w->wtrans_date ;?></td>

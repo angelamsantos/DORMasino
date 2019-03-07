@@ -30,7 +30,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     } 
 ?>
 <html>
-
+<meta http-equiv="refresh" content="300" />
 
     <style>
     li p {
@@ -470,7 +470,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         </div>
     </div>
 </body>
-
+<script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
 <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
 <script>
 

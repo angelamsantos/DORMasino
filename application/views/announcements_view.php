@@ -244,7 +244,7 @@ button.link {
                                                                         <button title="Can only edit own announcement" type="button" class="btn btn-primary ml-auto" id="active_ann" data-toggle="modal" data-target="#Edit'.$row3->id.'" style="border-radius:90px 90px 90px 90px;padding:0px 8px;" disabled>
                                                                             <i class="icon ion-edit" style="font-size:14px;"></i>
                                                                         </button>
-                                                                        <button title="Can only delete own announcementt" type="button" class="btn btn-primary" id="active_ann" data-toggle="modal" data-target="#Delete'.$row3->id.'" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;" disabled>
+                                                                        <button title="Can only delete own announcement" type="button" class="btn btn-primary" id="active_ann" data-toggle="modal" data-target="#Delete'.$row3->id.'" style="margin-right:3px;border-radius:90px 90px 90px 90px;padding:0px 8px;" disabled>
                                                                             <i class="icon ion-trash-a" style="font-size:15px;"></i>
                                                                         </button>
                                                                     </p>';
@@ -252,6 +252,7 @@ button.link {
                                                         echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                                         echo        '<p class="card-text" style="font-size: 14px;">'. htmlspecialchars($row3->ann_content) .'</p>';
                                                         echo        '<p class="card-text" style="font-size: 14px;"><img src="'.base_url(), $row3->annfile_path.'" class="img-responsive" style="width:25%;height:25%;</a></p>';
+                                                        echo        '<p class="card-text"><br></p>';
                                                         echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
                                                                     <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>';
                                                         echo        '</div>';
@@ -328,6 +329,7 @@ button.link {
                                                     echo        '<p class="card-text" style="font-size: 14px;"></p>';
                                                     echo        '<p class="card-text" style="font-size: 14px;">'. htmlspecialchars($row3->ann_content) .'</p>';
                                                     echo        '<p class="card-text" style="font-size: 14px;"><img src="'.base_url(), $row3->annfile_path.'" style="width:25%;height:25%;></p>';
+                                                    echo        '<p class="card-text"><br></p>';
                                                     echo        '<div class="d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" >
                                                                 <p class="card-text mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size: 10px;">Posted by: '. $row3->admin_fname .' ' .$row3->admin_lname.' </p>
                                                                 </div>';
