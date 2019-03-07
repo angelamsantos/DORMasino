@@ -76,10 +76,17 @@ class Transactions_model extends CI_Model {
     public function get_dircount() {
         $this->db->select("room_tbl.room_id");
         $this->db->select("room_tbl.room_number");
-        $this->db->select("room_tbl.room_extra");
+        $this->db->select("room_tbl.room_status");
+        $this->db->select("room_tbl.room_tcount");
+        $this->db->select("room_tbl.room_price");
+        $this->db->select("floor_tbl.floor_number");
+        $this->db->select('tenant_tbl.tenant_status');
         $this->db->select("count(dir_tbl.tenant_id) as num_tenants");
         $this->db->from("room_tbl");
+        $this->db->join("floor_tbl", "floor_tbl.floor_id=room_tbl.floor_id", "LEFT");
         $this->db->join("dir_tbl", "room_tbl.room_id=dir_tbl.room_id", "LEFT"); 
+        $this->db->join("tenant_tbl", "tenant_tbl.tenant_id=dir_tbl.tenant_id", "LEFT"); 
+        $this->db->where('tenant_tbl.tenant_status', 1);
         $this->db->group_by("room_tbl.room_id");
         $query = $this->db->get();
         return $query;
@@ -170,22 +177,28 @@ class Transactions_model extends CI_Model {
 
     public function insert_bill() {
         foreach ($this->input->post('tenant_id') as $value) {
-            
+            $SELECT2 = "SELECT tenant_tbl.*
+            from tenant_tbl
+            WHERE tenant_tbl.tenant_id = ".$value." ";
+            $query2 = $this->db->query($SELECT2);
+            $row2 = $query2->row();
 
-            $data1 = array(
-                'water_provider' => $this->input->post('water_provider'),
-                'water_previous' => $this->input->post('water_previous'),
-                'water_current' => $this->input->post('water_current'),
-                'water_cm' => $this->input->post('water_cm'),
-                'water_total' => $this->input->post('water_total'),
-                'water_balance' => $this->input->post('water_total'),
-                'water_status' => 0,
-                'water_due' => $this->input->post('water_due'),
-                'tenant_id' => $value,
-                'room_id' => $this->input->post('room_id'),
-                'isNew' => $this->input->post('isNew'),
-            );
-            $this->db->insert('water_tbl', $data1);
+            if($row2->tenant_status==1) {
+                $data1 = array(
+                    'water_provider' => $this->input->post('water_provider'),
+                    'water_previous' => $this->input->post('water_previous'),
+                    'water_current' => $this->input->post('water_current'),
+                    'water_cm' => $this->input->post('water_cm'),
+                    'water_total' => $this->input->post('water_total'),
+                    'water_balance' => $this->input->post('water_total'),
+                    'water_status' => 0,
+                    'water_due' => $this->input->post('water_due'),
+                    'tenant_id' => $value,
+                    'room_id' => $this->input->post('room_id'),
+                    'isNew' => $this->input->post('isNew'),
+                );
+                $this->db->insert('water_tbl', $data1);
+            }
         }
     }
 
@@ -417,7 +430,7 @@ class Transactions_model extends CI_Model {
 
     public function rent_payment() {
             $tenant_id = $this->input->post('rtenant_id');
-            $paid = $this->input->post('rtrans_amount');
+            $paid =  $this->input->post('rtrans_amount');
             $due = $this->input->post('rtrans_due');
             $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
                 FROM tenant_tbl
@@ -516,7 +529,7 @@ class Transactions_model extends CI_Model {
                 $month = $this->input->post('rm');
                 $mStr = $month[0];
                 $mArr = explode(',', $mStr);
-                $paid = $this->input->post('rtrans_amount');
+                $paid =  $this->input->post('rtrans_amount');
                 $due = $this->input->post('rtrans_due');
                 $wscheme = array();
                 $transArr = array();
@@ -632,7 +645,7 @@ class Transactions_model extends CI_Model {
     
     public function water_payment() {
         $tenant_id = $this->input->post('wtenant_id');
-        $paid = $this->input->post('wtrans_amount');
+        $paid =  $this->input->post('wtrans_amount');
         $due = $this->input->post('wtrans_due');
         $g;
             if ($paid < $due) {
@@ -849,7 +862,7 @@ class Transactions_model extends CI_Model {
     public function fee_payment() {
         $tenant_id = $this->input->post('ftenant_id');
         $ftype = $this->input->post('fee'); //advance or deposit
-        $paid = $this->input->post('ftrans_amount');
+        $paid =  $this->input->post('ftrans_amount');
         $due = $this->input->post('ftrans_due');
         $ftArr = array();
         foreach($ftype as $aa){
@@ -1005,7 +1018,7 @@ class Transactions_model extends CI_Model {
             // $ftype = $this->input->post('fee'); //advance or deposit
             // $ftStr = $ftype[0];
             // $ftArr = explode(',', $ftStr);
-            $paid = $this->input->post('ftrans_amount');
+            $paid =  $this->input->post('ftrans_amount');
             $due = $this->input->post('ftrans_due');
             
             $wscheme = array();

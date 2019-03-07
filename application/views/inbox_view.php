@@ -65,9 +65,9 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                     <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
-                <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
-	                <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
-                </div>
+                    <div class="col-xl-12" style="margin-top: 11px;padding:0px;">
+                        <?php if(! is_null($this->session->flashdata('msg'))) echo $this->session->flashdata('msg');?>
+                    </div>
                     <div class="row" style="margin: 0px;">
                         <div class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-3" style="background-color: #ffffff;padding: 0px;">
                             <div class="row" style="margin: 0px;border-bottom: none;height: 46.5px;">
@@ -295,7 +295,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         </div>
     </div>
 </body>
-
+<script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
 <script src="<?php echo base_url(); ?>/assets/js/selectize/standalone/selectize.min.js"></script>
 <script>
 

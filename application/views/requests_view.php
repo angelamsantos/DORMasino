@@ -146,5 +146,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         </div>
     </div>
 </body>
+<script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+
 
 </html>

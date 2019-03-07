@@ -126,11 +126,34 @@ input[type=number] {
                                     
                                         <tr>
                                             <td style="text-align:center;"><?php echo $row->room_number; ?></td>
-                                            <?php foreach($dir_count->result() as $d) {
-                                                if ($d->room_number == $row->room_number) { ?>
+                                            <?php 
+                                                $riArr = array();
+                                             
+                                                foreach($dir_count->result() as $dri) {
+                                                    array_push($riArr, $dri->room_id);
+                                                }
+                                                //print_r($riArr);
+                                                $aa = array_column($dir_count->result(), 'room_id');
+                                               
+                                                $bb = $row->room_id;
+                                                //echo $b; 
+                                                if (in_array($bb, $riArr, true)) {
+                                                  //echo "yes";
+                                                //     foreach ($water->result() as $w) {
+                                                //         if($w->room_id == $row2->room_id) {
+                                                //             $wc = $w->water_current;
+                                                //         }
+                                                //     }
+                                                $e = "";
+                                                    foreach ($dir_count->result() as $d) {
+                                                        if ($d->room_id == $row->room_id) { 
+                                                        
+                                                            ?> 
                                                     <td style="text-align:center;"><?php echo $d->num_tenants; ?></td>
-                                            <?php } } ?>
+                                            <?php } } } else { $e = "disabled";?>
                                             
+                                                <td style="text-align:center;"><?php echo 0; ?></td>
+                                            <?php } ?>
                                             <?php 
                                                 foreach($rtype->result() as $rt) {
                                                     if($rt->room_id == $row->room_id) {
@@ -186,14 +209,14 @@ input[type=number] {
                                                                 <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                                 </button>';    
                                                             } else {
-                                                                echo '<button '.$b.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                echo '<button '.$b."".$e.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                                 <i class="icon ion-android-add-circle" style="font-size: 19px;color:#0645AD;"></i>
                                                                 </button>'; 
                                                             } 
                                                         } 
                                                     }
                                                 } else {
-                                                    echo '<button '.$b.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                    echo '<button '.$b."".$e.'   id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-android-add-circle" style="font-size: 19px;color:#0645AD;"></i>
                                                     </button>'; 
                                                 } 
