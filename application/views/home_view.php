@@ -32,6 +32,22 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Tabbed-Panel.css">
+    <script>
+    document.onkeydown = function(e) {
+        if(event.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            return false;
+        }
+    }
+    </script>
 </head>
 <style>
     h3 {
@@ -39,7 +55,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     }
 </style>
 
-<body style="font-family: Roboto, sans-serif;background-color: #ECEFF1;">
+<body style="font-family: Roboto, sans-serif;background-color: #ECEFF1;" oncontextmenu="return false;">
     <nav class="navbar navbar-light navbar-expand-md" style="background-color: #90caf9;">
         <div class="container-fluid"><a class="navbar-brand" href="#" style="padding-top: 0px;padding-bottom: 0px;margin-right: 10px;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 229px;height: 42px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div

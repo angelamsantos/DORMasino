@@ -54,9 +54,25 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
         });
     });
     </script>
+    <script>
+    document.onkeydown = function(e) {
+        if(event.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            return false;
+        }
+    }
+    </script>
 </head>
 
-<body style="background-color: #ffffff;">
+<body style="background-color: #ffffff;" oncontextmenu="return false;">
     <div class="login-clean" style="background-color: rgba(0,0,0,0);padding-top: 50px;padding-bottom: 50px;">
         <form method="post" action="<?php echo site_url('Login/process');?>" style="background-color: #90caf9;">
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">

@@ -78,8 +78,24 @@ date_default_timezone_set("Asia/Manila");
                 transform:         rotate(-90deg);
             }
     </style>
+    <script>
+    document.onkeydown = function(e) {
+        if(event.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            return false;
+        }
+    }
+    </script>
 </head>
-<body style="font-family: Roboto, sans-serif;background-color: #ffffff;">
+<body style="font-family: Roboto, sans-serif;background-color: #ffffff;" oncontextmenu="return false;">
     <div id="wrapper">
         <div id="sidebar-wrapper" style="background-color: #11334f;/*border-right: 3px solid #49a221;*/">
             <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 8px;padding-top: 20px; padding-bottom:30px;border-bottom:1px solid #c7c7c7;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 206px;height: 33px;margin-top: 21px;"></div>
