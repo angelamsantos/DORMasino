@@ -128,24 +128,29 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Amount Paid</th>
-                                                <th style="padding-right: 0px;padding-left: 0px;">Month</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Month and Year</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($rtrans->result() as $r) { ?>
+                                        <?php foreach($rtrans->result() as $r) { 
+                                        
+                                            $pay_date = $r->rtrans_date;
+                                            $rent_date=date("m/d/Y h:ia", strtotime($pay_date));
+
+                                        ?>
                                                 
                                                 <tr>
                                                     <td style="text-align:center;"><?php echo $r->rtrans_rno ;?></td>
                                                     <td style="text-align:center;"><?php echo $r->room_number ;?></td>
                                                     <td style="text-align:center;"><?php echo $r->tenant_fname.' '.$r->tenant_lname;?></td>
                                                     <td style="text-align:center;"><?php echo number_format($r->rtrans_amount,2);?></td>
-                                                    <td style="text-align:center;"><?php echo date('F', strtotime($r->rent_due)) ;?></td>
+                                                    <td style="text-align:center;"><?php echo date('F Y', strtotime($r->rent_due)) ;?></td>
                                                     <td style="text-align:center;"><?php if($r->rtrans_isfull == 1){ echo "Full"; } else { echo "Partial"; }?></td>
                                                     <td style="text-align:center;"><?php if($r->rtrans_mode == 0){ echo "Cash"; } else { echo "Check"; }?></td>
-                                                    <td style="text-align:center;"><?php echo $r->rtrans_date ;?></td>
+                                                    <td style="text-align:center;"><?php echo $rent_date; ?></td>
                                                     <!-- <td style="text-align:center;"> <button id="edit-room" data-target="#EditRent<?php //echo $r->rtrans_id ;?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                     </button></td> -->
@@ -166,24 +171,29 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Amount Paid</th>
-                                                <th style="padding-right: 0px;padding-left: 0px;">Month</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Month and Year</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($wtrans->result() as $w) { ?>
+                                        <?php foreach($wtrans->result() as $w) { 
+                                        
+                                            $pay_date2 = $w->wtrans_date;
+                                            $water_date=date("m/d/Y h:ia", strtotime($pay_date2));
+
+                                        ?>
                                                 
                                                 <tr>
                                                     <td style="text-align:center;"><?php echo $w->wtrans_rno ;?></td>
                                                     <td style="text-align:center;"><?php echo $w->room_number ;?></td>
                                                     <td style="text-align:center;"><?php echo $w->tenant_fname.' '.$w->tenant_lname;?></td>
                                                     <td style="text-align:center;"><?php echo number_format($w->wtrans_amount, 2);?></td>
-                                                    <td style="text-align:center;"><?php echo date('F', strtotime($w->water_due)) ;?></td>
+                                                    <td style="text-align:center;"><?php echo date('F Y', strtotime($w->water_due)) ;?></td>
                                                     <td style="text-align:center;"><?php if($w->wtrans_isfull == 1){ echo "Full"; } else { echo "Partial"; }?></td>
                                                     <td style="text-align:center;"><?php if($w->wtrans_mode == 0){ echo "Cash"; } else { echo "Check"; }?></td>
-                                                    <td style="text-align:center;"><?php echo $w->wtrans_date ;?></td>
+                                                    <td style="text-align:center;"><?php echo $water_date; ?></td>
                                                 </tr>
 
                                                 
@@ -203,12 +213,17 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Amount Paid</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
-                                                <th style="padding-right: 0px;padding-left: 0px;">Date</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($atrans->result() as $a) { ?>
+                                        <?php foreach($atrans->result() as $a) { 
+                                            
+                                            $pay_date3 = $a->atrans_date;
+                                            $adv_date=date("m/d/Y h:ia", strtotime($pay_date3));
+
+                                        ?>
                                                 
                                                 <tr>
                                                     <td style="text-align:center;"><?php echo $a->atrans_rno ;?></td>
@@ -217,7 +232,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     <td style="text-align:center;"><?php echo number_format($a->atrans_amount,2);?></td>
                                                     <td style="text-align:center;"><?php if($a->atrans_isfull == 1){ echo "Full"; } else { echo "Partial"; }?></td>
                                                     <td style="text-align:center;"><?php if($a->atrans_mode == 0){ echo "Cash"; } else { echo "Check"; }?></td>
-                                                    <td style="text-align:center;"><?php echo $a->atrans_date ;?></td>
+                                                    <td style="text-align:center;"><?php echo $adv_date; ?></td>
                                                 </tr>
 
                                                 
@@ -237,12 +252,17 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Amount Paid</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
-                                                <th style="padding-right: 0px;padding-left: 0px;">Date</th>
+                                                <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($dtrans->result() as $d) { ?>
+                                        <?php foreach($dtrans->result() as $d) { 
+                                            
+                                            $pay_date4 = $d->dtrans_date;
+                                            $deposit_date=date("m/d/Y h:ia", strtotime($pay_date4));
+
+                                        ?>
                                                 
                                                 <tr>
                                                     <td style="text-align:center;"><?php echo $d->dtrans_rno ;?></td>
@@ -251,7 +271,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                     <td style="text-align:center;"><?php echo number_format($d->dtrans_amount, 2);?></td>
                                                     <td style="text-align:center;"><?php if($d->dtrans_isfull == 1){ echo "Full"; } else { echo "Partial"; }?></td>
                                                     <td style="text-align:center;"><?php if($d->dtrans_mode == 0){ echo "Cash"; } else { echo "Check"; }?></td>
-                                                    <td style="text-align:center;"><?php echo $d->dtrans_date ;?></td>
+                                                    <td style="text-align:center;"><?php echo $deposit_date; ?></td>
                                                 </tr>
 
                                                 
