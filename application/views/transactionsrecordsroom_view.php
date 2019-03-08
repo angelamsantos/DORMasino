@@ -32,7 +32,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         modifier: {
                             page: 'all'
                         },
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5,6, 7]
                     }
                 }]
             });
@@ -51,7 +51,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         modifier: {
                             page: 'all'
                         },
-                        columns: [0,1,2,3,4,5,6]
+                        columns: [0,1,2,3,4,5,6, 7]
                     }
                 }]
             });
@@ -132,7 +132,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
-                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -162,7 +161,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                 <div id="table_view" class="table-responsive mx-auto" style="width:98%;">
                                     <table class="table" id="water" style="font-size:14px;">
                                         <thead class="logs">
-                                            <tr style="text-align:center">
+                                        <tr style="text-align:center">
                                                 <th style="padding-right: 0px;padding-left: 0px;">Receipt Number</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Room No</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Tenant Name</th>
@@ -170,8 +169,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                                                 <th style="padding-right: 0px;padding-left: 0px;">Month</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Type</th>
                                                 <th style="padding-right: 0px;padding-left: 0px;">Mode</th>
-                                                <th style="padding-right: 0px;padding-left: 0px;">Date</th>
-                                                
+                                                <th style="padding-right: 0px;padding-left: 0px;">Payment Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
