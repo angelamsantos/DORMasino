@@ -25,6 +25,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
     // }
     
     if($adir[2] == 1) { //delete
+        $d = "title='Activate Tenant'";
         $c = "title='Deactivate Tenant/s'";
     } else {
         $c = "disabled title='This feature is not available on your account'";
@@ -171,7 +172,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <?php } else { ?>
-                                            <button <?php echo $b; ?>  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <button <?php echo $d; ?>  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
                                             </button>
                                         <?php } ?>

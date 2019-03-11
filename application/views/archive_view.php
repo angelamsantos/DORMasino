@@ -141,7 +141,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                                 <label class="form-check-label">
                                                                                     <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$archive->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
                                                                                     <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">From: '.$archive->tenant_fname.' '.$archive->tenant_lname.'</h6>
-                                                                                    <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
+                                                                                    <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-top:1px;margin-left:42px;">'.$msg_date.'</p>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-xl-9" >
@@ -215,7 +215,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                                                     <label class="form-check-label">
                                                                                         <input type="checkbox" class="chk_boxes1" name="archive_arr[]" value="'.$archive->send_id.'" style="margin-right:10px; margin-top:21px; margin-left: 20px; float:left;">
                                                                                         <h6 class="d-flex" style="font-weight: bold;font-size:14px;margin-bottom: 2px;margin-top: 10px;">To: '.$archive->tenant_fname.' '.$archive->tenant_lname.'</h6>
-                                                                                        <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-left:15px;">'.$msg_date.'</p>
+                                                                                        <p class="d-flex" style="color: #868e96;font-size: 12px;margin-bottom: 8px;margin-top:1px;margin-left:42px;">'.$msg_date.'</p>
                                                                                     </label>
                                                                                 </div>
                                                                                 <div class="col-xl-9" >
