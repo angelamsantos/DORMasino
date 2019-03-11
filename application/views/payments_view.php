@@ -201,8 +201,11 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" id="rtrans_rno<?php echo $tenant->dir_id; ?>" placeholder="Enter receipt no" required></div>
+                                                <div class="col"><input class="form-control" type="text" name="rtrans_rno" id="rtrans_rno<?php echo $tenant->dir_id; ?>" placeholder="Enter receipt no" required>
+                                                <span id="error_rent<?php echo $tenant->dir_id; ?>"></span> </div>
+                                                
                                             </div>
+                                            
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
@@ -223,7 +226,7 @@ input[type=number] {
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
                                                 <div class="col"><input class="form-control" type="number" name="rtrans_due" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="0" readonly>
-                                                <input class="form-control" type="hidden"  style="text-align:right" id="rent_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <input class="form-control" type="text"  style="text-align:right" id="rent_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -266,7 +269,7 @@ input[type=number] {
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
                                                 <div class="col"><input class="form-control" id="rent_paid<?php echo $tenant->dir_id; ?>" style="text-align:right" type="text" required></div>
                                                 <input class="form-control" name="rtarns_arr[]" id="rArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
-                                                <input class="form-control" name="rtrans_amount" id="rent_paidd<?php echo $tenant->dir_id; ?>" type="hidden" >
+                                                <input class="form-control" name="rtrans_amount" id="rent_paidd<?php echo $tenant->dir_id; ?>" type="text" >
                                             </div>
                                         </div>
                                     </div>
@@ -314,7 +317,8 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="wtrans_rno" placeholder="Enter receipt no" required></div>
+                                                <div class="col"><input class="form-control" type="text" name="wtrans_rno" id="wtrans_rno<?php echo $tenant->dir_id; ?>" placeholder="Enter receipt no" required>
+                                                <span id="error_water<?php echo $tenant->dir_id; ?>"></span></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -336,7 +340,7 @@ input[type=number] {
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
                                                 <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_due" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
-                                            
+                                                <input class="form-control" type="text"  style="text-align:right" id="water_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -425,7 +429,8 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Receipt No</label></div>
-                                                <div class="col"><input class="form-control" type="text" name="ftrans_rno" placeholder="Enter receipt no" required></div>
+                                                <div class="col"><input class="form-control" type="text" name="ftrans_rno" id="ftrans_rno<?php echo $tenant->dir_id; ?>" placeholder="Enter receipt no" required>
+                                                <span id="error_fee<?php echo $tenant->dir_id; ?>"></span></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -460,7 +465,7 @@ input[type=number] {
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
                                                 <div class="col"><input class="form-control" type="number" name="ftrans_due" style="text-align:right" id="fee_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
-                                                
+                                                <input class="form-control" type="text"  style="text-align:right" id="fee_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -567,7 +572,7 @@ input[type=number] {
                         success:function(data) {
                             $.each(data, function (i, obj) {
                                 $('#sel_amount<?php echo $d->dir_id; ?>').val(data.wt);
-                                
+                                $('#water_amountn<?php echo $d->dir_id; ?>').val(data.wn);   
                                 $('#wid<?php echo $d->dir_id; ?>').val(data.wi); 
                                 //$('#wArr<?php echo $d->dir_id; ?>').val(data.wa);
                             });
@@ -596,8 +601,8 @@ input[type=number] {
                         // dataType: "json",  
                         success:function(data) {
                             $.each(data, function (i, obj) {
-                               
-                                $('#rent_amount<?php echo $d->dir_id; ?>').val(data.rt);
+                                $('#rent_amount<?php echo $d->dir_id; ?>').val(data.rt); 
+                                $('#rent_amountn<?php echo $d->dir_id; ?>').val(data.rn);                               
                                 $('#rid<?php echo $d->dir_id; ?>').val(data.ri);
                                 $('#rArr<?php echo $d->dir_id; ?>').val(data.ra);
                             });
@@ -609,17 +614,78 @@ input[type=number] {
                 } else {
                     $('#rent_amount<?php echo $d->dir_id; ?>').val(0);
                 }
-               // var x = $('#rent_amount<?php //echo $d->dir_id; ?>').val();
-                $('#rent_amountn<?php echo $d->dir_id; ?>').val(addCommas(3000));
-                
+                    
             });
 
-            // $('#rent_amount<?php //echo $d->dir_id; ?>').on('input', function() { 
-            //     alert('test');
-                    
-            //     });
+            $('#rtrans_rno<?php echo $d->dir_id; ?>').keyup(function(){
+                var rno = $('#rtrans_rno<?php echo $d->dir_id; ?>').val();
+                if(rno != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Transactions/check_rno",
+                        method:"POST",
+                        data:{rno:rno},
+                        success:function(data) {
+                            if(data == "yes") {
+                                $('#error_rent<?php echo $d->dir_id; ?>').html('<label class="text-danger"><span style="font-size:14px"><i class="fa fa-times" aria-hidden="true"></i> Receipt number already in use.</span></label>');
+                                $('#rentBtn<?php echo $d->dir_id; ?>').attr('disabled', 'disabled');
+                            } else if (data == "no") {
+                                $('#error_rent<?php echo $d->dir_id; ?>').html('<label class="text-success"><span style="font-size:14px"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Receipt number is available</span></label>');
+                                $('#rentBtn<?php echo $d->dir_id; ?>').removeAttr("disabled");
+                            }
+                        }
+                    });
+                } else {
+                    $('#error_rent<?php echo $d->dir_id; ?>').html("");
+                }
+            });
+
+            $('#wtrans_rno<?php echo $d->dir_id; ?>').keyup(function(){
+                var wno = $('#wtrans_rno<?php echo $d->dir_id; ?>').val();
+                if(wno != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Transactions/check_wno",
+                        method:"POST",
+                        data:{wno:wno},
+                        success:function(data) {
+                            if(data == "yes") {
+                                $('#error_water<?php echo $d->dir_id; ?>').html('<label class="text-danger"><span style="font-size:14px"><i class="fa fa-times" aria-hidden="true"></i> Receipt number already in use.</span></label>');
+                                $('#waterBtn<?php echo $d->dir_id; ?>').attr('disabled', 'disabled');
+                            } else if (data == "no") {
+                                $('#error_water<?php echo $d->dir_id; ?>').html('<label class="text-success"><span style="font-size:14px"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Receipt number is available</span></label>');
+                                $('#waterBtn<?php echo $d->dir_id; ?>').removeAttr("disabled");
+                            }
+                        }
+                    });
+                } else {
+                    $('#error_water<?php echo $d->dir_id; ?>').html("");
+                }
+            });
+
+            $('#ftrans_rno<?php echo $d->dir_id; ?>').keyup(function(){
+                var fno = $('#ftrans_rno<?php echo $d->dir_id; ?>').val();
+                if(fno != '') {
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>index.php/Transactions/check_fno",
+                        method:"POST",
+                        data:{fno:fno},
+                        success:function(data) {
+                            if(data == "yes") {
+                                $('#error_fee<?php echo $d->dir_id; ?>').html('<label class="text-danger"><span style="font-size:14px"><i class="fa fa-times" aria-hidden="true"></i> Receipt number already in use.</span></label>');
+                                $('#feeBtn<?php echo $d->dir_id; ?>').attr('disabled', 'disabled');
+                            } else if (data == "no") {
+                                $('#error_fee<?php echo $d->dir_id; ?>').html('<label class="text-success"><span style="font-size:14px"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Receipt number is available</span></label>');
+                                $('#feeBtn<?php echo $d->dir_id; ?>').removeAttr("disabled");
+                            }
+                        }
+                    });
+                } else {
+                    $('#error_fee<?php echo $d->dir_id; ?>').html("");
+                }
+            });
+
             $('#rent_paid<?php echo $d->dir_id; ?>').keyup(function(event) {
                 // 1.
+                
                 if (event.which >= 37 && event.which <= 40) {
                     event.preventDefault();
                 }
@@ -688,24 +754,7 @@ input[type=number] {
                     components[1] = components[1].replace(/\D/g, "");
                 return components.join(".");
             }
-                
-            // function addCommas(nStr)
-            //         {
-            //             nStr += '';
-            //             x = nStr.split('.');
-            //             x1 = x[0];
-            //             x2 = x.length > 1 ? '.' + x[1] : '';
-            //             var rgx = /(\d+)(\d{3})/;
-            //             while (rgx.test(x1)) {
-            //                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            //             }
-            //             return x1 + x2;
-            //         }
-           
             
-            
-            
-
             $('#fad<?php echo $d->dir_id; ?>').selectize({
                 maxItems: null,
                 create: false,
@@ -724,6 +773,7 @@ input[type=number] {
                         success:function(data) {
                             $.each(data, function (i, obj) {
                                 $('#fee_amount<?php echo $d->dir_id; ?>').val(data.ft);
+                                $('#fee_amountn<?php echo $d->dir_id; ?>').val(data.fn);   
                                 $('#fid<?php echo $d->dir_id; ?>').val(data.fi); 
                                 $('#fArr<?php echo $d->dir_id; ?>').val(data.fa);
                             });

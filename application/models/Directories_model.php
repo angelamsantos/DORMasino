@@ -176,9 +176,12 @@ class Directories_model extends CI_Model {
         );
         $this->db->insert('dir_tbl', $data4);
 
+        $a = strtotime($this->input->post('contract_start'));
+        $due = date('Y-m-d', strtotime('+349 days' ,$a)); 
         $data5 = array(
             'tenant_id' => $tenant_id,
             'contract_start' => $this->input->post('contract_start'),
+            'contract_end' => $due,
             'contract_movein' => $this->input->post('contract_movein'),
             'contract_status' => 1,
         );
@@ -226,13 +229,15 @@ class Directories_model extends CI_Model {
                 $a = $nt - $rt;
               
                 $c = $a * $extra;
-                $e = $c + ($rp + $type_rate);
+                $f = $rp + $type_rate;
+                $e = $c + $f;
                 $d = ($e / ($nt)) * 2;
                 //echo "hi";
                 $status = 0;
             }
             if ($nt < $rt ) {
-                $d = ($rp / ($rp + $type_rate)) * 2;
+                $f = $rp + $type_rate;
+                $d = ($f / $rt) * 2;
                 //echo "hello";
                 $status = 0;
             } 
@@ -610,12 +615,11 @@ class Directories_model extends CI_Model {
 
     public function deac_admin() {
         
-       $id = $this->input->post('deac_id');
+        $id = $this->input->post('deac_id');
             $this->db->set('admin_status', 0);
             $this->db->where('admin_id', $id);
             $this->db->update('admin_tbl');
     
-        echo $id;
     }
 
     public function act_admin() {
