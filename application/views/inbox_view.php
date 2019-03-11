@@ -44,6 +44,12 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     .page-link > a {
         color:black;
     }
+    .notif {
+        color: #c7c7c7;
+    }
+    .notif:hover {
+        color: #000000;
+    }
     </style>
     <script>
 
@@ -56,12 +62,20 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                 });
         });
     </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
     <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Messages</p>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <span class="fa fa-bell" style="font-size:18px;"></span></a>
+                                    <ul class="dropdown-menu notif"></ul>
+                                </li>
+                            </ul>
                     <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
@@ -330,5 +344,62 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     });
 
 </script>
+
+<script>
+        $(document).ready(function(){
+        
+        function load_unseen_notification(view = '')
+        {
+        $.ajax({
+        url:"<?php echo base_url(); ?>index.php/Messages/fetch_notif",
+        method:"POST",
+        data:{view:view},
+        dataType:"json",
+        success:function(data)
+        {
+            $('.dropdown-menu').html(data.notification);
+            if(data.unseen_notification > 0)
+            {
+            $('.count').html(data.unseen_notification);
+            }
+        }
+        });
+        }
+        
+        load_unseen_notification();
+        
+        $('#comment_form').on('submit', function(event){
+        event.preventDefault();
+        if($('#subject').val() != '' && $('#comment').val() != '')
+        {
+        var form_data = $(this).serialize();
+        $.ajax({
+            url:"insert.php",
+            method:"POST",
+            data:form_data,
+            success:function(data)
+            {
+            $('#comment_form')[0].reset();
+            load_unseen_notification();
+            }
+        });
+        }
+        else
+        {
+        alert("Both Fields are Required");
+        }
+        });
+        
+        $(document).on('click', '.dropdown-toggle', function(){
+        $('.count').html('');
+        load_unseen_notification('yes');
+        });
+        
+        setInterval(function(){ 
+        load_unseen_notification();; 
+        }, 5000);
+        
+        });
+    </script>
 
 </html>

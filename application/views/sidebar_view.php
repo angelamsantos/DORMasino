@@ -78,7 +78,7 @@ date_default_timezone_set("Asia/Manila");
                 transform:         rotate(-90deg);
             }
     </style>
-    <script>
+    <!-- <script>
     document.onkeydown = function(e) {
         if(event.keyCode == 123) {
             return false;
@@ -93,7 +93,7 @@ date_default_timezone_set("Asia/Manila");
             return false;
         }
     }
-    </script>
+    </script> -->
 </head>
 <body style="font-family: Roboto, sans-serif;background-color: #ffffff;" oncontextmenu="return false;">
     <div id="wrapper">

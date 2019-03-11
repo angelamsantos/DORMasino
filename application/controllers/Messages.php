@@ -272,5 +272,62 @@ class Messages extends CI_Controller{
 
     }
 
+    public function fetch_notif() {
+
+        if (($this->input->post('view')) != NULL) {
+
+            if ($this->input->post('view') != '') {
+
+                // $this->Messages_model->seen_notif();
+                $this->db->set('notif_status', 1);
+                $this->db->where('notif_status', 0);
+                $this->db->update('notif_tbl');
+
+            }
+
+            // $this->Messages_model->get_notif();
+            $this->db->from('notif_tbl');
+            $this->db->order_by('notif_id', 'desc');
+        
+            $query = $this->db->get();
+            $output = '';
+            
+            if ($query->num_rows() > 0) {
+
+                foreach ($query->result() as $row ) {
+
+                    $output .= '
+                    <li>
+                        <a href="#">
+                            <strong>'.$row->notif_subject.'</strong><br />
+                            <small><em>'.$row->notif_body.'</em></small>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    ';
+
+                }
+
+            } else {
+
+                $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+
+            }
+
+            $this->db->from('notif_tbl');
+            $this->db->where('notif_status', 0);
+
+            $count = $this->db->count_all();
+            $data = array(
+                'notification'   => $output,
+                'unseen_notification' => $count
+                );
+
+            echo json_encode($data);
+
+        }
+
+    }
+
 }
 ?>
