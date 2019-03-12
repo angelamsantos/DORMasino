@@ -136,11 +136,12 @@ class Transactions extends CI_Controller{
             $data['a'] = $res['wt'];
             $data['b'] = $res['wi'];
             $data['c'] = $res['wa'];
-
+            $data['d'] = $res['wn'];
             $push= array(
                 'wt' => $data['a'],
                 'wi' => $data['b'],
                 'wa' => $data['c'],
+                'wn' => $data['d'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -159,10 +160,12 @@ class Transactions extends CI_Controller{
             $data['a'] = $res['rt'];
             $data['b'] = $res['ri'];
             $data['c'] = $res['ra'];
+            $data['d'] = $res['rn'];
             $push= array(
                 'rt' => $data['a'],
                 'ri' => $data['b'],
                 'ra' => $data['c'],
+                'rn' => $data['d'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -182,15 +185,44 @@ class Transactions extends CI_Controller{
             $data['a'] = $res['ft'];
             $data['b'] = $res['fi'];
             $data['c'] = $res['fa'];
+            $data['d'] = $res['fn'];
             $push= array(
                 'ft' => $data['a'],
                 'fi' => $data['b'],
                 'fa' => $data['c'],
+                'fn' => $data['d'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
             //echo $data['a'];
         }
+    }
+
+    public function check_rno() {
+        $this->load->model('Transactions_model');
+        if($this->Transactions_model->check_rno($this->input->post('rno'))){
+            echo "yes";
+        } else {
+            echo "no";
+           }
+    }
+
+    public function check_wno() {
+        $this->load->model('Transactions_model');
+        if($this->Transactions_model->check_wno($this->input->post('wno'))){
+            echo "yes";
+        } else {
+            echo "no";
+           }
+    }
+
+    public function check_fno() {
+        $this->load->model('Transactions_model');
+        if($this->Transactions_model->check_fno($this->input->post('fno'))){
+            echo "yes";
+        } else {
+            echo "no";
+           }
     }
 
     public function rent_payment() {

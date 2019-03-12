@@ -151,7 +151,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         
                                         <td><?php echo $tenant->room_number; ?></td>
                                         <td><a style="color:#0645AD;font-weight:bold ;" class="info" title="Click to show tenant information" href="#TenantInfo<?php echo $tenant->dir_id; ?>" data-toggle="modal" data-target="#TenantInfo<?php echo $tenant->dir_id; ?>"><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></a></td>
-                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
+                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $tenant->contract_end ; ?></td>
                                         <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
                                             <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
                                         <?php } else if ($datediff->days <= 10) { ?>

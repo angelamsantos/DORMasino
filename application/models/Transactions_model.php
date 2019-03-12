@@ -330,6 +330,7 @@ class Transactions_model extends CI_Model {
         }
             // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
             return array(
+                'wn' => number_format($a, 2),
                 'wt' => $a,
                 'wi' => $b,
                 'wa' => $c,
@@ -366,6 +367,7 @@ class Transactions_model extends CI_Model {
         }
 
         return array(
+            'rn' => number_format($a, 2),
             'rt' => $a,
             'ri' => $b,
             'ra' => $c,
@@ -421,12 +423,119 @@ class Transactions_model extends CI_Model {
         }
 
         return array(
+            'fn' => number_format($a, 2),
             'ft' => $a,
             'fi' => $b,
             'fa' => $c,
             );
             //return json_encode($a);
     }
+
+    public function check_rno($rno) {
+            $this->db->select('rtrans_rno');
+            $this->db->from('rtrans_tbl');
+            $this->db->where('rtrans_rno', $rno);
+
+            $query1 = $this->db->get();
+
+            $this->db->select('wtrans_rno');
+            $this->db->from('wtrans_tbl');
+            $this->db->where('wtrans_rno', $rno);
+
+            $query2 = $this->db->get();
+
+            $this->db->select('atrans_rno');
+            $this->db->from('atrans_tbl');
+            $this->db->where('atrans_rno', $rno);
+
+            $query3 = $this->db->get();
+
+            $this->db->select('dtrans_rno');
+            $this->db->from('dtrans_tbl');
+            $this->db->where('dtrans_rno', $rno);
+
+            $query4 = $this->db->get();
+
+                if($query1->num_rows() > 0 || 
+                $query2->num_rows() > 0 || 
+                $query3->num_rows() > 0 || 
+                $query4->num_rows() > 0 ) {
+                    return true;
+                }  else {
+                    return false;
+                }
+    }
+
+    public function check_wno($wno) {
+        $this->db->select('rtrans_rno');
+        $this->db->from('rtrans_tbl');
+        $this->db->where('rtrans_rno', $wno);
+
+        $query1 = $this->db->get();
+
+        $this->db->select('wtrans_rno');
+        $this->db->from('wtrans_tbl');
+        $this->db->where('wtrans_rno', $wno);
+
+        $query2 = $this->db->get();
+
+        $this->db->select('atrans_rno');
+        $this->db->from('atrans_tbl');
+        $this->db->where('atrans_rno', $wno);
+
+        $query3 = $this->db->get();
+
+        $this->db->select('dtrans_rno');
+        $this->db->from('dtrans_tbl');
+        $this->db->where('dtrans_rno', $wno);
+
+        $query4 = $this->db->get();
+
+            if($query1->num_rows() > 0 || 
+            $query2->num_rows() > 0 || 
+            $query3->num_rows() > 0 || 
+            $query4->num_rows() > 0 ) {
+                return true;
+            }  else {
+                return false;
+            }
+    }
+
+    public function check_fno($fno) {
+        $this->db->select('rtrans_rno');
+        $this->db->from('rtrans_tbl');
+        $this->db->where('rtrans_rno', $fno);
+
+        $query1 = $this->db->get();
+
+        $this->db->select('wtrans_rno');
+        $this->db->from('wtrans_tbl');
+        $this->db->where('wtrans_rno', $fno);
+
+        $query2 = $this->db->get();
+
+        $this->db->select('atrans_rno');
+        $this->db->from('atrans_tbl');
+        $this->db->where('atrans_rno', $fno);
+
+        $query3 = $this->db->get();
+
+        $this->db->select('dtrans_rno');
+        $this->db->from('dtrans_tbl');
+        $this->db->where('dtrans_rno', $fno);
+
+        $query4 = $this->db->get();
+
+            if($query1->num_rows() > 0 || 
+            $query2->num_rows() > 0 || 
+            $query3->num_rows() > 0 || 
+            $query4->num_rows() > 0 ) {
+                return true;
+            }  else {
+                return false;
+            }
+    }
+
 
     public function rent_payment() {
             $tenant_id = $this->input->post('rtenant_id');
@@ -1290,16 +1399,27 @@ class Transactions_model extends CI_Model {
         $this->load->library('email');
         $data = $this->rent_payment();
         //SMTP & mail configuration
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = 465;
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'dormasino20182019@gmail.com';
-        $config['smtp_pass']    = 'dormasino123';
-        $config['charset']    = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
+         $config = array(
+            /*'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'dormasino20182019@gmail.com',
+            'smtp_pass' => 'dormasino123',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8'*/
+            
+            $config['protocol']    = 'smtp',
+            $config['smtp_host']    = 'ssl://smtp.gmail.com',
+            $config['smtp_port']    = '465',
+            $config['smtp_timeout'] = '7',
+            $config['smtp_user']    = 'dormasino20182019@gmail.com',
+            $config['smtp_pass']    = 'dormasino123',
+            $config['charset']    = 'utf-8',
+            $config['wordwrap'] = TRUE,
+            $config['mailtype'] = 'html',
+            $config['validation'] = TRUE, // bool whether to validate email or not    
+        );
+
 
 
         $this->email->initialize($config);
@@ -1336,16 +1456,27 @@ class Transactions_model extends CI_Model {
         $this->load->library('email');
         $data = $this->water_payment();
         //SMTP & mail configuration
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = 465;
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'dormasino20182019@gmail.com';
-        $config['smtp_pass']    = 'dormasino123';
-        $config['charset']    = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
+         $config = array(
+            /*'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'dormasino20182019@gmail.com',
+            'smtp_pass' => 'dormasino123',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8'*/
+            
+            $config['protocol']    = 'smtp',
+            $config['smtp_host']    = 'ssl://smtp.gmail.com',
+            $config['smtp_port']    = '465',
+            $config['smtp_timeout'] = '7',
+            $config['smtp_user']    = 'dormasino20182019@gmail.com',
+            $config['smtp_pass']    = 'dormasino123',
+            $config['charset']    = 'utf-8',
+            $config['wordwrap'] = TRUE,
+            $config['mailtype'] = 'html',
+            $config['validation'] = TRUE, // bool whether to validate email or not    
+        );
+
 
 
         $this->email->initialize($config);
@@ -1381,16 +1512,27 @@ class Transactions_model extends CI_Model {
         $this->load->library('email');
         $data = $this->fee_payment();
         //SMTP & mail configuration
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = 465;
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'dormasino20182019@gmail.com';
-        $config['smtp_pass']    = 'dormasino123';
-        $config['charset']    = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['mailtype'] = 'html';
-        $config['validation'] = TRUE;
+         $config = array(
+            /*'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'dormasino20182019@gmail.com',
+            'smtp_pass' => 'dormasino123',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8'*/
+            
+            $config['protocol']    = 'smtp',
+            $config['smtp_host']    = 'ssl://smtp.gmail.com',
+            $config['smtp_port']    = '465',
+            $config['smtp_timeout'] = '7',
+            $config['smtp_user']    = 'dormasino20182019@gmail.com',
+            $config['smtp_pass']    = 'dormasino123',
+            $config['charset']    = 'utf-8',
+            $config['wordwrap'] = TRUE,
+            $config['mailtype'] = 'html',
+            $config['validation'] = TRUE, // bool whether to validate email or not    
+        );
+
 
 
         $this->email->initialize($config);
