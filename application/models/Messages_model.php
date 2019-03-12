@@ -91,7 +91,7 @@ class Messages_model extends CI_Model {
         $this->db->where('send_archive', 0);
         $this->db->where('send_type', 1);
     
-		$query = $this->db->get();
+        $query = $this->db->get();
         
         if ($query->num_rows() > 0) {
 
@@ -118,7 +118,7 @@ class Messages_model extends CI_Model {
         $this->db->where('admin_id', $admin_id);
         $this->db->where('send_archive', 1);
     
-		$query = $this->db->get();
+        $query = $this->db->get();
         
         if ($query->num_rows() > 0) {
 
@@ -134,12 +134,12 @@ class Messages_model extends CI_Model {
 
     public function get_dir () {
 
-		$this->db->from('dir_tbl');
-		$this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
+        $this->db->from('dir_tbl');
+        $this->db->join('tenant_tbl','tenant_tbl.tenant_id=dir_tbl.tenant_id', 'LEFT');
         $this->db->join('room_tbl','room_tbl.room_id=dir_tbl.room_id', 'LEFT');
     
-		$query = $this->db->get();
-		return $query;
+        $query = $this->db->get();
+        return $query;
 
     }
 
@@ -254,61 +254,5 @@ class Messages_model extends CI_Model {
 
     }
 
-    // public function seen_notif() {
-
-    //     $this->db->set('notif_status', 1);
-    //     $this->db->where('notif_status', 0);
-    //     $this->db->update('notif_tbl');
-
-    // }
-
-    // public function get_notif($limit, $start) {
-
-    //     $this->db->limit($limit, $start);
-
-    //     $this->db->from('notif_tbl');
-    //     $this->db->order_by('notif_id', 'desc');
-    
-    //     $query = $this->db->get();
-    //     $output = '';
-        
-    //     if ($query->num_rows() > 0) {
-
-    //         foreach ($query->result() as $row ) {
-
-    //             $output .= '
-    //             <li>
-    //                 <a href="#">
-    //                     <strong>'.$row->notif_subject.'</strong><br />
-    //                     <small><em>'.$row->notif_body.'</em></small>
-    //                 </a>
-    //             </li>
-    //             <li class="divider"></li>
-    //             ';
-
-    //             return $output;
-
-    //         }
-
-    //     } else {
-
-    //         $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
-    //         return $output;
-
-    //     }
-
-    //     $this->db->from('notif_tbl');
-    //     $this->db->where('notif_status', 0);
-
-    //     $count = $this->db->count();
-    //     $data = array(
-    //         'notification'   => $output,
-    //         'unseen_notification' => $count
-    //         );
-
-    //     echo json_encode($data);
-
-    //     }
-
-    }
+}
 ?>
