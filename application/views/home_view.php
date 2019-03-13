@@ -63,7 +63,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname; ?></a>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname; ?></a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">Logout</a></div>
                     </li>
                 </ul>

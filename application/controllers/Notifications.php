@@ -64,7 +64,7 @@ class Notifications extends CI_Controller{
 
         } else {
 
-            $output .= '<li><a href="#" class="text-bold text-italic">No Notifications</a></li>';
+            $output .= '<li><a href="#" style="color: #11334f;font-family: ABeeZee, sans-serif;" class="text-bold text-italic">No Notifications</a></li>';
 
         }
 
