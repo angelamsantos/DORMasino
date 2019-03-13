@@ -76,6 +76,10 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
 
                                                         $service = "Borrowing";
 
+                                                    } else if ($row->req_type == 3) {
+
+                                                        $service = "Update Profile";
+
                                                     }
                                                     
                                                     echo "<tr >";
