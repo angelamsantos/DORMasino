@@ -50,6 +50,26 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     .notif:hover {
         color: #000000;
     }
+
+    .notification .badge {
+        position: absolute;
+        top: -5px;
+        left: -15px;
+        padding: 5px -6px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+    }
+    .dropdown-toggle::after {
+    display:none;
+    }
+
+    .notification{
+        position: relative;
+        display: inline-block;
+    }
+
+    
     </style>
     <script>
 
@@ -69,19 +89,23 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     <div class="page-content-wrapper">
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
-                    <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Messages</p>
-                            <!-- Notification nav -->
-                            <ul class="nav navbar-nav navbar-right">
+                    <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Messages
+                            
+                    </p>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                    <!-- <i class="icon ion-person"></i> -->
+                    <!-- Notification nav -->
+                    <ul class="nav navbar-nav navbar-right" style="margin-left: 20px">
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="label label-pill label-danger count" style="border-radius:10px;"></span> 
-                                        <span class="fa fa-bell" style="font-size:18px;"></span>
+                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                        <span class="fa fa-bell" style="font-size:16px;"></span>
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
                                     </a>
                                     <ul class="dropdown-menu notif"></ul>
                                 </li>
                             </ul>
                             <!-- Notification nav -->
-                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    &nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div>
                     <div class="col-xl-12" style="margin-top: 11px;padding:0px;">

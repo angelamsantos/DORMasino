@@ -262,6 +262,18 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Age</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_age; ?></label></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Sex</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_sex; ?></label></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Email</label></div>
                                                 <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_email; ?></label></div>
                                             </div>
@@ -293,8 +305,14 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Date of move-in</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Start of contract</label></div>
                                                 <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->contract_start; ?></label></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Date of move-in</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->contract_movein; ?></label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -408,6 +426,18 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday</label></div>
                                                 <div class="col"><input name="etenant_bday" class="form-control" type="date" value="<?php echo $tenantInfo->tenant_birthday; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Sex<span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="etenant_sex">
+                                                        <option selected disabled>Select sex</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="F">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -790,6 +820,18 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Sex<span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="tenant_sex">
+                                                        <option selected disabled>Select sex</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="F">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">

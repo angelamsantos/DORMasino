@@ -312,12 +312,15 @@ class Directories_model extends CI_Model {
 
 
     public function update_tenant($tenant_id) {
+        $age = date_diff(date_create($this->input->post('etenant_bday')), date_create('now'))->y;
         $data1 = array(
             'tenant_email' => $this->input->post('etenant_email'),
             'tenant_fname' => $this->input->post('etenant_fname'),
             'tenant_lname' => $this->input->post('etenant_lname'),
             'tenant_address' => $this->input->post('etenant_address'),
             'tenant_birthday' => $this->input->post('etenant_bday'),
+            'tenant_age' => $age,
+            'tenant_sex' => $this->input->post('etenant_sex'),
             'tenant_school' => $this->input->post('etenant_school'),
             'tenant_course' => $this->input->post('etenant_course'),
             'tenant_medical' => $this->input->post('etenant_medical'),

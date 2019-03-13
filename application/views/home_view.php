@@ -63,7 +63,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname; ?></a>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname; ?></a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">Logout</a></div>
                     </li>
                 </ul>
@@ -129,7 +130,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <h3>Bills</h3></button>
                 </div>
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 0px;">
-                    <button <?php echo $c; ?> class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Announcements/index'); ?>'" name ="home_ann" value="1" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px; "><img src="<?php echo base_url(); ?>/assets/img/request.png" width="120">
+                    <button <?php echo $c; ?> class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Announcements/index'); ?>'" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px; "><img src="<?php echo base_url(); ?>/assets/img/megaphone.png" width="120">
                     <h3>Announcements</h3></button>
                 </div>
             </div>
@@ -150,7 +151,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                 </div>
             </div>
             <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                <div style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</div>
+                <div style="color:#c7c7c7; font-size:14px">Icons made by <a style="color:#c7c7c7; font-size:14px" href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a style="color:#c7c7c7; font-size:14px" href="https://www.flaticon.com/"title="Flaticon">www.flaticon.com</a> is licensed by <a style="color:#c7c7c7; font-size:14px" href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
             </footer>
         </div>
     </div>
