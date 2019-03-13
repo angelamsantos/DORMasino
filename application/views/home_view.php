@@ -7,6 +7,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     $aann = $this->session->userdata['login_success']['info']['adcontrol_ann'];
     $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $alogs = $this->session->userdata['login_success']['info']['adcontrol_logs'];
+
+    $this->session->set_userdata('home_ann', $this->input->post('home_ann'));
 ?>
 <html>
 

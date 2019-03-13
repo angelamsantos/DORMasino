@@ -6,9 +6,6 @@ if (!isset ($login)) {
     redirect('Login');
 }
 
-$page = $_SERVER['PHP_SELF'];
-$sec = "3";
-
 $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $a="";
@@ -88,24 +85,52 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                                         echo "<td>". $service ."</td>";
                                                         echo "<td>". htmlspecialchars($row->req_notes) ."</td>";
 
-                                                        if ($row->req_status == 0) {
+                                                        if ($row->req_type == 2) {
 
-                                                            $out = '<button '.$a.' class="btn btn-primary" type="button" id="norefresh" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #f4f142;color: #ffffff;border: none;">Pending</button>';
-                                                            
-                                                        } else if ($row->req_status == 1) {
-                                                            
-                                                            $out ='<p style="color:#45ba3d">Approved</p>' ;
-                                                            
-                                                        } else if ($row->req_status == 2) {
-                                                            
-                                                            $out ='<p style="color:#ef1f1f">Rejected</p>';
-                                                            
+                                                            if ($row->req_status == 0) {
+
+                                                                $out = '<button '.$a.' class="btn btn-primary" type="button" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #f4f142;color: #ffffff;border: none;">Pending</button>';
+                                                                
+                                                            } else if ($row->req_status == 1) {
+                                                                
+                                                                $out ='<p style="color:#45ba3d">Approved</p>' ;
+                                                                
+                                                            } else if ($row->req_status == 2) {
+                                                                
+                                                                $out ='<p style="color:#ef1f1f">Rejected</p>';
+                                                                
+                                                            } else if ($row->req_status == 3) {
+
+                                                                $out = '<button title="Item on hand" class="btn btn-primary" type="button" data-toggle="modal" data-target="#Return'.$row->req_id.'" style="color: #ffffff;border: none;">On hand</button>';
+                                                                
+                                                            } else {
+
+                                                                $out ='<p>Returned</p>' ;
+
+                                                            }
+
                                                         } else {
 
-                                                            $out ='<p>Completed</p>' ;
+                                                            if ($row->req_status == 0) {
+
+                                                                $out = '<button '.$a.' class="btn btn-primary" type="button" id="norefresh" data-toggle="modal" data-target="#Request'.$row->req_id.'" style="background-color: #f4f142;color: #ffffff;border: none;">Pending</button>';
+                                                                
+                                                            } else if ($row->req_status == 1) {
+                                                                
+                                                                $out ='<p style="color:#45ba3d">Approved</p>' ;
+                                                                
+                                                            } else if ($row->req_status == 2) {
+                                                                
+                                                                $out ='<p style="color:#ef1f1f">Rejected</p>';
+                                                                
+                                                            } else {
+
+                                                                $out ='<p>Completed</p>' ;
+                                                            }
+
                                                         }
 
-                                                        echo "<td><form method='post' action='".site_url("Requests/complete")."'>". $out ."</form></td>";
+                                                        echo "<td>". $out ."</td>";
                                                     echo "</tr>";
                                                 
                                             }
@@ -138,6 +163,29 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                         </div>
                         <?php } ?>
                         <!--END APPROVE MODAL -->
+
+                        <!--START RETURN MODAL -->
+                        <?php foreach ($reqs->result() as $row2) { ?>
+                        <div id="Return<?php echo $row2->req_id ?>" class="modal fade" role="dialog" tabindex="-1">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
+                                        <h4 class="modal-title" style="color: #11334f;">Returned Borrowed Item</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                    
+                                    <form method="POST" name="archive_inbox" action="<?php echo site_url('Requests/return');?>" class="justify" style="width: 100%;margin: 0 auto;">
+                                    <div class="modal-body text-center">
+                                            <p style="font-size: 17px;">Are you sure that the borrowed item was returned?</p>
+                                            <input type="hidden" name="req_id" value="<?php echo $row2->req_id ?>" />
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button class="btn btn-primary" name="requestBtn" type="submit" style="background-color: #bdedc1;color: #11334f;border: none;">Yes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                        <!--END RETURN MODAL -->
 
                 <footer class="footer" style="margin-top:120px;"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
                 <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
