@@ -38,7 +38,7 @@ class Notifications extends CI_Controller{
 
                     $output .= '
                     <li>
-                        <a href="'.site_url('Messages/index').'">
+                        <a style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;"  href="'.site_url('Messages/index').'">
                             <strong>'.$row->notif_subject.'</strong><br />
                             <small><em>'.$row->notif_body.'</em></small>
                         </a>
@@ -50,7 +50,7 @@ class Notifications extends CI_Controller{
 
                     $output .= '
                     <li>
-                        <a href="'.site_url('Requests/index').'">
+                        <a style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;"  href="'.site_url('Requests/index').'">
                             <strong>'.$row->notif_subject.'</strong><br />
                             <small><em>'.$row->notif_body.'</em></small>
                         </a>
@@ -64,7 +64,7 @@ class Notifications extends CI_Controller{
 
         } else {
 
-            $output .= '<li><a href="#" style="color: #11334f;font-family: ABeeZee, sans-serif;" class="text-bold text-italic">No Notifications</a></li>';
+            $output .= '<li style=""><a href="#" style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;" class="text-bold text-italic">No notifications</a></li>';
 
         }
 

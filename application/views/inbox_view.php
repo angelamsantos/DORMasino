@@ -69,10 +69,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         display: inline-block;
     }
 
-    .dropdown-menu .notif {
-        color: #11334f;
-        font-family: ABeeZee, sans-serif;
-    }
     
     </style>
     <script>
@@ -103,7 +99,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
                                         <span class="fa fa-bell" style="font-size:16px;"></span>
-                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;">5</span> 
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
                                     </a>
                                     <ul class="dropdown-menu notif"></ul>
                                 </li>
