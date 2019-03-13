@@ -20,6 +20,7 @@ class Logs extends CI_Controller {
     public function index() {
 
         $this->validate_login();
+        $this->Routeguard_model->view_vlogs();
 
         $admin_id = $this->session->userdata['login_success']['info']['admin_id'];
         

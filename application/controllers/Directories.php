@@ -20,7 +20,9 @@ class Directories extends CI_Controller{
     }
 
     public function index() {
+        
         $this->validate_login();
+        $this->Routeguard_model->index_dir();
         
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
@@ -117,6 +119,10 @@ class Directories extends CI_Controller{
     }
 
     public function show_tenants() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_tenant();
+
         // $data['room_id'] = $this->input->post('show_rid');
         // $data['room_no'] = $this->input->post('show_rno');
         $r_id = $this->session->userdata['data']['room_id'];
@@ -133,6 +139,10 @@ class Directories extends CI_Controller{
     }
 
     public function rooms() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_room();
+
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_dir();
@@ -142,6 +152,10 @@ class Directories extends CI_Controller{
     }
 
     public function admin() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_admin();
+
         $data['admin']=$this->Directories_model->get_admin();
         // $adir = $this->session->userdata['admin']['info']['adcontrol_dir'];
         // $abill = $this->session->userdata['admin']['info']['adcontrol_bills'];

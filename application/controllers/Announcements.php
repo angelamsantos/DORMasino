@@ -18,20 +18,10 @@ class Announcements extends CI_Controller{
 
     }
 
-    public function route_guard() {
-
-        $aann = $this->session->userdata['login_success']['info']['adcontrol_ann'];
-
-        if ($aann[0] == 0) {
-            redirect('Home');
-        }
-
-    }
-
     public function index(){
 
         $this->validate_login();
-        $this->route_guard();
+        $this->Routeguard_model->view_ann();
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Announcements/index";

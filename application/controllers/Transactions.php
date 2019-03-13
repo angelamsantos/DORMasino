@@ -20,7 +20,10 @@ class Transactions extends CI_Controller{
     }
 
     public function index() {
+        
         $this->validate_login();
+        $this->Routeguard_model->update_bills();
+
         $data['floor']=$this->Transactions_model->get_floor();
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
@@ -37,6 +40,9 @@ class Transactions extends CI_Controller{
     }
 
     public function edit_water(){
+
+        $this->validate_login();
+
         $this->Transactions_model->edit_water();
         $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water rate per m<sup>3</sup> successfully updated!</center></div>';
         $this->session->set_flashdata('msg', $msg);
@@ -44,7 +50,10 @@ class Transactions extends CI_Controller{
     }
 
     public function payments() {
+
         $this->validate_login();
+        $this->Routeguard_model->payments();
+
         $data['floor']=$this->Transactions_model->get_floor();
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
@@ -87,6 +96,10 @@ class Transactions extends CI_Controller{
     }
 
     public function records_room() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_transactions();
+
         $data['floor']=$this->Transactions_model->get_floor();
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();

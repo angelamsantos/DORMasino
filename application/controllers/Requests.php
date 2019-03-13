@@ -20,6 +20,7 @@ class Requests extends CI_Controller{
     public function index() {
 
         $this->validate_login();
+        $this->Routeguard_model->view_reqs();
 
         $data['reqs']=$this->Requests_model->get_reqs();
 
