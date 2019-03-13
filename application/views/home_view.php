@@ -7,6 +7,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     $aann = $this->session->userdata['login_success']['info']['adcontrol_ann'];
     $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $alogs = $this->session->userdata['login_success']['info']['adcontrol_logs'];
+
+    $this->session->set_userdata('home_ann', $this->input->post('home_ann'));
 ?>
 <html>
 
@@ -127,7 +129,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <h3>Bills</h3></button>
                 </div>
                 <div class="col-12 col-sm-7 col-md-8 col-lg-3 col-xl-3 d-flex d-sm-flex d-md-flex d-xl-flex flex-column align-items-center align-items-sm-center align-items-md-center justify-content-xl-center align-items-xl-center service" style="background-color: #5dc2fe;padding: 0px;">
-                    <button <?php echo $c; ?> class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Announcements/index'); ?>'" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px; "><img src="<?php echo base_url(); ?>/assets/img/request.png" width="120">
+                    <button <?php echo $c; ?> class="btn btn-primary btn-home" type="button" onclick="location.href='<?php echo site_url('Announcements/index'); ?>'" name ="home_ann" value="1" style="background-color: transparent;border: none;width:100%;height:100%;padding: 20px; "><img src="<?php echo base_url(); ?>/assets/img/request.png" width="120">
                     <h3>Announcements</h3></button>
                 </div>
             </div>

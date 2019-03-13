@@ -15,6 +15,8 @@ date_default_timezone_set("Asia/Manila");
     $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
 
+    $this->session->set_userdata('sidebar_ann', $this->input->post('sidebar_ann'));
+
 ?>
 <html>
 
@@ -198,9 +200,9 @@ date_default_timezone_set("Asia/Manila");
 
         <?php if($aann[0] == 1) { ?> 
             <?php if(current_url() == site_url('Announcements/index') || current_url() == site_url('Announcements/index')) { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
+                <p class="menu-active menu-side" name="sidebar_ann" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
+                <p name="sidebar_ann" style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
         <?php } 
         }?>   
 

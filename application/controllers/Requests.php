@@ -53,12 +53,12 @@ class Requests extends CI_Controller{
 
     }
 
-    public function complete() {
+    public function return() {
 
         $id = $this->input->post('req_id');
-        $this->Requests_model->complete_req($id);
+        $this->Requests_model->return_req($id);
 
-        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Request completed!</center></div>';
+        $msg = '<div class="alert alert-success" style="font-size:15px;margin:0px"><center>Borrowed item returned!</center></div>';
         $this->session->set_flashdata('msg', $msg);
 
         redirect('Requests/index');
