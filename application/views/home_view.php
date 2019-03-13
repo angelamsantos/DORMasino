@@ -55,6 +55,44 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     h3 {
         color: #000000;
     }
+    li p {
+        font-size: 14px !important;
+    }
+
+    .messageoption {
+        color: #c7c7c7;
+    }
+
+    .messageoption:hover {
+        color: #000000;
+    }
+    .page-link > a {
+        color:black;
+    }
+    .notif {
+        color: #c7c7c7;
+    }
+    .notif:hover {
+        color: #000000;
+    }
+
+    .notification .badge {
+        position: absolute;
+        top: -5px;
+        left: -15px;
+        padding: 5px -6px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+    }
+    .notification::after {
+    display:none;
+    }
+
+    .notification{
+        position: relative;
+        display: inline-block;
+    }
 </style>
 
 <body style="font-family: Roboto, sans-serif;background-color: #ECEFF1;" oncontextmenu="return false;">
@@ -62,9 +100,24 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
         <div class="container-fluid"><a class="navbar-brand" href="#" style="padding-top: 0px;padding-bottom: 0px;margin-right: 10px;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 229px;height: 42px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
                 class="collapse navbar-collapse" id="navcol-1">
+                <!-- Notification nav -->
+                <!-- <ul class="nav navbar-nav ml-auto" style="margin-left: 20px">
+                                
+                            </ul> -->
+                            <!-- Notification nav -->
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname; ?></a>
+                                <li class="nav-item dropdown d-flex align-items-center">
+                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                        <span class="fa fa-bell" style="font-size:16px;"></span>
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;">5</span> 
+                                    </a>
+                                    <ul class="dropdown-menu notif"></ul>
+                                </li>
+                    <li class="nav-item dropdown" >
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="padding-left:0px;">
+                        <!-- <i class="icon ion-person"></i> -->
+                            
+                        &nbsp; &nbsp;<?php echo $admin_fname; ?></a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">Logout</a></div>
                     </li>
                 </ul>

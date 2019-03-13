@@ -341,6 +341,8 @@ class Transactions_model extends CI_Model {
         $a = 0;
         $b = array() ;
         $c = array() ;
+        $d = array() ;
+        $e = array() ;
         foreach($month as $m) {
 
             $this->db->from('rent_tbl');
@@ -351,19 +353,33 @@ class Transactions_model extends CI_Model {
             $this->db->where('rent_tbl.tenant_id', $tenant);
             $q = $this->db->get();
 
+            $this->db->from('balance_tbl');
+            $this->db->where('balance_tbl.balance_status', 1);
+            $this->db->where('balance_tbl.tenant_id', $tenant);
+            $balq = $this->db->get();
+
             $rent = 'Amount due';
 
         
 
                 foreach ($q->result() as $r) {
-                        $rent = $r->rent_balance ;
-                        $rid = $r->rent_id;
-                        $rarr = $r->rent_balance;
-                }   
-
+                    $rent = $r->rent_balance ;
+                    $rid = $r->rent_id;
+                    $rarr = $r->rent_balance;
+                } 
+                if($balq->num_rows() > 0) {
+                    foreach ($r->result() as $s) {
+                        $bal = $s->balance_amount;
+                        $bid = $s->balance_id;
+                    } 
+                } else {
+                    $bal = 0;
+                }  
+                $e = $e + $bal;
                 $a = $a + $rent;
                 array_push($b, $rid);
                 array_push($c, $rarr);
+                //array_push($d, $bid);
         }
 
         return array(
@@ -371,6 +387,7 @@ class Transactions_model extends CI_Model {
             'rt' => $a,
             'ri' => $b,
             'ra' => $c,
+            'bi' => $d,
             );
             //return json_encode($a);
     }
@@ -552,10 +569,24 @@ class Transactions_model extends CI_Model {
 
                 $row = $query->row();
             $g;
+            $h = 0;
             if ($paid < $due) {
                 $g = $paid;
-            } else if ($paid >= $due) {
-                $g = $due;
+                $h = 0;
+            } else if ($paid == $due) {
+                $g = $paid;
+                $h = 0;
+            }
+            else if ($paid > $due) {
+                $g = $paid;
+                $h = $paid - $due;
+                $data5 = array(
+                    'balance_amount' => $h,
+                    'balance_status' => 1,
+                    'tenant_id' => $this->input->post('rtenant_id'),
+                );
+
+                $this->db->insert('balance_tbl', $data5);
             }
 
             $data4 = array(
@@ -566,6 +597,7 @@ class Transactions_model extends CI_Model {
                 'e' => $this->input->post('rm'),
                 'f' => $row->tenant_email,
                 'g' => $g,
+                'h' => $h,
             );
             $rent=$this->input->post('rent_id');
            
@@ -613,6 +645,7 @@ class Transactions_model extends CI_Model {
                         $this->db->where('rent_id', $rs);
                         $this->db->update('rent_tbl');
                     }
+                    
                 }
                     
                         $data2 = array(
@@ -629,11 +662,11 @@ class Transactions_model extends CI_Model {
                             'rtrans_id' => $check,
                         );
                         $this->db->insert('rcheck_tbl', $data3);
-                        return $arr = array_merge($data, $data2, $data4, $data3);
+                        return $arr = array_merge($data, $data2, $data4, $data3, $data5);
                     }
 
                     
-                return $arr = array_merge($data, $data2, $data4);
+                return $arr = array_merge($data, $data2, $data4, $data5);
             } else if(count($rArr) > 1) {
                 $month = $this->input->post('rm');
                 $mStr = $month[0];

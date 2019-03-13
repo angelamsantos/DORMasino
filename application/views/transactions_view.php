@@ -84,7 +84,7 @@ input[type=number] {
 
                         ?>
                         
-                        <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $c; echo $btnSend; ?> type="button" data-toggle="modal" data-target="#RentBill" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Send Rent Bill</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $c; //echo $btnSend; ?> type="button" data-toggle="modal" data-target="#RentBill" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Send Rent Bill</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $a; ?> type="button" data-toggle="modal" data-target="#WaterSetting" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Edit water setting</button>
                     </div>
                 </div>
