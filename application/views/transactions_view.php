@@ -321,7 +321,8 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="wbn<?php echo $row2->room_id; ?>" name="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php foreach ($dir_count->result() as $nt) { 
@@ -332,7 +333,8 @@ input[type=number] {
                                             <div class="form-row">
                                                 <input class="form-control" id="aa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="ptn<?php echo $row2->room_id; ?>" name="water_total" value="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php } } ?>
@@ -406,11 +408,11 @@ input[type=number] {
                                                         if($w->isNew == 1) {
                                                             $wc = $w->water_previous;
                                                             
-                                                            $previous = "value='".$wc."'";
+                                                            $previous = "value='".number_format($wc, 2)."'";
                                                         }
                                                         else {  
                                                             $wc = $w->water_previous;
-                                                            $previous = "value='".$wc."' readonly";
+                                                            $previous = "value='".number_format($wc, 2)."' readonly";
                                                         }
                                                         $curval = $w->water_current;
                                                         $due = $w->water_due;
@@ -439,13 +441,13 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
-                                                <div class="col"><input class="form-control" value="<?php echo $curval;?>" id="ecur<?php echo $row2->room_id; ?>" name="ewater_current" style="text-align:right" type="number" style="text-align:right" required></div>
+                                                <div class="col"><input class="form-control" value="<?php echo number_format($curval, 2);?>" id="ecur<?php echo $row2->room_id; ?>" name="ewater_current" style="text-align:right" type="number" style="text-align:right" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" id="ecm<?php echo $row2->room_id; ?>" name="ewater_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
+                                                <div class="col"><input class="form-control" id="ecm<?php echo $row2->room_id; ?>" name="ewater_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value , 2); } ?>" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -560,9 +562,17 @@ input[type=number] {
 // $(document).ready(function () {
     <?php foreach($room->result() as $row3) { ?>
     $("#cur<?php echo $row3->room_id; ?>").keyup(function() {
-        $("#wb<?php echo $row3->room_id; ?>").val(($("#cur<?php echo $row3->room_id; ?>").val()-$("#pre<?php echo $row3->room_id; ?>").val())*$("#cm<?php echo $row3->room_id; ?>").val());
-        $("#pt<?php echo $row3->room_id; ?>").val($("#wb<?php echo $row3->room_id; ?>").val() / $("#aa<?php echo $row3->room_id; ?>").val());
+        var wb = ($("#cur<?php echo $row3->room_id; ?>").val()-$("#pre<?php echo $row3->room_id; ?>").val())*$("#cm<?php echo $row3->room_id; ?>").val();
+        var pt = (wb / $("#aa<?php echo $row3->room_id; ?>").val());
+        $("#wb<?php echo $row3->room_id; ?>").val(wb);
+        $("#pt<?php echo $row3->room_id; ?>").val(pt);
+        var res1 = addCommas(wb);
+        var res2 = addCommas(pt);
+        $("#wbn<?php echo $row3->room_id; ?>").val(res1);
+        $("#ptn<?php echo $row3->room_id; ?>").val(res2);
     });
+
+    
    // $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
         $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
         $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
@@ -571,6 +581,18 @@ input[type=number] {
         $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
         $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
     });
+    function addCommas(nStr)
+    {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return (x1 + x2);
+    }
     <?php } ?>
 // });
 

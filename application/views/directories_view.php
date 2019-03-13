@@ -106,8 +106,8 @@
                                 </h5>
                             </div>
                             <div class="collapse item-<?php echo $row->floor_number; ?>" role="tabpanel" data-parent="#accordion-1">
-                                <div class="card-body mx-auto">
-                                    <div class="card-group">
+                                <div class="card-body">
+                                    <div class="card-group" >
                                         <?php foreach ($room->result() as $row1)  
                                             {
                                                 if ($row1->floor_id == $row->floor_id) {
@@ -115,7 +115,7 @@
                                                 
                                         ?>
                                         <div class="card d-inline-block" style="max-width:290px;min-width:270px;border:1px solid #c7c7c7" >
-                                            <div class="card-body">
+                                            <div class="card-body" >
                                                 <div class="row" style="margin: 0px;">
                                                     <div class="col-xl-9 col-lg-8" style="padding: 0px;">
                                                         <h6 style="font-weight: bold;">Room <?php echo $row1->room_number; ?></h6>
@@ -163,7 +163,7 @@
                                                             
                                                                 <?php $acc = $nt->num_tenants; if ((4 - $acc) > 0) { ?>
                                                                     <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
-                                                                    <span style="color:green"> <?php echo (4 - $acc); ?> </span></p>
+                                                                    <span style="color:green"> <?php echo ($row1->room_tcount - $acc); ?> </span></p>
                                                                 <?php } else if ((4 - $acc) == 0) { ?>
                                                                     <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
                                                                 <?php } else if ((4 - $acc) < 0) { ?>
@@ -178,9 +178,32 @@
                                                 } else { ?>
                                                 <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
 
-                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                <p style="font-size: 14px;border:1px solid black">Number of tenants to accommodate: 
                                                 <span style="color:green"> <?php echo $row1->room_tcount; ?></span></p>
                                                 <?php } ?>
+                                                <p style="font-size: 14px;margin-top:2px;" >
+                                                <?php 
+                                                    $m = 0;
+                                                    $f = 0;
+                                                    $numt= 0;
+                                                    $age = 0;
+                                                    foreach ($dir->result() as $ov) { 
+                                                    if($ov->room_id == $row1->room_id) {
+                                                        if($ov->tenant_status ==  1) {
+                                                            if($ov->tenant_sex == "M") {
+                                                                $m++;
+                                                            } else if($ov->tenant_sex == "F") {
+                                                                $f++;
+                                                            }
+                                                            $age += $ov->tenant_age;
+                                                            $numt++;
+                                                    } } } 
+                                                    echo"Male: ".$m."<br>Female: ".$f;
+                                                    echo"<br>Average age: ".$age / $numt;
+                                                    ?>
+                                                    
+                                                </p>
+
                                             </div>
                                         </div>
                                             <?php } 
@@ -293,6 +316,18 @@
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
                                                 <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Sex<span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="tenant_sex">
+                                                        <option selected disabled>Select sex</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="F">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">

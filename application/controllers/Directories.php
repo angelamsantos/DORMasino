@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Manila");
 class Directories extends CI_Controller{
 
 	function __construct(){
@@ -35,6 +35,8 @@ class Directories extends CI_Controller{
 
     
     public function create_tenant() {
+        
+        $age = date_diff(date_create($this->input->post('tenant_bday')), date_create('now'))->y;
         $data = array(
             'tenant_email' => $this->input->post('tenant_email'),
             'tenant_password' => md5("123456"),
@@ -42,6 +44,8 @@ class Directories extends CI_Controller{
             'tenant_lname' => $this->input->post('tenant_lname'),
             'tenant_address' => $this->input->post('tenant_address'),
             'tenant_birthday' => $this->input->post('tenant_bday'),
+            'tenant_age' => $age,
+            'tenant_sex' => $this->input->post('tenant_sex'),
             'tenant_school' => $this->input->post('tenant_school'),
             'tenant_course' => $this->input->post('tenant_course'),
             'tenant_cno' => $this->input->post('tenant_cno'),
