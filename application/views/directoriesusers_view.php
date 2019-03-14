@@ -831,7 +831,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
+                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" max=<?php echo date('Y-m-d'); ?> required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
