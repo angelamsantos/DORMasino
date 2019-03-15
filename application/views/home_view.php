@@ -164,8 +164,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                     <h3>Settings</h3></button>
                 </div>
             </div>
-            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <div style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</div>
+            <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
+                <div style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</div>
                 <div style="color:#c7c7c7; font-size:14px">Icons made by <a style="color:#c7c7c7; font-size:14px" href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a style="color:#c7c7c7; font-size:14px" href="https://www.flaticon.com/"title="Flaticon">www.flaticon.com</a> is licensed by <a style="color:#c7c7c7; font-size:14px" href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
             </footer>
         </div>

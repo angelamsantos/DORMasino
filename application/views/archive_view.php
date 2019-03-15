@@ -307,7 +307,7 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
                                 </ul>
                             </div>
                             <!----END OF ARCHIVE---->
-                            <div class="pull-right" style="margin-top: 15px;"><?php echo $links; ?></div>                        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
+                            <div class="pull-right" style="margin-top: 15px;"><?php echo $links; ?></div>                        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
                             <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                         </footer>
                         </div>

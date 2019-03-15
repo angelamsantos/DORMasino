@@ -153,8 +153,8 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                         </div>
                     </div>
             </div> 
-            <footer class="footer" style="position:absolute; bottom:0;"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+            <footer class="footer" style="position:absolute; bottom:0;"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
             </footer>     
         </div>
     </div>

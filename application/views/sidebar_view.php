@@ -100,7 +100,7 @@ date_default_timezone_set("Asia/Manila");
 <body style="font-family: Roboto, sans-serif;background-color: #ffffff;" oncontextmenu="return false;">
     <div id="wrapper">
         <div id="sidebar-wrapper" style="background-color: #11334f;/*border-right: 3px solid #49a221;*/">
-            <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 8px;padding-top: 20px; padding-bottom:30px;border-bottom:1px solid #c7c7c7;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 206px;height: 33px;margin-top: 21px;"></div>
+            <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 12px;padding-top: 10px; padding-bottom:20px;border-bottom:1px solid #c7c7c7;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/ThoresLogo.png" style="width: 230px;height: 60px;margin-top: 21px;"></div>
     
 
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>" ><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>

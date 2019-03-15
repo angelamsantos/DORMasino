@@ -207,7 +207,7 @@
                                                             } else if($ov->tenant_sex == "F") {
                                                                 $f++;
                                                             }
-                                                            $age += $ov->tenant_age;
+                                                            $age += date_diff(date_create($ov->tenant_birthday), date_create('now'))->y;
                                                             $numt++;
                                                     } } } 
                                                     echo"Male: ".$m."<br>Female: ".$f;
@@ -483,8 +483,8 @@
 
             <?php } ?>
         </div>
-        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
             </footer>
     </div>
     </div>
