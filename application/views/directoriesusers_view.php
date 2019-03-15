@@ -275,7 +275,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Age</label></div>
-                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_age; ?></label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo date_diff(date_create($tenantInfo->tenant_birthday), date_create('now'))->y; ?></label></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -987,7 +987,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
             
         </div>
         <footer class="footer" ><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                <p style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
             </footer>
     </div>
     </div>
