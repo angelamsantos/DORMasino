@@ -342,7 +342,8 @@ class Transactions_model extends CI_Model {
         $b = array() ;
         $c = array() ;
         $d = array() ;
-        $e = array() ;
+        $e = 0;
+        $bal = 0;
         foreach($month as $m) {
 
             $this->db->from('rent_tbl');
@@ -357,9 +358,8 @@ class Transactions_model extends CI_Model {
             $this->db->where('balance_tbl.balance_status', 1);
             $this->db->where('balance_tbl.tenant_id', $tenant);
             $balq = $this->db->get();
-
             $rent = 'Amount due';
-
+            
         
 
                 foreach ($q->result() as $r) {
@@ -368,28 +368,36 @@ class Transactions_model extends CI_Model {
                     $rarr = $r->rent_balance;
                 } 
                 if($balq->num_rows() > 0) {
-                    foreach ($r->result() as $s) {
+                    foreach ($balq->result() as $s) {
                         $bal = $s->balance_amount;
                         $bid = $s->balance_id;
                     } 
+                    $e = $e + $bal;
+                    array_push($d, $bid);
                 } else {
-                    $bal = 0;
-                }  
-                $e = $e + $bal;
+                    $e = 0;
+                } 
+                
                 $a = $a + $rent;
                 array_push($b, $rid);
                 array_push($c, $rarr);
                 //array_push($d, $bid);
         }
-
+        $n;
+        if(($a - $e) <= 0 ) {
+           $n = 0;
+        } else if(($a - $e) > 0 ) {
+            $n = $a - $e;
+        }
         return array(
-            'rn' => number_format($a, 2),
-            'rt' => $a,
+            'rn' => number_format($n, 2),
+            'rt' => $n,
             'ri' => $b,
             'ra' => $c,
             'bi' => $d,
+            'bl' => $e,
+            'rb' => $a,
             );
-            //return json_encode($a);
     }
 
     public function fee_due($fee, $tenant, $room) {
@@ -600,9 +608,31 @@ class Transactions_model extends CI_Model {
                 'h' => $h,
             );
             $rent=$this->input->post('rent_id');
-           
+            $excess = $this->input->post('bal_id');
+
+            $ra = $this->input->post('rent_true');
+            $re = $this->input->post('rent_balance');
+
             $rStr = $rent[0];
             $rArr = explode(',', $rStr);
+
+            $eStr = $excess[0];
+            $eArr = explode(',', $eStr);
+
+            if($eArr[0] != "") {
+                foreach($eArr as $ex) {
+                    if($ra >= $re) {
+                        $this->db->set('balance_amount', 0);
+                        $this->db->set('balance_status', 0);
+                        $this->db->where('balance_id', $ex);
+                        $this->db->update('balance_tbl');
+                    } else if($ra < $re) {
+                        $this->db->set('balance_amount', $re - $ra);
+                        $this->db->where('balance_id', $ex);
+                        $this->db->update('balance_tbl');
+                    } 
+                }
+            }
             
             if(count($rArr) == 1) {
                
@@ -662,11 +692,11 @@ class Transactions_model extends CI_Model {
                             'rtrans_id' => $check,
                         );
                         $this->db->insert('rcheck_tbl', $data3);
-                        return $arr = array_merge($data, $data2, $data4, $data3, $data5);
+                        return $arr = array_merge($data, $data2, $data4, $data3);
                     }
 
                     
-                return $arr = array_merge($data, $data2, $data4, $data5);
+                return $arr = array_merge($data, $data2, $data4);
             } else if(count($rArr) > 1) {
                 $month = $this->input->post('rm');
                 $mStr = $month[0];

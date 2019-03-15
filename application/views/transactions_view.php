@@ -84,7 +84,7 @@ input[type=number] {
 
                         ?>
                         
-                        <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $c; //echo $btnSend; ?> type="button" data-toggle="modal" data-target="#RentBill" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Send Rent Bill</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $c; echo $btnSend; ?> type="button" data-toggle="modal" data-target="#RentBill" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Send Rent Bill</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " <?php echo $a; ?> type="button" data-toggle="modal" data-target="#WaterSetting" style="background-color: #28a745;color: #ffffff;border: none;float:right;">Edit water setting</button>
                     </div>
                 </div>
@@ -453,7 +453,8 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" id="ewb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="ewbn<?php echo $row2->room_id; ?>" name="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="ewb<?php echo $row2->room_id; ?>"  value="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php foreach ($dir_count->result() as $nt) { 
@@ -464,7 +465,8 @@ input[type=number] {
                                             <div class="form-row">
                                                 <input class="form-control" id="eaa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" id="ept<?php echo $row2->room_id; ?>" name="ewater_total" value="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="eptn<?php echo $row2->room_id; ?>" value="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="ept<?php echo $row2->room_id; ?>" name="ewater_total" value="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php } } ?>
@@ -529,7 +531,7 @@ input[type=number] {
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current rate per m<sup>3</sup></label></div>
-                                        <div class="col-xl-12" style="font-weight: normal;"><input name="" class="form-control" type="number" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value, 2); } ?>" disabled>
+                                        <div class="col-xl-12" style="font-weight: normal;"><input name="" class="form-control" type="number" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value, 2); } ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -574,12 +576,24 @@ input[type=number] {
 
     
    // $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
-        $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
-        $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
+        var ewb = ($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val();
+        var ept = (ewb / $("#eaa<?php echo $row3->room_id; ?>").val());
+        $("#ewb<?php echo $row3->room_id; ?>").val(ewb);
+        $("#ept<?php echo $row3->room_id; ?>").val(ept);
+        var res3 = addCommas(ewb);
+        var res4 = addCommas(ept);
+        $("#ewbn<?php echo $row3->room_id; ?>").val(res3);
+        $("#eptn<?php echo $row3->room_id; ?>").val(res4);
     //});
     $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
-        $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
-        $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
+        var ewb = ($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val();
+        var ept = (ewb / $("#eaa<?php echo $row3->room_id; ?>").val());
+        $("#ewb<?php echo $row3->room_id; ?>").val(ewb);
+        $("#ept<?php echo $row3->room_id; ?>").val(ept);
+        var res3 = addCommas(ewb);
+        var res4 = addCommas(ept);
+        $("#ewbn<?php echo $row3->room_id; ?>").val(res3);
+        $("#eptn<?php echo $row3->room_id; ?>").val(res4);
     });
     function addCommas(nStr)
     {

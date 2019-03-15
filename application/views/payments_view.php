@@ -195,6 +195,7 @@ input[type=number] {
                                                 <input class="form-control" type="hidden" name="rtenant_id" id="r_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
                                                 <input class="form-control" type="hidden" name="rr" id="r_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
                                                 <input class="form-control" type="hidden" name="rent_id[]" id="rid<?php echo $tenant->dir_id; ?>" value="">
+                                                <input class="form-control" type="hidden" name="bal_id[]" id="bid<?php echo $tenant->dir_id; ?>" value="">
                                             </div>
                                         </div>
                                         
@@ -225,8 +226,10 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="number" name="rtrans_due" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="0" readonly>
+                                                <div class="col"><input class="form-control" type="hidden" name="rtrans_due" style="text-align:right" id="rent_amount<?php echo $tenant->dir_id; ?>" value="0" readonly>
                                                 <input class="form-control" type="text"  style="text-align:right" id="rent_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <input class="form-control" type="hidden"  style="text-align:right" name="rent_balance" id="rent_balance<?php echo $tenant->dir_id; ?>" value="">
+                                                <input class="form-control" type="hidden"  style="text-align:right" name="rent_true" id="rent_true<?php echo $tenant->dir_id; ?>" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -269,7 +272,7 @@ input[type=number] {
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Paid</label></div>
                                                 <div class="col"><input class="form-control" id="rent_paid<?php echo $tenant->dir_id; ?>" style="text-align:right" type="text" required></div>
                                                 <input class="form-control" name="rtarns_arr[]" id="rArr<?php echo $tenant->dir_id; ?>" style="text-align:right" type="hidden">
-                                                <input class="form-control" name="rtrans_amount" id="rent_paidd<?php echo $tenant->dir_id; ?>" type="text" >
+                                                <input class="form-control" name="rtrans_amount" id="rent_paidd<?php echo $tenant->dir_id; ?>" type="hidden" >
                                             </div>
                                         </div>
                                     </div>
@@ -339,7 +342,7 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="number" style="text-align:right" name="wtrans_due" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <div class="col"><input class="form-control" type="hidden" style="text-align:right" name="wtrans_due" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 <input class="form-control" type="text"  style="text-align:right" id="water_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 </div>
                                             </div>
@@ -464,7 +467,7 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
-                                                <div class="col"><input class="form-control" type="number" name="ftrans_due" style="text-align:right" id="fee_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <div class="col"><input class="form-control" type="hidden" name="ftrans_due" style="text-align:right" id="fee_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 <input class="form-control" type="text"  style="text-align:right" id="fee_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 </div>
                                             </div>
@@ -604,6 +607,9 @@ input[type=number] {
                                 $('#rent_amount<?php echo $d->dir_id; ?>').val(data.rt); 
                                 $('#rent_amountn<?php echo $d->dir_id; ?>').val(data.rn);                               
                                 $('#rid<?php echo $d->dir_id; ?>').val(data.ri);
+                                $('#bid<?php echo $d->dir_id; ?>').val(data.bi);
+                                $('#rent_balance<?php echo $d->dir_id; ?>').val(data.bl);
+                                $('#rent_true<?php echo $d->dir_id; ?>').val(data.rb);
                                 $('#rArr<?php echo $d->dir_id; ?>').val(data.ra);
                             });
                         

@@ -243,13 +243,13 @@ input[type=number] {
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="update_roomprice"  class="form-control" type="number" value="<?php echo $rmedit->room_price; ?>" required></div>
+                                            <div class="col"><input name="update_roomprice"  style="text-align:right;" class="form-control" type="number" value="<?php echo $rmedit->room_price; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                            <div class="col"><input name="update_roomextra"  class="form-control" type="number" value="<?php echo $rmedit->room_extra; ?>" required></div>
+                                            <div class="col"><input name="update_roomextra" style="text-align:right;"  class="form-control" type="number" value="<?php echo $rmedit->room_extra; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
