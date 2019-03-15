@@ -20,7 +20,10 @@ class Transactions extends CI_Controller{
     }
 
     public function index() {
+        
         $this->validate_login();
+        $this->Routeguard_model->update_bills();
+
         $data['floor']=$this->Transactions_model->get_floor();
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
@@ -37,6 +40,9 @@ class Transactions extends CI_Controller{
     }
 
     public function edit_water(){
+
+        $this->validate_login();
+
         $this->Transactions_model->edit_water();
         $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Water rate per m<sup>3</sup> successfully updated!</center></div>';
         $this->session->set_flashdata('msg', $msg);
@@ -44,7 +50,10 @@ class Transactions extends CI_Controller{
     }
 
     public function payments() {
+
         $this->validate_login();
+        $this->Routeguard_model->payments();
+
         $data['floor']=$this->Transactions_model->get_floor();
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
@@ -87,6 +96,10 @@ class Transactions extends CI_Controller{
     }
 
     public function records_room() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_transactions();
+
         $data['floor']=$this->Transactions_model->get_floor();
         $data['room']=$this->Transactions_model->get_room();
         $data['dir']=$this->Transactions_model->get_dir();
@@ -136,11 +149,12 @@ class Transactions extends CI_Controller{
             $data['a'] = $res['wt'];
             $data['b'] = $res['wi'];
             $data['c'] = $res['wa'];
-
+            $data['d'] = $res['wn'];
             $push= array(
                 'wt' => $data['a'],
                 'wi' => $data['b'],
                 'wa' => $data['c'],
+                'wn' => $data['d'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -159,14 +173,23 @@ class Transactions extends CI_Controller{
             $data['a'] = $res['rt'];
             $data['b'] = $res['ri'];
             $data['c'] = $res['ra'];
-            $push= array(
-                'rt' => $data['a'],
-                'ri' => $data['b'],
-                'ra' => $data['c'],
-            );
-            header('Content-Type: application/json');
-            echo json_encode($push);
-            //echo $data['a'];
+            $data['d'] = $res['rn'];
+            $data['e'] = $res['bi'];
+            $data['f'] = $res['bl'];
+            $data['g'] = $res['rb'];
+                $push= array(
+                    'rt' => $data['a'],
+                    'ri' => $data['b'],
+                    'ra' => $data['c'],
+                    'rn' => $data['d'],
+                    'bi' => $data['e'],
+                    'bl' => $data['f'],
+                    'rb' => $data['g'],
+                );
+                header('Content-Type: application/json');
+                echo json_encode($push);
+                //echo $data['a'];
+            
         }
     }
 
@@ -182,10 +205,12 @@ class Transactions extends CI_Controller{
             $data['a'] = $res['ft'];
             $data['b'] = $res['fi'];
             $data['c'] = $res['fa'];
+            $data['d'] = $res['fn'];
             $push= array(
                 'ft' => $data['a'],
                 'fi' => $data['b'],
                 'fa' => $data['c'],
+                'fn' => $data['d'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -193,28 +218,55 @@ class Transactions extends CI_Controller{
         }
     }
 
+    public function check_rno() {
+        $this->load->model('Transactions_model');
+        if($this->Transactions_model->check_rno($this->input->post('rno'))){
+            echo "yes";
+        } else {
+            echo "no";
+           }
+    }
+
+    public function check_wno() {
+        $this->load->model('Transactions_model');
+        if($this->Transactions_model->check_wno($this->input->post('wno'))){
+            echo "yes";
+        } else {
+            echo "no";
+           }
+    }
+
+    public function check_fno() {
+        $this->load->model('Transactions_model');
+        if($this->Transactions_model->check_fno($this->input->post('fno'))){
+            echo "yes";
+        } else {
+            echo "no";
+           }
+    }
+
     public function rent_payment() {
         
-        $to_email = $this->input->post('to_email');
-        $to_guardianemail = $this->input->post('to_guardianemail');
+        // $to_email = $this->input->post('to_email');
+        // $to_guardianemail = $this->input->post('to_guardianemail');
         
-        // $this->Transactions_model->rent_payment();
-        $result = $this->Transactions_model->send_mail_rent($to_email, $to_guardianemail);
+        $this->Transactions_model->rent_payment();
+        // $result = $this->Transactions_model->send_mail_rent($to_email, $to_guardianemail);
 
-        if (! $result) {
+        // if (! $result) {
 
-            $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment was not recorded!</center></div>';
-            $this->session->set_flashdata('msg', $msg);
-            redirect('Transactions/payments');
+        //     $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment was not recorded!</center></div>';
+        //     $this->session->set_flashdata('msg', $msg);
+        //     redirect('Transactions/payments');
 
-        } else {
+        // } else {
 
-            //$this->load->view('rent_receipt', $data);
-            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
-            $this->session->set_flashdata('msg', $msg);
-            redirect('Transactions/payments');
+        //     //$this->load->view('rent_receipt', $data);
+        //     $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
+        //     $this->session->set_flashdata('msg', $msg);
+        //     redirect('Transactions/payments');
 
-        }
+        // }
         // $data = $this->Transactions_model->rent_payment();
         // $this->load->view('rent_receipt', $data);
 

@@ -33,9 +33,9 @@ class Requests_model extends CI_Model {
 
     }
 
-    public function complete_req($id) {
+    public function return_req($id) {
 
-        $this->db->set('req_status', 3);
+        $this->db->set('req_status', 4);
         $this->db->where('req_id', $id);
         $this->db->update('req_tbl');
 

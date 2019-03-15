@@ -25,6 +25,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
     // }
     
     if($adir[2] == 1) { //delete
+        $d = "title='Activate Tenant'";
         $c = "title='Deactivate Tenant/s'";
     } else {
         $c = "disabled title='This feature is not available on your account'";
@@ -79,7 +80,19 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                    <!-- Notification nav -->
+                    <ul class="nav navbar-nav navbar-right" style="margin-left: 20px">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                        <span class="fa fa-bell" style="font-size:16px;"></span>
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
+                                    </a>
+                                    <ul class="dropdown-menu notif"></ul>
+                                </li>
+                            </ul>
+                    <!-- Notification nav -->
+                    &nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row" style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
                     <div class="col d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column" style="margin-top: 0px;padding-right: 0px;padding-left:0px;">
@@ -150,7 +163,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         
                                         <td><?php echo $tenant->room_number; ?></td>
                                         <td><a style="color:#0645AD;font-weight:bold ;" class="info" title="Click to show tenant information" href="#TenantInfo<?php echo $tenant->dir_id; ?>" data-toggle="modal" data-target="#TenantInfo<?php echo $tenant->dir_id; ?>"><?php echo $tenant->tenant_fname ." ". $tenant->tenant_lname; ?></a></td>
-                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $due ; ?></td>
+                                        <td style="text-align:center"><?php echo $tenant->contract_start ." to ". $tenant->contract_end ; ?></td>
                                         <?php if($datediff->days < 30 && $datediff->days > 10 ) { ?>
                                             <td style="color: orange;text-align:center"><?php echo $datediff->days ." days"; ?></td>
                                         <?php } else if ($datediff->days <= 10) { ?>
@@ -171,7 +184,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                                     <i class="icon ion-ios-redo" style="font-size:19px;color:#0645AD;"></i>
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <?php } else { ?>
-                                            <button <?php echo $b; ?>  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                            <button <?php echo $d; ?>  type="button" id="edit-room" name="delete" data-target="#ModalActivate<?php echo $tenant->dir_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                 <i class="ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
                                             </button>
                                         <?php } ?>
@@ -261,6 +274,18 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Age</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_age; ?></label></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Sex</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_sex; ?></label></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Email</label></div>
                                                 <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->tenant_email; ?></label></div>
                                             </div>
@@ -292,8 +317,14 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <h6 style="font-weight: bold;font-size:14px;">Move-in Information</h6>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Date of move-in</label></div>
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Start of contract</label></div>
                                                 <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->contract_start; ?></label></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: bold;">Date of move-in</label></div>
+                                                <div class="col"style="font-weight: normal;"><label class="col-form-label" style="font-weight: normal;"><?php echo $tenantInfo->contract_movein; ?></label></div>
                                             </div>
                                         </div>
                                     </div>
@@ -407,6 +438,18 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday</label></div>
                                                 <div class="col"><input name="etenant_bday" class="form-control" type="date" value="<?php echo $tenantInfo->tenant_birthday; ?>" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Sex<span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="etenant_sex">
+                                                        <option selected disabled>Select sex</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="F">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -698,7 +741,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;">Non-Disclosure Agreement (NDA)</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <h4 class="modal-title" style="color: #11334f;">Terms and Conditions</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:500px;">   
                             <form id="form_nda" action="" method="POST" style="font-size:14px;padding-left: 35px; padding-right:50px;height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <b>To create an account in DORMasino, you’ll need to agree to the Terms of Service below.<br/> 
@@ -788,7 +831,19 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
+                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" max=<?php echo date('Y-m-d'); ?> required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Sex<span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="tenant_sex">
+                                                        <option selected disabled>Select sex</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="F">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -818,7 +873,7 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Special Medical Instructions </label></div>
-                                                <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" required></textarea></div>
+                                                <div class="col"><textarea name="tenant_medical" class="form-control" row="2" type="text" placeholder="Enter special medical instructions" ></textarea></div>
                                             </div>
                                         </div>
                                         <h6 style="font-weight: bold;font-size:14px;">Mother</h6>
@@ -955,6 +1010,45 @@ $adir = $this->session->userdata['login_success']['info']['adcontrol_dir'];
 
         
     </script>
+
+<script>
+        $(document).ready(function(){
+        
+            function load_unseen_notification(view = '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Notifications/fetch_notif",
+                    method:"POST",
+                    data:{view:view},
+                    dataType:"json",
+                    success:function(data) {
+
+                        $('.dropdown-menu').html(data.notification);
+                        if(data.unseen_notification > 0) {
+
+                            $('.count').html(data.unseen_notification);
+
+                        }
+                        
+                    }
+                });
+            }
+            
+            load_unseen_notification();
+            
+            $(document).on('click', '.dropdown-toggle', function(){
+
+                $('.count').html('');
+                load_unseen_notification('yes');
+
+            });
+            
+            setInterval(function(){ 
+                load_unseen_notification();; 
+            }, 5000);
+        
+        });
+    </script>
+    
 </body>
 
 </html>

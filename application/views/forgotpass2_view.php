@@ -25,9 +25,25 @@ input[type=number] {
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Login-Form-Clean.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
+    <script>
+    document.onkeydown = function(e) {
+        if(event.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            return false;
+        }
+    }
+    </script>
 </head>
 
-<body style="background-color: #ffffff;">
+<body style="background-color: #ffffff;" oncontextmenu="return false;">
     <div class="login-clean" style="background-color: rgba(0,0,0,0);padding-top: 50px;padding-bottom: 50px;">
         <form method="post" action="<?php echo site_url('Forgotpass/validation');?>" style="background-color: #90caf9;">
             <h2 class="sr-only">Forgot Password 2 Form</h2>

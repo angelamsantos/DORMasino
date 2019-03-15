@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Manila");
 class Directories extends CI_Controller{
 
 	function __construct(){
@@ -20,7 +20,9 @@ class Directories extends CI_Controller{
     }
 
     public function index() {
+        
         $this->validate_login();
+        $this->Routeguard_model->index_dir();
         
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
@@ -35,6 +37,8 @@ class Directories extends CI_Controller{
 
     
     public function create_tenant() {
+        
+        $age = date_diff(date_create($this->input->post('tenant_bday')), date_create('now'))->y;
         $data = array(
             'tenant_email' => $this->input->post('tenant_email'),
             'tenant_password' => md5("123456"),
@@ -42,6 +46,8 @@ class Directories extends CI_Controller{
             'tenant_lname' => $this->input->post('tenant_lname'),
             'tenant_address' => $this->input->post('tenant_address'),
             'tenant_birthday' => $this->input->post('tenant_bday'),
+            'tenant_age' => $age,
+            'tenant_sex' => $this->input->post('tenant_sex'),
             'tenant_school' => $this->input->post('tenant_school'),
             'tenant_course' => $this->input->post('tenant_course'),
             'tenant_cno' => $this->input->post('tenant_cno'),
@@ -117,6 +123,10 @@ class Directories extends CI_Controller{
     }
 
     public function show_tenants() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_tenant();
+
         // $data['room_id'] = $this->input->post('show_rid');
         // $data['room_no'] = $this->input->post('show_rno');
         $r_id = $this->session->userdata['data']['room_id'];
@@ -133,6 +143,10 @@ class Directories extends CI_Controller{
     }
 
     public function rooms() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_room();
+
         $data['floor']=$this->Directories_model->get_floor();
         $data['room']=$this->Directories_model->get_room();
         $data['dir']=$this->Directories_model->get_dir();
@@ -142,6 +156,10 @@ class Directories extends CI_Controller{
     }
 
     public function admin() {
+
+        $this->validate_login();
+        $this->Routeguard_model->view_admin();
+
         $data['admin']=$this->Directories_model->get_admin();
         // $adir = $this->session->userdata['admin']['info']['adcontrol_dir'];
         // $abill = $this->session->userdata['admin']['info']['adcontrol_bills'];
