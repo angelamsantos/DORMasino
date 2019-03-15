@@ -112,8 +112,32 @@
                             <div class="card-header" role="tab" style="padding-top: 9px;padding-bottom: 9px;">
                                 <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-start align-items-start justify-content-sm-start align-items-sm-start justify-content-md-start align-items-md-start align-items-lg-start mr-lg-start align-items-xl-start mr-xl-auto mb-0">
                                     <a id="panel" class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
-                                        Floor <?php echo $row->floor_number ; ?>
-
+                                        Floor <?php echo $row->floor_number."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+                                        $avArr = array();
+                                            foreach($room->result() as $avr) {
+                                                if($avr->floor_id == $row->floor_id) {
+                                                    
+                                                    foreach($dir_count->result() as $av) {
+                                                        array_push($avArr, $av->room_id);
+                                                    }
+                                                    $aaa = array_column($dir_count->result(), 'room_id');
+                                                    $bbb = $avr->room_id;
+                                                    if (in_array($bbb, $avArr, true)) {
+                                                        foreach ($dir_count->result() as $nt) {
+                                                            if ($nt->room_id == $avr->room_id) { 
+                                                                if($nt->num_tenants < $avr->room_tcount) {
+                                                                    echo "<span style='color:black;'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;".$avr->room_number.":</span>";
+                                                                    echo "<span style='color:black;'>&nbsp;".$nt->num_tenants."/".$avr->room_tcount."</span>"; 
+                                                                }
+                                                            }
+                                                        }
+                                                    } else {
+                                                        echo "<span style='color:black;'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;".$avr->room_number.":</span>";
+                                                        echo "<span style='color:black;'>&nbsp;0/".$avr->room_tcount."</span>";
+                                                    }
+                                                }
+                                            }         
+                                        ?>                   
                                     </a>
                                 </h5>
                             </div>
@@ -152,18 +176,9 @@
                                                 foreach($dir_count->result() as $dri) {
                                                     array_push($riArr, $dri->room_id);
                                                 }
-                                                //print_r($riArr);
                                                 $aa = array_column($dir_count->result(), 'room_id');
-                                               
                                                 $bb = $row1->room_id;
-                                                //echo $b; 
                                                 if (in_array($bb, $riArr, true)) {
-                                                  //echo "yes";
-                                                //     foreach ($water->result() as $w) {
-                                                //         if($w->room_id == $row2->room_id) {
-                                                //             $wc = $w->water_current;
-                                                //         }
-                                                //     }
                                                     foreach ($dir_count->result() as $nt) {
                                                         if ($nt->room_id == $row1->room_id) { 
                                                         
@@ -190,7 +205,7 @@
                                                 } else { ?>
                                                 <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
 
-                                                <p style="font-size: 14px;border:1px solid black">Number of tenants to accommodate: 
+                                                <p style="font-size: 14px;">Number of tenants to accommodate: 
                                                 <span style="color:green"> <?php echo $row1->room_tcount; ?></span></p>
                                                 <?php } ?>
                                                 <p style="font-size: 14px;margin-top:2px;" >
@@ -210,8 +225,11 @@
                                                             $age += date_diff(date_create($ov->tenant_birthday), date_create('now'))->y;
                                                             $numt++;
                                                     } } } 
+                                                    if ($numt != 0) {
                                                     echo"Male: ".$m."<br>Female: ".$f;
+                                                    
                                                     echo"<br>Average age: ".$age / $numt;
+                                                    }
                                                     ?>
                                                     
                                                 </p>
