@@ -44,32 +44,6 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     .page-link > a {
         color:black;
     }
-    .notif {
-        color: #c7c7c7;
-    }
-    .notif:hover {
-        color: #000000;
-    }
-
-    .notification .badge {
-        position: absolute;
-        top: -5px;
-        left: -15px;
-        padding: 5px -6px;
-        border-radius: 50%;
-        background-color: red;
-        color: white;
-    }
-    .dropdown-toggle::after {
-    display:none;
-    }
-
-    .notification{
-        position: relative;
-        display: inline-block;
-    }
-
-    
     </style>
     <script>
 
@@ -411,5 +385,44 @@ $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
         
         });
     </script>
+
+    <script>
+        $(document).ready(function(){
+        
+            function load_unseen_notification(view = '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Notifications/fetch_notif",
+                    method:"POST",
+                    data:{view:view},
+                    dataType:"json",
+                    success:function(data) {
+
+                        $('.dropdown-menu').html(data.notification);
+                        if(data.unseen_notification > 0) {
+
+                            $('.count').html(data.unseen_notification);
+
+                        }
+                        
+                    }
+                });
+            }
+            
+            load_unseen_notification();
+            
+            $(document).on('click', '.dropdown-toggle', function(){
+
+                $('.count').html('');
+                load_unseen_notification('yes');
+
+            });
+            
+            setInterval(function(){ 
+                load_unseen_notification();; 
+            }, 5000);
+        
+        });
+    </script>
+
 
 </html>

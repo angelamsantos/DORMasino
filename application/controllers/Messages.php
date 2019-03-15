@@ -21,6 +21,7 @@ class Messages extends CI_Controller{
     public function index() {
 
         $this->validate_login();
+        $this->Routeguard_model->view_msgs();
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/index";
@@ -62,6 +63,7 @@ class Messages extends CI_Controller{
     public function sent() {
 
         $this->validate_login();
+        $this->Routeguard_model->view_msgs();
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/sent";
@@ -103,6 +105,7 @@ class Messages extends CI_Controller{
     public function archive() {
 
         $this->validate_login();
+        $this->Routeguard_model->view_msgs();
 
         $config = array();
         $config["base_url"] = base_url() . "index.php/Messages/archive";

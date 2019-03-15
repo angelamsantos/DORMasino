@@ -37,24 +37,26 @@ class Notifications extends CI_Controller{
                 if ($row->notif_type == 0) {
 
                     $output .= '
-                    <li>
-                        <a style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;"  href="'.site_url('Messages/index').'">
+                    <a href="'.site_url('Messages/index').'">
+                        <li style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;">
                             <strong>'.$row->notif_subject.'</strong><br />
                             <small><em>'.$row->notif_body.'</em></small>
-                        </a>
-                    </li>
+                        </li>    
+                    </a>
+                    <hr>
                     <li class="divider"></li>
                     ';
 
                 } else {
 
                     $output .= '
-                    <li>
-                        <a style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;"  href="'.site_url('Requests/index').'">
+                    <a href="'.site_url('Requests/index').'">
+                        <li style="color: #11334f;font-family: ABeeZee, sans-serif;margin-left: 5px;">
                             <strong>'.$row->notif_subject.'</strong><br />
                             <small><em>'.$row->notif_body.'</em></small>
-                        </a>
-                    </li>
+                        </li>    
+                    </a>
+                    <hr>
                     <li class="divider"></li>
                     ';
 

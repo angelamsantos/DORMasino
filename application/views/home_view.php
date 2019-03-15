@@ -51,49 +51,6 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     }
     </script>
 </head>
-<style>
-    h3 {
-        color: #000000;
-    }
-    li p {
-        font-size: 14px !important;
-    }
-
-    .messageoption {
-        color: #c7c7c7;
-    }
-
-    .messageoption:hover {
-        color: #000000;
-    }
-    .page-link > a {
-        color:black;
-    }
-    .notif {
-        color: #c7c7c7;
-    }
-    .notif:hover {
-        color: #000000;
-    }
-
-    .notification .badge {
-        position: absolute;
-        top: -5px;
-        left: -15px;
-        padding: 5px -6px;
-        border-radius: 50%;
-        background-color: red;
-        color: white;
-    }
-    .notification::after {
-    display:none;
-    }
-
-    .notification{
-        position: relative;
-        display: inline-block;
-    }
-</style>
 
 <body style="font-family: Roboto, sans-serif;background-color: #ECEFF1;" oncontextmenu="return false;">
     <nav class="navbar navbar-light navbar-expand-md" style="background-color: #90caf9;">
@@ -106,19 +63,23 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
                             </ul> -->
                             <!-- Notification nav -->
                 <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item dropdown d-flex align-items-center">
-                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
-                                        <span class="fa fa-bell" style="font-size:16px;"></span>
-                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;">5</span> 
-                                    </a>
-                                    <ul class="dropdown-menu notif"></ul>
-                                </li>
+                        <li class="nav-item dropdown d-flex align-items-center">
+                            <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                <span class="fa fa-bell" style="font-size:16px;"></span>
+                                <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
+                            </a>
+                        <ul class="dropdown-menu notif"></ul>
+                    </li>
                     <li class="nav-item dropdown" >
-                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="padding-left:0px;">
+                        <a class="dropdown-toggle-logout nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="padding-left:0px;">
                         <!-- <i class="icon ion-person"></i> -->
                             
                         &nbsp; &nbsp;<?php echo $admin_fname; ?></a>
-                        <div class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">Logout</a></div>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <a class="dropdown-item" role="presentation" href="<?php echo site_url('Logout/index'); ?>">
+                            Logout
+                            </a>
+                        </div>
                     </li>
                 </ul>
         </div>
@@ -212,6 +173,45 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/Sidebar-Menu.js"></script>
+
+    <script>
+        $(document).ready(function(){
+        
+            function load_unseen_notification(view = '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Notifications/fetch_notif",
+                    method:"POST",
+                    data:{view:view},
+                    dataType:"json",
+                    success:function(data) {
+
+                        $('.dropdown-menu.notif').html(data.notification);
+                        if(data.unseen_notification > 0) {
+
+                            $('.count').html(data.unseen_notification);
+
+                        }
+                        
+                    }
+                });
+            }
+            
+            load_unseen_notification();
+            
+            $(document).on('click', '.dropdown-toggle', function(){
+
+                $('.count').html('');
+                load_unseen_notification('yes');
+
+            });
+            
+            setInterval(function(){ 
+                load_unseen_notification();; 
+            }, 5000);
+        
+        });
+    </script>
+    
 </body>
 
 </html>
