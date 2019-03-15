@@ -68,7 +68,19 @@
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Directories</p>
-                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                    <!-- Notification nav -->
+                    <ul class="nav navbar-nav navbar-right" style="margin-left: 20px">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                        <span class="fa fa-bell" style="font-size:16px;"></span>
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
+                                    </a>
+                                    <ul class="dropdown-menu notif"></ul>
+                                </li>
+                            </ul>
+                    <!-- Notification nav -->
+                    &nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?>&nbsp;</p>
                 </div><a title="Click here to collapse" class="btn btn-link d-xl-flex justify-content-xl-start"  role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%;"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
@@ -100,14 +112,38 @@
                             <div class="card-header" role="tab" style="padding-top: 9px;padding-bottom: 9px;">
                                 <h5 class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex flex-row justify-content-start align-items-start justify-content-sm-start align-items-sm-start justify-content-md-start align-items-md-start align-items-lg-start mr-lg-start align-items-xl-start mr-xl-auto mb-0">
                                     <a id="panel" class="d-flex align-items-lg-center" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-<?php echo $row->floor_number; ?>" href="div#accordion-1 .item-<?php echo $row->floor_number; ?>" style="font-size: 14px;width: 80%;">
-                                        Floor <?php echo $row->floor_number ; ?>
-
+                                        Floor <?php echo $row->floor_number."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+                                        $avArr = array();
+                                            foreach($room->result() as $avr) {
+                                                if($avr->floor_id == $row->floor_id) {
+                                                    
+                                                    foreach($dir_count->result() as $av) {
+                                                        array_push($avArr, $av->room_id);
+                                                    }
+                                                    $aaa = array_column($dir_count->result(), 'room_id');
+                                                    $bbb = $avr->room_id;
+                                                    if (in_array($bbb, $avArr, true)) {
+                                                        foreach ($dir_count->result() as $nt) {
+                                                            if ($nt->room_id == $avr->room_id) { 
+                                                                if($nt->num_tenants < $avr->room_tcount) {
+                                                                    echo "<span style='color:black;'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;".$avr->room_number.":</span>";
+                                                                    echo "<span style='color:black;'>&nbsp;".$nt->num_tenants."/".$avr->room_tcount."</span>"; 
+                                                                }
+                                                            }
+                                                        }
+                                                    } else {
+                                                        echo "<span style='color:black;'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;".$avr->room_number.":</span>";
+                                                        echo "<span style='color:black;'>&nbsp;0/".$avr->room_tcount."</span>";
+                                                    }
+                                                }
+                                            }         
+                                        ?>                   
                                     </a>
                                 </h5>
                             </div>
                             <div class="collapse item-<?php echo $row->floor_number; ?>" role="tabpanel" data-parent="#accordion-1">
-                                <div class="card-body mx-auto">
-                                    <div class="card-group">
+                                <div class="card-body">
+                                    <div class="card-group" >
                                         <?php foreach ($room->result() as $row1)  
                                             {
                                                 if ($row1->floor_id == $row->floor_id) {
@@ -115,7 +151,7 @@
                                                 
                                         ?>
                                         <div class="card d-inline-block" style="max-width:290px;min-width:270px;border:1px solid #c7c7c7" >
-                                            <div class="card-body">
+                                            <div class="card-body" >
                                                 <div class="row" style="margin: 0px;">
                                                     <div class="col-xl-9 col-lg-8" style="padding: 0px;">
                                                         <h6 style="font-weight: bold;">Room <?php echo $row1->room_number; ?></h6>
@@ -140,18 +176,9 @@
                                                 foreach($dir_count->result() as $dri) {
                                                     array_push($riArr, $dri->room_id);
                                                 }
-                                                //print_r($riArr);
                                                 $aa = array_column($dir_count->result(), 'room_id');
-                                               
                                                 $bb = $row1->room_id;
-                                                //echo $b; 
                                                 if (in_array($bb, $riArr, true)) {
-                                                  //echo "yes";
-                                                //     foreach ($water->result() as $w) {
-                                                //         if($w->room_id == $row2->room_id) {
-                                                //             $wc = $w->water_current;
-                                                //         }
-                                                //     }
                                                     foreach ($dir_count->result() as $nt) {
                                                         if ($nt->room_id == $row1->room_id) { 
                                                         
@@ -163,7 +190,7 @@
                                                             
                                                                 <?php $acc = $nt->num_tenants; if ((4 - $acc) > 0) { ?>
                                                                     <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
-                                                                    <span style="color:green"> <?php echo (4 - $acc); ?> </span></p>
+                                                                    <span style="color:green"> <?php echo ($row1->room_tcount - $acc); ?> </span></p>
                                                                 <?php } else if ((4 - $acc) == 0) { ?>
                                                                     <p class="card-text" style="font-size: 14px;"><span style="color:red"> Room is already full. </span></p> 
                                                                 <?php } else if ((4 - $acc) < 0) { ?>
@@ -178,9 +205,35 @@
                                                 } else { ?>
                                                 <p class="card-text" style="font-size: 14px;">Current number of tenants: 0</p>
 
-                                                <p class="card-text" style="font-size: 14px;">Number of tenants to accommodate: 
+                                                <p style="font-size: 14px;">Number of tenants to accommodate: 
                                                 <span style="color:green"> <?php echo $row1->room_tcount; ?></span></p>
                                                 <?php } ?>
+                                                <p style="font-size: 14px;margin-top:2px;" >
+                                                <?php 
+                                                    $m = 0;
+                                                    $f = 0;
+                                                    $numt= 0;
+                                                    $age = 0;
+                                                    foreach ($dir->result() as $ov) { 
+                                                    if($ov->room_id == $row1->room_id) {
+                                                        if($ov->tenant_status ==  1) {
+                                                            if($ov->tenant_sex == "M") {
+                                                                $m++;
+                                                            } else if($ov->tenant_sex == "F") {
+                                                                $f++;
+                                                            }
+                                                            $age += date_diff(date_create($ov->tenant_birthday), date_create('now'))->y;
+                                                            $numt++;
+                                                    } } } 
+                                                    if ($numt != 0) {
+                                                    echo"Male: ".$m."<br>Female: ".$f;
+                                                    
+                                                    echo"<br>Average age: ".$age / $numt;
+                                                    }
+                                                    ?>
+                                                    
+                                                </p>
+
                                             </div>
                                         </div>
                                             <?php } 
@@ -204,7 +257,7 @@
                 <div class="modal-dialog modal-lg modal-big" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
-                            <h4 class="modal-title" style="color: #11334f;"><?php echo $row7->room_number; ?>:Non-Disclosure Agreement (NDA)</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                            <h4 class="modal-title" style="color: #11334f;"><?php echo $row7->room_number; ?>:Terms and Conditions</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                         <div class="modal-body" style="height:500px;">   
                             <form id="form_nda" action="" method="POST" style="font-size:14px;padding-left: 35px; padding-right:50px;height:100%;overflow-y:scroll;overflow-x:hidden;">
                                 <b>To create an account in DORMasino, you’ll need to agree to the Terms of Service below.<br/> 
@@ -292,7 +345,19 @@
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Birthday<span style="color:red">*</span></label></div>
-                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" required></div>
+                                                <div class="col"><input name="tenant_bday" class="form-control" type="date" max=<?php echo date('Y-m-d'); ?> required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Sex<span style="color:red">*</span></label></div>
+                                                <div class="col">
+                                                    <select class="form-control" name="tenant_sex">
+                                                        <option selected disabled>Select sex</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="F">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -436,8 +501,8 @@
 
             <?php } ?>
         </div>
-        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+        <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
+                <p style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
             </footer>
     </div>
     </div>
@@ -460,6 +525,45 @@
         })
         <?php } ?>
     </script>
+
+    <script>
+        $(document).ready(function(){
+        
+            function load_unseen_notification(view = '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Notifications/fetch_notif",
+                    method:"POST",
+                    data:{view:view},
+                    dataType:"json",
+                    success:function(data) {
+
+                        $('.dropdown-menu').html(data.notification);
+                        if(data.unseen_notification > 0) {
+
+                            $('.count').html(data.unseen_notification);
+
+                        }
+                        
+                    }
+                });
+            }
+            
+            load_unseen_notification();
+            
+            $(document).on('click', '.dropdown-toggle', function(){
+
+                $('.count').html('');
+                load_unseen_notification('yes');
+
+            });
+            
+            setInterval(function(){ 
+                load_unseen_notification();; 
+            }, 5000);
+        
+        });
+    </script>
+
 </body>
 
 </html>

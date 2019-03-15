@@ -63,7 +63,19 @@ input[type=number] {
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Rooms</p>
-                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                    <!-- Notification nav -->
+                    <ul class="nav navbar-nav navbar-right" style="margin-left: 20px">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                        <span class="fa fa-bell" style="font-size:16px;"></span>
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
+                                    </a>
+                                    <ul class="dropdown-menu notif"></ul>
+                                </li>
+                            </ul>
+                    <!-- Notification nav -->
+                    &nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
@@ -71,7 +83,7 @@ input[type=number] {
                         <p class="mr-xl-auto mr-lg-auto mr-md-auto mr-sm-auto mr-auto" style="font-size:14px;margin-bottom:0px;width:100%"><span><b>Legend: </b></span>&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-edit" style="font-size:19px;"></i> - Edit Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="icon ion-minus-circled" style="font-size:19px;"></i> - Deactivate Room &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
+                            <i class="icon ion-android-checkmark-circle" style="font-size:19px;"></i> - Activate Room
                         
                         </p>
                     <button <?php echo $a; ?> class="btn btn-primary ml-xl-auto ml-lg-auto ml-md-auto mr-sm-auto mr-auto " type="button" data-toggle="modal" data-target="#AddRoom" style="background-color: #28a745;color: #ffffff;border: none;">Add Room</button>
@@ -134,8 +146,8 @@ input[type=number] {
                                                             <?php } ?>
 
                                                 <?php } else { ?>
-                                                    <button <?php echo $c; ?> data-target="#ModalActivate<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-success" style="padding:0px 3px;">
-                                                    <i class="fa fa-check" style="font-size: 14px"></i>
+                                                    <button <?php echo $c; ?>  type="button" id="edit-room" name="delete" data-target="#Act<?php echo $row->room_id; ?>" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                        <i class="icon ion-android-checkmark-circle" style="font-size: 19px; color:#0645AD;"></i>
                                                     </button>
                                                 <?php } ?>                                                                                 
                                             </td>  
@@ -150,8 +162,8 @@ input[type=number] {
                             </table>
                         </div>
                     </div>
-                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                        <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
+                        <p style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                     </footer>
                 </div>
             <!--Modal Add Room -->
@@ -243,13 +255,13 @@ input[type=number] {
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Room Price</label></div>
-                                            <div class="col"><input name="update_roomprice"  class="form-control" type="number" value="<?php echo $rmedit->room_price; ?>" required></div>
+                                            <div class="col"><input name="update_roomprice"  style="text-align:right;" class="form-control" type="number" value="<?php echo $rmedit->room_price; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Extra Charge</label></div>
-                                            <div class="col"><input name="update_roomextra"  class="form-control" type="number" value="<?php echo $rmedit->room_extra; ?>" required></div>
+                                            <div class="col"><input name="update_roomextra" style="text-align:right;"  class="form-control" type="number" value="<?php echo $rmedit->room_extra; ?>" required></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -290,10 +302,10 @@ input[type=number] {
                 </div>
             <?php }
                 
-                foreach ($dir->result() as $activate)  
+                foreach ($room->result() as $activate)  
                 {  
             ?>
-                <div id="ModalActivate<?php echo $activate->room_id; ?>" class="modal fade" role="dialog" tabindex="-1">
+                <div id="Act<?php echo $activate->room_id; ?>" class="modal fade" role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="height: 58px;background-color: #bdedc1;">
@@ -340,6 +352,45 @@ input[type=number] {
         });
 
     </script>
+
+<script>
+        $(document).ready(function(){
+        
+            function load_unseen_notification(view = '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Notifications/fetch_notif",
+                    method:"POST",
+                    data:{view:view},
+                    dataType:"json",
+                    success:function(data) {
+
+                        $('.dropdown-menu').html(data.notification);
+                        if(data.unseen_notification > 0) {
+
+                            $('.count').html(data.unseen_notification);
+
+                        }
+                        
+                    }
+                });
+            }
+            
+            load_unseen_notification();
+            
+            $(document).on('click', '.dropdown-toggle', function(){
+
+                $('.count').html('');
+                load_unseen_notification('yes');
+
+            });
+            
+            setInterval(function(){ 
+                load_unseen_notification();; 
+            }, 5000);
+        
+        });
+    </script>
+    
 </body>
 
 </html>

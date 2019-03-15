@@ -51,7 +51,19 @@ input[type=number] {
             <div class="container-fluid">
                 <div class="d-flex d-xl-flex justify-content-xl-start align-items-xl-center" style="height: 54px;margin-right: -15px;margin-left: -15px;background-color: #90caf9;padding-left: 16px;padding-right: 16px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0)">
                     <p class="d-flex align-items-center align-content-center align-items-sm-center align-items-md-center align-items-lg-center" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 24px;margin-bottom: 0px;">Update Bills</p>
-                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;"><i class="icon ion-person"></i>&nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
+                    <p class="d-none d-lg-block align-self-center ml-auto" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                    <!-- Notification nav -->
+                    <ul class="nav navbar-nav navbar-right" style="margin-left: 20px">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle notification" data-toggle="dropdown" style="color: #11334f;font-family: ABeeZee, sans-serif;font-size: 16px;margin-bottom: 0px;">
+                                        <span class="fa fa-bell" style="font-size:16px;"></span>
+                                        <span class="label label-pill label-danger badge count" style="border-radius:10px;"></span> 
+                                    </a>
+                                    <ul class="dropdown-menu notif"></ul>
+                                </li>
+                            </ul>
+                    <!-- Notification nav -->
+                    &nbsp; &nbsp;<?php echo $admin_fname ?>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo  date("D, j M Y"); ?> &nbsp;</p>
                 </div><a class="btn btn-link d-xl-flex justify-content-xl-start" role="button" href="#menu-toggle" id="menu-toggle" style="margin-left: -19px;width:5%" title="Click here to collapse"><i class="fa fa-bars" style="padding: 21px;font-size: 23px;padding-top: 6px;padding-bottom: 6px;padding-right: 9px;padding-left: 9px;"></i></a>
                 <div class="row"
                     style="margin-top: 0px;margin-left: 0px;margin-right: 0px;">
@@ -126,11 +138,34 @@ input[type=number] {
                                     
                                         <tr>
                                             <td style="text-align:center;"><?php echo $row->room_number; ?></td>
-                                            <?php foreach($dir_count->result() as $d) {
-                                                if ($d->room_number == $row->room_number) { ?>
+                                            <?php 
+                                                $riArr = array();
+                                             
+                                                foreach($dir_count->result() as $dri) {
+                                                    array_push($riArr, $dri->room_id);
+                                                }
+                                                //print_r($riArr);
+                                                $aa = array_column($dir_count->result(), 'room_id');
+                                               
+                                                $bb = $row->room_id;
+                                                //echo $b; 
+                                                if (in_array($bb, $riArr, true)) {
+                                                  //echo "yes";
+                                                //     foreach ($water->result() as $w) {
+                                                //         if($w->room_id == $row2->room_id) {
+                                                //             $wc = $w->water_current;
+                                                //         }
+                                                //     }
+                                                $e = "";
+                                                    foreach ($dir_count->result() as $d) {
+                                                        if ($d->room_id == $row->room_id) { 
+                                                        
+                                                            ?> 
                                                     <td style="text-align:center;"><?php echo $d->num_tenants; ?></td>
-                                            <?php } } ?>
+                                            <?php } } } else { $e = "disabled";?>
                                             
+                                                <td style="text-align:center;"><?php echo 0; ?></td>
+                                            <?php } ?>
                                             <?php 
                                                 foreach($rtype->result() as $rt) {
                                                     if($rt->room_id == $row->room_id) {
@@ -186,14 +221,14 @@ input[type=number] {
                                                                 <i class="icon ion-edit" style="font-size: 19px;color:#0645AD;"></i>
                                                                 </button>';    
                                                             } else {
-                                                                echo '<button '.$b.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                                echo '<button '.$b."".$e.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                                 <i class="icon ion-android-add-circle" style="font-size: 19px;color:#0645AD;"></i>
                                                                 </button>'; 
                                                             } 
                                                         } 
                                                     }
                                                 } else {
-                                                    echo '<button '.$b.'  id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
+                                                    echo '<button '.$b."".$e.'   id="edit-room" data-target="#ModalBill'.$row->room_id.'" data-toggle="modal" class="btn btn-primary" style="border-radius:90px 90px 90px 90px;padding:0px 8px;margin-right:0px">
                                                     <i class="icon ion-android-add-circle" style="font-size: 19px;color:#0645AD;"></i>
                                                     </button>'; 
                                                 } 
@@ -207,8 +242,8 @@ input[type=number] {
                             </table>
                         </div>
                     </div>
-                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/ThoresLogo.png" style="width: 158px;">
-                        <p style="font-size: 12px;">Thomasian Residences&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
+                    <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
+                        <p style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</p>
                     </footer>
                 </div>
             <!-- Create Modal Billing statement -->
@@ -292,13 +327,14 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" id="cm<?php echo $row2->room_id; ?>" name="water_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
+                                                <div class="col"><input class="form-control" id="cm<?php echo $row2->room_id; ?>" name="water_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value, 2); } ?>" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="wbn<?php echo $row2->room_id; ?>" name="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="wb<?php echo $row2->room_id; ?>" name="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php foreach ($dir_count->result() as $nt) { 
@@ -309,7 +345,8 @@ input[type=number] {
                                             <div class="form-row">
                                                 <input class="form-control" id="aa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="ptn<?php echo $row2->room_id; ?>" name="water_total" value="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="pt<?php echo $row2->room_id; ?>" name="water_total" value="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php } } ?>
@@ -383,11 +420,11 @@ input[type=number] {
                                                         if($w->isNew == 1) {
                                                             $wc = $w->water_previous;
                                                             
-                                                            $previous = "value='".$wc."'";
+                                                            $previous = "value='".number_format($wc, 2)."'";
                                                         }
                                                         else {  
                                                             $wc = $w->water_previous;
-                                                            $previous = "value='".$wc."' readonly";
+                                                            $previous = "value='".number_format($wc, 2)."' readonly";
                                                         }
                                                         $curval = $w->water_current;
                                                         $due = $w->water_due;
@@ -416,19 +453,20 @@ input[type=number] {
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Current Reading</label></div>
-                                                <div class="col"><input class="form-control" value="<?php echo $curval;?>" id="ecur<?php echo $row2->room_id; ?>" name="ewater_current" style="text-align:right" type="number" style="text-align:right" required></div>
+                                                <div class="col"><input class="form-control" value="<?php echo number_format($curval, 2);?>" id="ecur<?php echo $row2->room_id; ?>" name="ewater_current" style="text-align:right" type="number" style="text-align:right" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price per m<sup>3</sup></label></div>
-                                                <div class="col"><input class="form-control" id="ecm<?php echo $row2->room_id; ?>" name="ewater_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo $cmm->wsetting_value; } ?>" readonly></div>
+                                                <div class="col"><input class="form-control" id="ecm<?php echo $row2->room_id; ?>" name="ewater_cm" type="number" style="text-align:right" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value , 2); } ?>" readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-row">
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Price of Water Bill</label></div>
-                                                <div class="col"><input class="form-control" id="ewb<?php echo $row2->room_id; ?>" name="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="ewbn<?php echo $row2->room_id; ?>" name="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="ewb<?php echo $row2->room_id; ?>"  value="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php foreach ($dir_count->result() as $nt) { 
@@ -439,7 +477,8 @@ input[type=number] {
                                             <div class="form-row">
                                                 <input class="form-control" id="eaa<?php echo $row2->room_id; ?>" value="<?php echo $c; ?>" type="hidden" style="text-align:right" readonly >
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Water Bill per tenant</label></div>
-                                                <div class="col"><input class="form-control" id="ept<?php echo $row2->room_id; ?>" name="ewater_total" value="" type="number" style="text-align:right" readonly></div>
+                                                <div class="col"><input class="form-control" id="eptn<?php echo $row2->room_id; ?>" value="" type="text" style="text-align:right" readonly></div>
+                                                <input class="form-control" id="ept<?php echo $row2->room_id; ?>" name="ewater_total" value="" type="hidden" style="text-align:right" readonly>
                                             </div>
                                         </div>
                                         <?php } } ?>
@@ -504,7 +543,7 @@ input[type=number] {
                                 <div class="form-group">
                                     <div class="form-row">
                                         <div class="col-xl-12" style="font-weight: bold;"><label class="col-form-label" style="font-weight: bold;">Current rate per m<sup>3</sup></label></div>
-                                        <div class="col-xl-12" style="font-weight: normal;"><input name="" class="form-control" type="number" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value, 2); } ?>" disabled>
+                                        <div class="col-xl-12" style="font-weight: normal;"><input name="" class="form-control" type="number" value="<?php foreach($cm->result() as $cmm) { echo number_format($cmm->wsetting_value, 2); } ?>" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -537,22 +576,93 @@ input[type=number] {
 // $(document).ready(function () {
     <?php foreach($room->result() as $row3) { ?>
     $("#cur<?php echo $row3->room_id; ?>").keyup(function() {
-        $("#wb<?php echo $row3->room_id; ?>").val(($("#cur<?php echo $row3->room_id; ?>").val()-$("#pre<?php echo $row3->room_id; ?>").val())*$("#cm<?php echo $row3->room_id; ?>").val());
-        $("#pt<?php echo $row3->room_id; ?>").val($("#wb<?php echo $row3->room_id; ?>").val() / $("#aa<?php echo $row3->room_id; ?>").val());
+        var wb = ($("#cur<?php echo $row3->room_id; ?>").val()-$("#pre<?php echo $row3->room_id; ?>").val())*$("#cm<?php echo $row3->room_id; ?>").val();
+        var pt = (wb / $("#aa<?php echo $row3->room_id; ?>").val());
+        $("#wb<?php echo $row3->room_id; ?>").val(wb);
+        $("#pt<?php echo $row3->room_id; ?>").val(pt);
+        var res1 = addCommas(wb);
+        var res2 = addCommas(pt);
+        $("#wbn<?php echo $row3->room_id; ?>").val(res1);
+        $("#ptn<?php echo $row3->room_id; ?>").val(res2);
     });
+
+    
    // $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
-        $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
-        $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
+        var ewb = ($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val();
+        var ept = (ewb / $("#eaa<?php echo $row3->room_id; ?>").val());
+        $("#ewb<?php echo $row3->room_id; ?>").val(ewb);
+        $("#ept<?php echo $row3->room_id; ?>").val(ept);
+        var res3 = addCommas(ewb);
+        var res4 = addCommas(ept);
+        $("#ewbn<?php echo $row3->room_id; ?>").val(res3);
+        $("#eptn<?php echo $row3->room_id; ?>").val(res4);
     //});
     $("#ecur<?php echo $row3->room_id; ?>").keyup(function() {
-        $("#ewb<?php echo $row3->room_id; ?>").val(($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val());
-        $("#ept<?php echo $row3->room_id; ?>").val($("#ewb<?php echo $row3->room_id; ?>").val() / $("#eaa<?php echo $row3->room_id; ?>").val());
+        var ewb = ($("#ecur<?php echo $row3->room_id; ?>").val()-$("#epre<?php echo $row3->room_id; ?>").val())*$("#ecm<?php echo $row3->room_id; ?>").val();
+        var ept = (ewb / $("#eaa<?php echo $row3->room_id; ?>").val());
+        $("#ewb<?php echo $row3->room_id; ?>").val(ewb);
+        $("#ept<?php echo $row3->room_id; ?>").val(ept);
+        var res3 = addCommas(ewb);
+        var res4 = addCommas(ept);
+        $("#ewbn<?php echo $row3->room_id; ?>").val(res3);
+        $("#eptn<?php echo $row3->room_id; ?>").val(res4);
     });
+    function addCommas(nStr)
+    {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return (x1 + x2);
+    }
     <?php } ?>
 // });
 
 
 </script>
+
+    <script>
+        $(document).ready(function(){
+        
+            function load_unseen_notification(view = '') {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>index.php/Notifications/fetch_notif",
+                    method:"POST",
+                    data:{view:view},
+                    dataType:"json",
+                    success:function(data) {
+
+                        $('.dropdown-menu').html(data.notification);
+                        if(data.unseen_notification > 0) {
+
+                            $('.count').html(data.unseen_notification);
+
+                        }
+                        
+                    }
+                });
+            }
+            
+            load_unseen_notification();
+            
+            $(document).on('click', '.dropdown-toggle', function(){
+
+                $('.count').html('');
+                load_unseen_notification('yes');
+
+            });
+            
+            setInterval(function(){ 
+                load_unseen_notification();; 
+            }, 5000);
+        
+        });
+    </script>
+
 </body>
 
 </html>

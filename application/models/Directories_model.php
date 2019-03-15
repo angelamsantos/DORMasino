@@ -176,9 +176,12 @@ class Directories_model extends CI_Model {
         );
         $this->db->insert('dir_tbl', $data4);
 
+        $a = strtotime($this->input->post('contract_start'));
+        $due = date('Y-m-d', strtotime('+349 days' ,$a)); 
         $data5 = array(
             'tenant_id' => $tenant_id,
             'contract_start' => $this->input->post('contract_start'),
+            'contract_end' => $due,
             'contract_movein' => $this->input->post('contract_movein'),
             'contract_status' => 1,
         );
@@ -211,19 +214,30 @@ class Directories_model extends CI_Model {
             $query1 = $this->db->get();
             $row1 = $query1->row();
 
+            
+            $SELECT3 = "SELECT type_tbl.*
+            FROM type_tbl
+            WHERE type_tbl.type_id = ".$type_id." ";
+            $query3 = $this->db->query($SELECT3);
+            $row3 = $query3->row();
+            $type_rate = $row3->type_rate;
+            
+
             $nt = $row1->num_tenants;
             $extra = $row1->room_extra;
             if ($nt >= $rt) {
                 $a = $nt - $rt;
               
                 $c = $a * $extra;
-                $e = $c + $rp;
+                $f = $rp + $type_rate;
+                $e = $c + $f;
                 $d = ($e / ($nt)) * 2;
                 //echo "hi";
                 $status = 0;
             }
             if ($nt < $rt ) {
-                $d = ($rp / $rt) * 2;
+                $f = $rp + $type_rate;
+                $d = ($f / $rt) * 2;
                 //echo "hello";
                 $status = 0;
             } 
@@ -304,6 +318,7 @@ class Directories_model extends CI_Model {
             'tenant_lname' => $this->input->post('etenant_lname'),
             'tenant_address' => $this->input->post('etenant_address'),
             'tenant_birthday' => $this->input->post('etenant_bday'),
+            'tenant_sex' => $this->input->post('etenant_sex'),
             'tenant_school' => $this->input->post('etenant_school'),
             'tenant_course' => $this->input->post('etenant_course'),
             'tenant_medical' => $this->input->post('etenant_medical'),

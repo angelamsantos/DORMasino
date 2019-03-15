@@ -15,6 +15,8 @@ date_default_timezone_set("Asia/Manila");
     $amsg = $this->session->userdata['login_success']['info']['adcontrol_msg'];
     $alog = $this->session->userdata['login_success']['info']['adcontrol_logs'];
 
+    $this->session->set_userdata('sidebar_ann', $this->input->post('sidebar_ann'));
+
 ?>
 <html>
 
@@ -78,11 +80,27 @@ date_default_timezone_set("Asia/Manila");
                 transform:         rotate(-90deg);
             }
     </style>
+    <!-- <script>
+    document.onkeydown = function(e) {
+        if(event.keyCode == 123) {
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            return false;
+        }
+    }
+    </script> -->
 </head>
-<body style="font-family: Roboto, sans-serif;background-color: #ffffff;">
+<body style="font-family: Roboto, sans-serif;background-color: #ffffff;" oncontextmenu="return false;">
     <div id="wrapper">
         <div id="sidebar-wrapper" style="background-color: #11334f;/*border-right: 3px solid #49a221;*/">
-            <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 8px;padding-top: 20px; padding-bottom:30px;border-bottom:1px solid #c7c7c7;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 206px;height: 33px;margin-top: 21px;"></div>
+            <div class="d-xl-flex justify-content-xl-start align-items-xl-center" style="padding-left: 12px;padding-top: 10px; padding-bottom:20px;border-bottom:1px solid #c7c7c7;background-color: #11334f;"><img src="<?php echo base_url(); ?>/assets/img/ThoresLogo.png" style="width: 230px;height: 60px;margin-top: 21px;"></div>
     
 
             <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Home/index'); ?>" ><i class="fas fa-home"></i>&nbsp; &nbsp; &nbsp;Home</a></p>
@@ -182,9 +200,9 @@ date_default_timezone_set("Asia/Manila");
 
         <?php if($aann[0] == 1) { ?> 
             <?php if(current_url() == site_url('Announcements/index') || current_url() == site_url('Announcements/index')) { ?>
-                <p class="menu-active menu-side" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
+                <p class="menu-active menu-side" name="sidebar_ann" style="margin-top: 15px;;margin-bottom: 0px;padding-left: 17.5px;"><a id="menu-active" href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
             <?php } else {?>
-                <p style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
+                <p name="sidebar_ann" style="margin-top: 15px;font-size: 20px;margin-bottom: 0px;padding-left: 20px;"><a href="<?php echo site_url('Announcements/index'); ?>"><i class="fa fa-bullhorn"></i>&nbsp; &nbsp; &nbsp;Announcements</a></p>
         <?php } 
         }?>   
 
