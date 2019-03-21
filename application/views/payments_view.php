@@ -327,6 +327,7 @@ input[type=number] {
                                                 <input class="form-control" type="hidden" name="wtenant_id" id="w_tenantid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->tenant_id;?>">
                                                 <input class="form-control" type="hidden" name="ww" id="w_roomid<?php echo $tenant->dir_id; ?>" value="<?php echo $tenant->room_id;?>">
                                                 <input class="form-control" type="hidden" name="water_id[]" id="wid<?php echo $tenant->dir_id; ?>" value="">
+                                                <input class="form-control" type="hidden" name="wbal_id[]" id="wbid<?php echo $tenant->dir_id; ?>" value="">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -356,6 +357,8 @@ input[type=number] {
                                                 <div class="col-xl-4"><label class="col-form-label" style="font-weight: normal;">Amount Due</label></div>
                                                 <div class="col"><input class="form-control" type="hidden" style="text-align:right" name="wtrans_due" id="sel_amount<?php echo $tenant->dir_id; ?>" value="" readonly>
                                                 <input class="form-control" type="text"  style="text-align:right" id="water_amountn<?php echo $tenant->dir_id; ?>" value="" readonly>
+                                                <input class="form-control" type="hidden"  style="text-align:right" name="water_balance" id="water_balance<?php echo $tenant->dir_id; ?>" value="">
+                                                <input class="form-control" type="hidden"  style="text-align:right" name="water_true" id="water_true<?php echo $tenant->dir_id; ?>" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -589,7 +592,10 @@ input[type=number] {
                                 $('#sel_amount<?php echo $d->dir_id; ?>').val(data.wt);
                                 $('#water_amountn<?php echo $d->dir_id; ?>').val(data.wn);   
                                 $('#wid<?php echo $d->dir_id; ?>').val(data.wi); 
-                                //$('#wArr<?php echo $d->dir_id; ?>').val(data.wa);
+                                $('#wArr<?php echo $d->dir_id; ?>').val(data.wa);
+                                $('#wbid<?php echo $d->dir_id; ?>').val(data.bi);
+                                $('#water_balance<?php echo $d->dir_id; ?>').val(data.bl);
+                                $('#water_true<?php echo $d->dir_id; ?>').val(data.rb);
                             });
                         
                         }

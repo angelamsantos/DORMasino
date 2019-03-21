@@ -150,11 +150,17 @@ class Transactions extends CI_Controller{
             $data['b'] = $res['wi'];
             $data['c'] = $res['wa'];
             $data['d'] = $res['wn'];
+            $data['e'] = $res['bi'];
+            $data['f'] = $res['bl'];
+            $data['g'] = $res['rb'];
             $push= array(
                 'wt' => $data['a'],
                 'wi' => $data['b'],
                 'wa' => $data['c'],
                 'wn' => $data['d'],
+                'bi' => $data['e'],
+                'bl' => $data['f'],
+                'rb' => $data['g'],
             );
             header('Content-Type: application/json');
             echo json_encode($push);
@@ -247,26 +253,26 @@ class Transactions extends CI_Controller{
 
     public function rent_payment() {
         
-        // $to_email = $this->input->post('to_email');
-        // $to_guardianemail = $this->input->post('to_guardianemail');
+        $to_email = $this->input->post('to_email');
+        $to_guardianemail = $this->input->post('to_guardianemail');
         
-        $this->Transactions_model->rent_payment();
-        // $result = $this->Transactions_model->send_mail_rent($to_email, $to_guardianemail);
+        //$this->Transactions_model->rent_payment();
+        $result = $this->Transactions_model->send_mail_rent($to_email, $to_guardianemail);
 
-        // if (! $result) {
+        if (! $result) {
 
-        //     $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment was not recorded!</center></div>';
-        //     $this->session->set_flashdata('msg', $msg);
-        //     redirect('Transactions/payments');
+            $msg = '<div class="alert alert-danger alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment was not recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
 
-        // } else {
+        } else {
 
-        //     //$this->load->view('rent_receipt', $data);
-        //     $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
-        //     $this->session->set_flashdata('msg', $msg);
-        //     redirect('Transactions/payments');
+            //$this->load->view('rent_receipt', $data);
+            $msg = '<div class="alert alert-success alert-dismissible" style="font-size:15px;margin:0px"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><center>Rent payment successfully recorded!</center></div>';
+            $this->session->set_flashdata('msg', $msg);
+            redirect('Transactions/payments');
 
-        // }
+        }
         // $data = $this->Transactions_model->rent_payment();
         // $this->load->view('rent_receipt', $data);
 
