@@ -54,7 +54,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
 
 <body style="font-family: Roboto, sans-serif;background-color: #ECEFF1;" oncontextmenu="return false;">
     <nav class="navbar navbar-light navbar-expand-md" style="background-color: #90caf9;">
-        <div class="container-fluid"><a class="navbar-brand" href="#" style="padding-top: 0px;padding-bottom: 0px;margin-right: 10px;"><img src="<?php echo base_url(); ?>/assets/img/logowhite.png" style="width: 229px;height: 42px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container-fluid"><a class="navbar-brand" href="#" style="padding-top: 0px;padding-bottom: 0px;margin-right: 10px;"><img src="<?php echo base_url(); ?>/assets/img/ThoresLogo1.png" style="width: 215px;height: 42px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <!-- Notification nav -->

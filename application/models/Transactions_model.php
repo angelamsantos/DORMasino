@@ -303,6 +303,9 @@ class Transactions_model extends CI_Model {
         $a = 0;
         $b = array() ;
         $c = array() ;
+        $d = array() ;
+        $e = 0;
+        $bal = 0;
         foreach($month as $m) {
 
             $this->db->from('water_tbl');
@@ -313,14 +316,25 @@ class Transactions_model extends CI_Model {
             $this->db->where('water_tbl.tenant_id', $tenant);
             $query = $this->db->get();
 
-            
-            
-            
+            $this->db->from('balance_tbl');
+            $this->db->where('balance_tbl.balance_status', 1);
+            $this->db->where('balance_tbl.tenant_id', $tenant);
+            $balq = $this->db->get();
 
             foreach ($query->result() as $row1) {
                     $total = $row1->water_balance;
                     $id = $row1->water_id;
                     $arr = $row1->water_balance;
+            } 
+            if($balq->num_rows() > 0) {
+                foreach ($balq->result() as $s) {
+                    $bal = $s->balance_amount;
+                    $bid = $s->balance_id;
+                } 
+                $e = $e + $bal;
+                array_push($d, $bid);
+            } else {
+                $e = 0;
             } 
             $a = $a + $total;
             array_push($b, $id);
@@ -328,12 +342,20 @@ class Transactions_model extends CI_Model {
 
 
         }
-            // $tenant_id = $this->session->set_userdata('tenant_id', $row1->tenant_id);
+        $n;
+        if(($a - $e) <= 0 ) {
+           $n = 0;
+        } else if(($a - $e) > 0 ) {
+            $n = $a - $e;
+        }
             return array(
-                'wn' => number_format($a, 2),
-                'wt' => $a,
+                'wn' => number_format($n, 2),
+                'wt' => $n,
                 'wi' => $b,
                 'wa' => $c,
+                'bi' => $d,
+                'bl' => $e,
+                'rb' => $a,
                 );
     }
 
@@ -360,8 +382,6 @@ class Transactions_model extends CI_Model {
             $balq = $this->db->get();
             $rent = 'Amount due';
             
-        
-
                 foreach ($q->result() as $r) {
                     $rent = $r->rent_balance ;
                     $rid = $r->rent_id;
@@ -632,7 +652,7 @@ class Transactions_model extends CI_Model {
                         $this->db->update('balance_tbl');
                     } 
                 }
-            }
+            } 
             
             if(count($rArr) == 1) {
                
@@ -819,12 +839,6 @@ class Transactions_model extends CI_Model {
         $tenant_id = $this->input->post('wtenant_id');
         $paid =  $this->input->post('wtrans_amount');
         $due = $this->input->post('wtrans_due');
-        $g;
-            if ($paid < $due) {
-                $g = $paid;
-            } else if ($paid >= $due) {
-                $g = $due;
-            }
         $SELECT = "SELECT tenant_tbl.tenant_fname, tenant_tbl.tenant_lname, room_tbl.room_number, tenant_tbl.tenant_email
             FROM tenant_tbl
             LEFT JOIN dir_tbl
@@ -835,6 +849,27 @@ class Transactions_model extends CI_Model {
             $query = $this->db->query($SELECT);
 
             $row = $query->row();
+        $g;
+            $h = 0;
+            if ($paid < $due) {
+                $g = $paid;
+                $h = 0;
+            } else if ($paid == $due) {
+                $g = $paid;
+                $h = 0;
+            }
+            else if ($paid > $due) {
+                $g = $paid;
+                $h = $paid - $due;
+                $data5 = array(
+                    'balance_amount' => $h,
+                    'balance_status' => 1,
+                    'tenant_id' => $this->input->post('rtenant_id'),
+                );
+
+                $this->db->insert('balance_tbl', $data5);
+            }
+        
 
         $data4 = array(
             'a' => $row->tenant_fname,
@@ -844,14 +879,34 @@ class Transactions_model extends CI_Model {
             'e' => $this->input->post('payment'),
             'f' => $row->tenant_email,
             'g' => $g,
+            'h' => $h,
         );
         $water=$this->input->post('water_id');
+        $excess = $this->input->post('wbal_id');
+
+        $ra = $this->input->post('water_true');
+        $re = $this->input->post('water_balance');
+
         $wStr = $water[0];
         $wArr = explode(',', $wStr);
         
-
+        $eStr = $excess[0];
+        $eArr = explode(',', $eStr);
         
-        
+        if($eArr[0] != "") {
+            foreach($eArr as $ex) {
+                if($ra >= $re) {
+                    $this->db->set('balance_amount', 0);
+                    $this->db->set('balance_status', 0);
+                    $this->db->where('balance_id', $ex);
+                    $this->db->update('balance_tbl');
+                } else if($ra < $re) {
+                    $this->db->set('balance_amount', $re - $ra);
+                    $this->db->where('balance_id', $ex);
+                    $this->db->update('balance_tbl');
+                } 
+            }
+        } 
         if(count($wArr) == 1) {
             
             $full;
