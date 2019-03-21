@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+<<<<<<< HEAD
 
 
 $config['base_url'] = 'https://thomasianresidences.net/';
@@ -40,6 +41,10 @@ $config['base_url'] = 'https://thomasianresidences.net/';
 $config['base_url'] = 'http://localhost:80/Dormasino';
 >>>>>>> master
 
+=======
+
+$config['base_url'] = 'https://thomasianresidences.net/';
+>>>>>>> 6bf240533f9272e6bc29a0a14feb65d7c835e3d0
 /*
 |--------------------------------------------------------------------------
 | Index File
