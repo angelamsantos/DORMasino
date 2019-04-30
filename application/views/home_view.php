@@ -166,6 +166,7 @@ $admin_fname = $this->session->userdata['login_success']['info']['admin_fname'];
             </div>
             <footer class="footer"><img src="<?php echo base_url(); ?>assets/img/homelogo.png" style="width: 158px;">
                 <div style="font-size: 12px;">DORMasino&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018</div>
+                <div style="font-size: 12px;"><a style="color:#868e96" title="Click here to open Privacy Policy" target="_blank" href="https://www.termsfeed.com/privacy-policy/399e4cfbfdce4ee7c10b11724110c4e6">Privacy Policy</a></div>
                 <div style="color:#c7c7c7; font-size:14px">Icons made by <a style="color:#c7c7c7; font-size:14px" href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a style="color:#c7c7c7; font-size:14px" href="https://www.flaticon.com/"title="Flaticon">www.flaticon.com</a> is licensed by <a style="color:#c7c7c7; font-size:14px" href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
             </footer>
         </div>
