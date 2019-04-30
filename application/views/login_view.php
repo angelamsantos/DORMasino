@@ -69,22 +69,18 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
             return false;
         }
     }
-    $(window).on('load',function(){
-        $('#myModal').modal('show');
-    });
     </script>
 </head>
-
-<body style="background-color: #ffffff;" oncontextmenu="return false;">
+    <body style="background-color: #ffffff;" oncontextmenu="return false;">
     <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body" style="padding: 0px;">
                     <div class="row" style="width: 100%;margin: 0px;height: 100%;">
                         <div class="col-6 d-lg-flex d-xl-flex flex-column justify-content-lg-center justify-content-xl-center align-items-xl-center" style="padding: 0px;background-color: #F5F5F5;">
-                            <h2 class="text-center" style="font-family: ABeeZee, sans-serif;">Welcome to Thomasian Residences! For inquiries, please click the link below:</h2><a href="#" style="font-size: 31px;">https://thomasianresidences.com/wp/<br></a></div>
+                            <h5 class="text-center" style="font-family: ABeeZee, sans-serif;">Welcome to Thomasian Residences! For inquiries, please click the link below:</h5><a href="#" style="font-size: 20px;">https://thomasianresidences.com/wp/<br></a></div>
                         <div class="col-6" style="padding: 0px;">
-                            <div class="container" style="position: relative;padding: 0px;"><img src="assets/img/thores.jpg" style="height: 569px;position: relative;width: 100%;"><button class="btn btn-primary close" type="button" data-dismiss="modal" aria-label="Close" style="position: absolute;top: 8px;right: 16px;margin: -7px;"><span aria-hidden="true">x</span></button></div>
+                            <div class="container" style="position: relative;padding: 0px;"><img src="assets/img/thores.jpg" style="height: 500px;width: 100%;"><button class="btn btn-primary close" type="button" data-dismiss="modal" aria-label="Close" style="position: absolute;top: 8px;right: 16px;margin: -7px;"><span aria-hidden="true">x</span></button></div>
                         </div>
                     </div>
                 </div>
@@ -105,14 +101,19 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
             <div class="form-group d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center"
                 style="border-bottom: 1px solid #dfe7f1;"><i class="fa fa-lock" style="font-size: 21px;"></i><input class="form-control" type="password" name="password" placeholder="Password" style="background-color: transparent;">
             </div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #81C784;color: #000000;">hoy</button></div><a href="<?php echo site_url('Forgotpass/index') ?>" class="forgot">Forgot your password?</a></form>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #81C784;color: #000000;">Log In</button></div><a href="<?php echo site_url('Forgotpass/index') ?>" class="forgot">Forgot your password?</a></form>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
-        $(window).on('load',function(){
-            $('#myModal').modal('show');
-        });
+        //<?php  //if(current_url() == base_url()) { ?>
+        // $(window).on('load',function(){
+            if (window.location.pathname === "/"){
+            //alert(window.location.pathname);
+                $('#myModal').modal('show');
+            }  
+            //});
+        //<?php //} ?>
     </script>
 </body>
 
