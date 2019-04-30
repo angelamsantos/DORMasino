@@ -42,7 +42,6 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
 
     <script src="https://www.google.com/recaptcha/api.js?render=<?php echo SITE_KEY; ?>"></script>
     <script>
@@ -53,9 +52,7 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
             document.getElementById('g-recaptcha-response').value=token;
         });
     });
-    $(window).on('load',function(){
-        $('#myModal').modal('show');
-    });
+    
     </script>
     <script>
     document.onkeydown = function(e) {
@@ -72,6 +69,9 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
             return false;
         }
     }
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
     </script>
 </head>
 
@@ -105,10 +105,15 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
             <div class="form-group d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center"
                 style="border-bottom: 1px solid #dfe7f1;"><i class="fa fa-lock" style="font-size: 21px;"></i><input class="form-control" type="password" name="password" placeholder="Password" style="background-color: transparent;">
             </div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #81C784;color: #000000;">Log In</button></div><a href="<?php echo site_url('Forgotpass/index') ?>" class="forgot">Forgot your password?</a></form>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: #81C784;color: #000000;">hoy</button></div><a href="<?php echo site_url('Forgotpass/index') ?>" class="forgot">Forgot your password?</a></form>
     </div>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $(window).on('load',function(){
+            $('#myModal').modal('show');
+        });
+    </script>
 </body>
 
 </html>
