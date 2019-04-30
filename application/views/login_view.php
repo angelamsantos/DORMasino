@@ -53,6 +53,9 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
             document.getElementById('g-recaptcha-response').value=token;
         });
     });
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
     </script>
     <script>
     document.onkeydown = function(e) {
@@ -73,6 +76,21 @@ define('SECRET_KEY', '6Lfuf5MUAAAAAMoMs_XgiLCf5lpnEVGzvmMCfdHB');
 </head>
 
 <body style="background-color: #ffffff;" oncontextmenu="return false;">
+    <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="padding: 0px;">
+                    <div class="row" style="width: 100%;margin: 0px;height: 100%;">
+                        <div class="col-6 d-lg-flex d-xl-flex flex-column justify-content-lg-center justify-content-xl-center align-items-xl-center" style="padding: 0px;background-color: #F5F5F5;">
+                            <h2 class="text-center" style="font-family: ABeeZee, sans-serif;">Welcome to Thomasian Residences! For inquiries, please click the link below:</h2><a href="#" style="font-size: 31px;">https://thomasianresidences.com/wp/<br></a></div>
+                        <div class="col-6" style="padding: 0px;">
+                            <div class="container" style="position: relative;padding: 0px;"><img src="assets/img/thores.jpg" style="height: 569px;position: relative;width: 100%;"><button class="btn btn-primary close" type="button" data-dismiss="modal" aria-label="Close" style="position: absolute;top: 8px;right: 16px;margin: -7px;"><span aria-hidden="true">x</span></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="login-clean" style="background-color: rgba(0,0,0,0);padding-top: 50px;padding-bottom: 50px;">
         <form method="post" action="<?php echo site_url('Login/process');?>" style="background-color: #90caf9;">
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
