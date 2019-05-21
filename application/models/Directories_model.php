@@ -295,7 +295,7 @@ class Directories_model extends CI_Model {
             $m = new DateTime($movein);
             $datediff = $m->diff($s);
             $d = $d / 2;
-            $a = $d + (($d / 30) * $datediff->days);
+            $a = (($d / 30) * $datediff->days);
         }
 
         $data7 = array(
